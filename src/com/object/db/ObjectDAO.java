@@ -1,3 +1,4 @@
+
 package com.object.db;
 
 import java.sql.Connection;
@@ -25,7 +26,7 @@ public class ObjectDAO {
 			Context initCTX  = new InitialContext();
 			 
 			DataSource ds =
-			(DataSource)initCTX.lookup("java:comp/env/jdbc/marketDB");
+			(DataSource)initCTX.lookup("java:comp/env/jdbc/MarketDB");
 			
 			try {
 				conn = ds.getConnection();
@@ -49,7 +50,6 @@ public class ObjectDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 }
+

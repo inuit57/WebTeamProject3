@@ -1,3 +1,4 @@
+
 package com.object.action;
 
 import java.io.IOException;
@@ -16,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ObjectController extends HttpServlet{
 
-
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO : 
+
+		
 	}
 	
 	@Override

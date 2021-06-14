@@ -1,3 +1,4 @@
+
 package com.object.action;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,3 +10,4 @@ public interface Action {
 	// 동일한 동작을 수행하는 객체는 반드시 해당메서드(추상)을 구현해야 함(오버라이딩) 
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response ) throws Exception; 
 }
+
