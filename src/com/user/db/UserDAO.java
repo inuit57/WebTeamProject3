@@ -56,25 +56,25 @@ public class UserDAO {
 		try {
 			conn = getConnection();
 			
-			sql = "INSERT INTO user(id,nickname,pw,joindate,coin,phone,address,address_plus,bankname,bankaccount,picture,auth,grade,use_yn) "
+			sql = "INSERT INTO user(user_id,user_nickname,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
 					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, udto.getId());
-			pstmt.setString(2, udto.getNickname());
-			pstmt.setString(3, udto.getPw());
-			pstmt.setTimestamp(4, udto.getJoindate());
-			pstmt.setInt(5, udto.getCoin());
-			pstmt.setString(6, udto.getPhone());
-			pstmt.setString(7, udto.getAddress());
-			pstmt.setString(8, udto.getAddressPlus());
-			pstmt.setString(9, udto.getBankName());
-			pstmt.setString(10, udto.getBankAccount());
-			pstmt.setString(11, udto.getPicture());
-			pstmt.setInt(12, udto.getAuth());
-			pstmt.setInt(13, udto.getGrade());
-			pstmt.setInt(14, udto.getUse_yn());
+			pstmt.setString(1, udto.getUser_id());
+			pstmt.setString(2, udto.getUser_nickname());
+			pstmt.setString(3, udto.getUser_pw());
+			pstmt.setTimestamp(4, udto.getUser_joindate());
+			pstmt.setInt(5, udto.getUser_coin());
+			pstmt.setString(6, udto.getUser_phone());
+			pstmt.setString(7, udto.getUser_address());
+			pstmt.setString(8, udto.getUser_addressPlus());
+			pstmt.setString(9, udto.getUser_bankName());
+			pstmt.setString(10, udto.getUser_bankAccount());
+			pstmt.setString(11, udto.getUser_picture());
+			pstmt.setInt(12, udto.getUser_auth());
+			pstmt.setInt(13, udto.getUser_grade());
+			pstmt.setInt(14, udto.getUser_use_yn());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {

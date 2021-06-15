@@ -16,20 +16,20 @@ public class UserJoinAction implements Action{
 		//DTO 만들어서 데이터 집어넣기
 		UserDTO udto = new UserDTO();
 		
-		udto.setId(request.getParameter("id"));
-		udto.setNickname(request.getParameter("nickname"));
-		udto.setPw(request.getParameter("pw"));
-		udto.setJoindate(new Timestamp(System.currentTimeMillis()));
-		udto.setCoin(0);
-		udto.setPhone(request.getParameter("phone"));
-		udto.setAddress(request.getParameter("address"));
-		udto.setAddressPlus(request.getParameter("address_plus"));
-		udto.setBankName("");
-		udto.setBankAccount("");
-		udto.setPicture("default_image.png");
-		udto.setAuth(0);
-		udto.setGrade(1);
-		udto.setUse_yn(0);
+		udto.setUser_id(request.getParameter("id"));
+		udto.setUser_nickname(request.getParameter("nickname"));
+		udto.setUser_pw(request.getParameter("pw"));
+		udto.setUser_joindate(new Timestamp(System.currentTimeMillis()));
+		udto.setUser_coin(0);
+		udto.setUser_phone(request.getParameter("phone"));
+		udto.setUser_address(request.getParameter("address"));
+		udto.setUser_addressPlus(request.getParameter("address_plus"));
+		udto.setUser_bankName("");
+		udto.setUser_bankAccount("");
+		udto.setUser_picture("default_image.png");
+		udto.setUser_auth(0);
+		udto.setUser_grade(1);
+		udto.setUser_use_yn(0);
 		
 		//DAO를 이용한 DB 처리(INSERT)
 		UserDAO udao = new UserDAO();
