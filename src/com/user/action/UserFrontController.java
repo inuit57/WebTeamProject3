@@ -9,11 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-// 개발에서 사용되는 중요 개념 => 도메인 
-
-// 컨트롤러 -> 서블릿 
-
+/* 3조
+ * 
+ * 
+ * 유저 테이블로 작업 합니다.
+ * 기존 수업에서 사용하던 member단어를 user로 바꾸어 진행했습니다.
+ * 주소 표기는 *.us(user 약자)로 했습니다.
+ * 
+ * 
+ * */
 
 public class UserFrontController extends HttpServlet{
 
@@ -21,23 +25,34 @@ public class UserFrontController extends HttpServlet{
 		
 		// 가상주소 전체 가져오기
 		String requestURI = request.getRequestURI();
-		System.out.println("requestURI:" + requestURI);
+		
 		// 프로젝트명 가져오기
 		String contextPath = request.getContextPath();
-		System.out.println("contextPath" + contextPath);
-		// 필요한 가상 주소 생성
 		String command = requestURI.substring(contextPath.length());
-		System.out.println(command);
 
 		Action action = null;
 		ActionForward forward = null;
 		
-		
-		if (command.equals("/JoinUser.us")) {
+		if (command.equals("/index.us")) {
+			//index 페이지로 이동
+			forward = new ActionForward();
+			forward.setPath("./index.jsp");
+			forward.setRedirect(false);
+		}
+		else if (command.equals("/UserJoin.us")) {
 			//회원 가입 페이지로 이동
 			forward = new ActionForward();
 			forward.setPath("./user/userJoin.jsp");
 			forward.setRedirect(false);
+		} else if(command.equals("/UserJoinAction.us")) {
+			//회원 가입 페이지에서 Submit 누르면 이동
+			try {
+				action = new UserJoinAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController's if(UserJoinAction.us) Error - KBH");
+			}
 		}
 		
 		if(forward != null) {
