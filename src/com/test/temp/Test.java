@@ -6,11 +6,9 @@ public class Test {
 	
 	// kmg test
 	// 최아영 branch
-	//김홍주 ㅎㅎ~
-	
+	//김홍주 ㅎㅎ~	
 	
 	// 정광교
-
 	
 	//김병한
 	
