@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <context>
-	<Resource 
-		name="jdbc/marketdb"
+
+	<Resource
+		name="jdbc/MarketDB"
+
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="com.mysql.jdbc.Driver"
@@ -11,5 +13,5 @@
 		url="jdbc:mysql://localhost:3306/marketdb"
 		maxWait="5000"
 	/>
-
 </context>
+
