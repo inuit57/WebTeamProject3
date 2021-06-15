@@ -26,7 +26,7 @@ public class InqueryDAO {
 			
 			// DB연동 정보를 불러오기(context.xml)
 			DataSource ds = 
-			(DataSource) initCTX.lookup("java:comp/env/jdbc/model2DB");
+			(DataSource) initCTX.lookup("java:comp/env/jdbc/MarketDB");
 			
 			conn = ds.getConnection();
 			

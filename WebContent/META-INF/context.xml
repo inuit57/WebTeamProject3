@@ -2,7 +2,7 @@
 
 <context>
 	<Resource 
-		name="jdbc/marketdb"
+		name="jdbc/MarketDB"
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="com.mysql.jdbc.Driver"
