@@ -4,21 +4,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="WEB-INF/lib/jquery-3.6.0.js"></script>
+<script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userCheckJS/UserCheck.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="css/userJoin.css" rel="stylesheet">
+<script type="text/javascript">
+<!--
+
+//-->
+</script>
 <title></title>
 </head>
 <body>
-	<form action="./UserJoinAction.us" method="post">
-	
-	<label>아이디 : </label><input type="text" name="id" id="id"><br>
-	<label>닉네임 : </label><input type="text" name="nickname" id="nickname"><br>
-	<label>비밀번호 : </label><input type="password" name="pw" id="pw"><br>
-	<label>비밀번호 확인 : </label><input type="password" id="pw_check"><br>
-	<label>전화번호 : </label><input type="text" name="phone" id="phone"><br>
-	<label>주소 : </label><input type="text" name="address" id="address"><br>
-	<label>상세주소 : </label><input type="text" name="address_plus" id="address_plus"><br>
-	<input type="submit" value="가입하기">
+	<div id="join">
+	<div id="logo">
+		<label id="logo">느그마켓</label>
+	</div>
+	<form action="./UserJoinAction.us" method="post" onsubmit="return check()">
+	<div id="join_input">
+	<label>아이디</label><br>
+	<input type="text" name="id" id="id" placeholder="이메일 형식" onblur="idCheck();" autocomplete="off"><br>
+	<label id="id_error" class="error"></label><br>
+	<label>닉네임</label><br>
+	<input type="text" name="nickname" id="nickname" placeholder="특수 문자를 제외한 8글자 이내" onblur="checkNick()" autocomplete="off"><br>
+	<label id="nickname_error" class="error"></label><br>
+	<label>비밀번호</label><br>
+	<input type="password" name="pw" id="pw" placeholder="영문,숫자,특수문자 포함 8자리" onkeyup="checkPw();"><br>
+	<label id="pw_error" class="error"></label><br>
+	<label>비밀번호 재확인</label><br>
+	<input type="password" id="pw_check" onkeyup="reCheckPw();"><br>
+	<label id="pw_check_error"></label><br>
+	<label>전화번호</label><br>
+	<input type="text" name="phone" id="phone" placeholder="휴대 전화 번호로 하시면 편리합니다." autocomplete="off"><br>
+	<label id="phone_error"></label><br>
+	<label>주소</label><label id="address_find" onclick="findAddr()">주소 찾기</label><br>
+	<input type="text" name="address" id="address" placeholder="오른쪽 위의 주소 찾기를 눌러주세요." readonly="readonly"><br>
+	<label>상세주소</label><br>
+	<input type="text" name="address_plus" id="address_plus" autocomplete="off"><br>
+	<label id="address_error"></label><br>
+	</div>
+	<br><input type="submit" value="가입하기" id="join_submit">
 	</form>
+	<div id="footer">
+	느그마켓 <label id="copyright">Copyright 삼조 Corp. All Rights Reserved.</label>
+	</div>
+	</div>
 </body>
 </html>
