@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
 @WebServlet("*.faq")
 public class FAQFrontController extends HttpServlet{
 
@@ -43,6 +45,27 @@ public class FAQFrontController extends HttpServlet{
 				forward = new ActionForward();
 				forward.setPath("./faq_board/faq_write.jsp");
 				forward.setRedirect(false);		
+			}else if(command.equals("/FAQAddAction.faq")){
+				System.out.println("C : /GoodsAddAction.ag 호출");
+				// GoodsAddAction() 객체 생성
+				action = new FAQAddAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if(command.equals("/FAQ.faq")){
+				System.out.println("C : /FAQ.faq 호출");
+				// DB정보를 화면이동 없이 출력
+				// GoodsListAction() 객체 생성
+				action = new FAQListAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
 			}
 			
 			
