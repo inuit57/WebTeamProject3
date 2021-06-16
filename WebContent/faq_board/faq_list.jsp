@@ -8,5 +8,19 @@
 </head>
 <body>
 
+	<h3>자주묻는질문</h3> 
+	
+	<input type="text" name="faq_search" placeholder="검색어를 입력해주세요">
+    <input type="button" onclick="faqSearch" id="searchBtn" style="margin-left:-30px;" value="검색"> 
+    <br><br>
+    <a>전체</a>
+    <a>운영정책</a>
+    <a>계정/인증</a>
+    <a>구매/판매</a>
+    <a>거래 품목</a>
+	<a>기타</a>
+    <hr>
+	<br>
+	
 </body>
 </html>

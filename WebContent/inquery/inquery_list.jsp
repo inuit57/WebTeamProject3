@@ -10,6 +10,9 @@
 		<h1>WebContent/inquery/inquery_list</h1>
 	
 	<a href="./InqueryWrite.in"> 글쓰기</a>
+	<hr>
+	
+	<a href="./FAQAdd.faq"> FAQ게시판 </a>
 	
 	
 </body>
