@@ -17,13 +17,13 @@
 
 	<h3>자주묻는질문</h3> 
 	
-	<form action="./FAQAddAction.faq" method="post" enctype="multipart/form-data">
+	<form action="./FAQAddAction.faq" method="post" >
 	
 		<table border="1">
 	         <tr>
 	           <td>카테고리</td>
 	           <td>
-	             <select name="category">
+	             <select name="faq_cate">
 	               <option value="etc">기타</option>
 	               <option value="oper">운영정책</option>
 	               <option value="uid">계정/인증</option>
@@ -45,13 +45,13 @@
 	             <input type="text" name="faq_content">
 	           </td>
 	         </tr>
-	          <tr>
-	           <td>사진 첨부</td>
+	         
+	         <tr>
+	         	<td>첨부파일</td>
 	           <td>
 	             <input type="file" name="faq_file">
 	           </td>
-	         </tr>
-	         
+	         <tr>
 	         <tr>
 	          <td colspan="2">
 	            <input type="submit" value="상품등록">
