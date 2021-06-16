@@ -21,4 +21,29 @@
   	<url-pattern>*.us</url-pattern>
   </servlet-mapping>
 <!-- 회원가입 -->
+
+
+
+
+<!-- FAQ 게시판 -->
+  <servlet>
+  	<servlet-name>FAQFrontController</servlet-name>
+  	<servlet-class>com.faq.action.FAQFrontController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>FAQFrontController</servlet-name>
+  	<url-pattern>*.faq</url-pattern>
+  </servlet-mapping>
+<!-- FAQ 게시판 -->
+
+
+
+
+
+
+
+
+
+
 </web-app>
