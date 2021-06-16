@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -53,10 +55,96 @@ public class InqueryDAO {
 		}
     }
 	
+    // addInquery(inDTO)
+    public void addInquery(InqueryDTO inDTO){
+    	int num = 0;
+    	
+    	try {
+    		
+    		conn = getConnection();
+    		
+    		sql = "select max(inq_num) from inquery";
+    		
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				num = rs.getInt(1) + 1;
+			}
+			
+			// 임시로 만듬 나중에 세션값 제어할때 다시 inq_lev 값 받아서 작성
+			sql = "insert into inquery(inq_num,user_nick,inq_sub,inq_content, "
+					+ "inq_lev,inq_img,inq_date,inq_ref) values(?,?,?,?,0,?,now(),?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			pstmt.setString(2, inDTO.getUser_nick());
+			pstmt.setString(3, inDTO.getInq_sub());
+			pstmt.setString(4, inDTO.getInq_content());
+			pstmt.setString(5, inDTO.getInq_img());;
+			pstmt.setInt(6, num);
+			
+			pstmt.executeUpdate();
+			
+			
+			System.out.println("문의글 작성완료!!!!!!!!!");
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+  	
+    	
+  }//addInquery(inDTO)
     
-    
-    
-    
+    // getMyList(nick)
+    public List getMyInqueryList(String nick){
+    	
+    	List myInqueryList = new ArrayList();
+    	
+    	try {
+    		conn = getConnection();
+    		
+    		sql = "select * from inquery where user_nick=?";
+    		
+    		
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nick);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				InqueryDTO inDTO = new InqueryDTO();
+				inDTO.setInq_content(rs.getString("inq_content"));
+				inDTO.setInq_date(rs.getString("inq_date"));
+				inDTO.setInq_img(rs.getString("inq_img"));
+				inDTO.setInq_lev(rs.getInt("inq_lev"));
+				inDTO.setInq_num(rs.getInt("inq_num"));
+				inDTO.setInq_sub(rs.getString("inq_sub"));
+				inDTO.setUser_nick(rs.getString("user_nick"));
+				
+				myInqueryList.add(inDTO);
+				
+			}
+			
+			System.out.println("회원 1:1문의 리스트 담기 완료");
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    	
+    	return myInqueryList;
+    }// getMyList(nick)
+     
     
     
     

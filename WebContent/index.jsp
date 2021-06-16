@@ -7,15 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- model2 실행페이지 -->
+	<!--  실행페이지 -->
 	<%
 		
-		// 메인페이지 이동
+		// 1:1 문의 게시판 이동
 		 response.sendRedirect("./InqueryList.in");
 		
 	
-		
-		
 		
 	%>
 	
