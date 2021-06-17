@@ -77,11 +77,60 @@ public class UserDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.toString());
-			System.out.println("UserDAO insertUser() Function Error - KBH");
+			System.out.println("UserDAO.insertUser() function Error - KBH");
 		} finally {
 			closeDB();
 		}
 		
+	}
+	
+	public boolean checkNick(String a) {
+		//닉네임 조회하는 함수
+		boolean tmp = false;
+		
+		try {
+			conn = getConnection();
+			sql = "SELECT user_nickname FROM user WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, a);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				tmp = true;
+			} else {
+				tmp = false;
+			}
+		} catch(Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.checkNick() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		return tmp;
+	}
+	
+	public boolean checkId(String a) {
+		//아이디(이메일) 조회하는 함수
+				boolean tmp = false;
+				
+				try {
+					conn = getConnection();
+					sql = "SELECT user_id FROM user WHERE user_id=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, a);
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						tmp = true;
+					} else {
+						tmp = false;
+					}
+				} catch(Exception e) {
+					System.out.println(e.toString());
+					System.out.println("UserDAO.checkNick() function error - KBH");
+				} finally {
+					closeDB();
+				}
+				return tmp;
 	}
 
 }
