@@ -9,19 +9,18 @@ public class FAQListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("M : GoodsListAction_execute() 호출 ");
+		System.out.println("M : FAQListtAction_execute() 호출 ");
 
 		// 한글처리 
 		request.setCharacterEncoding("utf-8");
 		// 파라미터를 처리
-		// item=best
 		String faq_cate = request.getParameter("faq_cate");
 		
 		if(faq_cate == null){
 			faq_cate = "all";
 		}
 		
-		// 디비 처리 객체 GoodsDAO 생성
+		// 디비 처리 객체 DAO 생성
 		FAQDAO fdao = new FAQDAO();
 		
 		// 정보 저장 -> 영역 저장
