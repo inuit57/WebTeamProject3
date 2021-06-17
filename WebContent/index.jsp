@@ -10,10 +10,15 @@
 	<!--  실행페이지 -->
 	<%
 		
+
 		// 1:1 문의 게시판 이동
-		 response.sendRedirect("./InqueryList.in");
+		// response.sendRedirect("./InqueryList.in");
+
+		// 메인페이지 이동
+		response.sendRedirect("./InqueryList.in");
+
 		
-	
+	  //response.sendRedirect("./FAQAdd.faq");
 		
 	%>
 	

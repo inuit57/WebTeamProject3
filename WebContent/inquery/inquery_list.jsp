@@ -47,6 +47,9 @@
 	
 	
 	<a href="./InqueryWrite.in"> 글쓰기</a>
+	<hr>
+	
+	<a href="./FAQ.faq"> FAQ게시판 </a>
 	
 	
 </body>
