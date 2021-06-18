@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 @WebServlet("*.faq")
 public class FAQFrontController extends HttpServlet{
 
@@ -68,6 +69,30 @@ public class FAQFrontController extends HttpServlet{
 				System.out.println("C : /FAQDelAction.faq 호출");
 				// DB정보를 화면이동 없이 출력
 				action = new FAQDelAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+			}else if(command.equals("/FAQUpdate.faq")){
+				System.out.println("C : /FAQUpdate.faq 호출");
+				// DB 정보를 꺼내서 화면에 출력
+				// AdminGoodsModifyFormAction();
+				
+				action = new FAQUpdateFormAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+			}else if(command.equals("/FAQUpdateAction.faq")){
+				System.out.println("C : /FAQUpdateAction.faq 호출");
+				// DB 정보를 꺼내서 화면에 출력
+				// AdminGoodsModifyFormAction();
+				
+				action = new FAQUpdateAction();
 				
 				try {
 					forward = action.execute(request, response);

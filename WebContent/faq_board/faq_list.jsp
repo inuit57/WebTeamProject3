@@ -21,10 +21,11 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-
 <body>
 
  <%
+ 	request.setCharacterEncoding("UTF-8");
+ 
     List faqList = (List) request.getAttribute("faqList");
  
  	FAQDTO fdto = null;
@@ -50,15 +51,19 @@
 
 	<h3>자주묻는질문</h3> 
 	
+	<form >
 	<input type="text" name="faq_search" placeholder="검색어를 입력해주세요">
     <input type="button" onclick="faqSearch" id="searchBtn" style="margin-left:-30px;" value="검색"> 
+    </form>
+    
+    
     <br><br>
     <a href="./FAQ.faq">전체 | </a>
-    <a href="./FAQ.faq?faq_cate=oper">운영정책 | </a>
-    <a href="./FAQ.faq?faq_cate=uid">계정,인증 | </a>
-    <a href="./FAQ.faq?faq_cate=sell">구매,판매 | </a>
-    <a href="./FAQ.faq?faq_cate=proc">거래 품목 | </a>
-	<a href="./FAQ.faq?faq_cate=etc">기타</a>
+    <a href="./FAQ.faq?tag=oper">운영정책 | </a>
+    <a href="./FAQ.faq?tag=uid">계정,인증 | </a>
+    <a href="./FAQ.faq?tag=sell">구매,판매 | </a>
+    <a href="./FAQ.faq?tag=proc">거래 품목 | </a>
+	<a href="./FAQ.faq?tag=etc">기타</a>
     <hr>
 	<br>
 	
@@ -88,7 +93,7 @@
 		    <div id="collapse<%=i %>" class="panel-collapse collapse" role="tabpanel" >
 		      <div class="panel-body">
 		        <h4><img src="./img/faq_a.png" style="width: 1.5vw"> <%=fdto.getFaq_content() %></h4>
-		        <input type="button" onclick="location.href='./FAQAdd.faq'" id="chkUpdate" value="글수정">
+		        <input type="button" onclick="location.href='./FAQUpdate.faq?idx=<%=fdto.getFaq_idx() %>'" id="chkUpdate" value="글수정">
 		      </div>
 		    </div>
 		  </div>

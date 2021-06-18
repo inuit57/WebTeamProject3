@@ -14,7 +14,7 @@ public class FAQListAction implements Action {
 		// 한글처리 
 		request.setCharacterEncoding("utf-8");
 		// 파라미터를 처리
-		String faq_cate = request.getParameter("faq_cate");
+		String faq_cate = request.getParameter("tag");
 		
 		if(faq_cate == null){
 			faq_cate = "all";

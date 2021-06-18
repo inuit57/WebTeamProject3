@@ -6,36 +6,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.faq.db.FAQDAO;
 import com.faq.db.FAQDTO;
 
-public class FAQDelAction implements Action {
+public class FAQUpdateFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		// 한글처리
+
+		//  한글처리 
 		request.setCharacterEncoding("UTF-8");
+
+		// 전달된 파라미터값 idx저장
+		int idx = Integer.parseInt(request.getParameter("idx"));
 		
-		// 전달된 정보(파라미터 저장)
-		
-		String[] idx = request.getParameterValues("faq_idx");
-		
-		// DB저장
 		FAQDAO fdao = new FAQDAO();
+		FAQDTO fdto = fdao.getFAQ(idx);
 		
+		request.setAttribute("fdto", fdto);
 		
-		// FAQ삭제 메서드 
-		for (int i = 0; i < idx.length; i++) {
-			fdao.faqDel(idx[i]);
-		}
-		
-		// 페이지 이동(ActionForward객체)
+		// 페이지 이동
 		ActionForward forward = new ActionForward();
-		forward.setPath("./FAQ.faq");
-		forward.setRedirect(true);
-		
-		
+		forward.setPath("./faq_board/faq_update.jsp");
+		forward.setRedirect(false);		
 		
 		return forward;
-		
 	}
 
 }

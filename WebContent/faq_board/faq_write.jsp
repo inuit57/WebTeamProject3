@@ -9,7 +9,9 @@
 </head>
 
 <script src="./js/jquery-3.6.0.js"></script>
-
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 
 <body>
 
@@ -52,8 +54,7 @@
 	         <tr>
 	         <tr>
 	          <td colspan="2">
-	            <input type="submit" value="상품등록">
-	            <input type="reset" value="상품초기화">
+	            <input type="submit" value="등록">
 	          </td>
 	        </tr>
 	       </table>     
