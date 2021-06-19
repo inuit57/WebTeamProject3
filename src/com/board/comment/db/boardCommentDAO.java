@@ -26,7 +26,7 @@ public class boardCommentDAO {
 			
 			// DB연동 정보를 불러오기(context.xml)
 			DataSource ds = 
-			(DataSource) initCTX.lookup("java:comp/env/jdbc/marketdb");
+			(DataSource) initCTX.lookup("java:comp/env/jdbc/Marketdb");
 			
 			conn = ds.getConnection();
 			
