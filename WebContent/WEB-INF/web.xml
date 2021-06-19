@@ -37,4 +37,18 @@
   </servlet-mapping>
   
   <!-- BoardCommentFrontController 매핑 -->
+  
+<!-- 회원가입 -->
+  <servlet>
+  	<servlet-name>UserFrontController</servlet-name>
+  	<servlet-class>com.user.action.UserFrontController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>UserFrontController</servlet-name>
+  	<url-pattern>*.us</url-pattern>
+  </servlet-mapping>
+<!-- 회원가입 -->
+
+
 </web-app>
