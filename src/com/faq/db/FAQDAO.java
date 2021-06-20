@@ -145,7 +145,6 @@ public class FAQDAO {
 	
 				} // while
 	
-				System.out.println("DAO : 상품 정보 저장 완료(일반사용자 상품 목록)");
 	
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -200,7 +199,6 @@ public class FAQDAO {
 	
 				} // while
 	
-				System.out.println("DAO : 상품 정보 저장 완료(일반사용자 상품 목록)");
 	
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -315,6 +313,39 @@ public class FAQDAO {
 	    //updateFAQ(fdao)
 	    
     
-    
+	    //getSearchList(keyword)
+	    public List getSearchList(String keyword){
+	    	List faqList = new ArrayList();
+	    	try {
+				conn = getConnection();
+				sql = "select * from faq_board where faq_sub like '%"+keyword+"%' or faq_content like'%"+keyword+"%'";
+				
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+	
+				while (rs.next()) {
+					FAQDTO fdto = new FAQDTO();
+					fdto.setFaq_idx(rs.getInt("faq_idx"));
+					fdto.setFaq_cate(rs.getString("faq_cate"));
+					fdto.setUser_nick(rs.getString("user_nick"));
+					fdto.setFaq_sub(rs.getString("faq_sub"));
+					fdto.setFaq_content(rs.getString("faq_content"));
+					fdto.setFaq_file(rs.getString("faq_file"));
+	
+					// 리스트 한칸에 상품 1개를 저장
+					faqList.add(fdto);
+	
+				} // while
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				closeDB();
+			}
+	
+	    	return faqList;
+	    	
+	    }
+	    //getSearchList(keyword)
     
 }

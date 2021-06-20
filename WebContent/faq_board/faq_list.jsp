@@ -12,7 +12,7 @@
 <!-- <script src="./js/jquery-3.6.0.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
- <!-- 합쳐지고 최소화된 최신 CSS -->
+<!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 부가적인 테마 -->
@@ -46,14 +46,27 @@
 	});
   	 
   </script>
+  <script type="text/javascript">
+	  function faqSearch() {
+			
+			if(document.searchFrom.faq_search.value == ""){
+				alert("키워드를 입력해주세요");
+				return false;
+			}
+	
+				document.searchFrom.submit();
+			
+				
+		}
+  </script>
   
   
 
 	<h3>자주묻는질문</h3> 
 	
-	<form >
+	<form action="./FAQSerchAction.faq" method="post" name="searchFrom">
 	<input type="text" name="faq_search" placeholder="검색어를 입력해주세요">
-    <input type="button" onclick="faqSearch" id="searchBtn" style="margin-left:-30px;" value="검색"> 
+    <input type="button" onclick="faqSearch()" id="searchBtn" style="margin-left:-30px;" value="검색"> 
     </form>
     
     
@@ -77,6 +90,7 @@
 	<form  action="./FAQDelAction.faq" method="post"  name="listchkDel">
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	<% 
+		
 		for(int i=0; i<faqList.size();i++){
 			fdto = (FAQDTO) faqList.get(i);
 		%>
@@ -99,6 +113,7 @@
 		  </div>
 		<%	
 		}
+		
 	%>
 	 </div>
 	</form>
