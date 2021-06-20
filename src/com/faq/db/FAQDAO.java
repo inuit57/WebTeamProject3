@@ -127,7 +127,7 @@ public class FAQDAO {
 	    	List faqList = new ArrayList();
 	    	try {
 				conn = getConnection();
-				sql = "select * from faq_board";
+				sql = "select * from faq_board order by faq_idx desc";
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 	
@@ -173,8 +173,9 @@ public class FAQDAO {
 				SQL.append("select * from faq_board");
 				
 				if (faq_cate.equals("all")) {
+					SQL.append(" order by faq_idx desc");
 				} else {
-					SQL.append(" where faq_cate=?");
+					SQL.append(" where faq_cate=? order by faq_idx desc");
 				}
 	
 				pstmt = conn.prepareStatement(SQL + "");
