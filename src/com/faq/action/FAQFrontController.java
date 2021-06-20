@@ -107,10 +107,22 @@ public class FAQFrontController extends HttpServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}	
+			}else if(command.equals("/FAQSingle.faq")){
+				System.out.println("C : /FAQSingle.faq 호출");
+				// DB 정보를 꺼내서 화면에 출력
+				
+				action = new FAQSingle();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
 			}
 			
 			
-		
+			
+			
 			
 
 			System.out.println("C : 2.페이지 주소 매핑 완료");
