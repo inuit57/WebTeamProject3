@@ -1,4 +1,4 @@
-package com.inquery.action;
+package com.admin.inquery.action;
 
 import java.io.IOException;
 
@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.inquery.action.Action;
-import com.inquery.action.ActionForward;
+import com.admin.inquery.action.Action;
+import com.admin.inquery.action.ActionForward;
 
-@WebServlet("*.in")
-public class InqueryFrontController extends HttpServlet{
+@WebServlet("*.ai")
+public class InqueryAdminFrontController extends HttpServlet{
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("C : InqueryFrontController_doPrecess() 호출");
+		System.out.println("C : InqueryAdminFrontController_doPrecess() 호출");
 		
 		/******************* 1.페이지 주소 파싱 ********************************/
 		
@@ -37,10 +37,27 @@ public class InqueryFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/InqueryList.in")){
-			System.out.println("C : /InqueryList.in 호출");
+		if(command.equals("/InqueryAdminList.ai")){
+			System.out.println("C : /InqueryAdminList.ai 호출");
 			
-			action = new InqueryListAction();
+			action = new InqueryAdminListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/InqueryAdminWriteFormAction.ai")){
+			System.out.println("C : /InqueryAdminWriteAction.ai 호출");
+			
+			forward = new ActionForward();
+			
+			forward.setPath("./admin_inquery/admin_inquery_write_form.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/InqueryAdminWriteAction.ai")){
+			System.out.println("C : /InqueryAdminWriteAction.ai 호출");
+			
+			action = new InqueryAdminWriteAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -49,22 +66,10 @@ public class InqueryFrontController extends HttpServlet{
 			}
 			
 			
-		}else if(command.equals("/InqueryWrite.in")){
-			System.out.println("C : /InqueryWrite.in 호출");
+		} else if(command.equals("/InqueryAdminContent.ai")){
+			System.out.println("C : ./InqueryAdminContent.ai 호출");
 			
-			action = new InqueryWriteFormAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			
-		}else if(command.equals("/InqueryWriteAction.in")){
-			System.out.println("C :/InqueryWriteAction.in 호출");
-			
-			action = new InqueryWriteAction();
+			action = new InqueryAdminContentAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -72,49 +77,46 @@ public class InqueryFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/InqueryContent.in")){
-			System.out.println("C : /InqueryContent.in 호출");
+		} else if(command.equals("/InqueryAdminModifyForm.ai")){
+			System.out.println("C : /InqueryAdminModifyForm.ai 호출");
 			
-			action = new InqueryContentAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		
-		}else if(command.equals("/InqueryModifyForm.in")){
-			System.out.println("C : /InqueryModifyForm.in 호출");
-			
-			action = new InqueryModifyFormAction();
+			action = new InqueryAdminModifyFormAction();
 			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if(command.equals("/InqueryAdminModify.ai")){
+			System.out.println("C : /InqueryAdminModify.ai 호출");
 			
-		} else if(command.equals("/InqueryModify.in")){
-			System.out.println("C : /InqueryModify.in 호출");
-			
-			action = new InqueryModifyAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/InqueryDelete.in")){
-			System.out.println("C : /InqueryDelete.in 호출");
-			
-			action = new InqueryDeleteAction();
-			
+			action = new InqueryAdminModifyAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+		} else if(command.equals("/InqueryAdminDelete.ai")){
+			System.out.println("C : /InqueryAdminDelete.ai 호출");
+			
+			action = new InqueryAdminDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/InqueryAdminSearch.ai")){
+			System.out.println("C : /InqueryAdminSearch.ai 호출");
+			
+			action = new InqueryAdminSearchAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -147,14 +149,14 @@ public class InqueryFrontController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---------------------------------------------------------");
-		System.out.println("C : InqueryFrontController_doGet() 호출");
+		System.out.println("C : InqueryAdminFrontController_doGet() 호출");
 		doProcess(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---------------------------------------------------------");
-		System.out.println("C : InqueryFrontController_doPost() 호출");
+		System.out.println("C : InqueryAdminFrontController_doPost() 호출");
 		doProcess(request, response);
 	}
 

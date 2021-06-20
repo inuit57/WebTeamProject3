@@ -11,11 +11,11 @@
 	<%
 		
 
-		// 1:1 문의 게시판 이동
-		// response.sendRedirect("./InqueryList.in");
+		// 1:1 문의 게시판 admin 이동
+		 response.sendRedirect("./InqueryAdminList.ai");
 
 		// 메인페이지 이동
-		response.sendRedirect("./InqueryList.in");
+		// response.sendRedirect("./InqueryList.in");
 
 		
 	  //response.sendRedirect("./FAQAdd.faq");
