@@ -33,6 +33,7 @@ public class FAQAddAction implements Action {
 		// 페이지 이동(ActionForward객체)
 		ActionForward forward = new ActionForward();
 		forward.setPath("./FAQ.faq");
+
 		forward.setRedirect(true);
 		
 		

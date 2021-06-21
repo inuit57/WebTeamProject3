@@ -61,6 +61,18 @@ public class InqueryFrontController extends HttpServlet{
 			}
 			
 			
+		}else if(command.equals("/InqueryWriteAction.in")){
+			System.out.println("C :/InqueryWriteAction.in 호출");
+			
+			action = new InqueryWriteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 		

@@ -26,7 +26,7 @@ request.setCharacterEncoding("UTF-8");
 	               <option value="uid">계정/인증</option>
 	               <option value="sell">구매/판매</option>
 	               <option value="proc">거래 품목</option>
-	        </select>
+	     </select>
 		</div>
 		<div>
 			제목 
