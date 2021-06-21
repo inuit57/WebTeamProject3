@@ -23,10 +23,31 @@ var pwFlag = false;
 var phoneFlag = false;
 var addressFlag = false;
 var address_plusFlag = false;
+var email_Flag = false;
 
-//데이터 유효성 체크
+//Submit할때 데이터 유효성 체크
 function check() {
+	idCheck();
+	checkNick();
+	checkPhone();
+	checkPw();
+	addressCheck();
 	
+	if(idFlag == false) {
+		return false;
+	} else if(nickFlag == false) {
+		return false;
+	} else if(pwFlag == false) {
+		return false;
+	} else if(phoneFlag == false) {
+		return false;
+	} else if(addressFlag == false) {
+		return false;
+	} else if(address_plusFlag == false) {
+		return false;
+	} else {
+		return true;
+	}
 
 }
 function checkNick() {
@@ -163,6 +184,10 @@ function addressCheck() {
 		address_plusFlag = true;
 	}
 	
+}
+
+function emailCheck() {
+	emailFlag = false;
 }
 
 function findAddr(){

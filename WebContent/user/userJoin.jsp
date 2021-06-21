@@ -41,6 +41,8 @@
 	<label>상세주소</label><br>
 	<input type="text" name="address_plus" id="address_plus" onblur="addressCheck();" autocomplete="off"><br>
 	<label id="address_error" class="error"></label><br>
+	<label>이메일 인증</label><br>
+	<input type="text" id="email_check" name="email_check" placeholder="인증 번호"><input type="button" id="btn_emailcheck" value="인증번호 전송"><br>
 	</div>
 	<br><input type="submit" value="가입하기" id="join_submit">
 	</form>

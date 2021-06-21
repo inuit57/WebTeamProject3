@@ -48,6 +48,12 @@ public class UserFrontController extends HttpServlet{
 			forward = new ActionForward();
 			forward.setPath("./user/userJoin.jsp");
 			forward.setRedirect(false);
+		} else if(command.equals("/UserLogin.us")) {
+			//로그인 페이지로 이동
+			System.out.println("testtesttest");
+			forward = new ActionForward();
+			forward.setPath("./user/userLogin.jsp");
+			forward.setRedirect(false);
 		} else if(command.equals("/UserJoinAction.us")) {
 			//회원 가입 페이지에서 Submit 누르면 이동
 			try {
@@ -80,6 +86,19 @@ public class UserFrontController extends HttpServlet{
 			} else {
 				out.write("0");
 			}
+		} else if(command.equals("/UserLoginAction.us")) {
+			//로그인
+//			try {
+//				action = new UserLoginAction();
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				
+//			}
+			System.out.println(request.getParameter("id"));
+			System.out.println(request.getParameter("pw"));
+			
+			
+			
 		}
 		
 		if(forward != null) {
