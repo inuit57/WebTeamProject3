@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
