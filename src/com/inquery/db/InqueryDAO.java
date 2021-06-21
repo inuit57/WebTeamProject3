@@ -228,7 +228,7 @@ public class InqueryDAO {
     	try {
     		conn = getConnection();
     		
-    		sql = "delete from inquery where inq_num=?";
+    		sql = "delete from inquery where inq_ref=?";
     		
 			pstmt = conn.prepareStatement(sql);
 			
@@ -237,7 +237,7 @@ public class InqueryDAO {
 			pstmt.executeUpdate();
 			
 			
-			System.out.println("회원 자신 글 삭제 완료 !!!!!!!!!!!!!!!"+num+"번글");
+			System.out.println("회원 자신 글 &해당 답변 삭제 완료 !!!!!!!!!!!!!!!"+num+"번글");
 			
 
 		} catch (SQLException e) {

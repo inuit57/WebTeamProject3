@@ -16,6 +16,9 @@ public class InqueryAdminSearchAction implements Action {
 		String sk = request.getParameter("sk");
 		String sv = request.getParameter("sv");
 		
+		System.out.println(sk+sv);
+		
+		
 		AdminInqueryDAO aiDAO = new AdminInqueryDAO();
 		
 		aiDAO.inquerySearchList(sk,sv);

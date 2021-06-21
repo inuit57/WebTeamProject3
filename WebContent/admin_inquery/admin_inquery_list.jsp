@@ -47,14 +47,14 @@
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
 			<td><%=inDTO.getUser_nick()%></td>
-			<td>
+			<td><a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
 				<%
 				if(inDTO.getInq_lev()==1){
 				%>
 				( <%=inDTO.getInq_ref()%>번글 답글)
 				
 				<%} %>
-				<a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
+			
 				<%=inDTO.getInq_sub() %></a></td>
 			<td><%=inDTO.getInq_content() %></td>
 			<td><%=inDTO.getInq_date() %></td>
@@ -82,8 +82,8 @@
 	
 	<form action="./InqueryAdminSearch.ai" method="post">
 			<select name="sk">
-				<option value="nName">작성자</option>
-				<option value="subject">글 제목</option>
+				<option value="user_nick">작성자</option>
+				<option value="inq_sub">글 제목</option>
 			</select>
 			<input type="text" name="sv">
 			<input type="submit" value="검색">		

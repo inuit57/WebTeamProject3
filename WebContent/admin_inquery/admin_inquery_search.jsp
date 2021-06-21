@@ -82,8 +82,8 @@
 	
 	<form action="./InqueryAdminSearch.ai" method="post">
 			<select name="sk">
-				<option value="nName">작성자</option>
-				<option value="subject">글 제목</option>
+				<option value="user_nick">작성자</option>
+				<option value="inq_sub">글 제목</option>
 			</select>
 			<input type="text" name="sv">
 			<input type="submit" value="검색">		
