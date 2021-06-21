@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top" style="position: sticky; top:0px; left: 0px; z-index: 9999; width: 100%;">
         <div class="container text-light">
             <div class="w-100 d-flex justify-content-between">
                 <div>
@@ -44,8 +44,8 @@
 
 
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container d-flex justify-content-between align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-light shadow" style="position: sticky; top:40px; left: 0px; z-index: 9999; width: 100%; background-color: white;">
+        <div class="container d-flex justify-content-between align-items-center" >
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
                 Zay
