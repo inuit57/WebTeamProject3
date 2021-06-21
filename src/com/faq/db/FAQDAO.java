@@ -13,8 +13,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-
-
 public class FAQDAO {
 
 	
@@ -115,11 +113,16 @@ public class FAQDAO {
 				closeDB();		
 			}
 		}//faqWrite(FAQDTO fdto)
-	    
     
     
     
-    
+    //getFAQList()
+    public List getFAQList(){
+    	List faqList = new ArrayList();
+    	
+    	return faqList;
+    }
+    //getFAQList()
     
 	    //getFAQList()
 	    public List getFAQList(){
@@ -154,12 +157,7 @@ public class FAQDAO {
 	    }
 	    //getFAQList()
     
-    
-    
-    
-    
-    
-	  //getFAQList(faq_cate)
+	    //getFAQList(faq_cate)
 	    public List getFAQList(String faq_cate){
 	    	List faqList = new ArrayList();
 	    	
@@ -196,7 +194,6 @@ public class FAQDAO {
 					faqList.add(fdto);
 	
 				} // while
-	
 	
 			} catch (SQLException e) {
 				e.printStackTrace();

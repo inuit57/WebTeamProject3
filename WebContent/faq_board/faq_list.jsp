@@ -24,14 +24,17 @@
 <body>
 
  <%
+
  	request.setCharacterEncoding("UTF-8");
  
+
     List faqList = (List) request.getAttribute("faqList");
  
  	FAQDTO fdto = null;
   %>
   
   
+
     <script type="text/javascript">
   
   	$(document).ready(function(){
@@ -117,8 +120,6 @@
 	%>
 	 </div>
 	</form>
-
-
 
 	
 	
