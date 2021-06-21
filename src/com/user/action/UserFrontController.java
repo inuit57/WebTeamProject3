@@ -50,7 +50,6 @@ public class UserFrontController extends HttpServlet{
 			forward.setRedirect(false);
 		} else if(command.equals("/UserLogin.us")) {
 			//로그인 페이지로 이동
-			System.out.println("testtesttest");
 			forward = new ActionForward();
 			forward.setPath("./user/userLogin.jsp");
 			forward.setRedirect(false);
@@ -88,18 +87,63 @@ public class UserFrontController extends HttpServlet{
 			}
 		} else if(command.equals("/UserLoginAction.us")) {
 			//로그인
-//			try {
-//				action = new UserLoginAction();
-//				forward = action.execute(request, response);
-//			} catch (Exception e) {
-//				
-//			}
-			System.out.println(request.getParameter("id"));
-			System.out.println(request.getParameter("pw"));
-			
-			
-			
+			try {
+				action = new UserLoginAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserLoginAction.us) Problem - KBH");
+			}
+		} else if(command.equals("/UserLogoutAction.us")) {
+			try {
+				action = new UserLogoutAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserLogoutAction.us) Problem - KBH");
+			}
+		} else if(command.equals("/UserInfo.us")) {
+			//UserInfo 페이지로 이동
+			forward = new ActionForward();
+			forward.setPath("./user/userInfo.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/UserInfoAction.us")) {
+			try {
+				action = new UserInfoAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserInfoAction.us) Problem - KBH");
+			}
+		} else if(command.equals("/UserDeleteAction.us")) {
+			try {
+				action = new UserDeleteAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserDeleteAction.us) Probelm - KBH");
+			}
+		} else if(command.equals("/UserInfoEditAction.us")) {
+			try {
+				action = new UserInfoEditAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserInfoEditAction.us) Problem - KBH");
+			}
+		} else if(command.equals("/UserPasswordEditAction.us")) {
+			try {
+				action = new UserPasswordEditAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserPasswordEditAction.us) Problem - KBH");
+			}
 		}
+		
+		
+		
+		
 		
 		if(forward != null) {
 			if(forward.isRedirect()) {

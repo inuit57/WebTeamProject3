@@ -12,5 +12,11 @@
 	<h1>Market</h1>
 	<a href="./UserLogin.us">로그인</a><br>
 	<a href="./UserJoin.us">회원가입</a><br>
+	
+	<%if(session.getAttribute("id") != null) { %>
+	<%=session.getAttribute("id") %>
+	<a href="./UserInfoAction.us">유저 정보</a>
+	<a href="./UserLogoutAction.us">로그아웃</a>
+	<%} %>
 </body>
 </html>
