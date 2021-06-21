@@ -41,7 +41,7 @@
 				if(!!oNavigator.safari && oNavigator.version <= 5){
 					bSupportDragAndDropAPI = false;
 				}else{
-					bSupportDragAndDropAPI = false;
+					bSupportDragAndDropAPI = true;
 				}
 			} else {
 				bSupportDragAndDropAPI = false;
@@ -333,8 +333,7 @@
     function html5Upload() {	
     	var tempFile,
     		sUploadURL;
-    	
-    	sUploadURL= 'file_uploader_html5.php'; 	//upload URL
+    	sUploadURL= './file_uploader_html5.jsp'; 	//upload URL
     	
     	//파일을 하나씩 보내고, 결과를 받음.
     	for(var j=0, k=0; j < nImageInfoCnt; j++) {

@@ -90,7 +90,7 @@ public class FAQDAO {
 				////////////////////////////////////////////////////
 				
 				// 3 sql 작성 (insert) & pstmt 객체 생성
-				sql = "insert into faq_board(faq_idx, faq_cate, user_nick, faq_sub, faq_content, faq_file, faq_date) values(?,?,?,?,?,?,now())";
+				sql = "insert into faq_board(faq_idx, faq_cate, user_nick, faq_sub, faq_content, faq_date) values(?,?,?,?,?,now())";
 				
 				pstmt = conn.prepareStatement(sql);
 				
@@ -100,7 +100,6 @@ public class FAQDAO {
 				pstmt.setString(3, fdto.getUser_nick());
 				pstmt.setString(4, fdto.getFaq_sub());
 				pstmt.setString(5, fdto.getFaq_content());
-				pstmt.setString(6, fdto.getFaq_file());
 				
 				// 4 sql 실행	
 				
@@ -138,7 +137,6 @@ public class FAQDAO {
 					fdto.setUser_nick(rs.getString("user_nick"));
 					fdto.setFaq_sub(rs.getString("faq_sub"));
 					fdto.setFaq_content(rs.getString("faq_content"));
-					fdto.setFaq_file(rs.getString("faq_file"));
 	
 					// 리스트 한칸에 상품 1개를 저장
 					faqList.add(fdto);
@@ -193,7 +191,6 @@ public class FAQDAO {
 					fdto.setUser_nick(rs.getString("user_nick"));
 					fdto.setFaq_sub(rs.getString("faq_sub"));
 					fdto.setFaq_content(rs.getString("faq_content"));
-					fdto.setFaq_file(rs.getString("faq_file"));
 	
 					// 리스트 한칸에 상품 1개를 저장
 					faqList.add(fdto);
@@ -266,7 +263,6 @@ public class FAQDAO {
 					fdto.setUser_nick(rs.getString("user_nick"));
 					fdto.setFaq_sub(rs.getString("faq_sub"));
 					fdto.setFaq_content(rs.getString("faq_content"));
-					fdto.setFaq_file(rs.getString("faq_file"));
 				}
 	
 			} catch (SQLException e) {
@@ -289,7 +285,7 @@ public class FAQDAO {
 				conn = getConnection();		
 				
 				// 3 sql (글번호를 계산하는 구문)
-				sql = "update faq_board set faq_cate=?, faq_sub=?, faq_content=?, faq_file=? where faq_idx=?";
+				sql = "update faq_board set faq_cate=?, faq_sub=?, faq_content=? where faq_idx=?";
 				
 				pstmt = conn.prepareStatement(sql);
 				
@@ -297,8 +293,7 @@ public class FAQDAO {
 				pstmt.setString(1, fdto.getFaq_cate());
 				pstmt.setString(2, fdto.getFaq_sub());
 				pstmt.setString(3, fdto.getFaq_content());
-				pstmt.setString(4, fdto.getFaq_file());
-				pstmt.setInt(5, fdto.getFaq_idx());
+				pstmt.setInt(4, fdto.getFaq_idx());
 				
 				// 4 sql 실행	
 				
@@ -331,7 +326,6 @@ public class FAQDAO {
 					fdto.setUser_nick(rs.getString("user_nick"));
 					fdto.setFaq_sub(rs.getString("faq_sub"));
 					fdto.setFaq_content(rs.getString("faq_content"));
-					fdto.setFaq_file(rs.getString("faq_file"));
 	
 					// 리스트 한칸에 상품 1개를 저장
 					faqList.add(fdto);
