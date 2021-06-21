@@ -17,7 +17,7 @@
 	// response.sendRedirect("./main.bo");
 	// 댓글인설트중
 	// 일반게시판 목록
-	 response.sendRedirect("./board_List.bo");
+	// response.sendRedirect("./board_List.bo");
 	%>
 
 	<!--  실행페이지 -->
@@ -28,8 +28,8 @@
 		// response.sendRedirect("./InqueryList.in");
 
 		// 메인페이지 이동
-		//response.sendRedirect("./InqueryList.in");
 
+		response.sendRedirect("./Main.do");
 		
 	  //response.sendRedirect("./FAQAdd.faq");
 		
