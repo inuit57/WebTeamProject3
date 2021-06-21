@@ -11,7 +11,7 @@
 	<%
 		
 		// 메인페이지 이동
-		response.sendRedirect("./InqueryList.in");
+		response.sendRedirect("./Main.do");
 		
 	   //response.sendRedirect("./FAQAdd.faq");
 		

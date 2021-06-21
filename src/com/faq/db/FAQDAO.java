@@ -329,7 +329,6 @@ public class FAQDAO {
 	
 					// 리스트 한칸에 상품 1개를 저장
 					faqList.add(fdto);
-	
 				} // while
 	
 			} catch (SQLException e) {
