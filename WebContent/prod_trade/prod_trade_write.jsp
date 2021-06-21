@@ -6,20 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>prod_trade_write</title>
-
+ <script src="../jq/jquery-3.6.0.js"></script>
 </head>
 <body>
 	<h1>WebContent/prod_trade/prod_trade_write.jsp</h1>
+	<script type="text/javascript">
+		function subFunction(){
+		
+		var pdsub = $('#pdsub').val();
+		if(pdsub == ""){
+			$('#submsg').html('입력');
+		}
+		
+	}
+	
+	
+	</script>
 	
 	<fieldset>
 		<legend>중고거래 등록하기</legend>
-			<form action="./ProductRegisterAction.pr" method="post" enctype="multipart/form-data">
+			<form action="./ProductRegisterAction.pr" method="post" enctype="multipart/form-data"
+				id="pdf" name="pdf">
 				<table border="1">
 				<!-- switch문으로 작성 -->
 					<tr>
 						<td>카테고리</td>
 						<td>
-							<select name="category">
+							<select name="category" required="required">
 								<option value="0">디지털기기</option>
 								<option value="1">생활가전</option>
 								<option value="2">가구/인테리어</option>
@@ -41,7 +54,7 @@
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
-							<select name="status">
+							<select name="status" required="required">
 								<option value="0">삽니다</option>
 								<option value="1">팝니다</option>
 								<option value="2">무료나눔</option>
@@ -51,19 +64,21 @@
 					<tr> 
 						<td>작성자</td> <!-- 회원테이블에서 불러옴 -->
 						<td>
-							<input type="text" name="nick">
+							<input type="text" name="nick" id="pdnic" placeholder="작성자를 입력하세요."
+									>
 						</td>
 					</tr>
 					<tr> 
 						<td>글 제목</td>
-						<td>
-							<input type="text" name="subject">
+						<td id="pdsub">
+							<input type="text" name="subject" placeholder="제목을 입력하세요."
+							onkeyup="subFunction()">
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 가격</td>
 						<td>
-							<input type="number" name="price">
+							<input type="number" name="price" id="pdprice" placeholder="가격을 입력하세요.">
 						</td>
 					</tr>
 					<tr> 
@@ -93,7 +108,8 @@
 					<tr> 
 						<td>글 내용</td>
 						<td>
-							<textarea rows="30" cols="60" name="content"></textarea>
+							<textarea rows="30" cols="60" name="content" id="pdcon"
+								placeholder="상품정보를 입력하세요."></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -106,7 +122,7 @@
 				</table>
 			</form>
 	</fieldset>
-	
+
 	
 	
 </body>

@@ -1,5 +1,6 @@
 package com.prod.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,36 @@ public class ProductListAction implements Action {
 		request.setAttribute("productList", pDAO.getProductList(item));
 		
 		//request.setAttribute("productList", productList);
+		
+		//조회수
+		//int cnt = pDAO.getProductCount();
+		//request.setAttribute("productListCount", pDAO.getProductCount());
+		
+		//페이징처리
+		int pageSize = 10;
+		
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum == null) {
+				pageNum = "1";
+		}
+		
+		//시작행
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage-1)*pageSize+1; 
+
+		//끝행
+		int endRow = currentPage*pageSize;
+
+		//request.setAttribute("productListWant", pDAO.getProductList(startRow,pageSize));
+		
+		List productListWant = pDAO.getProductList(startRow,pageSize);
+		
+		request.setAttribute("productListWant", productListWant);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("currentPage", currentPage);
+		
+		
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("./prod_trade/prod_trade_list.jsp");

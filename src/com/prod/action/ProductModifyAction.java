@@ -9,39 +9,43 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.prod.db.ProdDAO;
 import com.prod.db.ProdDTO;
 
-public class ProductRegisterAction implements Action {
+public class ProductModifyAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, 
 								 HttpServletResponse response) throws Exception {
 
-		System.out.println("PR Action 페이지");
+		System.out.println("상품정보 수정 페이지");
 		
 		
-		//파일업로드 폴더
 		ServletContext ctx = request.getServletContext();
 		String realpath = ctx.getRealPath("/upload");
 		
 		int maxSize = 5 * 1024 * 1024;
 		
-		MultipartRequest multi
+		MultipartRequest multi 
 			= new MultipartRequest(
-						request,
-						realpath,
-						maxSize,
-						"UTF-8",
-						new DefaultFileRenamePolicy()
+					request, 
+					realpath,
+					maxSize,
+					"UTF-8",
+					new DefaultFileRenamePolicy()
 					);
 		
-		//ProdDTO 객체 생성 후 전달된 정보 저장 
+		int num = Integer.parseInt(multi.getParameter("num"));
+		
 		ProdDTO pDTO = new ProdDTO();
+		
+		
 		pDTO.setProd_category(Integer.parseInt(multi.getParameter("category")));
 		pDTO.setProd_status(Integer.parseInt(multi.getParameter("status")));
 		pDTO.setUser_nick(multi.getParameter("nick"));
 		pDTO.setProd_sub(multi.getParameter("subject"));
 		pDTO.setProd_price(Integer.parseInt(multi.getParameter("price")));
 		pDTO.setProd_content(multi.getParameter("content"));
+		pDTO.setProd_num(num);
 		
+		//파일, 글내용 받아오기
 		String image
 			= multi.getFilesystemName("file1")+","
 			+ multi.getFilesystemName("file2")+","
@@ -50,18 +54,13 @@ public class ProductRegisterAction implements Action {
 		
 		pDTO.setProd_img(image);
 		
-		//중고거래 글 등록 DAO객체 생성
-		//insertProduct()
+		//수정 DAO 
 		ProdDAO pDAO = new ProdDAO();
-	
-		for(int i=0;i<100;i++) {
-			
-		pDAO.insertProduct(pDTO);
-		}
-	
-		//페이지 이동하기
+		
+		pDAO.getProductUpdate(pDTO);
+		//페이지 이동 
 		ActionForward forward = new ActionForward();
-		forward.setPath("./ProductList.pr?");
+		forward.setPath("./ProductList.pr");
 		forward.setRedirect(true);
 		
 		return forward;

@@ -33,7 +33,6 @@ public class ProductRegisterFrontController extends HttpServlet{
 		if(command.equals("/ProductRegister.pr")) {
 			System.out.println("중고거래 등록 게시판");
 			
-			///ProductRegisterAction() 객체
 			forward = new ActionForward();
 			forward.setPath("./prod_trade/prod_trade_write.jsp");
 			forward.setRedirect(false);
@@ -54,6 +53,45 @@ public class ProductRegisterFrontController extends HttpServlet{
 			
 			//ProductListAction()객체 생성
 			action = new ProductListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/ProductDetail.pr")) {
+			
+			//ProductDetailAction()객체 생성
+			action = new ProductDetailAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/ProductModify.pr")) {
+			
+			forward = new ActionForward();
+			forward.setPath("./prod_trade/prod_trade_modify.jsp");
+			forward.setRedirect(false);
+		
+		}else if(command.equals("/ProductModifyAction.pr")){
+			
+			//ProductModifyAcition()객체 생성
+			action = new ProductModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/ProductDeleteAction.pr")) {
+			
+			//ProductDeleteAction()객체 생성
+			action = new ProductDeleteAction();
 			
 			try {
 				forward = action.execute(request, response);
