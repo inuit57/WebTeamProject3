@@ -25,21 +25,29 @@ public class ProductDetailAction implements Action {
 
 		ProdDTO pDTO = new ProdDTO();
 		
+		
 		int count = 0;
+		
 		Cookie[] cookies = request.getCookies();
 		
+		
+		// IP 조회 : request.getRemoteAddr()
 			if(cookies != null) {
 				for(int i=0;i<cookies.length;i++) {
-					if(cookies[i].getName().equals("prod_count"+pDTO.getProd_count())) {
+					//if(cookies[i].getName().equals(pDTO.getProd_num()+"")) {
+					if(cookies[i].getName().equals("prod_count"+num) && cookies[i].getValue().equals(request.getRemoteAddr())) {
 						count = 0;
+						System.out.println("테슽@@@@@"+cookies[i].getName());
 						break;
 					}else {
-						Cookie cookie = new Cookie("prod_count"+pDTO.getProd_count(), 
-													String.valueOf(pDTO.getProd_count()));
+						Cookie cookie = new Cookie("prod_count"+num,
+													request.getRemoteAddr());
+													//String.valueOf(pDTO.getProd_num()+""));
 						cookie.setMaxAge(60*60*24);
 						//cookie.setPath("/");
 						response.addCookie(cookie);
 						count += 1;
+						System.out.println("else 출력~~~");
 					}
 				}
 			}

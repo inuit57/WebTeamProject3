@@ -31,7 +31,11 @@
 	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 	
-	int item= Integer.parseInt( request.getParameter("item"));
+	int item= -1 ;
+	if(request.getParameter("item") !=null){
+		item = Integer.parseInt( request.getParameter("item"));
+	}
+	System.out.println(item);
 	
 	ProdDTO pDTO = new ProdDTO();
 
@@ -183,7 +187,7 @@
 			for(int i=startPage;i<=endPage;i++){
 		
 				%>
-				<a href="ProductList.pr?pageNum=<%=i%>">[<%=i %>]</a>
+				<a href="ProductList.pr?pageNum=<%=i%>&item=<%=item%>">[<%=i %>]</a>
 				<%
 				////////////////옵션별 페이징 처리(상품 갯수만큼 페이징 처리하기)////////////////
 				//./ProductList.pr?item=< %=pDTO.getProd_category()% >
