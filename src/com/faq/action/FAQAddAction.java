@@ -26,13 +26,14 @@ public class FAQAddAction implements Action {
 		// DB저장
 		FAQDAO fdao = new FAQDAO();
 		
-		// 회원가입 메서드 
+		// FAQ작성 메서드 
 		fdao.faqWrite(fdto);
 		
 		
 		// 페이지 이동(ActionForward객체)
 		ActionForward forward = new ActionForward();
-		forward.setPath("./InqueryList.in");
+		forward.setPath("./FAQ.faq");
+
 		forward.setRedirect(true);
 		
 		

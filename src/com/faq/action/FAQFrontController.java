@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
-
 @WebServlet("*.faq")
 public class FAQFrontController extends HttpServlet{
 
@@ -46,8 +42,7 @@ public class FAQFrontController extends HttpServlet{
 				forward.setPath("./faq_board/faq_write.jsp");
 				forward.setRedirect(false);		
 			}else if(command.equals("/FAQAddAction.faq")){
-				System.out.println("C : /GoodsAddAction.ag 호출");
-				// GoodsAddAction() 객체 생성
+				System.out.println("C : /FAQAddAction.faq 호출");
 				action = new FAQAddAction();
 				
 				try {
@@ -58,8 +53,49 @@ public class FAQFrontController extends HttpServlet{
 			}else if(command.equals("/FAQ.faq")){
 				System.out.println("C : /FAQ.faq 호출");
 				// DB정보를 화면이동 없이 출력
-				// GoodsListAction() 객체 생성
 				action = new FAQListAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+			}else if(command.equals("/FAQDelAction.faq")){
+				System.out.println("C : /FAQDelAction.faq 호출");
+				// DB정보를 화면이동 없이 출력
+				action = new FAQDelAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+			}else if(command.equals("/FAQUpdate.faq")){
+				System.out.println("C : /FAQUpdate.faq 호출");
+				// DB 정보를 꺼내서 화면에 출력
+				action = new FAQUpdateFormAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+			}else if(command.equals("/FAQUpdateAction.faq")){
+				System.out.println("C : /FAQUpdateAction.faq 호출");
+				// DB 정보를 꺼내서 화면에 출력
+				
+				action = new FAQUpdateAction();
+				
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}	
+			}else if(command.equals("/FAQSerchAction.faq")){
+				System.out.println("C : /FAQSerchAction.faq 호출");
+				// DB 정보를 꺼내서 화면에 출력
+				
+				action = new FAQSerchAction();
 				
 				try {
 					forward = action.execute(request, response);
@@ -69,7 +105,8 @@ public class FAQFrontController extends HttpServlet{
 			}
 			
 			
-		
+			
+			
 			
 
 			System.out.println("C : 2.페이지 주소 매핑 완료");
