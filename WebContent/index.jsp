@@ -20,12 +20,13 @@
 	<a href="./UserLogoutAction.us">로그아웃</a>
 	<%} %>
 
+	<a href="./main.bo">메인</a>
 	<%
 	// 게시판글쓰기 이동
 	// response.sendRedirect("./board_Write.bo");
 	
 	// 메인페이지
-  <a href="./main.bo">메인</a>
+  
 	// response.sendRedirect("./main.bo");
 	// 댓글인설트중
 	// 일반게시판 목록
