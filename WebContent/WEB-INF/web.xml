@@ -9,4 +9,47 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+   <!-- BoardFrontController 매핑 -->
+  
+  <servlet>
+  	<servlet-name>BoardFrontController</servlet-name>
+  	<servlet-class>com.board.action.BoardFrontController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>BoardFrontController</servlet-name>
+  	<url-pattern>*.bo</url-pattern>
+  </servlet-mapping>
+  
+  <!-- BoardFrontController 매핑 -->
+  
+  <!-- BoardCommentFrontController 매핑 -->
+  
+  <servlet>
+  	<servlet-name>BoardCommentFrontController</servlet-name>
+  	<servlet-class>com.board.comment.action.BoardCommentFrontController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>BoardCommentFrontController</servlet-name>
+  	<url-pattern>*.bco</url-pattern>
+  </servlet-mapping>
+  
+  <!-- BoardCommentFrontController 매핑 -->
+  
+<!-- 회원가입 -->
+  <servlet>
+  	<servlet-name>UserFrontController</servlet-name>
+  	<servlet-class>com.user.action.UserFrontController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>UserFrontController</servlet-name>
+  	<url-pattern>*.us</url-pattern>
+  </servlet-mapping>
+<!-- 회원가입 -->
+
+
+
 </web-app>

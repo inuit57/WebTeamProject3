@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+@font-face {
+	font-family: 'bmjua';
+	src:url('../font/bmjua.ttf');
+}
+body {
+	font-family: 'bmjua';
+	background-color: #F0F0F0;
+	spellcheck:false;
+}
+#logo {
+	font-size: 50px;
+	margin-top: 40px;
+	margin-bottom: 35px;
+}
+#join {
+	text-align: center;
+}
+#join_input {
+	text-align: left;
+	display: inline-block;
+	margin-bottom: 30px;
+}
+
+input {
+	width: 300px;
+	height: 40px;
+	font-size: 18px;
+	margin-bottom: 10px;
+	font-family: 'bmjua';
+	color: black;
+}
+::placeholder {
+	font-family: 'bmjua';
+}
+#pw::placeholder {
+	position: relative;
+	padding-bottom: 10px;
+}
+input[type=password] {
+	font-family:'Malgun gothic', dotum, sans-serif;
+	}
+#join_submit {
+	width: 305px;
+	height: 40px;
+	font-size: 18px;
+}
+#address_find {
+	cursor: pointer;
+	font-size: 15px;
+	margin-left: 230px;
+	
+}
+#email_check {
+	width: 200px;
+}
+#btn_emailcheck {
+	position: relative;
+	height: 46px;
+	width: 100px;
+	font-size: 14px;
+	text-align: center;
+	
+	top: -1px;
+	
+}
+#copyright {
+	font-size: 13px;
+}
+#footer {
+	margin-top: 20px;
+}
+.error {
+	display: inline-block;
+	position: relative;
+	color: red;
+	font-size: 13px;
+	height: 5px;
+	top: -10px;
+}
