@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,5 +19,34 @@
 	<a href="./UserInfoAction.us">유저 정보</a>
 	<a href="./UserLogoutAction.us">로그아웃</a>
 	<%} %>
+
+	<%
+	// 게시판글쓰기 이동
+	// response.sendRedirect("./board_Write.bo");
+	
+	// 메인페이지
+  <a href="./main.bo">메인</a>
+	// response.sendRedirect("./main.bo");
+	// 댓글인설트중
+	// 일반게시판 목록
+	// response.sendRedirect("./board_List.bo");
+	%>
+
+	<!--  실행페이지 -->
+	<%
+		
+
+		// 1:1 문의 게시판 이동
+		// response.sendRedirect("./InqueryList.in");
+
+		// 메인페이지 이동
+
+		//response.sendRedirect("./Main.do");
+		
+	  //response.sendRedirect("./FAQAdd.faq");
+		
+	%>
+
 </body>
+
 </html>
