@@ -1,4 +1,3 @@
-
 package com.faq.db;
 
 import java.sql.Connection;
@@ -344,3 +343,4 @@ public class FAQDAO {
 	    //getSearchList(keyword)
     
 }
+

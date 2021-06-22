@@ -43,13 +43,4 @@ public class FAQAddAction implements Action {
 		
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
