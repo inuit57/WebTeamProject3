@@ -115,15 +115,6 @@ public class FAQDAO {
 		}//faqWrite(FAQDTO fdto)
     
     
-    
-    //getFAQList()
-    public List getFAQList(){
-    	List faqList = new ArrayList();
-    	
-    	return faqList;
-    }
-    //getFAQList()
-    
 	    //getFAQList()
 	    public List getFAQList(){
 	    	List faqList = new ArrayList();
