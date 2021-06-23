@@ -54,10 +54,10 @@ public class ProductRegisterAction implements Action {
 		//insertProduct()
 		ProdDAO pDAO = new ProdDAO();
 	
-		for(int i=0;i<100;i++) {
+
 			
 		pDAO.insertProduct(pDTO);
-		}
+		
 	
 		//페이지 이동하기
 		ActionForward forward = new ActionForward();

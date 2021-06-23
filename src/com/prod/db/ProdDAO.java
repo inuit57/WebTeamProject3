@@ -151,7 +151,7 @@ public class ProdDAO {
 		try {
 			
 			conn = getConnection();
-			SQL.append("select * from prod_trade");
+			SQL.append("select * from prod_trade order by prod_num desc");
 			
 			if(item.equals("all")) {
 			}else {
@@ -277,7 +277,7 @@ public class ProdDAO {
 		try {
 			
 			conn = getConnection();
-			sql = "select * from prod_trade "
+			sql = "select * from prod_trade order by prod_num desc "
 					+ "limit ?,?";
 			
 			pstmt = conn.prepareStatement(sql);

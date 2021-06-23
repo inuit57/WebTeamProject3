@@ -119,8 +119,10 @@ public class FAQDAO {
     
     
     
+
     
-    
+
+  
 	    //getFAQList()
 	    public List getFAQList(){
 	    	List faqList = new ArrayList();

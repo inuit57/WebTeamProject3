@@ -96,15 +96,8 @@
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			
 		<input type="button" value="삭제하기"
-				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
-		
-		
+				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">		
 	</form>
-	
-	
-	
-	
-
 
 </body>
 </html>
