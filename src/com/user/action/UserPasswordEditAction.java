@@ -21,11 +21,11 @@ public class UserPasswordEditAction implements Action {
 		
 		UserDAO udao = new UserDAO();
 		
-		boolean b = udao.Login(id, pw);
+		String user_nick = udao.Login(id, pw);
 		
 		ActionForward forward = new ActionForward();
 		
-		if(b) {
+		if(user_nick != null) {
 			if(new_pw.equals(new_pw_check)) {
 				udao.changePassword(id,new_pw);
 				forward.setPath("./UserInfo.us?m=1");
