@@ -17,11 +17,9 @@
 	
 	<table>
 		<tr>
-			<td>게시글 번호</td>
+			<td>글 번호</td>
 			<td>닉네임</td>
 			<td>제목</td>
-			<td>내용</td>
-			<td>이미지</td>
 			<td>날짜</td>
 		</tr>
 		
@@ -33,18 +31,7 @@
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
 			<td><%=inDTO.getUser_nick() %></td>
-			<td><a href="./InqueryContent.in?num=<%=inDTO.getInq_num()%>"><%=inDTO.getInq_sub() %></a></td>
-			<td><%=inDTO.getInq_content() %></td>
-			<td>
-			<%
-				if(inDTO.getInq_img()!=null){
-			%>
-				<img src="./inquery/upload/<%=inDTO.getInq_img()%>" width="150" height="150">
-				<%
-				}
-				%>
-				
-			</td>
+			<td><a href="./InqueryContent.in?num=<%=inDTO.getInq_num()%>"><%=inDTO.getInq_sub() %></a></td>	
 			<td><%=inDTO.getInq_date() %></td>
 		</tr>
 		<%

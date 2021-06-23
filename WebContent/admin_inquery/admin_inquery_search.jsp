@@ -27,6 +27,26 @@
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
+	String sk =(String) request.getAttribute("sk");
+	String sv =(String) request.getAttribute("sv");
+	
+	
+	int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
+	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
+	int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
+
+
+	
+	int currentPage = pageNum;
+
+	
+	int startRow = (currentPage-1)*pageSize+1;
+	
+	// 끝행 계산하기
+	// 1p -> 10번, 2p -> 20번,... => 일반화
+	int endRow = currentPage*pageSize;
+	
+	
 	%>
 	
 	<table border="1">
@@ -34,7 +54,6 @@
 			<td>글 번호</td>
 			<td>닉네임</td>
 			<td>제목</td>
-			<td>내용</td>
 			<td>날짜</td>
 			<td>수정/삭제</td>
 		</tr>
@@ -56,7 +75,6 @@
 				<%} %>
 				<a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
 				<%=inDTO.getInq_sub() %></a></td>
-			<td><%=inDTO.getInq_content() %></td>
 			<td><%=inDTO.getInq_date() %></td>
 			<td>
 			
@@ -72,6 +90,63 @@
 		%>
 	</table>
 	
+	<%
+		/////////////////////////////////////////////////////////////
+		// 페이징 처리 - 하단부 페이지 링크
+		
+		if(cnt != 0){ // 글이 있을때 표시
+			
+			// 전체 페이지수 계산
+			// ex) 총 50개 -> 한 페이지당 10개씩 출력, 5개
+			// 	      총 57개 -> 한 페이지당 10개씩 출력, 6개
+			int pageCount = cnt/pageSize+(cnt % pageSize == 0? 0:1);
+			
+			// 한 화면에 보여줄 페이지 번호의 개수(페이지 블럭)
+			int pageBlock = 2;
+			
+			// 페이지 블럭의 시작페이지 번호
+			// ex) 1~10페이지 : 1, 11~20 페이지 : 11, 21~30 페이지 : 21
+			int startPage = ((currentPage-1)/pageBlock)*pageBlock + 1;
+			
+			// 페이지 블럭의 끝 페이지 번호
+			int endPage = startPage+pageBlock-1;
+			
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
+			
+		// 이전 (해당 페이지블럭의 첫번째 페이지 호출)
+		if(startPage > pageBlock){
+			%>
+			<a href="./InqueryAdminSearch.ai?pageNum=<%=startPage-pageBlock%>&sk=<%=sk%>&sv=<%=sv%>">[이전]</a>
+			<% 
+		}
+		
+		
+		
+		
+		// 숫자 1....5
+		for(int i = startPage;i<=endPage;i++){
+			%>
+			<a href="./InqueryAdminSearch.ai?pageNum=<%=i%>&sk=<%=sk%>&sv=<%=sv%>">[<%=i %>]</a>
+			<% 
+		}
+		
+		// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
+		if(endPage < pageCount){
+			%>
+			<a href="./InqueryAdminSearch.ai?pageNum=<%=startPage+pageBlock%>&sk=<%=sk%>&sv=<%=sv%>">[다음]</a>
+			<%
+			
+		}
+			
+		
+		}	
+		/////////////////////////////////////////////////////////////	
+	
+	%>
+	
+	<br>
 	
 	
 	<a href="./InqueryAdminList.ai">전체</a>
