@@ -85,6 +85,26 @@ public class UserDAO {
 		}
 
 	}
+	
+	public String getId(String nick){
+		String id = null ; 
+		try {
+			conn = getConnection(); 
+			sql = "select user_id from member where user_nickname=?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nick);
+			
+			rs = pstmt.executeQuery(); 
+			if(rs.next()){
+				id = rs.getString(1); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		return id;  
+	}
 
 	public boolean checkNick(String a) {
 		// 닉네임 조회하는 함수
@@ -138,7 +158,7 @@ public class UserDAO {
 	public String Login(String id, String pw) {
 
 		boolean b = false;
-		String user_nick = "";
+		String user_nick = null;
 
 		try {
 			conn = getConnection();
@@ -169,15 +189,15 @@ public class UserDAO {
 		return user_nick;
 	}
 
-	public UserDTO getUserInfo(String id) {
+	public UserDTO getUserInfo(String user_nick) {
 
 		UserDTO udto = new UserDTO();
 
 		try {
 			conn = getConnection();
-			sql = "SELECT * FROM member WHERE user_id=?";
+			sql = "SELECT * FROM member WHERE user_nickname=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, user_nick);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {

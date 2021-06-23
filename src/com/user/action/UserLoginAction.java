@@ -13,7 +13,6 @@ public class UserLoginAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("id", null);
 		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");

@@ -15,11 +15,11 @@ public class UserInfoAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		String id = (String)session.getAttribute("id");
+		String user_nick = (String)session.getAttribute("user_nick");
 		
 		UserDAO udao = new UserDAO();
 		
-		UserDTO udto = udao.getUserInfo(id);
+		UserDTO udto = udao.getUserInfo(user_nick);
 		
 		session.setAttribute("udto", udto);
 		
