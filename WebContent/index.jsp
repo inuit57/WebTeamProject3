@@ -10,17 +10,17 @@
 <title></title>
 </head>
 <body>
-	<h1>Market</h1>
-	<a href="./UserLogin.us">로그인</a><br>
-	<a href="./UserJoin.us">회원가입</a><br>
+<!-- 	<h1>Market</h1> -->
+<!-- 	<a href="./UserLogin.us">로그인</a><br> -->
+<!-- 	<a href="./UserJoin.us">회원가입</a><br> -->
 	
-	<%if(session.getAttribute("id") != null) { %>
-	<%=session.getAttribute("id") %>
-	<a href="./UserInfoAction.us">유저 정보</a>
-	<a href="./UserLogoutAction.us">로그아웃</a>
-	<%} %>
+<%-- 	<%if(session.getAttribute("id") != null) { %> --%>
+<%-- 	<%=session.getAttribute("id") %> --%>
+<!-- 	<a href="./UserInfoAction.us">유저 정보</a> -->
+<!-- 	<a href="./UserLogoutAction.us">로그아웃</a> -->
+<%-- 	<%} %> --%>
 
-	<a href="./main.bo">메인</a>
+<!-- 	<a href="./main.bo">메인</a> -->
 	<%
 	// 게시판글쓰기 이동
 	// response.sendRedirect("./board_Write.bo");
@@ -45,7 +45,7 @@
 		 //response.sendRedirect("./InqueryList.in");
 
 
-		//response.sendRedirect("./Main.do");
+	response.sendRedirect("./Main.do");
 		
 	  //response.sendRedirect("./FAQAdd.faq");
 		
