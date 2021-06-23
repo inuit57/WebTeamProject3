@@ -31,11 +31,11 @@
 	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 	
-	int item= -1 ;
+	int item = -1 ;
 	if(request.getParameter("item") !=null){
-		item = Integer.parseInt( request.getParameter("item"));
+		 item = Integer.parseInt( request.getParameter("item"));
 	}
-	System.out.println(item);
+	//System.out.println(item);
 	
 	ProdDTO pDTO = new ProdDTO();
 
@@ -43,7 +43,7 @@
 
 		<!-- int값으로 selected 값...하 안돼요  -->
 		<select onchange="if(this.value) location.href=(this.value);" name="category">
-					<option value="./ProductList.pr?" selected="selected">카테고리</option>
+					<option value="./ProductList.pr" selected="selected">카테고리</option>
 					<option value="./ProductList.pr?">전체</option>
 					<option value="./ProductList.pr?item=0"
 					<% if(item == 0){ %>
@@ -112,13 +112,14 @@
 			int row = 2 ;// (size/col)+((size%col>0)? 1:0);
 			int num = (pageNum-1)*row*col; //0;
 		
-			if(size >0){	
+			if(size >0 && num <= size){	
 			
 			for(int i=0;i<row;i++){
 		%>	
 		
 		<tr>
 			<% for(int j=0;j<col;j++){ 
+				if(num >= size) break; 
 				pDTO = (ProdDTO)productList.get(num);%>
 			<td>
 				<%
@@ -154,16 +155,24 @@
 		
 <!-- ///////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
 
-+++++++++옵션별 페이징처리
+
 
 	<%
-		if(cnt != 0){
+		if(size != 0){
 			
 			
 			int pageCount = cnt / pageSize + (cnt%pageSize == 0? 0 : 1);
 			
 			//한 화면에 보여줄 페이지 번호의 갯수 (페이지 블럭)
-			int pageBlock = 10;
+			int pageBlock = (size/(col*row))+1  ;
+			if(pageBlock > 10) pageBlock = 10; 
+			
+			// 최대 : 5
+			// 한페이지에 보이는 거 최대 갯수 : max_view_cnt =  col * row = 12 
+			// 상품 갯수 : size 
+			// 5보다 작은가?? size / max_view_cnt + 1 
+					// 1 / 12  = 0 + 1 
+					// 13 /12 = 1 +1 = 2 
 			
 			//페이지 블럭의 시작페이지 번호
 			// ex) 1~10 페이지 : 1페이지, 11~20페이지 : 11페이지, 21~30페이지 : 21페이지
@@ -178,7 +187,7 @@
 			//이전 (해당 페이지블럭의 첫번째 페이지 호출)
 			if(startPage > pageBlock){
 				%>
-				<a href="ProductList.pr?pageNum=<%=startPage-pageBlock%>">[이전]</a>
+				<a href="ProductList.pr?pageNum=<%=startPage-pageBlock%>&item=<%=item%>">[이전]</a>
 				<%
 				
 			}
@@ -186,9 +195,16 @@
 			
 			for(int i=startPage;i<=endPage;i++){
 		
+				if ( item > 0 ){
 				%>
 				<a href="ProductList.pr?pageNum=<%=i%>&item=<%=item%>">[<%=i %>]</a>
 				<%
+				}else{
+					%>
+					<a href="ProductList.pr?pageNum=<%=i%>">[<%=i %>]</a>
+					<%
+				}
+				
 				////////////////옵션별 페이징 처리(상품 갯수만큼 페이징 처리하기)////////////////
 				//./ProductList.pr?item=< %=pDTO.getProd_category()% >
 			}
@@ -196,7 +212,7 @@
 			if(endPage < pageCount){
 				%>
 				
-				<a href="ProductList.pr?pageNum=<%=startPage+pageBlock%>">[다음]</a>
+				<a href="ProductList.pr?pageNum=<%=startPage+pageBlock%>&item=<%=item%>">[다음]</a>
 				
 				<%
 				
