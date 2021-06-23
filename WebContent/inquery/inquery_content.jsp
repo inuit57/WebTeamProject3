@@ -58,7 +58,7 @@ function deleteIn(){
 		<%} %>
 			<tr>
 				<td>글 내용</td>
-				<td colspan="3"><textarea col="10" row="40"><%=inDTO.getInq_content() %></textarea></td>
+				<td colspan="3"><%=inDTO.getInq_content() %></td>
 			</tr>
 			
 			
