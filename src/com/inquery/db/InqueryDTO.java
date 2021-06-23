@@ -10,8 +10,15 @@ public class InqueryDTO {
 	private String inq_img;
 	private String inq_date;
 	private int inq_ref;
+	private String inq_check;
 	
 	
+	public String getInq_check() {
+		return inq_check;
+	}
+	public void setInq_check(String inq_check) {
+		this.inq_check = inq_check;
+	}
 	public int getInq_ref() {
 		return inq_ref;
 	}
@@ -66,8 +73,10 @@ public class InqueryDTO {
 	public String toString() {
 		return "InqueryDTO [inq_num=" + inq_num + ", user_nick=" + user_nick + ", inq_sub=" + inq_sub + ", inq_content="
 				+ inq_content + ", inq_lev=" + inq_lev + ", inq_img=" + inq_img + ", inq_date=" + inq_date
-				+ ", inq_ref=" + inq_ref + "]";
+				+ ", inq_ref=" + inq_ref + ", inq_check=" + inq_check + "]";
 	}
+	
+	
 	
 	
 	

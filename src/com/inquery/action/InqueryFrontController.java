@@ -69,7 +69,49 @@ public class InqueryFrontController extends HttpServlet{
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/InqueryContent.in")){
+			System.out.println("C : /InqueryContent.in 호출");
+			
+			action = new InqueryContentAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}else if(command.equals("/InqueryModifyForm.in")){
+			System.out.println("C : /InqueryModifyForm.in 호출");
+			
+			action = new InqueryModifyFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/InqueryModify.in")){
+			System.out.println("C : /InqueryModify.in 호출");
+			
+			action = new InqueryModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/InqueryDelete.in")){
+			System.out.println("C : /InqueryDelete.in 호출");
+			
+			action = new InqueryDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			

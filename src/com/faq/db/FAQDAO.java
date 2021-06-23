@@ -13,6 +13,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
+
+
 public class FAQDAO {
 
 	
@@ -113,8 +115,14 @@ public class FAQDAO {
 				closeDB();		
 			}
 		}//faqWrite(FAQDTO fdto)
+	    
     
     
+    
+
+    
+
+  
 	    //getFAQList()
 	    public List getFAQList(){
 	    	List faqList = new ArrayList();
@@ -148,7 +156,12 @@ public class FAQDAO {
 	    }
 	    //getFAQList()
     
-	    //getFAQList(faq_cate)
+    
+    
+    
+    
+    
+	  //getFAQList(faq_cate)
 	    public List getFAQList(String faq_cate){
 	    	List faqList = new ArrayList();
 	    	
@@ -185,6 +198,7 @@ public class FAQDAO {
 					faqList.add(fdto);
 	
 				} // while
+	
 	
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -317,7 +331,6 @@ public class FAQDAO {
 	
 					// 리스트 한칸에 상품 1개를 저장
 					faqList.add(fdto);
-	
 				} // while
 	
 			} catch (SQLException e) {
@@ -332,3 +345,4 @@ public class FAQDAO {
 	    //getSearchList(keyword)
     
 }
+
