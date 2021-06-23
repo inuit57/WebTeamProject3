@@ -105,7 +105,8 @@
                 	
             		if (user_nick == null) {
             			%>
-            			<a href="./UserLogin.us">LOGIN |</a>
+            			<a href="./UserLogin.us">LOGIN </a>
+            			<p>&emsp; &emsp;</p>
             			<a href="./UserJoin.us">JOIN</a>
             			<%
             		}else{
