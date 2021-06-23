@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>prod_trade_write</title>
-
+<script src="./jq/jquery-3.6.0.js"></script>
 </head>
 <body>
 	<h1>WebContent/prod_trade/prod_trade_modify.jsp</h1>
@@ -21,7 +21,8 @@
 	
 	<fieldset>
 		<legend>중고거래 등록수정하기</legend>
-			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data">
+			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data"
+				name="pdf">
 				<table border="1">
 				<!-- switch문으로 작성 -->
 					<tr>
@@ -126,7 +127,7 @@
 						</td>
 					</tr>
 					<tr> 
-						<td>작성자</td> <!-- 회원테이블에서 불러옴 -->
+						<td>작성자</td> <!-- 회원테이블에서 불러옴 readonly-->
 						<td>
 							<input type="text" name="nick" value=<%=pDTO.getUser_nick() %>>
 						</td>
@@ -134,19 +135,21 @@
 					<tr> 
 						<td>글 제목</td>
 						<td>
-							<input type="text" name="subject" value=<%=pDTO.getProd_sub() %>>
+							<input type="text" name="prod_sub" id="psub" value=<%=pDTO.getProd_sub() %>>
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 가격</td>
 						<td>
-							<input type="number" name="price" value=<%=pDTO.getProd_price() %>>
+							<input type="number" name="prod_price" id="price" value=<%=pDTO.getProd_price() %>>
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 이미지1</td>
 						<td>
-							<input type="file" name="file1" accept="image/*">
+							<input type="file" name="file1" accept="image/*" >
+							<input type="text" value=<%=pDTO.getProd_img().split(",")[0]%>>
+							
 						</td>
 					</tr>
 					<tr> 
@@ -170,12 +173,13 @@
 					<tr> 
 						<td>글 내용</td>
 						<td>
-							<textarea rows="30" cols="60" name="content" ></textarea>
+							<textarea rows="30" cols="60" name="content" name="prod_content"
+								id="pcontent"><%=pDTO.getProd_content() %></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="수정하기">
+							<input type="submit" id="prod_update" value="수정하기">
 							<input type="reset" value="초기화">
 						</td>
 					</tr>
@@ -187,4 +191,39 @@
 	
 	
 </body>
+
+
+<script type="text/javascript">
+	
+	$(function(){
+		$("#prod_save").click(function(){
+			
+			var prod_sub = document.getElementById("psub").value;
+			var prod_price = document.getElementById("price").value;
+			var prod_content = document.getElementById("pcontent").value;
+			
+			if(prod_sub == ""){
+				alert("제목을 입력하세요.");
+				return false;
+				
+			}
+			if(prod_price == ""){
+				alert("가격을 입력하세요.");
+				return false;
+			}
+			
+			if(prod_content == "" || prod_content == null || prod_content == '&nbsp;' || prod_content == '<br>' || content == '<br/>' || prod_content == '<p>&nbsp;</p>'){
+				alert("본문을 입력하세요."); 
+				
+				return false; 
+			} 
+			
+			
+			document.fr.submit();
+			
+		});
+		
+		
+	});
+</script>
 </html>
