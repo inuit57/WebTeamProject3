@@ -14,7 +14,10 @@ public class FAQSerchAction implements Action {
 		// 한글처리
 		request.setCharacterEncoding("utf-8");
 		
-		String keyword = request.getParameter("faq_search");
+		String[] keyword = request.getParameter("faq_search").split(" ");
+		
+		
+				
 		
 		FAQDAO fdao = new FAQDAO();
 		

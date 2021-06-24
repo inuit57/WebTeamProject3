@@ -37,7 +37,7 @@ public class UserJoinAction implements Action{
 		
 		//페이지 이동
 		ActionForward forward = new ActionForward();
-		forward.setPath("./index.us");
+		forward.setPath("./Main.do");
 		forward.setRedirect(true);
 		
 		return forward;

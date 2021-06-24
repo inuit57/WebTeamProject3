@@ -14,7 +14,7 @@ public class UserLogoutAction implements Action {
 		session.invalidate();
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("./index.us");
+		forward.setPath("./Main.do");
 		forward.setRedirect(true);
 		
 		return forward;

@@ -46,8 +46,12 @@
 			
 		</table>
 
-	<a href="./InqueryAdminWriteFormAction.ai?num=<%=inDTO.getInq_num()%>"> 답변달기</a>
+<%
+	if(!inDTO.getInq_check().equals("1")){
+%>
 
+	<a href="./InqueryAdminWriteFormAction.ai?num=<%=inDTO.getInq_num()%>"> 답변달기</a>
+<%} %>
 
 
 </body>

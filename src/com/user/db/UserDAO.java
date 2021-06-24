@@ -56,7 +56,7 @@ public class UserDAO {
 		try {
 			conn = getConnection();
 
-			sql = "INSERT INTO user(user_id,user_nickname,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
+			sql = "INSERT INTO member(user_id,user_nickname,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
 					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
@@ -85,6 +85,26 @@ public class UserDAO {
 		}
 
 	}
+	
+	public String getId(String nick){
+		String id = null ; 
+		try {
+			conn = getConnection(); 
+			sql = "select user_id from member where user_nickname=?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nick);
+			
+			rs = pstmt.executeQuery(); 
+			if(rs.next()){
+				id = rs.getString(1); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		return id;  
+	}
 
 	public boolean checkNick(String a) {
 		// 닉네임 조회하는 함수
@@ -92,7 +112,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nickname FROM user WHERE user_nickname=?";
+			sql = "SELECT user_nickname FROM member WHERE user_nickname=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();
@@ -117,7 +137,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_id FROM user WHERE user_id=?";
+			sql = "SELECT user_id FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();
@@ -135,20 +155,21 @@ public class UserDAO {
 		return tmp;
 	}
 
-	public boolean Login(String id, String pw) {
+	public String Login(String id, String pw) {
 
 		boolean b = false;
+		String user_nick = null;
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_pw, user_use_yn FROM user WHERE user_id=?";
+			sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				if (rs.getString(1).equals(pw)) {
 					if (rs.getInt(2) == 0) {
-						b = true;
+						user_nick = rs.getString(3);
 					} else {
 						b = false;
 					}
@@ -165,18 +186,18 @@ public class UserDAO {
 			closeDB();
 		}
 
-		return b;
+		return user_nick;
 	}
 
-	public UserDTO getUserInfo(String id) {
+	public UserDTO getUserInfo(String user_nick) {
 
 		UserDTO udto = new UserDTO();
 
 		try {
 			conn = getConnection();
-			sql = "SELECT * FROM user WHERE user_id=?";
+			sql = "SELECT * FROM member WHERE user_nickname=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, user_nick);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -201,7 +222,7 @@ public class UserDAO {
 	public void userDelete(String id) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE user SET user_use_yn=1 WHERE user_id=?";
+			sql = "UPDATE member SET user_use_yn=1 WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -216,7 +237,7 @@ public class UserDAO {
 	public void userInfoEdit(UserDTO udto) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE user SET user_phone=?, user_address=?, user_address_plus=?, user_picture=? WHERE user_id=?";
+			sql = "UPDATE member SET user_phone=?, user_address=?, user_address_plus=?, user_picture=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_phone());
 			pstmt.setString(2, udto.getUser_address());
@@ -237,7 +258,7 @@ public class UserDAO {
 	public void changePassword(String id,String new_pw) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE user SET user_pw=? WHERE user_id=?";
+			sql = "UPDATE member SET user_pw=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, new_pw);
 			pstmt.setString(2, id);

@@ -13,20 +13,19 @@ public class UserLoginAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("id", null);
 		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
 		UserDAO udao = new UserDAO();
 		
-		boolean b = udao.Login(id,pw);
+		String user_nick = udao.Login(id,pw);
 		
 		ActionForward forward = new ActionForward();
 		
-		if(b == true) {
-			session.setAttribute("id", id);
-			forward.setPath("./index.us");
+		if(user_nick != null) {
+			session.setAttribute("user_nick", user_nick);
+			forward.setPath("./Main.do");
 			forward.setRedirect(true);
 		} else {
 			forward.setPath("./UserLogin.us?error=1");
