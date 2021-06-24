@@ -73,7 +73,7 @@ public class ProdDAO {
 			}
 			
 			sql = "insert into prod_trade "
-					+ "values(?,?,?,?,?,?,?,?,now(),?,?)";
+					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -87,6 +87,7 @@ public class ProdDAO {
 			pstmt.setString(8, pDTO.getProd_img());
 			pstmt.setString(9, pDTO.getProd_ip());
 			pstmt.setInt(10, pDTO.getProd_count());
+			pstmt.setInt(11, pDTO.getWish_count());
 			
 			pstmt.executeUpdate();
 			
@@ -126,6 +127,7 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setWish_count(rs.getInt("wish_count"));
 				
 				productList.add(pDTO);
 				
@@ -181,6 +183,8 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setWish_count(rs.getInt("wish_count"));
+				
 				
 				productList.add(pDTO);
 			}
@@ -224,6 +228,7 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setWish_count(rs.getInt("wish_count"));
 				
 			}
 			
@@ -300,6 +305,7 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setWish_count(rs.getInt("wish_count"));
 				
 				productList.add(pDTO);
 			}

@@ -66,7 +66,7 @@
 					<tr> 
 						<td>상품 가격</td>
 						<td>
-							<input type="number" name="prod_price" id="price" placeholder="가격을 입력하세요." required="required">
+							<input type="number" name="prod_price" id="price" placeholder="가격을 입력하세요.">
 						</td>
 					</tr>
 					<tr> 

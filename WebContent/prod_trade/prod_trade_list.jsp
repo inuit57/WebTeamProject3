@@ -40,7 +40,7 @@
 	ProdDTO pDTO = new ProdDTO();
 
 %>
-
+		<a href="./main.bo">메인</a>
 		<!-- int값으로 selected 값...하 안돼요  -->
 		<select onchange="if(this.value) location.href=(this.value);" name="category">
 					<option value="./ProductList.pr" selected="selected">카테고리</option>
