@@ -403,7 +403,7 @@ iframe {
   min-width: 150px;
   height: 55px;
   background-color: #333333;
-  border-radius: 27px;
+  border-radius: 10px;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;

@@ -32,7 +32,6 @@
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
 
-
 		<%
 			request.setCharacterEncoding("UTF-8");
 		
@@ -57,19 +56,22 @@ console.log(Kakao.isInitialized());
                 
                 var k_email = response.kakao_account.email;
                 var k_nickname = response.properties.nickname;
-                
+
+
+
                 // 연령대, 생일 가져오기
                 
                 $('#id').val(k_email);
-                $('#pw').val(k_nickname);
+            	$('#user_nickname').val(k_nickname);
                 $("#loginType").val("kakao");
                 
-                $('#loginfr').submit();
+                $('#fr').submit();
                 
 //                  alert(k_id)
 //                  alert(k_email)
 //                  alert(k_gender)
 //                  alert(k_nickname)
+
 
              },
              fail: function (error) {
@@ -101,8 +103,6 @@ console.log(Kakao.isInitialized());
      }  
 
 
-
-
 </script>
 
 </head>
@@ -124,54 +124,26 @@ console.log(Kakao.isInitialized());
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-				<form class="login100-form validate-form flex-sb flex-w" action="./UserLoginAction.us" id="loginfr">
+				<form class="login100-form validate-form flex-sb flex-w" action="./UserJoin.us" id="fr">
 					<a href="./Main.do"><img src="./img/logo.png"></a>
 					<span class="login100-form-title p-b-32" style="color: #59ab6e;">
-						Login
+						Join
 					</span>
 					
+					<input  type="hidden" id="id" name="id">  
+					<input  type="hidden" id="user_nickname" name="user_nickname">  
 					<input type="hidden" id="loginType" name="loginType" value="normal">
-
-					<span class="txt1 p-b-11">
-						email
-					</span>
-					<div class="wrap-input100 validate-input m-b-36" data-validate = "이메일을 입력하세요">
-						<input class="input100" type="text" id="id" name="id" placeholder="이메일">
-						<span class="focus-input100"></span>
+					
+					<div>
+					<p style="font-size: 1vw; color: black;">환영합니다!</p>
+					<p style="font-size: 1vw; color: #59ab6e;">가입 방법을 선택 후 진행해주세요</p>
 					</div>
 					
-					<span class="txt1 p-b-11">
-						Password
-					</span>
-					<div class="wrap-input100 validate-input m-b-12" data-validate = "비밀번호를 입력하세요">
-						<span class="btn-show-pass">
-							<i class="fa fa-eye"></i>
-						</span>
-						<input  class="input100" type="password" id="pw" name="pw" placeholder="비밀번호">
-						
-						<span class="focus-input100"></span>
-					</div>
-					
-					<div class="flex-sb-m w-full p-b-48">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-
-						<div>
-							<a href="#" class="txt3">
-								Forgot Password?
-							</a>
-						</div>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<input class="login100-form-btn" type="submit" id="login" value="Login" style="width: 100%"><br>
+					<div class="container-login100-form-btn" style="margin-top: 50px">
+						<input class="login100-form-btn" type="button" onclick="location.href='./UserEmail.us'" value="이메일로 가입" style="width: 100%"><br>
 						<img src="./img/kakao_login.png" onclick="kakaoLogin();" style="width: 100%; margin-top: 5px">
 					</div>
-						<a href="./UserJoinChk.us" style="margin-top:30px;margin-left:40%;font-size: 0.9vw">회원가입</a>
+						<a href="./UserLogin.us" style="margin-top:30px;margin-left:40%;font-size: 0.9vw">로그인</a>
 				</form>
 			</div>
 		</div>

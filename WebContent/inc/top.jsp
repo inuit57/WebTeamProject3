@@ -107,7 +107,7 @@
             			%>
             			<a href="./UserLogin.us">LOGIN </a>
             			<p>&emsp; &emsp;</p>
-            			<a href="./UserJoin.us">JOIN</a>
+            			<a href="./UserJoinChk.us">JOIN</a>
             			<%
             		}else{
             			%>

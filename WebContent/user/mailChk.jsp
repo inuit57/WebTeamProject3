@@ -32,146 +32,78 @@
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
 
-
+	<%
+		String content = (String)session.getAttribute("content");
+		String id= (String)session.getAttribute("id");
+		if(id != null){
+			%>
+			<script type="text/javascript">
+				alert("해당 메일로 인증번호가 발송되었습니다");
+			</script>
 		<%
-			request.setCharacterEncoding("UTF-8");
+		}
+		session.removeAttribute("id");
 		
-		%>
 
-
-<!-- 카카오 스크립트 -->
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script type="text/javascript">
-Kakao.init('824c000c199e69a3e3dc1d068f46bdfc');
-console.log(Kakao.isInitialized());
-
-
-//카카오로그인
-	function kakaoLogin() {
-       Kakao.Auth.loginForm({
-         success: function (response) {
-           Kakao.API.request({
-             url: '/v2/user/me',
-             success: function (response) {
-                console.log(response)
-                
-                var k_email = response.kakao_account.email;
-                var k_nickname = response.properties.nickname;
-                
-                // 연령대, 생일 가져오기
-                
-                $('#id').val(k_email);
-                $('#pw').val(k_nickname);
-                $("#loginType").val("kakao");
-                
-                $('#loginfr').submit();
-                
-//                  alert(k_id)
-//                  alert(k_email)
-//                  alert(k_gender)
-//                  alert(k_nickname)
-
-             },
-             fail: function (error) {
-               console.log(error)
-             },
-           })
-         },
-         fail: function (error) {
-           console.log(error)
-         },
-       })
-     }
-
- //카카오로그아웃  
-   function kakaoLogout() {
-       if (Kakao.Auth.getAccessToken()) {
-         Kakao.API.request({
-           url: '/v1/user/unlink',
-           success: function (response) {
-              console.log(response)
-              alert('카카오 로그아웃 성공')
-           },
-           fail: function (error) {
-             console.log(error)
-           },
-         })
-         Kakao.Auth.setAccessToken(undefined)
-       }
-     }  
-
-
-
-
-</script>
+		request.setCharacterEncoding("UTF-8");
+		
+	%>
 
 </head>
 <body>
-
-	<%
 	
-	String error = request.getParameter("error"); 
-	if(error != null && error.equals("1")) {
-		%>
-		<script type="text/javascript">
-			alert("아이디 또는 비밀번호 오류 입니다");
-		</script>
+<script type="text/javascript">
+	
+	function check() {
+		var code = document.fr.con_chk.value;
+		var authNum = <%=content %>;
 		
-	<%
+		if(!code) {
+			alert("인증번호를 입력해주세요");
+			return;
+		}
+		
+		if(authNum == code) {
+			
+			alert("인증 되었습니다.");
+			
+		<%
+			session.removeAttribute("content");
+		
+		%>
+			
+			fr.submit();
+		
+			
+		} else {
+			alert("인증번호가 다릅니다. 다시 입력해 주세요.");
+			return;
+		}
 	}
+</script>
 	
-	%>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-				<form class="login100-form validate-form flex-sb flex-w" action="./UserLoginAction.us" id="loginfr">
+				<form class="login100-form validate-form flex-sb flex-w" action="./UserJoin.us" id="fr" name="fr" method="post">
 					<a href="./Main.do"><img src="./img/logo.png"></a>
-					<span class="login100-form-title p-b-32" style="color: #59ab6e;">
-						Login
+					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
+						인증번호
 					</span>
-					
-					<input type="hidden" id="loginType" name="loginType" value="normal">
 
+			 		<input type="hidden" name="id" value=<%=id %>>
 					<span class="txt1 p-b-11">
-						email
+						인증번호
 					</span>
-					<div class="wrap-input100 validate-input m-b-36" data-validate = "이메일을 입력하세요">
-						<input class="input100" type="text" id="id" name="id" placeholder="이메일">
+					<span class="chkMsg_umail"></span>  
+					<div class="wrap-input100 validate-input m-b-36" data-validate = "인증번호를 입력하세요">
+						<input class="input100" type="text" name="con_chk" placeholder="인증번호" >
 						<span class="focus-input100"></span>
-					</div>
-					
-					<span class="txt1 p-b-11">
-						Password
-					</span>
-					<div class="wrap-input100 validate-input m-b-12" data-validate = "비밀번호를 입력하세요">
-						<span class="btn-show-pass">
-							<i class="fa fa-eye"></i>
-						</span>
-						<input  class="input100" type="password" id="pw" name="pw" placeholder="비밀번호">
-						
-						<span class="focus-input100"></span>
-					</div>
-					
-					<div class="flex-sb-m w-full p-b-48">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-
-						<div>
-							<a href="#" class="txt3">
-								Forgot Password?
-							</a>
-						</div>
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<input class="login100-form-btn" type="submit" id="login" value="Login" style="width: 100%"><br>
-						<img src="./img/kakao_login.png" onclick="kakaoLogin();" style="width: 100%; margin-top: 5px">
+						<input class="login100-form-btn" type="button" id="login"  onclick="check();" value="메일인증" style="width: 100%"><br>
 					</div>
-						<a href="./UserJoinChk.us" style="margin-top:30px;margin-left:40%;font-size: 0.9vw">회원가입</a>
 				</form>
 			</div>
 		</div>
