@@ -251,6 +251,26 @@ public class UserDAO {
 		
 	}
 	
+	public String getUserNick(String id) {
+		
+		String nick = null;
+		
+		try {
+			conn = getConnection();
+			sql = "SELECT user_nickname FROM user WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				nick = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.getUserNick() function error - KBH");
+		}
+		return nick;
+	}
+	
 	
 
 }

@@ -14,6 +14,7 @@ public class UserLoginAction implements Action {
 		HttpSession session = request.getSession();
 		
 		session.setAttribute("id", null);
+		session.setAttribute("nick", null);
 		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -21,11 +22,13 @@ public class UserLoginAction implements Action {
 		UserDAO udao = new UserDAO();
 		
 		boolean b = udao.Login(id,pw);
+		String user_nick = udao.getUserNick(id);
 		
 		ActionForward forward = new ActionForward();
 		
 		if(b == true) {
 			session.setAttribute("id", id);
+			session.setAttribute("nick", user_nick);
 			forward.setPath("./index.us");
 			forward.setRedirect(true);
 		} else {

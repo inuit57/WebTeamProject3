@@ -120,6 +120,14 @@ public class BoardFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
+		} else if(command.equals("/MyPageBoardList.bo")) {
+			action = new MyPageBoardListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
