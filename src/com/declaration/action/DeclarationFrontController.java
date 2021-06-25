@@ -1,4 +1,4 @@
-package com.board.comment.action;
+package com.declaration.action;
 
 import java.io.IOException;
 
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-public class BoardCommentFrontController extends HttpServlet{
-	
+public class DeclarationFrontController extends HttpServlet{
+
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("C : BoardCommentFrontController_doPrecess() 호출");
+		System.out.println("C : BoardDeclarationFrontController_doPrecess() 호출");
 		
 		/******************* 1.페이지 주소 파싱 ********************************/
 		
@@ -35,29 +35,37 @@ public class BoardCommentFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/BoardCommentWriteAction.bco")){
-			System.out.println("/BoardCommentWriteAction.bco 호출");
-			
-			action = new BoardCommentWriteAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else if(command.equals("/board_Comment_Modify.bco")){
-			System.out.println("C : /board_Comment_Modify.bco 호출");
+		if(command.equals("/declaration.decl")){
+			System.out.println("C : /declaration.decl 호출");
 			
 			forward = new ActionForward();
-			forward.setPath("./board/board_Comment_Modify.jsp");
+			forward.setPath("./declaration/declaration.jsp");
 			forward.setRedirect(false);
 			
 		}
-		else if(command.equals("/boardCommentModifyAction.bco")){
-			System.out.println("C : boardCommentModifyAction.bco 호출");
+		else if(command.equals("/declarationAction.decl")){
+			System.out.println("C : declarationAction.decl 호출");
 			
-			action = new boardCommentModifyAction();
+			action = new declarationAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/declarationList.decl")){
+			System.out.println("C : /declarationList.decl 호출");
+			
+			forward = new ActionForward();
+			forward.setPath("./declaration/declarationList.jsp");
+			forward.setRedirect(false);
+			
+		}
+		else if(command.equals("/decl_normal_list.decl")){
+			System.out.println("C : decl_normal_list.decl 호출");
+			
+			action = new decl_normal_listAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -66,18 +74,7 @@ public class BoardCommentFrontController extends HttpServlet{
 			}
 			
 		}
-		else if(command.equals("/boardCommentDeleteAction.bco")){
-			System.out.println("C : /boardCommentDeleteAction.bco 호출");
-			
-			action = new BoardCommentDeleteAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}
+		
 		
 		
 		
@@ -110,14 +107,13 @@ public class BoardCommentFrontController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("C : BoardCommentFrontController_doGet() 호출");
+		System.out.println("C : BoardDeclarationFrontController_doGet() 호출");
 		doProcess(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("C : BoardCommentFrontController_doPost() 호출");
+		System.out.println("C : BoardDeclarationFrontController_doPost() 호출");
 		doProcess(request, response);
 	}
-
 }
