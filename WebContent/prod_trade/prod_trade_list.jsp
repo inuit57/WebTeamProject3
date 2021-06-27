@@ -16,6 +16,13 @@
 
 
 <%
+
+
+
+	String nick = (String)session.getAttribute("user_nick");
+	
+
+
 	List productList = (List) request.getAttribute("productList");
 
 //request.setAttribute("productListCount", pDAO.getProductCount());
@@ -40,7 +47,7 @@
 	ProdDTO pDTO = new ProdDTO();
 
 %>
-
+		<a href="./main.bo">메인</a>
 		<!-- int값으로 selected 값...하 안돼요  -->
 		<select onchange="if(this.value) location.href=(this.value);" name="category">
 					<option value="./ProductList.pr" selected="selected">카테고리</option>
@@ -128,12 +135,13 @@
 					 imgfile = "product_default.jpeg"; 
 				 }
 				%>
-			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>">
+			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>">
 				<img src="./upload/<%=imgfile%>"
 					 width="150" height="150"><br>
 					 <%=pDTO.getProd_sub() %>
 					 </a><br>
-					 <%=pDTO.getProd_price() %>
+					 <%=pDTO.getProd_price() %> <br>
+					 <%=pDTO.getUser_nick() %>
 			
 			</td>
 		<%

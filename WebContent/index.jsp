@@ -1,4 +1,5 @@
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,6 +9,7 @@
 <script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
 <title></title>
+
 </head>
 <body>
 	<h1>Market</h1>
@@ -34,7 +36,10 @@
 	
 	// 메인페이지
   
+	
+	
 	// response.sendRedirect("./main.bo");
+	
 	// 댓글인설트중
 	// 일반게시판 목록
 	// response.sendRedirect("./board_List.bo");
