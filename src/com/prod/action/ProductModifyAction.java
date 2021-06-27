@@ -40,8 +40,8 @@ public class ProductModifyAction implements Action {
 		pDTO.setProd_category(Integer.parseInt(multi.getParameter("category")));
 		pDTO.setProd_status(Integer.parseInt(multi.getParameter("status")));
 		pDTO.setUser_nick(multi.getParameter("nick"));
-		pDTO.setProd_sub(multi.getParameter("subject"));
-		pDTO.setProd_price(Integer.parseInt(multi.getParameter("price")));
+		pDTO.setProd_sub(multi.getParameter("prod_sub"));
+		pDTO.setProd_price(Integer.parseInt(multi.getParameter("prod_price")));
 		pDTO.setProd_content(multi.getParameter("content"));
 		pDTO.setProd_num(num);
 		

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.prod.db.ProdDAO;
 import com.prod.db.ProdDTO;
+import com.wish.db.WishDAO;
 
 public class ProductDetailAction implements Action {
 
@@ -23,7 +24,10 @@ public class ProductDetailAction implements Action {
 		ProdDAO pDAO = new ProdDAO();
 		request.setAttribute("product", pDAO.getProduct(num));
 
-		ProdDTO pDTO = new ProdDTO();
+		//상품 찜 횟수
+		//WishDAO wDAO = new WishDAO();
+		//request.setAttribute("wishCount", wDAO.wishCount(num));
+				
 		
 		
 		int count = 0;
@@ -56,6 +60,8 @@ public class ProductDetailAction implements Action {
 				pDAO.updateCount(num);
 			}
 		
+		
+			
 		
 		//페이지 이동
 		ActionForward forward = new ActionForward();

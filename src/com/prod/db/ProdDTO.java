@@ -15,7 +15,7 @@ public class ProdDTO {
 	private Timestamp prod_date;
 	private String prod_ip;
 	private int prod_count;
-	
+	private int wish_count;
 	public int getProd_num() {
 		return prod_num;
 	}
@@ -82,14 +82,20 @@ public class ProdDTO {
 	public void setProd_count(int prod_count) {
 		this.prod_count = prod_count;
 	}
-	
+	public int getWish_count() {
+		return wish_count;
+	}
+	public void setWish_count(int wish_count) {
+		this.wish_count = wish_count;
+	}
 	@Override
 	public String toString() {
 		return "ProdDTO [prod_num=" + prod_num + ", user_nick=" + user_nick + ", prod_category=" + prod_category
 				+ ", prod_status=" + prod_status + ", prod_sub=" + prod_sub + ", prod_content=" + prod_content
 				+ ", prod_price=" + prod_price + ", prod_img=" + prod_img + ", prod_date=" + prod_date + ", prod_ip="
-				+ prod_ip + ", prod_count=" + prod_count + "]";
+				+ prod_ip + ", prod_count=" + prod_count + ", wish_count=" + wish_count + "]";
 	}
+	
 	
 	
 	
