@@ -43,6 +43,26 @@ public class DeclarationFrontController extends HttpServlet{
 			forward.setRedirect(false);
 			
 		}
+		
+		else if(command.equals("/declarationProd.decl")){
+			System.out.println("C : /declarationProd.decl 호출");
+			
+			forward = new ActionForward();
+			forward.setPath("./declaration/declaration_prod.jsp");
+			forward.setRedirect(false);
+			
+		}
+		else if(command.equals("/declarationProdAction.decl")){
+			System.out.println("C : declarationAction.decl 호출");
+			
+			action = new declarationProdAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else if(command.equals("/declarationAction.decl")){
 			System.out.println("C : declarationAction.decl 호출");
 			
