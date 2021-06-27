@@ -46,7 +46,10 @@
             		if (user_nick != null) {
             			%>
             			<a href="./UserInfoAction.us"><%=user_nick %>님</a>
+            			&emsp; &emsp;
             			<a href="./UserLogoutAction.us">로그아웃</a>
+            			&emsp; &emsp;
+            			<a href="./Payment.pa">충전</a>
             			<%
             		}%>
                     

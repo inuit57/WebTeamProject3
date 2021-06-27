@@ -141,7 +141,7 @@ console.log(Kakao.isInitialized());
 					
 					<div class="container-login100-form-btn" style="margin-top: 50px">
 						<input class="login100-form-btn" type="button" onclick="location.href='./UserEmail.us'" value="이메일로 가입" style="width: 100%"><br>
-						<img src="./img/kakao_login.png" onclick="kakaoLogin();" style="width: 100%; margin-top: 5px">
+						<img src="./img/kakao_join.png" onclick="kakaoLogin();" style="width: 100%; margin-top: 5px">
 					</div>
 						<a href="./UserLogin.us" style="margin-top:30px;margin-left:40%;font-size: 0.9vw">로그인</a>
 				</form>
