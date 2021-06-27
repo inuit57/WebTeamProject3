@@ -15,11 +15,11 @@
 	 
 	        if($("input[name=decl_reason]:checked").val() == "6"){
 	            $("input:text[name=decl_content]").attr("disabled",false);
-	            // radio 버튼의 value 값이 3이라면 활성화
+	            // radio 버튼의 value 값이 6이라면 활성화
 	 
 	        }else if($("input[name=decl_reason]:checked").val() == "1" || "2" || "3" || "4" || "5"){
 	              $("input:text[name=decl_content]").attr("disabled",true);
-	            // radio 버튼의 value 값이 1또는 2면 비활성화
+	            // radio 버튼의 value 값이 1,2,3,4,5이면 비활성화
 	        }
 	    });
 		
@@ -77,12 +77,6 @@
 		<input type="submit" value="신고하기">
 		
 	</form>
-
-
-
-
-
-
 
 
 

@@ -353,6 +353,28 @@ public class boardCommentDAO {
     
     
     /********************************************************************/
+    // delete_cmt_to_board(int board_num) - 게시글 지우면 댓글DB에 지워지는 게시글번호에 달린 댓글을 다지움
+    public void delete_cmt_to_board(int board_num){
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "delete from normal_board_comment where board_num=?";
+    	
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    }
+    // delete_cmt_to_board(int board_num) - 게시글 지우면 댓글DB에 지워지는 게시글번호에 달린 댓글을 다지움
     /********************************************************************/
     /********************************************************************/
     /********************************************************************/

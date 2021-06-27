@@ -74,6 +74,30 @@ public class DeclarationFrontController extends HttpServlet{
 			}
 			
 		}
+		else if(command.equals("/decl_normal_content.decl")){
+			System.out.println("C : /decl_normal_content.decl 호출");
+			
+			action = new decl_normal_contentAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/decl_normal_boardDeleteAction.decl")){
+			System.out.println("C : /decl_normal_boardDeleteAction.decl 호출");
+			
+			action = new decl_normal_boardDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		
 		
 		

@@ -84,6 +84,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./FAQ.faq">FAQ</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./board_List.bo">board</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

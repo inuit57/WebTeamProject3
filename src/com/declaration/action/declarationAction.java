@@ -2,6 +2,7 @@ package com.declaration.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import com.declaration.db.declarationDAO;
 import com.declaration.db.declarationDTO;
@@ -34,6 +35,7 @@ public class declarationAction implements Action {
 		
 		declarationDAO dcDAO = new declarationDAO();
 		dcDAO.declWrite(dcDTO);
+		
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();

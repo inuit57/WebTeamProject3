@@ -17,9 +17,33 @@ public class decl_normal_listAction implements Action {
 		System.out.println("M : decl_normal_listAction_execute() 호출");
 		
 		declarationDAO dcDAO = new declarationDAO();
-		List decl_normal_list = dcDAO.getDecl_normal_list();
+		
+		// 신고게시판 게시글 개수 
+		int decl_normal_listcnt = dcDAO.decl_normal_listCount();
+		
+		// 한페이지당 보여줄 글의 개수
+		int pageSize = 10;
+		
+		// 현페이지가 몇페이지 인지 확인
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize + 1;
+		
+		int endRow = currentPage * pageSize;
+		
+		// 신고게시판에 있는 글의 목록을 신고가 많은 순으로 정렬해서 한번씩 보여주는 함수
+		List decl_normal_list = dcDAO.getDecl_normal_list(startRow, pageSize);
 		
 		request.setAttribute("decl_normal_list", decl_normal_list);
+		request.setAttribute("decl_normal_listcnt", decl_normal_listcnt);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("currentPage", currentPage);
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();
