@@ -9,6 +9,7 @@
 <script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
 <title></title>
+
 </head>
 <body>
 <!-- 	<h1>Market</h1> -->
@@ -17,6 +18,7 @@
 	
 <%-- 	<%if(session.getAttribute("id") != null) { %> --%>
 <%-- 	<%=session.getAttribute("id") %> --%>
+
 <!-- 	<a href="./UserInfoAction.us">유저 정보</a> -->
 <!-- 	<a href="./UserLogoutAction.us">로그아웃</a> -->
 <%-- 	<%} %> --%>
@@ -28,7 +30,10 @@
 	
 	// 메인페이지
   
+	
+	
 	// response.sendRedirect("./main.bo");
+	
 	// 댓글인설트중
 	// 일반게시판 목록
 	// response.sendRedirect("./board_List.bo");

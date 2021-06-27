@@ -1,3 +1,7 @@
+<%@page import="com.user.db.UserDAO"%>
+<%@page import="com.user.db.UserDTO"%>
+<%@page import="com.wish.db.WishDTO"%>
+<%@page import="com.wish.db.WishDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,11 +30,40 @@
 
 	<%
 	ProdDTO pDTO = (ProdDTO) request.getAttribute("product");
+	String nick = (String)session.getAttribute("user_nick");
+	WishDTO wDTO = new WishDTO();
+	
+	
+	WishDAO wDAO = new WishDAO();
+	int pageNum = Integer.parseInt(request.getParameter("pageNum").toString());
+	
+	//int wishCount = (int)request.getAttribute("wishCount");
+	
 	%>
 
 	<a href="./main.bo">메인</a>
+	
+	<!-- 신고폼 -->
+	
+	<form action="./declaration.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+		
+		<input type="submit" value="신고하기">
+		<input type="hidden" name="" value="<%=pDTO.getProd_num()%>">
+		<!-- 신고 당하는 글 작성자 -->
+		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nick()%>">
+		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
+		<input type="hidden" name="board_type" value="1">
+		<input type="hidden" name="pageNum" value="<%=pageNum%>">
+	
+	</form>
+	
+	<!-- 신고폼 -->
+	
+	
+	
 	<form action="#" method="post" name="pfr">
-
+	<input type="hidden" name="nick" value=<%=nick%>>
+	
 		<table border="1">
 			<tr>
 				<td width="400">
@@ -159,17 +192,24 @@
 						<small><li>작성시간 : <%=pDTO.getProd_date()%></li></small>
 					</ul> 
 					
-					<c:if test="${isExistsFavoriteData }">
-						<span id="favorite" style="color:red;">♥</span>
-					</c:if>
-					<c:if test="${!isExistsFavoriteData }">
+					찜 횟수 &nbsp; 
+					<c:if test="<%=wDAO.favoriteCheck(pDTO.getProd_num(), nick) == 0%>">
 						<span id="favorite"  style="color:red;">♡</span>
 					</c:if>
-
-
-					<input type="button" value="찜하기" class="form-control"> 
+					
+					<c:if test="<%=wDAO.favoriteCheck(pDTO.getProd_num(), nick) == 1%>">
+						<span id="favorite" style="color:red;">♥</span>
+					</c:if>
+					<span id="wish__Count"> <%=wDAO.wishCount(pDTO.getProd_num()) %> </span>
+					
+					
+					<!-- 관리자만 사용가능한 메뉴 생성 -->
+	
+					
+					<input type="button" id="btnLike" value="찜하기" class="form-control"> 
 					<input type="button" value="구매하기" class="form-control"> 
 					<input type="button" value="채팅하기" class="form-control">
+					
 
 				</td>
 			</tr>
@@ -193,6 +233,11 @@
 
 
 
+<!--  		if(user_nick == null){
+				alert("로그인 후 이용 가능합니다.");
+				location.href='./UserLogin.us' 
+			} -->
+			
 
 
 
@@ -200,16 +245,42 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		var user_nick = document.getElementById("nick");
+			
 		$(".hide").hide();
-		$("#favorite").click(function(){
-			
-			$.post(
-				"/favorite"
-				,{"prod_wish" : "${}"}
+		$("#btnLike").click(function(){
 			
 			
-			
-			)
+			$.ajax({
+				
+				url:"favoriteProdAction.fp",
+				data:{
+					prod_num: <%=pDTO.getProd_num()%>,
+					user_nick: '<%=nick%>'
+				},
+				type:"post",
+				datatype: "json",
+				success : function(data){
+					
+					// 찜목록 버튼 눌렀을 때 동작 
+					// 기본에 있으니까 빼고 하트 비우는 거.
+					if(data.check == 1){
+						$("#favorite").text("♡");
+						$("#wish__Count").html(data.count);
+						//$("wishCount").text(data.count);
+						
+					}else{
+						// 기존에 없으니까 하트 채우기 
+						$("#favorite").text("♥");
+						//$("wishCount").text("133423");
+						$("#wish__Count").html(data.count);
+					}
+				}
+
+					
+				
+			})
 			
 			
 		});
@@ -218,8 +289,9 @@
 	});
 
 
-</script>
 
+
+</script>
 
 
 </html>

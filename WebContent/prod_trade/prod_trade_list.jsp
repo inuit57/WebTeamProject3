@@ -16,6 +16,13 @@
 
 
 <%
+
+
+
+	String nick = (String)session.getAttribute("user_nick");
+	
+
+
 	List productList = (List) request.getAttribute("productList");
 
 //request.setAttribute("productListCount", pDAO.getProductCount());
@@ -128,12 +135,13 @@
 					 imgfile = "product_default.jpeg"; 
 				 }
 				%>
-			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>">
+			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>">
 				<img src="./upload/<%=imgfile%>"
 					 width="150" height="150"><br>
 					 <%=pDTO.getProd_sub() %>
 					 </a><br>
-					 <%=pDTO.getProd_price() %>
+					 <%=pDTO.getProd_price() %> <br>
+					 <%=pDTO.getUser_nick() %>
 			
 			</td>
 		<%

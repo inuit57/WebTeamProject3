@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("*.fw")
+@WebServlet("*.fp")
 public class FavoriteFrontController extends HttpServlet{
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,11 +31,16 @@ public class FavoriteFrontController extends HttpServlet{
 		ActionForward forward = null;
 		
 
-		if(command.equals("/ProductTrade.pr")) {
-
-			forward = new ActionForward();
-			forward.setPath("./prod_trade.jsp");
-			forward.setRedirect(false);
+		if(command.equals("/favoriteProdAction.fp")) {
+System.out.println("!@#$%^$%^$#$!@#$@WFASDFASDFASDFASDFASFASDF");
+			///favoriteProdAction.fp 객체 생성
+			action = new favoriteProdAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 		}
 		

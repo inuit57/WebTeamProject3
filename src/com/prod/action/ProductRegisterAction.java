@@ -50,6 +50,7 @@ public class ProductRegisterAction implements Action {
 		
 		pDTO.setProd_img(image);
 		
+		
 		//중고거래 글 등록 DAO객체 생성
 		//insertProduct()
 		ProdDAO pDAO = new ProdDAO();
