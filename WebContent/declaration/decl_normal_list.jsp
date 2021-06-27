@@ -17,8 +17,8 @@
 <!-- 헤더파일들어가는 곳 -->
 	<h1>신고목록 - 일반게시판</h1>
 	
-	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list'">
-	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list'">
+	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl'">
+	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl'">
 	
 	<%
 		// 전달된 신고글 목록 저장
