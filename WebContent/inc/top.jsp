@@ -79,10 +79,13 @@
                             <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./ProductList.pr">Shop</a>
+                            <a class="nav-link" href="shop.html">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./FAQ.faq">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./board_List.bo">board</a>
                         </li>
                     </ul>
                 </div>
@@ -133,3 +136,4 @@
         </div>
     </nav>
     <!-- Close Header -->
+

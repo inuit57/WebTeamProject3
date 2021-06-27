@@ -6,39 +6,34 @@ import javax.servlet.http.HttpServletResponse;
 import com.board.comment.db.boardCommentDAO;
 import com.board.comment.db.boardCommentDTO;
 
-public class BoardCommentWriteAction implements Action {
+public class boardCommentModifyAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		System.out.println("BoardCommentWriteAction_execute() 호출");
+		System.out.println("M : boardCommentModifyAction_execute() 호출");
 		
+		// 한글처리
 		request.setCharacterEncoding("UTF-8");
 		
-		// 전달된 게시글번호 저장
+		// 댓글번호, 게시글번호, 페이지번호 저장
+		int cmt_num = Integer.parseInt(request.getParameter("cmt_num"));
+		String pageNum = request.getParameter("pageNum");
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		
-		// DTO객체생성
-		boardCommentDTO bcDTO = new boardCommentDTO();
+		boardCommentDTO	bcDTO = new boardCommentDTO();
 		
-		// 아이피
-		bcDTO.setCmt_ip(request.getRemoteAddr());
+		bcDTO.setCmt_content(request.getParameter("cmt_content_modify"));
+		bcDTO.setCmt_num(Integer.parseInt(request.getParameter("cmt_num")));
 		
-		// DTO에 전달된 댓글정보 저장
-		bcDTO.setUser_nick(request.getParameter("user_nick"));
-		bcDTO.setCmt_content(request.getParameter("cmt_content"));
-		bcDTO.setBoard_num(board_num);
-		
-		// 댓글DAO객체 생성해서 댓글등록하기
 		boardCommentDAO bcDAO = new boardCommentDAO();
-		bcDAO.insertBoardComment(board_num, bcDTO);
+		bcDAO.BoardCommentModify(bcDTO);
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();
 		forward.setPath("./board_content.bo?board_num="+board_num + "&pageNum="+pageNum);
 		forward.setRedirect(true);
-
+		
 		return forward;
 	}
 

@@ -1,4 +1,4 @@
-package com.board.db;
+package com.inquery.action;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

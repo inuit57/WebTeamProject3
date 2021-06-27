@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.inquery.db.InqueryDAO;
 import com.inquery.db.InqueryDTO;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class InqueryWriteAction implements Action {
 
