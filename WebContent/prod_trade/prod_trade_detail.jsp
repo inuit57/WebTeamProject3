@@ -45,10 +45,10 @@
 	
 	<!-- 신고폼 -->
 	
-	<form action="./declaration.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+	<form action="./declarationProd.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 		
 		<input type="submit" value="신고하기">
-		<input type="hidden" name="" value="<%=pDTO.getProd_num()%>">
+		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
 		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nick()%>">
 		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
