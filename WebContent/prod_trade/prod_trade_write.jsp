@@ -16,8 +16,9 @@
 	<%
 	String nick = (String)session.getAttribute("user_nick");
 	
-	%>
 	
+	%>
+	<%=nick %> ㅎㅇㅎㅇ	
 	<fieldset>
 		<legend>중고거래 등록하기</legend>
 			<form action="./ProductRegisterAction.pr" method="post" enctype="multipart/form-data"

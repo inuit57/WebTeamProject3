@@ -19,10 +19,6 @@
 
 
 
-	String nick = (String)session.getAttribute("user_nick");
-	
-
-
 	List productList = (List) request.getAttribute("productList");
 
 //request.setAttribute("productListCount", pDAO.getProductCount());
@@ -120,7 +116,7 @@
 			int num = (pageNum-1)*row*col; //0;
 		
 			if(size >0 && num <= size){	
-			
+
 			for(int i=0;i<row;i++){
 		%>	
 		
@@ -130,9 +126,14 @@
 				pDTO = (ProdDTO)productList.get(num);%>
 			<td>
 				<%
+				System.out.println("@@@@@@@@@@@@@@@@@@@@@@2");
+				System.out.println(pDTO);
 				 String imgfile = pDTO.getProd_img().split(",")[0];
+				 System.out.println("@@@@@@@@@@@@@@@@@@@@@@2");
 				 if((imgfile == null) || (imgfile.equals("null"))){
-					 imgfile = "product_default.jpeg"; 
+			
+					imgfile = "product_default.jpeg";
+				 
 				 }
 				%>
 			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>">
