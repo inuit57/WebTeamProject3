@@ -123,7 +123,10 @@
 				pDTO = (ProdDTO)productList.get(num);%>
 			<td>
 				<%
-				 String imgfile = pDTO.getProd_img().split(",")[0];
+				 String imgfile = pDTO.getProd_img();
+			if(imgfile != null){
+				imgfile =  pDTO.getProd_img().split(",")[0];
+			}
 				 if((imgfile == null) || (imgfile.equals("null"))){
 					 imgfile = "product_default.jpg"; 
 				 }

@@ -188,6 +188,7 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
+
 				
 				productList.add(pDTO);
 			}
