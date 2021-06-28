@@ -1,7 +1,8 @@
 <%@page import="com.user.db.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="../inc/top.jsp" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,8 +12,9 @@
 <title>회원 정보 수정</title>
 </head>
 <body>
+
 	<% 
-	String user_nick = (String)session.getAttribute("user_nick"); 
+	//String user_nick = (String)session.getAttribute("user_nick"); 
 	
 	UserDTO udto = (UserDTO)session.getAttribute("udto"); 
 	
@@ -21,7 +23,14 @@
 	String user_picture = udto.getUser_picture(); 
 	
 	%>
+	<div class="container">
+	<br><br>
 	<h3>마이 페이지</h3>
+	<a href="./MyPageBoardList.bo">내가 쓴 글</a>
+	<a href="./MyPageProductList.pr">나의 상품</a>
+	<a href="./MyPageInqueryList.in">나의 문의</a>
+	
+	<hr>
 	<fieldset>
 	<legend>회원 정보</legend>
 	<form action="./UserInfoEditAction.us" method="post" onsubmit="infoChk" enctype="multipart/form-data">
@@ -33,7 +42,7 @@
 		<img alt="" src="./upload/<%=user_picture%>" id="image">
 	<%} %>
 	</div>
-		<label>아이디</label><input type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
+		<label>아이디</label><input  type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
 		<label>닉네임</label><input type="text" name="user_nick" value="<%=udto.getUser_nickname() %>"><br>
 		<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
 		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly">
@@ -74,11 +83,13 @@
 	%>
 	</form>
 	</fieldset>
+	<hr>
 	<fieldset>
 	<legend>현재 계좌정보</legend>
 	<label>은행 이름 :</label><label><%=udto.getUser_bankName() %></label><br>
 	<label>계좌 번호 :</label><label><%=udto.getUser_bankAccount() %></label><br>
 	</fieldset>
+	<hr>
 	<fieldset>
 	<legend>계좌 정보 변경하기</legend>
 	<form action="./UserBankChangeAction.us" method="post" onsubmit="return check()">
@@ -97,12 +108,13 @@
 	<input type="submit" value="계좌 정보 저장">
 	</form>
 	</fieldset>
+	<hr>
 	<form action="./UserDeleteAction.us" method="post">
-	<input type="submit" value="회원탈퇴">
+		<input type="submit" value="회원탈퇴">
 	</form>
-	<a href="./MyPageBoardList.bo">내가 쓴 글</a><br>
-	<a href="./MyPageProductList.pr">나의 상품</a><br>
-	<a href="./MyPageInqueryList.in">나의 문의</a><br>
+	</div>
 	
 </body>
 </html>
+
+<%@ include file="../inc/footer.jsp" %>
