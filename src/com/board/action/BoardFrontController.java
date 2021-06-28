@@ -121,6 +121,18 @@ public class BoardFrontController extends HttpServlet{
 			}
 			
 		}
+		else if(command.equals("/BoardSearchAction.bo")){
+			System.out.println("C : /BoardSearchAction.bo 호출");
+			
+			action = new BoardSearchAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 		
 		

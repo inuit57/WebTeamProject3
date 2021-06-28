@@ -1,3 +1,4 @@
+<%@page import="com.user.db.UserDAO"%>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,11 +13,17 @@
 <body>
 	<h1>WebContent/prod_trade/prod_trade_write.jsp</h1>
 	
+	<%
+	String nick = (String)session.getAttribute("user_nick");
+	
+	%>
 	
 	<fieldset>
 		<legend>중고거래 등록하기</legend>
 			<form action="./ProductRegisterAction.pr" method="post" enctype="multipart/form-data"
 				name="pdf">
+				<input type="hidden" name="nick" value=<%=nick%>>
+				
 				<table border="1">
 				<!-- switch문으로 작성 -->
 					<tr>
@@ -44,19 +51,16 @@
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
-							<select name="status" required="required">
+							<select name="status" required="required" id="statusFree">
 								<option value="0">삽니다</option>
 								<option value="1">팝니다</option>
 								<option value="2" id="free">무료나눔</option>
 							</select>
 						</td>
 					</tr>
-					<tr> 
-						<td>작성자</td> <!-- 회원테이블에서 불러옴 -->
-						<td>
-							<input type="text" name="nick" placeholder="작성자를 입력하세요.">
-						</td>
-					</tr>
+					 
+						
+						
 					<tr> 
 						<td>글 제목</td>
 						<td id="pdsub">
@@ -66,7 +70,7 @@
 					<tr> 
 						<td>상품 가격</td>
 						<td>
-							<input type="number" name="prod_price" id="price" placeholder="가격을 입력하세요." required="required">
+							<input type="number" name="prod_price" id="price" placeholder="가격을 입력하세요.">
 						</td>
 					</tr>
 					<tr> 
@@ -146,5 +150,25 @@
 		
 		
 	});
+	
+	$(document).ready(function(){
+		$("#statusFree").on('change',function(){
+			if(this.value  ==2){
+				$("#price").val(0);
+				$("#price").attr('readonly',true);
+			}else{
+				$("#price").val("");
+				$("#price").attr('readonly',false);
+			}
+		});
+		
+	});
+	
+	
+	
+	
+	
+	
+	
 </script>
 </html>

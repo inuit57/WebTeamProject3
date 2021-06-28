@@ -14,6 +14,7 @@
 	<h1>WebContent/prod_trade/prod_trade_modify.jsp</h1>
 	
 		<%
+		String nick = (String)session.getAttribute("user_nick");
 		int num = Integer.parseInt(request.getParameter("num"));
 		ProdDAO pDAO = new ProdDAO();
 		ProdDTO pDTO = pDAO.getProduct(num);
@@ -23,6 +24,7 @@
 		<legend>중고거래 등록수정하기</legend>
 			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data"
 				name="pdf">
+				<input type="hidden" name="nick" value=<%=nick%>>
 				<table border="1">
 				<!-- switch문으로 작성 -->
 					<tr>
@@ -126,12 +128,7 @@
 							</select>
 						</td>
 					</tr>
-					<tr> 
-						<td>작성자</td> <!-- 회원테이블에서 불러옴 readonly-->
-						<td>
-							<input type="text" name="nick" value=<%=pDTO.getUser_nick() %>>
-						</td>
-					</tr>
+					
 					<tr> 
 						<td>글 제목</td>
 						<td>
@@ -147,8 +144,8 @@
 					<tr> 
 						<td>상품 이미지1</td>
 						<td>
-							<input type="file" name="file1" accept="image/*" >
-							<input type="text" value=<%=pDTO.getProd_img().split(",")[0]%>>
+							<input type="file" name="file1" accept="image/*" 
+							value="<%= (pDTO.getProd_img()==null) ? "" : pDTO.getProd_img() %>">
 							
 						</td>
 					</tr>
