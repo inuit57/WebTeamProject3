@@ -87,6 +87,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./board_List.bo">board</a>
                         </li>
+                        <li class="nav-item">
+                        	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

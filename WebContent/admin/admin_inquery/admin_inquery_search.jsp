@@ -27,23 +27,26 @@
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
-	//request.setAttribute("pageSize", pageSize);
-	//request.setAttribute("pageNum", pageNum);
-
-		int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
-		int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
-		int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
+	String sk =(String) request.getAttribute("sk");
+	String[] sv =(String[]) request.getAttribute("sv");
 	
-
-		
-		int currentPage = pageNum;
 	
-		
-		int startRow = (currentPage-1)*pageSize+1;
-		
-		// 끝행 계산하기
-		// 1p -> 10번, 2p -> 20번,... => 일반화
-		int endRow = currentPage*pageSize;
+	int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
+	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
+	int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
+
+
+	
+	int currentPage = pageNum;
+
+	
+	int startRow = (currentPage-1)*pageSize+1;
+	
+	// 끝행 계산하기
+	// 1p -> 10번, 2p -> 20번,... => 일반화
+	int endRow = currentPage*pageSize;
+	
+	
 	%>
 	
 	<table border="1">
@@ -63,14 +66,14 @@
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
 			<td><%=inDTO.getUser_nick()%></td>
-			<td><a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
+			<td>
 				<%
 				if(inDTO.getInq_lev()==1){
 				%>
 				( <%=inDTO.getInq_ref()%>번글 답글)
 				
 				<%} %>
-			
+				<a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
 				<%=inDTO.getInq_sub() %></a></td>
 			<td><%=inDTO.getInq_date() %></td>
 			<td>
@@ -86,7 +89,8 @@
 		}
 		%>
 	</table>
-		<%
+	
+	<%
 		/////////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
 		
@@ -114,7 +118,7 @@
 		// 이전 (해당 페이지블럭의 첫번째 페이지 호출)
 		if(startPage > pageBlock){
 			%>
-			<a href="./InqueryAdminList.ai?pageNum=<%=startPage-pageBlock%>">[이전]</a>
+			<a href="./InqueryAdminSearch.ai?pageNum=<%=startPage-pageBlock%>&sk=<%=sk%>&sv=<%=sv%>">[이전]</a>
 			<% 
 		}
 		
@@ -124,27 +128,25 @@
 		// 숫자 1....5
 		for(int i = startPage;i<=endPage;i++){
 			%>
-			<a href="./InqueryAdminList.ai?pageNum=<%=i%>">[<%=i %>]</a>
+			<a href="./InqueryAdminSearch.ai?pageNum=<%=i%>&sk=<%=sk%>&sv=<%=sv%>">[<%=i %>]</a>
 			<% 
 		}
 		
 		// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
 		if(endPage < pageCount){
 			%>
-			<a href="./InqueryAdminList.ai?pageNum=<%=startPage+pageBlock%>">[다음]</a>
+			<a href="./InqueryAdminSearch.ai?pageNum=<%=startPage+pageBlock%>&sk=<%=sk%>&sv=<%=sv%>">[다음]</a>
 			<%
 			
 		}
 			
-	
+		
 		}	
 		/////////////////////////////////////////////////////////////	
+	
 	%>
 	
-	
 	<br>
-	
-
 	
 	
 	<a href="./InqueryAdminList.ai">전체</a>
