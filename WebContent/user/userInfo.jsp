@@ -40,12 +40,14 @@
 	<label>변경 비밀번호</label><input type="password" name="new_pw"><br>
 	<label>변경 비밀번호 확인</label><input type="password" name="new_pw_check"><br>
 	<input type="submit" value="비밀번호 변경하기">
+
 	<%
 	if(m != null) {
 		if(m.equals("1")) {
-			%>
-			<label>변경 완료</label>
-			<%
+			
+			session.invalidate();
+			response.sendRedirect("./Main.do");
+			
 		} else if(m.equals("2")) {
 			%>
 			<label>변경 비밀번호가 틀립니다.</label>

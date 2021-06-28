@@ -116,7 +116,7 @@ public class boardDAO {
     	try {
     		conn = getConnection();
     	
-    		sql = "select * from normal_board";
+    		sql = "select * from normal_board order by board_num desc";
     	
 			pstmt = conn.prepareStatement(sql);
 			
@@ -151,6 +151,53 @@ public class boardDAO {
     
     // getBoardList()
     
+  
+   public ArrayList getBoardList(int startRow, int pageSize, String nick) {
+    	
+    	ArrayList boardList = new ArrayList();
+    	
+    	boardDTO bDTO = null;
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "select * from normal_board WHERE user_nick=? limit ?,? ";
+    	
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nick);
+			pstmt.setInt(2, startRow -1);
+			pstmt.setInt(3, pageSize);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				bDTO = new boardDTO();
+				
+				bDTO.setBoard_num(rs.getInt("board_num"));
+				bDTO.setBoard_area(rs.getString("board_area"));
+				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setBoard_count(rs.getInt("board_count"));
+				bDTO.setBoard_date(rs.getString("board_date"));
+				bDTO.setBoard_file(rs.getString("board_file"));
+				bDTO.setBoard_ip(rs.getString("board_ip"));
+				bDTO.setBoard_sub(rs.getString("board_sub"));
+				bDTO.setBoard_content(rs.getString("board_content"));
+			
+				boardList.add(bDTO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    	return boardList;
+    	
+    }
+    // getBoardList(startRow, pageSize)
+  
     /********************************************************************/
     
     // getBoardCount();
@@ -194,57 +241,12 @@ public class boardDAO {
     	try {
     		conn = getConnection();
     	
-    		sql = "select * from normal_board limit ?,? ";
+    		sql = "select * from normal_board order by board_num desc limit ?,? ";
     	
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, startRow -1);
 			pstmt.setInt(2, pageSize);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()){
-				bDTO = new boardDTO();
-				
-				bDTO.setBoard_num(rs.getInt("board_num"));
-				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
-				bDTO.setBoard_count(rs.getInt("board_count"));
-				bDTO.setBoard_date(rs.getString("board_date"));
-				bDTO.setBoard_file(rs.getString("board_file"));
-				bDTO.setBoard_ip(rs.getString("board_ip"));
-				bDTO.setBoard_sub(rs.getString("board_sub"));
-				bDTO.setBoard_content(rs.getString("board_content"));
-			
-				boardList.add(bDTO);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeDB();
-		}
-    	
-    	return boardList;
-    	
-    }
-    
-    public ArrayList getBoardList(int startRow, int pageSize, String nick) {
-    	
-    	ArrayList boardList = new ArrayList();
-    	
-    	boardDTO bDTO = null;
-    	
-    	try {
-    		conn = getConnection();
-    	
-    		sql = "select * from normal_board WHERE user_nick=? limit ?,? ";
-    	
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, nick);
-			pstmt.setInt(2, startRow -1);
-			pstmt.setInt(3, pageSize);
 			
 			rs = pstmt.executeQuery();
 			
@@ -345,6 +347,7 @@ public class boardDAO {
 			closeDB();
 		}
     	
+    	System.out.println("DAO : 게시글 컨텐츠 가져오기 완료");
     	return bDTO;
     	
     }
@@ -412,39 +415,103 @@ public class boardDAO {
     	
     }
     // deleteBoard(board_num)
+    
     /********************************************************************/
+    
+    
     /********************************************************************/
+    // + sk + " like '%" + sv + "%' order by board_num desc";
+    // boardSearch(sk,sv)
+    public List boardSearch(String sk, String[] sv){
+    	
+    	ArrayList boList = new ArrayList();
+    	boardDTO bDTO = null;
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "select * from normal_board where " + sk + " like '%" + sv[0] + "%' ";
+    		
+    		for(int i = 1; i < sv.length; i++){
+    			sql+="or "+sk+" like '%"+sv[i]+"%'";
+    		}
+    		
+    		sql += " order by board_num desc";
+    		
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				bDTO = new boardDTO();
+				
+				bDTO.setBoard_num(rs.getInt("board_num"));
+				bDTO.setBoard_area(rs.getString("board_area"));
+				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setBoard_count(rs.getInt("board_count"));
+				bDTO.setBoard_sub(rs.getString("board_sub"));
+				bDTO.setBoard_content(rs.getString("board_content"));
+				bDTO.setBoard_date(rs.getString("board_date"));
+				bDTO.setBoard_file(rs.getString("board_file"));
+				bDTO.setBoard_ip(rs.getString("board_ip"));
+				
+				boList.add(bDTO);
+				
+				System.out.println("DAO : 게시글 검색완료");
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    	return boList;
+    	
+    }
+    // boardSearch(sk,sv)
+    
     /********************************************************************/
+    
+    
     /********************************************************************/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
+    // getBoardCount(sk, sv) 검색한 글의 개수 가져오는 함수
+    public int getBoardCount(String sk, String[] sv){
+    	
+    	int cnt = 0;
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "select * from normal_board where " + sk + " like '%" + sv[0] + "%' ";
+    		
+    		for(int i = 1; i < sv.length; i++){
+    			sql+="or "+sk+" like '%"+sv[i]+"%'";
+    		}
+    	
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				cnt = rs.getInt(1);
+			}
+			
+			System.out.println("검색한 글개수" + cnt);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    	return cnt;
+    }
+    
+    // getBoardCount(sk, sv) 검색한 글의 개수 가져오는 함수
+    /********************************************************************/
 
 }
+

@@ -1,4 +1,5 @@
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,11 +9,23 @@
 <script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
 <title></title>
+
 </head>
 <body>
 	<h1>Market</h1>
+<!--
 	<a href="./main.bo">메인</a><br>
+-->
+	<%
+	String user_nick = "admin";
 	
+	session.setAttribute("user_nick", user_nick);
+	%>
+	<a href="./UserLogin.us">로그인</a><br>
+	<a href="./UserJoin.us">회원가입</a><br>
+	<a href="./board_List.bo">일반게시판</a><br>
+	<a href="./declarationList.decl">신고목록 게시판</a><br>
+
 	
 	<%if(session.getAttribute("id") != null) { %>
 	<%=session.getAttribute("nick") %>님 어서오세요.<br>
@@ -30,7 +43,10 @@
 	
 	// 메인페이지
   
+	
+	
 	// response.sendRedirect("./main.bo");
+	
 	// 댓글인설트중
 	// 일반게시판 목록
 	// response.sendRedirect("./board_List.bo");

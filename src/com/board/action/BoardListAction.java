@@ -23,6 +23,7 @@ public class BoardListAction implements Action {
 		
 		// 현페이지가 몇페이지 인지 확인
 		String pageNum = request.getParameter("pageNum");
+		
 		if(pageNum == null){
 			pageNum = "1";
 		}	

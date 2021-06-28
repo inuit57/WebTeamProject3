@@ -11,7 +11,14 @@
 <title>일반 게시판</title>
 </head>
 <body>
-
+<!-- 헤더파일들어가는 곳 -->
+<jsp:include page="../inc/top.jsp"/> 
+<!-- 헤더파일들어가는 곳 -->
+<%
+	// 세션제어
+	String user_nick = (String)session.getAttribute("user_nick");
+%>
+	<%=user_nick %>님 환영합니다.
 <%
 
 	boardDAO bDAO = new boardDAO();
@@ -21,6 +28,7 @@
 	int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
 	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
+
 	
 %>
 	<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
@@ -29,7 +37,7 @@
 			<td>번호</td>
 			<td>제목</td>
 			<td>작성자</td>
-			<td>작성일</td>
+			<td>작성시간</td>
 			<td>조회수</td>
 		</tr>
 	<%
@@ -42,7 +50,7 @@
 				<a href="board_content.bo?board_num=<%=dto.getBoard_num()%>&pageNum=<%=pageNum%>"><%=dto.getBoard_sub() %></a>
 			</td>
 			<td><%=dto.getUser_nick() %></td>
-			<td><%=dto.getBoard_date() %></td>
+			<td><%=dto.getBoard_date().substring(0, 10) + "일 " + dto.getBoard_date().substring(11, 16) + "분" %></td>
 			<td><%=dto.getBoard_count() %></td>
 		</tr>
 	<%
@@ -53,7 +61,8 @@
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
-		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(cnt);
 		if(cnt != 0){ // 글이 있을때 표시
 			
 			// 전체 페이지수 계산
@@ -62,7 +71,7 @@
 			int pageCount = cnt/pageSize + (cnt % pageSize == 0? 0 : 1);
 			
 			// 한 화면에 보여줄 페이지 번호의 개수 (페이지 블럭)
-			int pageBlock = 2;
+			int pageBlock = 5;
 			
 			// 페이지블럭의 시작페이지 번호
 			// ex) 	1~10 페이지 : 1, 11~20 페이지 : 11, 21~30페이지 : 21
@@ -78,7 +87,7 @@
 			// 이전(해당 페이지블럭의 첫번째 페이지 호출)
 			if(startPage > pageBlock){
 				%>
-				<a href="board_List.bo?pageNum=<%=startPage - pageBlock%>">[이전]</a>
+				<a href="board_List.bo?pageNum=<%=startPage - pageBlock%>" >[이전]</a>
 				<%
 			}
 			
@@ -87,7 +96,7 @@
 			// 숫자 1...5
 			for(int i = startPage; i <= endPage; i++){
 				%>
-					<a href="board_List.bo?pageNum=<%=i%>" >[<%=i %>]</a>				
+					<a href="board_List.bo?pageNum=<%=i%>">[<%=i %>]</a>				
 				<%
 			}
 			
@@ -101,7 +110,26 @@
 		}
 		
 		/////////////////////////////////////////////////////////
+		
 	%>
-	
+		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+			
+		   <form action="./BoardSearchAction.bo" method="post">
+         		<select name="sk">
+            		<option value="user_nick">작성자</option>
+            		<option value="board_sub">글 제목</option>
+         		</select>
+         		<input type="text" name="sv">
+         		<input type="submit" value="검색">  
+         		<input type="hidden" name="pageNum" value="<%=pageNum%>">
+         		    
+      		</form>
+		
+		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+		
+		
+<!-- 푸터 들어가는 곳 -->
+<jsp:include page="../inc/footer.jsp"/> 
+<!-- 푸터 들어가는 곳 -->
 </body>
 </html>
