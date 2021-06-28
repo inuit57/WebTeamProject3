@@ -168,10 +168,6 @@ public class UserFrontController extends HttpServlet{
 			forward.setRedirect(false);
 		}
 		
-		
-		
-		
-		
 		if(forward != null) {
 			if(forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

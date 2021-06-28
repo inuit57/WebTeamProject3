@@ -13,13 +13,14 @@ public class UserBankChangeAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
+		String nick_name = (String)session.getAttribute("nick_name");
 		
-		String id = (String)session.getAttribute("id");
 		String bankName = request.getParameter("bankname");
 		String bankAccount = request.getParameter("bankaccount");
 		
 		UserDAO udao = new UserDAO();
 		
+		String id = udao.getId(nick_name);
 		udao.changeBankAccount(id,bankName,bankAccount);
 		
 		ActionForward forward = new ActionForward();

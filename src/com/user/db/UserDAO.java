@@ -223,6 +223,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
+				udto.setUser_nickname(rs.getString("user_nickname"));
 				udto.setUser_id(rs.getString("user_id"));
 				udto.setUser_pw(rs.getString("user_pw"));
 				udto.setUser_joindate(rs.getTimestamp("user_joindate"));
@@ -261,13 +262,14 @@ public class UserDAO {
 	public void userInfoEdit(UserDTO udto) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE member SET user_phone=?, user_address=?, user_address_plus=?, user_picture=? WHERE user_id=?";
+			sql = "UPDATE member SET user_phone=?, user_address=?, user_address_plus=?, user_picture=? , user_nickname=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_phone());
 			pstmt.setString(2, udto.getUser_address());
 			pstmt.setString(3, udto.getUser_addressPlus());
 			pstmt.setString(4, udto.getUser_picture());
-			pstmt.setString(5, udto.getUser_id());
+			pstmt.setString(5, udto.getUser_nickname());
+			pstmt.setString(6, udto.getUser_id());
 			
 			pstmt.executeUpdate();
 			

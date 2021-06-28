@@ -22,6 +22,7 @@ public class ProductRegisterAction implements Action {
 		ServletContext ctx = request.getServletContext();
 		String realpath = ctx.getRealPath("/upload");
 		
+		
 		int maxSize = 5 * 1024 * 1024;
 		
 		MultipartRequest multi

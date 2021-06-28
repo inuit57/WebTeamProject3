@@ -8,38 +8,50 @@
 <script type="text/javascript" src="./user/userInfoJS/userInfo.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href="css/userInfo.css" rel="stylesheet">
-<title>Insert title here</title>
+<title>회원 정보 수정</title>
 </head>
 <body>
-	<% UserDTO udto = (UserDTO)session.getAttribute("udto"); 
+	<% 
+	String user_nick = (String)session.getAttribute("user_nick"); 
+	
+	UserDTO udto = (UserDTO)session.getAttribute("udto"); 
 	
 	String m = request.getParameter("m");
+	
+	String user_picture = udto.getUser_picture(); 
 	
 	%>
 	<h3>마이 페이지</h3>
 	<fieldset>
 	<legend>회원 정보</legend>
-	<form action="./UserInfoEditAction.us" method="post">
+	<form action="./UserInfoEditAction.us" method="post" enctype="multipart/form-data">
 	<div id="div_img">
-	<img alt="" src="./img/<%=udto.getUser_picture()%>" id="image">
+	<!-- 이미지가 없는 경우, 기본 이미지로 출력 -->
+	<% if(user_picture == null || user_picture.equals("")){ %>
+		<img alt="" src="./img/default_image.png" id="image">
+	<%}else{ %>
+		<img alt="" src="./upload/<%=user_picture%>" id="image">
+	<%} %>
 	</div>
-	<label>아이디</label><input type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
-	<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
-	<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly"><label id="address_find" onclick="findAddr()">주소 찾기</label><br>
-	<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
-	<label>프로필 사진</label><input type="text" name="user_picture" value="<%=udto.getUser_picture()%>"><br>
-	<label>가입 날짜</label><input type="text" name="user_join_date" value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
-	<input type="submit" value="회원정보 수정하기">
+		<label>아이디</label><input type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
+		<label>닉네임</label><input type="text" name="user_nick" value="<%=udto.getUser_nickname() %>"><br>
+		<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
+		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly">
+		<button id="address_find" onclick="findAddr()" >주소 찾기</button><br>
+		<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
+		<label>프로필 사진</label><input type="file" name="user_picture" > <br>
+		<label>가입 날짜</label><input type="text" name="user_join_date" value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
+		<input type="submit" value="회원정보 수정하기">
 	</form>
 	</fieldset>
 	<hr>
 	<fieldset>
 	<legend>비밀번호 변경</legend>
-	<form action="./UserPasswordEditAction.us" method="post">
-	<label>현재 비밀번호</label><input type="password" name="pw"><br>
-	<label>변경 비밀번호</label><input type="password" name="new_pw"><br>
-	<label>변경 비밀번호 확인</label><input type="password" name="new_pw_check"><br>
-	<input type="submit" value="비밀번호 변경하기">
+	<form action="./UserPasswordEditAction.us" method="post" onsubmit="return check()" >
+		<label>현재 비밀번호</label><input type="password" name="pw"><br>
+		<label>변경 비밀번호</label><input type="password" name="new_pw"><br>
+		<label>변경 비밀번호 확인</label><input type="password" name="new_pw_check"><br>
+		<input type="submit" value="비밀번호 변경하기">
 
 	<%
 	if(m != null) {
