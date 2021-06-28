@@ -73,7 +73,8 @@ public class ProdDAO {
 			}
 			
 			sql = "insert into prod_trade "
-					+ "values(?,?,?,?,?,?,?,?,now(),?,?,?)";
+					+ "values(?,?,?,?,?"
+					+ ",?,?,?,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -146,22 +147,28 @@ public class ProdDAO {
 	
 		List productList = new ArrayList();
 		
-		StringBuffer SQL = new StringBuffer();
-		
+		//StringBuffer SQL = new StringBuffer();
 		try {
 			
 			conn = getConnection();
-			SQL.append("select * from prod_trade order by prod_num desc");
+			//SQL.append("select * from prod_trade order by prod_num desc");
 			
+			 
 			if(item.equals("all")) {
+				sql = "select * from prod_trade order by prod_num desc" ;
 			}else {
-				SQL.append(" where prod_category=?");
+				//SQL.append(" where prod_category=?");
+				sql = "select * from prod_trade where prod_category=? order by prod_num desc " ;
 			}
 			
-			pstmt = conn.prepareStatement(SQL+"");
+			//pstmt = conn.prepareStatement(SQL+"");
+			pstmt = conn.prepareStatement(sql);
 			
-			if(item.equals("all")) {
-			}else {
+//			if(item.equals("all")) {
+//			}else {
+//				pstmt.setString(1, item);
+//			}
+			if(! item.equals("all")) {
 				pstmt.setString(1, item);
 			}
 			
@@ -181,13 +188,12 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
-				
+
 				
 				productList.add(pDTO);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			closeDB();

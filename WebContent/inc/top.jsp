@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>중고거래(이름미정)</title>
+<title>기억마켓</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="./assets/img/apple-icon.png">
@@ -46,7 +46,10 @@
             		if (user_nick != null) {
             			%>
             			<a href="./UserInfoAction.us"><%=user_nick %>님</a>
+            			&emsp; &emsp;
             			<a href="./UserLogoutAction.us">로그아웃</a>
+            			&emsp; &emsp;
+            			<a href="./Payment.pa">충전</a>
             			<%
             		}%>
                     
@@ -79,13 +82,16 @@
                             <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-lick" href="./ProductList.pr">Shop</a>
+                           <a class="nav-link" href="./ProductList.pr">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./board_List.bo">Board</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./FAQ.faq">FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./board_List.bo">board</a>
+                        	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
                         </li>
                     </ul>
                 </div>
@@ -110,7 +116,7 @@
             			%>
             			<a href="./UserLogin.us">LOGIN </a>
             			<p>&emsp; &emsp;</p>
-            			<a href="./UserJoin.us">JOIN</a>
+            			<a href="./UserJoinChk.us">JOIN</a>
             			<%
             		}else{
             			%>
@@ -136,4 +142,3 @@
         </div>
     </nav>
     <!-- Close Header -->
-

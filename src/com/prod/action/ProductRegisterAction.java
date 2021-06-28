@@ -17,10 +17,10 @@ public class ProductRegisterAction implements Action {
 
 		System.out.println("PR Action 페이지");
 		
-		
 		//파일업로드 폴더
 		ServletContext ctx = request.getServletContext();
 		String realpath = ctx.getRealPath("/upload");
+		
 		
 		int maxSize = 5 * 1024 * 1024;
 		

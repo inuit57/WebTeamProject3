@@ -151,6 +151,53 @@ public class boardDAO {
     
     // getBoardList()
     
+  
+   public ArrayList getBoardList(int startRow, int pageSize, String nick) {
+    	
+    	ArrayList boardList = new ArrayList();
+    	
+    	boardDTO bDTO = null;
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "select * from normal_board WHERE user_nick=? limit ?,? ";
+    	
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nick);
+			pstmt.setInt(2, startRow -1);
+			pstmt.setInt(3, pageSize);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				bDTO = new boardDTO();
+				
+				bDTO.setBoard_num(rs.getInt("board_num"));
+				bDTO.setBoard_area(rs.getString("board_area"));
+				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setBoard_count(rs.getInt("board_count"));
+				bDTO.setBoard_date(rs.getString("board_date"));
+				bDTO.setBoard_file(rs.getString("board_file"));
+				bDTO.setBoard_ip(rs.getString("board_ip"));
+				bDTO.setBoard_sub(rs.getString("board_sub"));
+				bDTO.setBoard_content(rs.getString("board_content"));
+			
+				boardList.add(bDTO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    	return boardList;
+    	
+    }
+    // getBoardList(startRow, pageSize)
+  
     /********************************************************************/
     
     // getBoardCount();
@@ -465,37 +512,6 @@ public class boardDAO {
     
     // getBoardCount(sk, sv) 검색한 글의 개수 가져오는 함수
     /********************************************************************/
-    
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
 
 }
+

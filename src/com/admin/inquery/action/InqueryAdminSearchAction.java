@@ -14,7 +14,8 @@ public class InqueryAdminSearchAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		
 		String sk = request.getParameter("sk");
-		String sv = request.getParameter("sv");
+		String[] sv = request.getParameter("sv").split(" ");
+		
 		
 		AdminInqueryDAO aiDAO = new AdminInqueryDAO();
 		
@@ -22,7 +23,7 @@ public class InqueryAdminSearchAction implements Action {
 		
 		System.out.println(sk+sv);
 		
-		int pageSize = 10;
+		int pageSize = 15;
 		
 		// 현재 페이지가 몇페이지 인지 확인
 		String pageNum = request.getParameter("pageNum");
@@ -59,7 +60,7 @@ public class InqueryAdminSearchAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setPath("./admin_inquery/admin_inquery_search.jsp");
+		forward.setPath("./admin/admin_inquery/admin_inquery_search.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

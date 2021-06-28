@@ -2,6 +2,8 @@
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,24 +13,28 @@
 <script src="./jq/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1>WebContent/prod_trade/prod_trade_write.jsp</h1>
+
+<div class="container" >
+<br><br>
+<!-- 	<h1>WebContent/prod_trade/prod_trade_write.jsp</h1> -->
 	
 	<%
 	String nick = (String)session.getAttribute("user_nick");
+
+	// 수정 필요
+//	if(nick == null){
+//		response.sendRedirect("./Login/LoginForm.jsp");
+//	}
 	
-	if(nick == null){
-		response.sendRedirect("./Login/LoginForm.jsp");
-	}
-	
+
 	%>
-	
-	<fieldset>
+	<fieldset style="margin:auto;  width: 800px;">
 		<legend>중고거래 등록하기</legend>
 			<form action="./ProductRegisterAction.pr" method="post" enctype="multipart/form-data"
 				name="pdf">
 				<input type="hidden" name="nick" value=<%=nick%>>
 				
-				<table border="1">
+				<table border="1"   class="table" >
 				<!-- switch문으로 작성 -->
 					<tr>
 						<td>카테고리</td>
@@ -51,21 +57,17 @@
 							</select>
 						</td>
 					</tr>
-					
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
 							<select name="status" required="required" id="statusFree">
 								<option value="0">삽니다</option>
-								<option value="1">팝니다</option>
+								<option value="1" selected="selected">팝니다</option>
 								<option value="2" id="free">무료나눔</option>
 								<option value="3" id="tradeCompl">거래완료</option>
 							</select>
 						</td>
 					</tr>
-					 
-						
-						
 					<tr> 
 						<td>글 제목</td>
 						<td id="pdsub">
@@ -111,16 +113,15 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="2" align="right">
 							<input type="submit" id="prod_save" value="글쓰기">
 							<input type="reset" value="초기화">
 						</td>
 					</tr>
-					
 				</table>
 			</form>
 	</fieldset>
-	
+	</div>
 </body>
 
 <script type="text/javascript">
@@ -152,8 +153,6 @@
 			document.fr.submit();
 			
 		});
-		
-		
 	});
 	
 	$(document).ready(function(){
@@ -178,12 +177,6 @@
 		});
 	
 	});
-	
-	
-	
-	
-	
-	
-	
 </script>
 </html>
+<%@ include file="../inc/footer.jsp" %>
