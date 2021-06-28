@@ -295,5 +295,56 @@ public class UserDAO {
 	}
 	
 	
+	public void charge(String user_nickname, int totalamount){
+		try {
+			conn = getConnection();
+			sql = "SELECT user_coin FROM member WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				System.out.println("=========================");
+				System.out.println(totalamount);
+				System.out.println(rs.getInt(1));
+				totalamount += rs.getInt(1);
+				System.out.println(totalamount);
+			}
+			
+			sql = "UPDATE member SET user_coin=? WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, totalamount);
+			pstmt.setString(2, user_nickname);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			   e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+	}
+	
+	
+	
+	public int getCoin(String user_nickname){
+		int result = 0;
+		try {
+			conn = getConnection();
+			sql = "SELECT user_coin FROM member WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nickname);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			} 
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.checkNick() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		return result;
+	}
+	
 
 }

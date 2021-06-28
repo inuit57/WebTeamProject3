@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.faq.action.FAQUpdateFormAction;
 import com.payment.action.Action;
 import com.payment.action.ActionForward;
 
@@ -51,13 +52,26 @@ public class PaymentFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("./kakaoPay/charge.jsp");
 			forward.setRedirect(false);
-		}else if (command.equals("/kakaoPay.pa")) {
-			System.out.println("C : /kakaoPay.pa 호출");
-			// 정보를 입력받는 페이지 -> view페이지 이동
+		}else if (command.equals("/PaymentAction.pa")) {
+			System.out.println("C : /PaymentAction.pa 호출");
+			// DB 정보를 꺼내서 화면에 출력
+			action = new PaymentAction();
 
-			forward = new ActionForward();
-			forward.setPath("./kakaoPay/kakao.jsp");
-			forward.setRedirect(false);
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (command.equals("/Coin.pa")) {
+			System.out.println("C : /Coin.pa 호출");
+			// DB 정보를 꺼내서 화면에 출력
+			action = new CoinAction();
+
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
