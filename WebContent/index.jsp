@@ -33,37 +33,6 @@
 		<a href="./UserLogin.us">로그인</a><br>
 		<a href="./UserJoin.us">회원가입</a><br>
 	<%} %>
-	
-	
-	<%
-	// 게시판글쓰기 이동
-	// response.sendRedirect("./board_Write.bo");
-	
-	// 메인페이지
-  
-	
-	
-	// response.sendRedirect("./main.bo");
-	
-	// 댓글인설트중
-	// 일반게시판 목록
-	// response.sendRedirect("./board_List.bo");
-	%>
-	<!--  실행페이지 -->
-	<%
-		// 1:1 문의 게시판 admin 이동
-		// response.sendRedirect("./InqueryAdminList.ai");
-
-		// 메인페이지 이동
-
-		 //response.sendRedirect("./InqueryList.in");
-
-
-		//response.sendRedirect("./Main.do");
-		
-	  //response.sendRedirect("./FAQAdd.faq");
-		
-	%>
 
 </body>
 
