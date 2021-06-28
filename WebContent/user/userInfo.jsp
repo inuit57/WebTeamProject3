@@ -5,6 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="./user/userInfoJS/userInfo.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link href="css/userInfo.css" rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,13 +20,16 @@
 	<fieldset>
 	<legend>회원 정보</legend>
 	<form action="./UserInfoEditAction.us" method="post">
+	<div id="div_img">
+	<img alt="" src="./img/<%=udto.getUser_picture()%>" id="image">
+	</div>
 	<label>아이디</label><input type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
 	<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
-	<label>주소</label><input type="text" name="user_address" value="<%=udto.getUser_address()%>"><br>
-	<label>상세주소</label><input type="text" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
+	<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly"><label id="address_find" onclick="findAddr()">주소 찾기</label><br>
+	<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
 	<label>프로필 사진</label><input type="text" name="user_picture" value="<%=udto.getUser_picture()%>"><br>
 	<label>가입 날짜</label><input type="text" name="user_join_date" value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
-	<input type="submit" value="회원정보 변경">
+	<input type="submit" value="회원정보 수정하기">
 	</form>
 	</fieldset>
 	<hr>
@@ -33,7 +39,7 @@
 	<label>현재 비밀번호</label><input type="password" name="pw"><br>
 	<label>변경 비밀번호</label><input type="password" name="new_pw"><br>
 	<label>변경 비밀번호 확인</label><input type="password" name="new_pw_check"><br>
-	<input type="submit" value="비밀번호 변경">
+	<input type="submit" value="비밀번호 변경하기">
 	<%
 	if(m != null) {
 		if(m.equals("1")) {
@@ -52,6 +58,29 @@
 	}
 	
 	%>
+	</form>
+	</fieldset>
+	<fieldset>
+	<legend>현재 계좌정보</legend>
+	<label>은행 이름 :</label><label><%=udto.getUser_bankName() %></label><br>
+	<label>계좌 번호 :</label><label><%=udto.getUser_bankAccount() %></label><br>
+	</fieldset>
+	<fieldset>
+	<legend>계좌 정보 변경하기</legend>
+	<form action="./UserBankChangeAction.us" method="post" onsubmit="return check()">
+	<select id="bankname" name="bankname">
+		<option value="none" >은행을 선택 하세요.</option>
+		<option value="카카오뱅크">카카오뱅크</option>
+		<option value="국민은행">국민은행</option>
+		<option value="우리은행">우리은행</option>
+		<option value="부산은행">부산은행</option>
+		<option value="농협">농협</option>
+		<option value="기업은행">기업은행</option>
+		<option value="하나은행">하나은행</option>
+		<option value="한국시티은행">한국시티은행</option>
+	</select><br>
+	<label>계좌 번호</label><input type="text" id="bankaccount" name="bankaccount" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
+	<input type="submit" value="계좌 정보 저장">
 	</form>
 	</fieldset>
 	<form action="./UserDeleteAction.us" method="post">

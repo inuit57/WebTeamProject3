@@ -187,6 +187,8 @@ public class UserDAO {
 				udto.setUser_address(rs.getString("user_address"));
 				udto.setUser_addressPlus(rs.getString("user_address_plus"));
 				udto.setUser_picture(rs.getString("user_picture"));
+				udto.setUser_bankName(rs.getString("user_bankname"));
+				udto.setUser_bankAccount(rs.getString("user_bankaccount"));
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -271,6 +273,24 @@ public class UserDAO {
 		return nick;
 	}
 	
+	public void changeBankAccount(String id, String bankName, String bankAccount) {
+		try {
+			conn = getConnection();
+			sql = "UPDATE user SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bankName);
+			pstmt.setString(2, bankAccount);
+			pstmt.setString(3, id);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.changeBankAccount() function error - KBH");
+		} finally {
+			closeDB();
+		}
+	}
 	
 
 }
