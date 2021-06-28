@@ -88,6 +88,7 @@
 	<label>은행 이름 :</label><label><%=udto.getUser_bankName() %></label><br>
 	<label>계좌 번호 :</label><label><%=udto.getUser_bankAccount() %></label><br>
 	</fieldset>
+	<hr>
 	<fieldset>
 	<legend>계좌 정보 변경하기</legend>
 	<form action="./UserBankChangeAction.us" method="post" onsubmit="return check()">
