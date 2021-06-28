@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
 
@@ -17,7 +19,7 @@
 
 	<a href="./ProductList.pr">매물보기</a>
 	
-	
+	<a href="./main.bo">메인</a>
 	
 	
 </body>

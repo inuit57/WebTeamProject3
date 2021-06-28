@@ -30,7 +30,14 @@ public class ProductRegisterFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/ProductRegister.pr")) {
+
+		if(command.equals("/ProductTrade.pr")) {
+
+			forward = new ActionForward();
+			forward.setPath("./prod_trade.jsp");
+			forward.setRedirect(false);
+			
+		}else if(command.equals("/ProductRegister.pr")) {
 			System.out.println("중고거래 등록 게시판");
 			
 			forward = new ActionForward();

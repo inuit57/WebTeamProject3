@@ -3,7 +3,9 @@ package com.board.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.board.comment.db.boardCommentDAO;
 import com.board.db.boardDAO;
+import com.declaration.db.declarationDAO;
 
 public class BoardDeleteAction implements Action {
 
@@ -16,6 +18,11 @@ public class BoardDeleteAction implements Action {
 		
 		boardDAO bDAO = new boardDAO();
 		bDAO.deleteBoard(board_num);
+		declarationDAO dcDAO = new declarationDAO();
+		dcDAO.decl_normal_delete(board_num);
+		
+		boardCommentDAO bcDAO = new boardCommentDAO();
+		bcDAO.delete_cmt_to_board(board_num);
 		
 		// 페이지이동
 		ActionForward forward = new ActionForward();

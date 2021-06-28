@@ -13,10 +13,10 @@ public class UserDeleteAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		String id = (String)session.getAttribute("id");
+		String nickname = (String)session.getAttribute("user_nick");
 		
 		UserDAO udao = new UserDAO();
-		
+		String id = udao.getId(nickname); 
 		udao.userDelete(id);
 		
 		session.invalidate();
