@@ -12,7 +12,7 @@ public class MyPageInqueryListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		HttpSession session = request.getSession();
-		String nick = (String) session.getAttribute("nick");
+		String nick = (String) session.getAttribute("user_nick");
 		
 		// 테스트용 닉
 		//String nick = "홍길정";

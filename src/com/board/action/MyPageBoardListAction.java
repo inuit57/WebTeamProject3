@@ -15,7 +15,7 @@ public class MyPageBoardListAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		String nick = (String)session.getAttribute("nick");
+		String nick = (String)session.getAttribute("user_nick");
 		
 		boardDAO bDAO = new boardDAO();
 
