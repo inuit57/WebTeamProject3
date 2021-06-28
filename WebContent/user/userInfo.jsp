@@ -49,8 +49,8 @@
 	<legend>비밀번호 변경</legend>
 	<form action="./UserPasswordEditAction.us" method="post" onsubmit="return checkPw()" >
 		<label>현재 비밀번호</label><input type="password" id="pw" name="pw"><br>
-		<label>변경 비밀번호</label><input type="password" id="new_pw" name="new_pw" onkeyup="checkPw();"><br>
-		<label>변경 비밀번호 확인</label><input type="password" id="new_pw_check" name="new_pw_check" onkeyup="checkPw();"><br>
+		<label>변경 비밀번호</label><input type="password" id="new_pw" name="new_pw"><br>
+		<label>변경 비밀번호 확인</label><input type="password" id="new_pw_check" name="new_pw_check" ><br>
 		<label id="pw_error" class="error"></label><br>
 		<input type="submit" value="비밀번호 변경하기">
 	<%
