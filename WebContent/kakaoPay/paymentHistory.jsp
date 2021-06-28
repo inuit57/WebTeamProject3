@@ -26,11 +26,13 @@
 		if (user_nick == null) {
 			response.sendRedirect("./Main.do");
 		}else{
+			
 		
 	%>
 	
 	
 	<script type="text/javascript">
+	
 	$(document).ready(function() {
 		$.ajax({
 			 url:'./Coin.pa',
@@ -63,13 +65,17 @@
     
     </script>
     
- 
     <!-- Start Content -->
     <div class="container py-5">
         <div class="row"  >
 
-            <div class="col-lg-3"  style="background-color:#f2fffe;">
-                 <img class="profile1234" src="./img/user.png">
+            <div class="col-lg-3"  style="background-color:#f2fffe; text-align: center;">
+            
+            <% if(user_profile == null || user_profile.equals("")){ %>
+				<img class="profile1234" src="./img/default_image.png" >
+			<%}else{ %>
+				<img class="profile1234" src="./upload/<%=user_profile%>">
+			<%} %>
                 <h4 style="text-align:center; margin-bottom: 40px; color:#59ab6e"><%=user_nick %>님</h4>
 				<h6 style="margin-bottom: 5px; text-align:center;"> 잔여 포인트 </h6>
 				<h4 id="coin" style="text-align: center;">0원</h4>            
