@@ -13,6 +13,7 @@
 	String m = request.getParameter("m");
 	
 	%>
+	<h3>마이 페이지</h3>
 	<fieldset>
 	<legend>회원 정보</legend>
 	<form action="./UserInfoEditAction.us" method="post">
@@ -59,5 +60,9 @@
 	<form action="./UserDeleteAction.us" method="post">
 	<input type="submit" value="회원탈퇴">
 	</form>
+	<a href="./MyPageBoardList.bo">내가 쓴 글</a><br>
+	<a href="./MyPageProductList.pr">나의 상품</a><br>
+	<a href="./MyPageInqueryList.in">나의 문의</a><br>
+	
 </body>
 </html>
