@@ -1,15 +1,24 @@
+//이메일 형식 검사 정규식
+var verifyEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+//닉네임 형식 검사 정규식
+var verifyNick = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
+
+var korCheck = /[가-힣]/;
+var engCheck = /[a-z]/; 
+var numCheck = /[0-9]/; 
+var specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/;
 
 
 function checkPw() {
+	var new_pw = document.getElementById("new_pw").value;
+	var new_pw_check = document.getElementById("new_pw_check").value;
+	var pwFlag = false ; 
 	
-	var pw = document.getElementById("pw").value;
-	var pw_check = document.getElementById("pw_check").value;
-
-	if (pw.length == 0) {
+	if ( new_pw.length == 0 ) {
 		$('#pw_error').css('color','red');
 		$('#pw_error').html('비밀번호를 입력하여 주세요.');
 		pwFlag = false;
-	} else if (pw.length < 8) {
+	} else if (new_pw.length < 8  ) {
 		$('#pw_error').css('color','red');
 		$('#pw_error').html('비밀번호는 8자리 이상 이여야 합니다.');
 		pwFlag = false;
@@ -17,15 +26,17 @@ function checkPw() {
 		$('#pw_error').css('color','red');
 		$('#pw_error').html('영문,숫자,특수문자를 포함해야 합니다.');
 		pwFlag = false;
-	} else if (pw != pw_check) {
+	} else if (new_pw != new_pw_check) {
 		$('#pw_error').css('color','red');
 		$('#pw_error').html('비밀번호가 다릅니다.');
 		pwFlag = false;
-	} else if(pw == pw_check){
+	} else if(new_pw == new_pw_check){
 		$('#pw_error').css('color','green');
 		$('#pw_error').html('비밀번호가 일치 합니다.');
 		pwFlag = true;
 	}
+	
+	return pwFlag ; 
 } 
 
 

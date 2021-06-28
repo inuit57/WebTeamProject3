@@ -24,7 +24,7 @@
 	<h3>마이 페이지</h3>
 	<fieldset>
 	<legend>회원 정보</legend>
-	<form action="./UserInfoEditAction.us" method="post" enctype="multipart/form-data">
+	<form action="./UserInfoEditAction.us" method="post" onsubmit="infoChk" enctype="multipart/form-data">
 	<div id="div_img">
 	<!-- 이미지가 없는 경우, 기본 이미지로 출력 -->
 	<% if(user_picture == null || user_picture.equals("")){ %>
@@ -47,12 +47,12 @@
 	<hr>
 	<fieldset>
 	<legend>비밀번호 변경</legend>
-	<form action="./UserPasswordEditAction.us" method="post" onsubmit="return check()" >
-		<label>현재 비밀번호</label><input type="password" name="pw"><br>
-		<label>변경 비밀번호</label><input type="password" name="new_pw"><br>
-		<label>변경 비밀번호 확인</label><input type="password" name="new_pw_check"><br>
+	<form action="./UserPasswordEditAction.us" method="post" onsubmit="return checkPw()" >
+		<label>현재 비밀번호</label><input type="password" id="pw" name="pw"><br>
+		<label>변경 비밀번호</label><input type="password" id="new_pw" name="new_pw" onkeyup="checkPw();"><br>
+		<label>변경 비밀번호 확인</label><input type="password" id="new_pw_check" name="new_pw_check" onkeyup="checkPw();"><br>
+		<label id="pw_error" class="error"></label><br>
 		<input type="submit" value="비밀번호 변경하기">
-
 	<%
 	if(m != null) {
 		if(m.equals("1")) {
