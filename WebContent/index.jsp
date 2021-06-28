@@ -13,14 +13,12 @@
 </head>
 <body>
 	<h1>Market</h1>
-<!--
-	<a href="./main.bo">메인</a><br>
--->
+
 	<%
-	String user_nick = "admin";
-	
-	session.setAttribute("user_nick", user_nick);
-	%>
+	response.sendRedirect("./main.bo");
+	 %>
+
+	<a href="./main.bo">메인</a><br>
 	<a href="./UserLogin.us">로그인</a><br>
 	<a href="./UserJoin.us">회원가입</a><br>
 	<a href="./board_List.bo">일반게시판</a><br>
