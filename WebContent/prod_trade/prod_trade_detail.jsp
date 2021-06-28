@@ -92,7 +92,7 @@
 							for (int i = 1; i < pDTO.getProd_img().split(",").length ; i++) {
 								String imgfile = pDTO.getProd_img().split(",")[i];
 								if ((imgfile == null) || (imgfile.equals("null"))) {
-									imgfile = "product_default.jpeg";
+									imgfile = "product_default.jpg";
 								}
 							%>
 							

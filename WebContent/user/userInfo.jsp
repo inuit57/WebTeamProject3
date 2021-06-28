@@ -24,6 +24,7 @@
 	
 	%>
 	<div class="container">
+	<br><br>
 	<h3>마이 페이지</h3>
 	<a href="./MyPageBoardList.bo">내가 쓴 글</a>
 	<a href="./MyPageProductList.pr">나의 상품</a>
