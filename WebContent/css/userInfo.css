@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+#image {
+	border: 1px;
+	width: 200px;
+	height: 200px;
+}
+
+#div_img {
+	position: relative;
+	float: left;
+}
+
+.address {
+	width: 300px;
+}
+
