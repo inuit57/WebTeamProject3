@@ -16,6 +16,10 @@
 	<%
 	String nick = (String)session.getAttribute("user_nick");
 	
+	if(nick == null){
+		response.sendRedirect("./Login/LoginForm.jsp");
+	}
+	
 	%>
 	
 	<fieldset>
@@ -55,6 +59,7 @@
 								<option value="0">삽니다</option>
 								<option value="1">팝니다</option>
 								<option value="2" id="free">무료나눔</option>
+								<option value="3" id="tradeCompl">거래완료</option>
 							</select>
 						</td>
 					</tr>
@@ -153,15 +158,25 @@
 	
 	$(document).ready(function(){
 		$("#statusFree").on('change',function(){
-			if(this.value  ==2){
+			if(his.value  == 2 || this.value == 3){
 				$("#price").val(0);
 				$("#price").attr('readonly',true);
 			}else{
 				$("#price").val("");
 				$("#price").attr('readonly',false);
 			}
+			
+			if(this.value == 3){
+				$("#psub").val('판매완료');
+				$("#psub").attr('readonly',true);
+
+			}else{
+				$("#psub").val("");
+				$("#psub").attr('readonly',false);
+				
+			}
 		});
-		
+	
 	});
 	
 	

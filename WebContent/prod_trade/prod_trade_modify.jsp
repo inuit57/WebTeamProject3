@@ -109,22 +109,28 @@
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
-							<select name="status">
+							<select name="status" required="required" id="statusFree">
 								<option value="0"
 								<% if(pDTO.getProd_status() == 0){ %>
 									selected
 									<%} %>
 								>삽니다</option>
 								<option value="1"
-								<% if(pDTO.getProd_status() == 0){ %>
+								<% if(pDTO.getProd_status() == 1){ %>
 									selected
 									<%} %>
 								>팝니다</option>
-								<option value="2"
-								<% if(pDTO.getProd_status() == 0){ %>
+								<option value="2" id="free"
+								<% if(pDTO.getProd_status() == 2){ %>
 									selected
 									<%} %>
 								>무료나눔</option>
+								<option value="3" id="tradeCompl"
+								<% if(pDTO.getProd_status() == 3){ %>
+									selected
+									<%} %>
+								>거래완료</option>
+								
 							</select>
 						</td>
 					</tr>
@@ -193,7 +199,7 @@
 <script type="text/javascript">
 	
 	$(function(){
-		$("#prod_save").click(function(){
+		$("#prod_update").click(function(){
 			
 			var prod_sub = document.getElementById("psub").value;
 			var prod_price = document.getElementById("price").value;
@@ -222,5 +228,37 @@
 		
 		
 	});
+	
+	
+	$(document).ready(function(){
+		$("#statusFree").on('change',function(){
+			if(this.value  == 2 || this.value == 3){
+				$("#price").val(0);
+				$("#price").attr('readonly',true);
+			}else{
+				$("#price").val("");
+				$("#price").attr('readonly',false);
+			}
+			
+			if(this.value == 3){
+				$("#psub").val('판매완료');
+				$("#psub").attr('readonly',true);
+				
+			}else{
+				$("#psub").val("");
+				$("#psub").attr('readonly',false);
+				
+			}
+			
+		});
+	
+		
+	});
+	
+	
+	
+	
+	
+	
 </script>
 </html>
