@@ -14,13 +14,14 @@
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
+
+<div class="container">
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
 %>
-	<%=user_nick %>님 환영합니다.
+<%-- 	<%=user_nick %>님 환영합니다. --%>
 <%
-
 	boardDAO bDAO = new boardDAO();
 	int cnt = bDAO.getBoardCount();
 
@@ -29,10 +30,9 @@
 	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 
-	
 %>
 	<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
-	<table border="1">
+	<table border="1" >
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -54,10 +54,9 @@
 			<td><%=dto.getBoard_count() %></td>
 		</tr>
 	<%
-		}
+		} //for
 	%>	
 	</table>
-	
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
@@ -83,34 +82,26 @@
 			if(endPage > pageCount) {
 				endPage = pageCount;
 			}
-			
 			// 이전(해당 페이지블럭의 첫번째 페이지 호출)
 			if(startPage > pageBlock){
 				%>
 				<a href="board_List.bo?pageNum=<%=startPage - pageBlock%>" >[이전]</a>
 				<%
 			}
-			
-			
-			
 			// 숫자 1...5
 			for(int i = startPage; i <= endPage; i++){
 				%>
 					<a href="board_List.bo?pageNum=<%=i%>">[<%=i %>]</a>				
 				<%
 			}
-			
 			// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
 			if(endPage < pageCount){
 				%>
 				<a href="board_List.bo?pageNum=<%=startPage + pageBlock%>">[다음]</a>
 				<%
 			}
-			
 		}
-		
 		/////////////////////////////////////////////////////////
-		
 	%>
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			
@@ -122,12 +113,10 @@
          		<input type="text" name="sv">
          		<input type="submit" value="검색">  
          		<input type="hidden" name="pageNum" value="<%=pageNum%>">
-         		    
       		</form>
-		
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-		
-		
+</div>
+
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->

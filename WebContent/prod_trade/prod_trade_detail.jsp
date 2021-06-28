@@ -56,8 +56,7 @@
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
 	
-		<table border="1">
-			
+		<table border="1" style="margin:auto;  width: 800px;">
 			<tr>
 				<td width="400">
 					 <!-- <img src="./upload/" width="400" height="400"> -->
