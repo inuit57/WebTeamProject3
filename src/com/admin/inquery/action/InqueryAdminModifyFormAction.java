@@ -22,7 +22,7 @@ public class InqueryAdminModifyFormAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setPath("./admin_inquery/admin_inquery_modify_form.jsp");
+		forward.setPath("./admin/admin_inquery/admin_inquery_modify_form.jsp");
 		forward.setRedirect(false);
 		
 		

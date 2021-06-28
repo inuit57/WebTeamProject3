@@ -13,12 +13,12 @@
 
 //-->
 </script>
-<title></title>
+<title>회원가입</title>
 </head>
 <body>
 	<div id="join">
 	<div id="logo">
-		<label id="logo">ㅇㅇ마켓</label>
+		<label id="logo">기억마켓</label>
 	</div>
 	<form action="./UserJoinAction.us" method="post" onsubmit="return check()">
 	<div id="join_input">
@@ -55,7 +55,7 @@
 	<br><input type="submit" value="가입하기" id="join_submit">
 	</form>
 	<div id="footer">
-	ㅇㅇ마켓 <label id="copyright">Copyright 삼조 Itwillbs. All Rights Reserved.</label>
+	기억마켓 <label id="copyright">Copyright 삼조 Itwillbs. All Rights Reserved.</label>
 	</div>
 	</div>
 </body>

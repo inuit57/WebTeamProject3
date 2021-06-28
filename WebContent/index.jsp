@@ -12,6 +12,7 @@
 
 </head>
 <body>
+
    <h1>Market</h1>
 
    <%
@@ -33,6 +34,7 @@
       <a href="./UserLogin.us">로그인</a><br>
       <a href="./UserJoin.us">회원가입</a><br>
    <%} %>
+
 
 </body>
 
