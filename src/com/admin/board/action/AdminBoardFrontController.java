@@ -1,4 +1,4 @@
-package com.admin.inquery.action;
+package com.admin.board.action;
 
 import java.io.IOException;
 
@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.admin.inquery.action.Action;
-import com.admin.inquery.action.ActionForward;
 
-@WebServlet("*.ai")
-public class InqueryAdminFrontController extends HttpServlet{
 
+@WebServlet("*.ap")
+public class AdminBoardFrontController extends HttpServlet{
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("C : InqueryAdminFrontController_doPrecess() 호출");
+		System.out.println("C : AdminBoardFrontController_doPrecess() 호출");
 		
 		/******************* 1.페이지 주소 파싱 ********************************/
 		
@@ -37,87 +35,14 @@ public class InqueryAdminFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/InqueryAdminList.ai")){
-			System.out.println("C : /InqueryAdminList.ai 호출");
-			
-			action = new InqueryAdminListAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/InqueryAdminWriteFormAction.ai")){
-			System.out.println("C : /InqueryAdminWriteAction.ai 호출");
-			
+		if(command.equals("/AdminBoard.ap")){
+			System.out.println("C : /AdminBoard.ap 호출");
 			forward = new ActionForward();
 			
-			forward.setPath("./admin/admin_inquery/admin_inquery_write_form.jsp");
+			forward.setPath("./admin/admin_board.jsp");
 			forward.setRedirect(false);
-		} else if(command.equals("/InqueryAdminWriteAction.ai")){
-			System.out.println("C : /InqueryAdminWriteAction.ai 호출");
-			
-			action = new InqueryAdminWriteAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			
-		} else if(command.equals("/InqueryAdminContent.ai")){
-			System.out.println("C : ./InqueryAdminContent.ai 호출");
-			
-			action = new InqueryAdminContentAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/InqueryAdminModifyForm.ai")){
-			System.out.println("C : /InqueryAdminModifyForm.ai 호출");
-			
-			action = new InqueryAdminModifyFormAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/InqueryAdminModify.ai")){
-			System.out.println("C : /InqueryAdminModify.ai 호출");
-			
-			action = new InqueryAdminModifyAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/InqueryAdminDelete.ai")){
-			System.out.println("C : /InqueryAdminDelete.ai 호출");
-			
-			action = new InqueryAdminDeleteAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/InqueryAdminSearch.ai")){
-			System.out.println("C : /InqueryAdminSearch.ai 호출");
-			
-			action = new InqueryAdminSearchAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
+		
 		
 		
 	
@@ -149,16 +74,14 @@ public class InqueryAdminFrontController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---------------------------------------------------------");
-		System.out.println("C : InqueryAdminFrontController_doGet() 호출");
+		System.out.println("C : AdminBoardFrontController_doGet() 호출");
 		doProcess(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---------------------------------------------------------");
-		System.out.println("C : InqueryAdminFrontController_doPost() 호출");
+		System.out.println("C : AdminBoardFrontController_doPost() 호출");
 		doProcess(request, response);
 	}
-
-	
 }
