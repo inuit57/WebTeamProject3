@@ -154,6 +154,28 @@ public class UserDAO {
 		}
 		return tmp;
 	}
+	
+	public String checkEmail(String a) {
+		// 아이디(이메일) 조회하는 함수
+		String user_nick = null;
+
+		try {
+			conn = getConnection();
+			sql = "SELECT user_id, user_nickname FROM member WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, a);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				user_nick = rs.getString(2);
+			} 
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.checkNick() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		return user_nick;
+	}
 
 	public String Login(String id, String pw) {
 

@@ -11,16 +11,30 @@ public class UserLoginAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+
+		request.setCharacterEncoding("UTF-8");
+		
+		
 		HttpSession session = request.getSession();
 		
 		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
+		String loginType = request.getParameter("loginType");
 		
 		UserDAO udao = new UserDAO();
 		
-		String user_nick = udao.Login(id,pw);
+		String user_nick = "";
 		
+		if(loginType.equals("normal")){
+			user_nick = udao.Login(id,pw);
+			
+		}else{
+			user_nick = udao.checkEmail(id);
+		}
+		
+		
+	
 		ActionForward forward = new ActionForward();
 		
 		if(user_nick != null) {
