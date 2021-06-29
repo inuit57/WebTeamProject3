@@ -43,6 +43,7 @@
 
 	<!-- 신고폼 -->	
 	<% if(user_nick != null){ %>
+	<div style="margin:auto;  width: 800px; ">
 	<form name="declareForm" action="./declarationProd.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 		<input type="submit" value="신고하기">
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
@@ -52,6 +53,7 @@
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 	</form>
+	</div>
 	<%} %>
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
@@ -221,6 +223,7 @@
 				</td>
 			</tr>
 		</table>
+		<div style="margin:auto;  width: 800px; ">
 		<% if ( pDTO.getUser_nick().equals(user_nick) ){ %>
 			<input type="button" value="수정하기"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
@@ -229,6 +232,7 @@
 			<input type="button" value="삭제하기"
 				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
 		<%} %>
+		</div>
 <!-- 	</form> -->
 <!--  		if(user_nick == null){
 				alert("로그인 후 이용 가능합니다.");
