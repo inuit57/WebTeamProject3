@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>일반 게시판</title>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->

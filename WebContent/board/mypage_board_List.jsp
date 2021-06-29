@@ -11,9 +11,10 @@
 <title>일반 게시판</title>
 </head>
 <body>
-
+<!-- 헤더파일들어가는 곳 -->
+<jsp:include page="../inc/top.jsp"/> 
+<!-- 헤더파일들어가는 곳 -->	
 <%
-
 	boardDAO bDAO = new boardDAO();
 	int cnt = bDAO.getBoardCount();
 
@@ -54,7 +55,6 @@
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
-		
 		if(cnt != 0){ // 글이 있을때 표시
 			
 			// 전체 페이지수 계산
@@ -83,24 +83,19 @@
 				<%
 			}
 			
-			
-			
 			// 숫자 1...5
 			for(int i = startPage; i <= endPage; i++){
 				%>
 					<a href="board_List.bo?pageNum=<%=i%>" >[<%=i %>]</a>				
 				<%
 			}
-			
 			// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
 			if(endPage < pageCount){
 				%>
 				<a href="board_List.bo?pageNum=<%=startPage + pageBlock%>">[다음]</a>
 				<%
 			}
-			
 		}
-		
 		/////////////////////////////////////////////////////////
 	%>
 	
