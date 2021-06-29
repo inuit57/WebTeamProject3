@@ -304,7 +304,7 @@ public class UserDAO {
 		
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nickname FROM user WHERE user_id=?";
+			sql = "SELECT user_nickname FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -321,7 +321,7 @@ public class UserDAO {
 	public void changeBankAccount(String id, String bankName, String bankAccount) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE user SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
+			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bankName);
 			pstmt.setString(2, bankAccount);

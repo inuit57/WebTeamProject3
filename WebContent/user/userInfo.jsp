@@ -33,7 +33,7 @@
 	<hr>
 	<fieldset>
 	<legend>회원 정보</legend>
-	<form action="./UserInfoEditAction.us" method="post" onsubmit="infoChk" enctype="multipart/form-data">
+	<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
 	<div id="div_img">
 	<!-- 이미지가 없는 경우, 기본 이미지로 출력 -->
 	<% if(user_picture == null || user_picture.equals("")){ %>
@@ -43,11 +43,11 @@
 	<%} %>
 	</div>
 		<label>아이디</label><input  type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
-		<label>닉네임</label><input type="text" name="user_nick" value="<%=udto.getUser_nickname() %>"><br>
-		<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
-		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly">
+		<label>닉네임</label><input type="text" id="user_nick" name="user_nick" onkeyup="checkNick();" value="<%=udto.getUser_nickname() %>"><label id="nickname_error" class="error"></label><br>
+		<label>전화번호</label><input type="text" id="user_phone" name="user_phone" onkeyup="checkPhone()" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><label id="phone_error" class="error"></label><br><br>
+		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" onkeyup="addressCheck();" value="<%=udto.getUser_address()%>" readonly="readonly">
 		<button id="address_find" onclick="findAddr()" >주소 찾기</button><br>
-		<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
+		<label>상세주소</label><input type="text" id="user_address_plus" class="address" name="user_address_plus" onkeyup="addressCheck();" value="<%=udto.getUser_addressPlus()%>"><label id="address_error" class="error"></label><br>
 		<label>프로필 사진</label><input type="file" name="user_picture" > <br>
 		<label>가입 날짜</label><input type="text" name="user_join_date" value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
 		<input type="submit" value="회원정보 수정하기">
