@@ -388,5 +388,26 @@ public class UserDAO {
 		return result;
 	}
 	
+	
+	public String getProfile(String user_nickname){
+		String user_profile = "";
+		try {
+			conn = getConnection();
+			sql = "SELECT user_picture FROM member WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nickname);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				user_profile = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.checkNick() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		return user_profile;
+	}
+	
 
 }
