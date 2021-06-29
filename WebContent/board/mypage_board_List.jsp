@@ -8,12 +8,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>일반 게시판</title>
+<!-- <title>일반 게시판</title> -->
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->	
+
+<div class="container">
+<br><br>
 <%
 	boardDAO bDAO = new boardDAO();
 	int cnt = bDAO.getBoardCount();
@@ -24,9 +27,10 @@
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 	
 %>
-	<h1>내가 쓴 글 목록</h1>
+<!-- 	<h1>내가 쓴 글 목록</h1> -->
 <!-- 	<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'"> -->
-	<table border="1">
+	<div style="margin:auto;  width: 800px;">
+	<table  class="table table-bordered" border="1" >
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -52,11 +56,14 @@
 	%>	
 	</table>
 	
+	<div align="center">
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
 		if(cnt != 0){ // 글이 있을때 표시
-			
+			%>
+			<hr>
+			<%
 			// 전체 페이지수 계산
 			// ex) 	총50개 -> 한페이지당 10개씩 출력, 5개
 			//		총57개 -> 한페이지당 10개씩 출력, 6개
@@ -98,6 +105,8 @@
 		}
 		/////////////////////////////////////////////////////////
 	%>
-	
+	</div>
+	</div>
+</div>
 </body>
 </html>
