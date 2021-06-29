@@ -18,7 +18,7 @@
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
 %>
-	<%=user_nick %>님 환영합니다.
+<%-- 	<%=user_nick %>님 환영합니다. --%>
 <%
 
 	if (user_nick == null) {
@@ -30,7 +30,9 @@
 	<%		
 	}	
 %>
-	<fieldset>
+<div class="container">
+<br><br>
+	<fieldset style="margin:auto;  width: 800px;">
 		<form action="./BoardWriteAction.bo" method="post" name="fr" >
 		<div>
 		지역 : <select name="board_area">
@@ -47,19 +49,22 @@
 		</div>
 		<div>
 			 <input type="hidden" name="user_nick" value="<%=user_nick %>"> <br>
-		제목 : <input type="text" name="board_sub">
+		제목 : <input type="text" name="board_sub" >
 		</div>
 		<!-- 내용 : <textarea rows="10" cols="30" name="board_content"></textarea><br>-->
 		<div>
-		내용 : <textarea name="board_content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br>
+		<textarea name="board_content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br>
 		</div>
 		<hr>
 		
 			<!-- <button type="button" id="savebutton" >등록</button> -->
+			<div align="right">
 			<input type="submit" id="savebutton" value="글쓰기">
+			</div>
 		</form>
 	</fieldset>	
-	
+	<br>
+</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->	

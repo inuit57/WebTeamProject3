@@ -16,6 +16,7 @@
 <!-- 헤더파일들어가는 곳 -->
 
 <div class="container">
+<br><br>
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
@@ -31,8 +32,16 @@
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 
 %>
-	<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
-	<table border="1" >
+
+	<div style="margin:auto;  width: 800px;">
+	<div align="right">
+	<% if(user_nick != null){ %>
+		<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
+	<%} %>
+	</div>
+	<table  class="table table-bordered" border="1" >
+	
+	<% if(boardList.size() > 0){ %>
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -40,6 +49,11 @@
 			<td>작성시간</td>
 			<td>조회수</td>
 		</tr>
+	<%}else{ %>
+		<tr>
+			<td align="center">조회된 글이 없습니다.</td>
+		</tr>
+	<%} %>
 	<%
 		for(int i = 0; i < boardList.size(); i++){
 			boardDTO dto = (boardDTO)boardList.get(i);
@@ -57,13 +71,17 @@
 		} //for
 	%>	
 	</table>
+	<div align="center">
 		<%
+		
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		System.out.println(cnt);
 		if(cnt != 0){ // 글이 있을때 표시
-			
+			%>
+			<hr>
+			<%
 			// 전체 페이지수 계산
 			// ex) 	총50개 -> 한페이지당 10개씩 출력, 5개
 			//		총57개 -> 한페이지당 10개씩 출력, 6개
@@ -103,8 +121,11 @@
 		}
 		/////////////////////////////////////////////////////////
 	%>
+	
+	
+	
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-			
+			<hr>
 		   <form action="./BoardSearchAction.bo" method="post">
          		<select name="sk">
             		<option value="user_nick">작성자</option>
@@ -115,6 +136,9 @@
          		<input type="hidden" name="pageNum" value="<%=pageNum%>">
       		</form>
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+		<br>
+		</div>
+	</div>
 </div>
 
 <!-- 푸터 들어가는 곳 -->

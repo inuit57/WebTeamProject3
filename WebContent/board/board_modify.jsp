@@ -21,7 +21,10 @@
 	String pageNum = request.getParameter("pageNum");
 %>
 
-	<fieldset>
+<div class="container">
+<br><br>
+
+	<fieldset style="margin:auto;  width: 800px;">
 		<form action="./BoardModifyAction.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>" name="fr" method="post">
 			제목 : <input type="text" name="board_sub" value="<%=bDTO.getBoard_sub()%>" > <br>
 			지역 :
@@ -62,7 +65,7 @@
 			<button type="button" id="savebutton">수정하기</button>
 		</form>
 	</fieldset>
-	
+</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->	
