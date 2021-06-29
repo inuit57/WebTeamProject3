@@ -26,6 +26,7 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	String user_nick = (String) session.getAttribute("user_nick");
+	String user_profile = (String) session.getAttribute("user_profile");
 %>
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top" style="position: sticky; top:0px; left: 0px; z-index: 9999; width: 100%;">
