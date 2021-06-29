@@ -337,6 +337,32 @@ public class UserDAO {
 		}
 	}
 	
+	public boolean isAdmin(String user_nick){
+		
+		try {
+			conn = getConnection(); 
+			sql = "select user_auth from member where user_nickname = ?" ; 
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_nick);
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()){
+				if(rs.getInt(1) == 2){ // 일반회원 1 , 관리자 2 
+					return true ; 
+				}else{
+					return false ; 
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		} 
+		
+		return false; 
+	}
 	public void charge(String user_nickname, int totalamount){
 		try {
 			conn = getConnection();
