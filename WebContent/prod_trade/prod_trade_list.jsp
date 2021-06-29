@@ -40,7 +40,9 @@
 
 <br>
 <br>
-		<!-- int값으로 selected 값...하 안돼요  -->
+		<div align="center">
+		<h2>검색 조건 설정</h2>
+		<form action="#" method="get">
 		<select onchange="if(this.value) location.href=(this.value);" name="category">
 <!-- 				<option value="./ProductList.pr" selected="selected">카테고리</option> -->
 					<option value="./ProductList.pr" selected="selected"">전체</option>
@@ -101,6 +103,24 @@
 										selected
 										<%} %>>기타 중고물품</option>
 			</select>
+			
+			<select name="search_tap">
+				<option>
+					작성자
+				</option>
+				<option>
+					제목/내용
+				</option>
+			</select>
+			<input type="text" placeholder="검색어를 입력하세요">
+			<input type="button" value="상품 검색"
+				onclick="#">
+			<br> 
+			가격범위 설정
+			<input type="number" name="min_price"> ~ <input type="number" name="max_price">			
+			</form>
+			</div>
+			
 	<input type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'"><br>
 	<table border="1" class="table" style="height: 700px">
@@ -156,6 +176,7 @@
 		
 <!-- ///////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
 
+	<div align="center">
 	<%
 		if(size != 0){
 			int pageCount = cnt / pageSize + (cnt%pageSize == 0? 0 : 1);
@@ -211,6 +232,7 @@
 			}
 		}
 	%>
+	</div>
 </div>
 </body>
 </html>
