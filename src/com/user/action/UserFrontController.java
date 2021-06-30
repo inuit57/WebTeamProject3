@@ -139,6 +139,14 @@ public class UserFrontController extends HttpServlet{
 				System.out.println(e.toString());
 				System.out.println("UserFrontController command(UserPasswordEditAction.us) Problem - KBH");
 			}
+		} else if(command.equals("/UserBankChangeAction.us")) {
+			try {
+				action = new UserBankChangeAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserBankChangeAction.us) Problem - KBH");
+			}
 		}else if(command.equals("/UserEmail.us")){
 			forward = new ActionForward();
 			forward.setPath("./user/mail.jsp");
@@ -159,10 +167,6 @@ public class UserFrontController extends HttpServlet{
 			forward.setPath("./user/userJoin.jsp");
 			forward.setRedirect(false);
 		}
-		
-		
-		
-		
 		
 		if(forward != null) {
 			if(forward.isRedirect()) {

@@ -21,7 +21,6 @@ public class FAQUpdateAction implements Action {
 			fdto.setUser_nick("admin");
 			fdto.setFaq_sub(request.getParameter("faq_sub"));
 			fdto.setFaq_content(request.getParameter("faq_content"));
-			fdto.setFaq_file(request.getParameter("faq_file"));
 				
 			// DB저장
 			FAQDAO fdao = new FAQDAO();

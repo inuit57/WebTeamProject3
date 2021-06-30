@@ -14,6 +14,7 @@
 	<h1>WebContent/prod_trade/prod_trade_modify.jsp</h1>
 	
 		<%
+		String nick = (String)session.getAttribute("user_nick");
 		int num = Integer.parseInt(request.getParameter("num"));
 		ProdDAO pDAO = new ProdDAO();
 		ProdDTO pDTO = pDAO.getProduct(num);
@@ -23,6 +24,7 @@
 		<legend>중고거래 등록수정하기</legend>
 			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data"
 				name="pdf">
+				<input type="hidden" name="nick" value=<%=nick%>>
 				<table border="1">
 				<!-- switch문으로 작성 -->
 					<tr>
@@ -107,31 +109,32 @@
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
-							<select name="status">
+							<select name="status" required="required" id="statusFree">
 								<option value="0"
 								<% if(pDTO.getProd_status() == 0){ %>
 									selected
 									<%} %>
 								>삽니다</option>
 								<option value="1"
-								<% if(pDTO.getProd_status() == 0){ %>
+								<% if(pDTO.getProd_status() == 1){ %>
 									selected
 									<%} %>
 								>팝니다</option>
-								<option value="2"
-								<% if(pDTO.getProd_status() == 0){ %>
+								<option value="2" id="free"
+								<% if(pDTO.getProd_status() == 2){ %>
 									selected
 									<%} %>
 								>무료나눔</option>
+								<option value="3" id="tradeCompl"
+								<% if(pDTO.getProd_status() == 3){ %>
+									selected
+									<%} %>
+								>거래완료</option>
+								
 							</select>
 						</td>
 					</tr>
-					<tr> 
-						<td>작성자</td> <!-- 회원테이블에서 불러옴 readonly-->
-						<td>
-							<input type="text" name="nick" value=<%=pDTO.getUser_nick() %>>
-						</td>
-					</tr>
+					
 					<tr> 
 						<td>글 제목</td>
 						<td>
@@ -147,8 +150,8 @@
 					<tr> 
 						<td>상품 이미지1</td>
 						<td>
-							<input type="file" name="file1" accept="image/*" >
-							<input type="text" value=<%=pDTO.getProd_img().split(",")[0]%>>
+							<input type="file" name="file1" accept="image/*" 
+							value="<%= (pDTO.getProd_img()==null) ? "" : pDTO.getProd_img() %>">
 							
 						</td>
 					</tr>
@@ -196,7 +199,7 @@
 <script type="text/javascript">
 	
 	$(function(){
-		$("#prod_save").click(function(){
+		$("#prod_update").click(function(){
 			
 			var prod_sub = document.getElementById("psub").value;
 			var prod_price = document.getElementById("price").value;
@@ -225,5 +228,37 @@
 		
 		
 	});
+	
+	
+	$(document).ready(function(){
+		$("#statusFree").on('change',function(){
+			if(this.value  == 2 || this.value == 3){
+				$("#price").val(0);
+				$("#price").attr('readonly',true);
+			}else{
+				$("#price").val("");
+				$("#price").attr('readonly',false);
+			}
+			
+			if(this.value == 3){
+				$("#psub").val('판매완료');
+				$("#psub").attr('readonly',true);
+				
+			}else{
+				$("#psub").val("");
+				$("#psub").attr('readonly',false);
+				
+			}
+			
+		});
+	
+		
+	});
+	
+	
+	
+	
+	
+	
 </script>
 </html>

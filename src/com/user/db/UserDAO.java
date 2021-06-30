@@ -223,6 +223,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
+				udto.setUser_nickname(rs.getString("user_nickname"));
 				udto.setUser_id(rs.getString("user_id"));
 				udto.setUser_pw(rs.getString("user_pw"));
 				udto.setUser_joindate(rs.getTimestamp("user_joindate"));
@@ -230,6 +231,8 @@ public class UserDAO {
 				udto.setUser_address(rs.getString("user_address"));
 				udto.setUser_addressPlus(rs.getString("user_address_plus"));
 				udto.setUser_picture(rs.getString("user_picture"));
+				udto.setUser_bankName(rs.getString("user_bankname"));
+				udto.setUser_bankAccount(rs.getString("user_bankaccount"));
 			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -259,13 +262,14 @@ public class UserDAO {
 	public void userInfoEdit(UserDTO udto) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE member SET user_phone=?, user_address=?, user_address_plus=?, user_picture=? WHERE user_id=?";
+			sql = "UPDATE member SET user_phone=?, user_address=?, user_address_plus=?, user_picture=? , user_nickname=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, udto.getUser_phone());
 			pstmt.setString(2, udto.getUser_address());
 			pstmt.setString(3, udto.getUser_addressPlus());
 			pstmt.setString(4, udto.getUser_picture());
-			pstmt.setString(5, udto.getUser_id());
+			pstmt.setString(5, udto.getUser_nickname());
+			pstmt.setString(6, udto.getUser_id());
 			
 			pstmt.executeUpdate();
 			
@@ -294,6 +298,116 @@ public class UserDAO {
 		
 	}
 	
+	public String getUserNick(String id) {
+		
+		String nick = null;
+		
+		try {
+			conn = getConnection();
+			sql = "SELECT user_nickname FROM user WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				nick = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.getUserNick() function error - KBH");
+		}
+		return nick;
+	}
+	
+	public void changeBankAccount(String id, String bankName, String bankAccount) {
+		try {
+			conn = getConnection();
+			sql = "UPDATE user SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bankName);
+			pstmt.setString(2, bankAccount);
+			pstmt.setString(3, id);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.changeBankAccount() function error - KBH");
+		} finally {
+			closeDB();
+		}
+	}
+	
+	public void charge(String user_nickname, int totalamount){
+		try {
+			conn = getConnection();
+			sql = "SELECT user_coin FROM member WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nickname);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				System.out.println("=========================");
+				System.out.println(totalamount);
+				System.out.println(rs.getInt(1));
+				totalamount += rs.getInt(1);
+				System.out.println(totalamount);
+			}
+			
+			sql = "UPDATE member SET user_coin=? WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, totalamount);
+			pstmt.setString(2, user_nickname);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			   e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+	}
+	
+	
+	
+	public int getCoin(String user_nickname){
+		int result = 0;
+		try {
+			conn = getConnection();
+			sql = "SELECT user_coin FROM member WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nickname);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			} 
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.checkNick() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		return result;
+	}
+	
+	
+	public String getProfile(String user_nickname){
+		String user_profile = "";
+		try {
+			conn = getConnection();
+			sql = "SELECT user_picture FROM member WHERE user_nickname=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nickname);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				user_profile = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.checkNick() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		return user_profile;
+	}
 	
 
 }

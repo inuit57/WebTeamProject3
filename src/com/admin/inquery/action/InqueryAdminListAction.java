@@ -27,7 +27,7 @@ public class InqueryAdminListAction implements Action {
 		// 게시판 페이징 처리 : DB에서 원하는 만큼만 글 가져오기
 		
 		// 한 페이지당 보여줄 글의 개수
-		int pageSize = 10;
+		int pageSize = 5;
 		
 		// 현재 페이지가 몇페이지 인지 확인
 		String pageNum = request.getParameter("pageNum");
@@ -49,27 +49,26 @@ public class InqueryAdminListAction implements Action {
 		/////////////////////////////////////////////////////////////
 	
 		// 디비에 저장된 모든 글 정보를 가져오기
-
 		System.out.println("startRow@@@@@@@@@@@"+startRow);
 		System.out.println("pageSize@@@@@@@@@@@@@@@@"+pageSize);
 				
 		
 		List aiList = new ArrayList();
-		
-		if(check == null){
+						
+		if( (check == null) || (check.equals("null")) ) {
 		
 		aiList = aiDAO.getAdminInqueryList(startRow,pageSize);
-		
+
 		}else {
-				
-		aiList = aiDAO.getAdminInqueryList(check);
+
+		aiList = aiDAO.getAdminInqueryList(check,startRow,pageSize);
 		cnt =  aiDAO. adminInqueryCount(check);
-			
+		request.setAttribute("check", check);
+		
 		}
 		
 		
-		request.setAttribute("aiList", aiList);
-		
+		request.setAttribute("aiList", aiList);		
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("cnt", cnt);
@@ -77,7 +76,7 @@ public class InqueryAdminListAction implements Action {
 		
 		
 		// "./admin_inquery/admin_inquery_list.jsp"
-		forward.setPath("./admin_inquery/admin_inquery_list.jsp");
+		forward.setPath("./admin/admin_inquery/admin_inquery_list.jsp");
 		forward.setRedirect(false);
 	
 		return forward;

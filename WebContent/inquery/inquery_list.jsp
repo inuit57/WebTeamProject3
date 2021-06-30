@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<h1>WebContent/inquery/inquery_list</h1>
+		<h1>나의 1:1 문의</h1>
 	<%
 	 List miList =(List)request.getAttribute("myInqueryList");
 	

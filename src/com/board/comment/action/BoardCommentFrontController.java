@@ -46,6 +46,38 @@ public class BoardCommentFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 		}
+		else if(command.equals("/board_Comment_Modify.bco")){
+			System.out.println("C : /board_Comment_Modify.bco 호출");
+			
+			forward = new ActionForward();
+			forward.setPath("./board/board_Comment_Modify.jsp");
+			forward.setRedirect(false);
+			
+		}
+		else if(command.equals("/boardCommentModifyAction.bco")){
+			System.out.println("C : boardCommentModifyAction.bco 호출");
+			
+			action = new boardCommentModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		else if(command.equals("/boardCommentDeleteAction.bco")){
+			System.out.println("C : /boardCommentDeleteAction.bco 호출");
+			
+			action = new BoardCommentDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 		
 		

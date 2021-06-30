@@ -118,7 +118,7 @@ function checkPw() {
 		$('#pw_error').html('비밀번호가 일치 합니다.');
 		pwFlag = true;
 	}
-}
+} 
 
 function idCheck() {
 	
