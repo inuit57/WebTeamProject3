@@ -16,6 +16,19 @@ var phoneFlag = false;
 var addressFlag = false;
 var address_plusFlag = false;
 var email_Flag = false;
+//<!-- ------------------------test---------------------------- -->
+$(document).ready(function() {
+	 var $tablink = $(".tab_title li").click(function() {
+	    var idx = $tablink.index(this);
+	    $(".tab_title li").removeClass("on");
+	    $(".tab_title li").eq(idx).addClass("on");
+	    $(".tab_cont > div").hide();
+	    $(".tab_cont > div").eq(idx).show();
+	  })
+	});
+//<!-- ------------------------test---------------------------- -->
+
+
 
 function Infocheck() {
 	checkNick();
@@ -176,3 +189,4 @@ function check() {
 	
 	
 }
+

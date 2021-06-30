@@ -13,7 +13,7 @@ public class UserBankChangeAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		String nick_name = (String)session.getAttribute("nick_name");
+		String nick_name = (String)session.getAttribute("user_nick");
 		
 		String bankName = request.getParameter("bankname");
 		String bankAccount = request.getParameter("bankaccount");
@@ -26,7 +26,8 @@ public class UserBankChangeAction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setPath("./UserInfoAction.us");
 		forward.setRedirect(true);
-		
+		System.out.println("은행 저장 완료");
+		System.out.println(id);
 		return forward;
 	}
 

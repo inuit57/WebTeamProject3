@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="./inc/JS/top.js"></script>
 <title>기억마켓</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -45,7 +46,8 @@
                    <%
             		if (user_nick != null) {
             			%>
-            			<a href="./UserInfoAction.us"><%=user_nick %>님</a>
+<%--             			<a href="./UserInfoAction.us"><%=user_nick %>님</a> --%>
+            			<a href="javascript:openWindowInfo();"><%=user_nick %>님</a>
             			&emsp; &emsp;
             			<a href="./UserLogoutAction.us">로그아웃</a>
             			&emsp; &emsp;
