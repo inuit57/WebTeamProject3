@@ -44,7 +44,7 @@
 	<div style="margin:auto;  width: 800px;">
 	<div align="right">
 	<% if(user_nick != null){ %>
-		<form action="./declaration.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+		<form action="./declaration_normal.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 			<input type="submit" value="신고하기" >
 			<input type="hidden" name="board_num" value="<%=board_num%>">
 			<!-- 신고당하는 글 작성자 -->

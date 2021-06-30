@@ -174,13 +174,13 @@
 			<select name="search_type">
 				<option value="seller"
 				
-				<% if(search_type.equals("seller")){ %> selected="selected" <%} %>
+<%-- 				<% if(search_type!=null && search_type.equals("seller")){ %> selected="selected" <%} %> --%>
 				>
 					작성자
 				</option>
 				<option value="content"
 				
-				<% if(!search_type.equals("seller")){ %> selected="selected" <%} %>
+<%-- 				<% if(search_type!=null &&  !search_type.equals("seller")){ %> selected="selected" <%} %> --%>
 				>
 					제목/내용
 				</option>
