@@ -45,7 +45,7 @@
 	
 	<!-- 신고폼 -->
 	
-	<form action="./declarationProd.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+	<form action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 		
 		<input type="submit" value="신고하기">
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">

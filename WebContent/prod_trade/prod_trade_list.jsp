@@ -126,10 +126,7 @@
 				pDTO = (ProdDTO)productList.get(num);%>
 			<td>
 				<%
-				System.out.println("@@@@@@@@@@@@@@@@@@@@@@2");
-				System.out.println(pDTO);
 				 String imgfile = pDTO.getProd_img().split(",")[0];
-				 System.out.println("@@@@@@@@@@@@@@@@@@@@@@2");
 				 if((imgfile == null) || (imgfile.equals("null"))){
 			
 					imgfile = "product_default.jpeg";

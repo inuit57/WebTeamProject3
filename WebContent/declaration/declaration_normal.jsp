@@ -52,7 +52,7 @@
 %>
 	<h1>'<%=board_sub %>' 입니다.<br>
 	 신고사유를 선택해주세요</h1>
-	<form action="declarationAction.decl" method="post">
+	<form action="declarationNormalAction.decl" method="post">
 		
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 		<input type="hidden" name="board_num" value="<%=board_num%>">

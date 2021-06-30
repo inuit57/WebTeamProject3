@@ -14,9 +14,9 @@
 <body>
 	<h1>Market</h1>
 	<%
-	String user_nick = "admin";
+	//String user_nick = "admin";
 	
-	session.setAttribute("user_nick", user_nick);
+	//session.setAttribute("user_nick", user_nick);
 	%>
 	<a href="./UserLogin.us">로그인</a><br>
 	<a href="./UserJoin.us">회원가입</a><br>
@@ -38,7 +38,7 @@
   
 	
 	
-	// response.sendRedirect("./main.bo");
+	 response.sendRedirect("./main.bo");
 	
 	// 댓글인설트중
 	// 일반게시판 목록

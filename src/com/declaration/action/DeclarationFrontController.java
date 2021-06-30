@@ -35,17 +35,17 @@ public class DeclarationFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/declaration.decl")){
-			System.out.println("C : /declaration.decl 호출");
+		if(command.equals("/declaration_normal.decl")){
+			System.out.println("C : /declaration_normal.decl 호출");
 			
 			forward = new ActionForward();
-			forward.setPath("./declaration/declaration.jsp");
+			forward.setPath("./declaration/declaration_normal.jsp");
 			forward.setRedirect(false);
 			
 		}
 		
-		else if(command.equals("/declarationProd.decl")){
-			System.out.println("C : /declarationProd.decl 호출");
+		else if(command.equals("/declaration_prod.decl")){
+			System.out.println("C : /declaration_prod.decl 호출");
 			
 			forward = new ActionForward();
 			forward.setPath("./declaration/declaration_prod.jsp");
@@ -63,10 +63,10 @@ public class DeclarationFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 		}
-		else if(command.equals("/declarationAction.decl")){
-			System.out.println("C : declarationAction.decl 호출");
+		else if(command.equals("/declarationNormalAction.decl")){
+			System.out.println("C : declarationNormalAction.decl 호출");
 			
-			action = new declarationAction();
+			action = new declarationNormalAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -94,10 +94,33 @@ public class DeclarationFrontController extends HttpServlet{
 			}
 			
 		}
+		else if(command.equals("/decl_prod_list.decl")){
+			System.out.println("C : decl_prod_list.decl 호출");
+			
+			action = new decl_prod_listAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		else if(command.equals("/decl_normal_content.decl")){
 			System.out.println("C : /decl_normal_content.decl 호출");
 			
 			action = new decl_normal_contentAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/decl_prod_content.decl")){
+			System.out.println("C : /decl_prod_content.decl 호출");
+			
+			action = new decl_prod_contentAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -117,15 +140,22 @@ public class DeclarationFrontController extends HttpServlet{
 			}
 			
 		}
-		
-		
-		
-		
-		
-		
-		
+		else if(command.equals("/decl_prod_DeleteAction.decl")){
+			System.out.println("C : /decl_prod_DeleteAction.decl 호출");
+			
+			action = new decl_prod_DeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 
+		
+		
 		System.out.println("C : 2.페이지 주소 매핑 완료");
 		
 		/******************* 2.페이지 주소 매핑(연결) ****************************/

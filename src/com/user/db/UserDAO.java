@@ -56,13 +56,13 @@ public class UserDAO {
 		try {
 			conn = getConnection();
 
-			sql = "INSERT INTO member(user_id,user_nickname,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
+			sql = "INSERT INTO member(user_id,user_nick,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
 					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, udto.getUser_id());
-			pstmt.setString(2, udto.getUser_nickname());
+			pstmt.setString(2, udto.getUser_nick());
 			pstmt.setString(3, udto.getUser_pw());
 			pstmt.setTimestamp(4, udto.getUser_joindate());
 			pstmt.setInt(5, udto.getUser_coin());
@@ -90,7 +90,7 @@ public class UserDAO {
 		String id = null ; 
 		try {
 			conn = getConnection(); 
-			sql = "select user_id from member where user_nickname=?"; 
+			sql = "select user_id from member where user_nick=?"; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nick);
 			
@@ -112,7 +112,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nickname FROM member WHERE user_nickname=?";
+			sql = "SELECT user_nick FROM member WHERE user_nick=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();
@@ -162,7 +162,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
+			sql = "SELECT user_pw, user_use_yn, user_nick FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
