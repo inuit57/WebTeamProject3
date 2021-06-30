@@ -45,6 +45,7 @@
 	<% if(user_nick != null){ %>
 	<div style="margin:auto;  width: 800px; ">
 	<form name="declareForm" action="./declarationProd.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+
 		<input type="submit" value="신고하기">
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
