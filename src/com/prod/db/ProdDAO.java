@@ -73,7 +73,8 @@ public class ProdDAO {
 			}
 			
 			sql = "insert into prod_trade "
-					+ "values(?,?,?,?,?,?,?,?,now(),?,?)";
+					+ "values(?,?,?,?,?"
+					+ ",?,?,?,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -146,22 +147,28 @@ public class ProdDAO {
 	
 		List productList = new ArrayList();
 		
-		StringBuffer SQL = new StringBuffer();
-		
+		//StringBuffer SQL = new StringBuffer();
 		try {
 			
 			conn = getConnection();
-			SQL.append("select * from prod_trade");
+			//SQL.append("select * from prod_trade order by prod_num desc");
 			
+			 
 			if(item.equals("all")) {
+				sql = "select * from prod_trade order by prod_num desc" ;
 			}else {
-				SQL.append(" where prod_category=?");
+				//SQL.append(" where prod_category=?");
+				sql = "select * from prod_trade where prod_category=? order by prod_num desc " ;
 			}
 			
-			pstmt = conn.prepareStatement(SQL+"");
+			//pstmt = conn.prepareStatement(SQL+"");
+			pstmt = conn.prepareStatement(sql);
 			
-			if(item.equals("all")) {
-			}else {
+//			if(item.equals("all")) {
+//			}else {
+//				pstmt.setString(1, item);
+//			}
+			if(! item.equals("all")) {
 				pstmt.setString(1, item);
 			}
 			
@@ -181,12 +188,12 @@ public class ProdDAO {
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
 				pDTO.setUser_nick(rs.getString("user_nick"));
+
 				
 				productList.add(pDTO);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			closeDB();
@@ -195,6 +202,113 @@ public class ProdDAO {
 		return productList;
 	}//getProductList(item) 상품 카테고리 글 리스트
 	
+	
+	public List getProductList(ProdSearch prodSearch) {
+		
+		List productList = new ArrayList();
+		
+		//StringBuffer SQL = new StringBuffer();
+		try {
+			
+			conn = getConnection();
+			//SQL.append("select * from prod_trade order by prod_num desc");
+			
+			String item = prodSearch.getItem(); 
+			String search_type = prodSearch.getSearch_type(); 
+			String search_text = prodSearch.getSearch_text(); 
+			String min_price = prodSearch.getMin_price(); 
+			String max_price = prodSearch.getMax_price(); 
+			
+			System.out.println(prodSearch);
+			
+			
+			// 아이템에 대한 처리 
+			if(item.equals("all")) {
+				sql = "select * from prod_trade where 1=1 " ;
+			}else {
+				//SQL.append(" where prod_category=?");
+				sql = "select * from prod_trade where prod_category=? " ;
+			}
+			
+			// 검색어가 있는 경우의 처리 
+			if(search_text != null && !search_text.equals("")){
+				if(search_type.equals("seller")){
+					sql += " and user_nick like ? "; 
+				}else{
+					sql += " and prod_sub like ? or prod_content like ? ";
+				}
+			}
+			
+			//가격에 대한 처리
+			sql += " and prod_price >= ?";
+			if (max_price != null && !max_price.equals("")){
+				sql+= " and prod_price <= ?";
+			}
+			
+			sql +=" and prod_status != 3 order by prod_num desc";
+			
+			//pstmt = conn.prepareStatement(SQL+"");
+			pstmt = conn.prepareStatement(sql);
+			
+			int index = 1; 
+			
+			if(! item.equals("all")) {
+				pstmt.setString(index, item);
+				index ++; 
+			}
+			
+			if(search_text != null && !search_text.equals("")){
+				if(search_type.equals("seller")){
+					pstmt.setString(index, "%"+search_text+"%"); 
+					index ++ ; 
+				}else{
+					pstmt.setString(index, "%"+search_text+"%");
+					pstmt.setString(index+1, "%"+search_text+"%");
+					
+					index +=2; 
+				}
+			}
+			System.out.println(pstmt);
+			//최소가격
+			pstmt.setInt(index, Integer.parseInt(min_price));
+			index ++ ; 
+			
+			if (max_price != null && !max_price.equals("")){
+				pstmt.setInt(index, Integer.parseInt(max_price));
+				index ++; 
+			}
+			
+			
+			System.out.println(pstmt);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProdDTO pDTO = new ProdDTO();
+				
+				pDTO.setProd_category(rs.getInt("prod_category"));
+				pDTO.setProd_content(rs.getString("prod_content"));
+				pDTO.setProd_count(rs.getInt("prod_count"));
+				pDTO.setProd_date(rs.getTimestamp("prod_date"));
+				pDTO.setProd_img(rs.getString("prod_img"));
+				pDTO.setProd_ip(rs.getString("prod_ip"));
+				pDTO.setProd_num(rs.getInt("prod_num"));
+				pDTO.setProd_price(rs.getInt("prod_price"));
+				pDTO.setProd_status(rs.getInt("prod_status"));
+				pDTO.setProd_sub(rs.getString("prod_sub"));
+				pDTO.setUser_nick(rs.getString("user_nick"));
+
+				
+				productList.add(pDTO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+		return productList;
+	}//getProductList(item) 상품 카테고리 글 리스트
 	
 	//getProduct(num) 상품 가져오기
 	public ProdDTO getProduct(int num) {
@@ -277,7 +391,7 @@ public class ProdDAO {
 		try {
 			
 			conn = getConnection();
-			sql = "select * from prod_trade "
+			sql = "select * from prod_trade order by prod_num desc "
 					+ "limit ?,?";
 			
 			pstmt = conn.prepareStatement(sql);

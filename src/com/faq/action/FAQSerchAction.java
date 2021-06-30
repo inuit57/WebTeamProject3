@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.faq.db.FAQDAO;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class FAQSerchAction implements Action {
 
@@ -14,7 +14,10 @@ public class FAQSerchAction implements Action {
 		// 한글처리
 		request.setCharacterEncoding("utf-8");
 		
-		String keyword = request.getParameter("faq_search");
+		String[] keyword = request.getParameter("faq_search").split(" ");
+		
+		
+				
 		
 		FAQDAO fdao = new FAQDAO();
 		

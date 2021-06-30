@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.prod.db.ProdDAO;
 import com.prod.db.ProdDTO;
+import com.wish.db.WishDAO;
 
 public class ProductDetailAction implements Action {
 
@@ -23,7 +24,10 @@ public class ProductDetailAction implements Action {
 		ProdDAO pDAO = new ProdDAO();
 		request.setAttribute("product", pDAO.getProduct(num));
 
-		ProdDTO pDTO = new ProdDTO();
+		//상품 찜 횟수
+		//WishDAO wDAO = new WishDAO();
+		//request.setAttribute("wishCount", wDAO.wishCount(num));
+				
 		
 		
 		int count = 0;
@@ -37,7 +41,6 @@ public class ProductDetailAction implements Action {
 					//if(cookies[i].getName().equals(pDTO.getProd_num()+"")) {
 					if(cookies[i].getName().equals("prod_count"+num) && cookies[i].getValue().equals(request.getRemoteAddr())) {
 						count = 0;
-						System.out.println("테슽@@@@@"+cookies[i].getName());
 						break;
 					}else {
 						Cookie cookie = new Cookie("prod_count"+num,
@@ -47,7 +50,6 @@ public class ProductDetailAction implements Action {
 						//cookie.setPath("/");
 						response.addCookie(cookie);
 						count += 1;
-						System.out.println("else 출력~~~");
 					}
 				}
 			}
@@ -56,6 +58,8 @@ public class ProductDetailAction implements Action {
 				pDAO.updateCount(num);
 			}
 		
+		
+			
 		
 		//페이지 이동
 		ActionForward forward = new ActionForward();

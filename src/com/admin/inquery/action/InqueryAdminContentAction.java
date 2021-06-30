@@ -23,7 +23,7 @@ public class InqueryAdminContentAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setPath("./admin_inquery/admin_inquery_content.jsp");
+		forward.setPath("./admin/admin_inquery/admin_inquery_content.jsp");
 		forward.setRedirect(false);
 		
 		

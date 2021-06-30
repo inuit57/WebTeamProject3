@@ -60,6 +60,8 @@
 			                    //파일 기본경로 _ 상세경로
 			                    String filePath = dftFilePath +"upload" + File.separator;
 			                    
+			                    System.out.println(dftFilePath);
+			                    
 			                    File file = null;
 			                    file = new File(filePath);
 			                    if(!file.exists()) {
@@ -93,8 +95,7 @@
 			                    return3 += "&bNewLine=true";
 			                                // img 태그의 title 옵션에 들어갈 원본파일명
 			                    return3 += "&sFileName="+ name;
-			                    //return3 += "&sFileURL=/WebTeamProject3/upload/"+realFileNm;
-			                    return3 += "&sFileURL="+request.getContextPath()+"/upload/"+realFileNm;
+			                    return3 += "&sFileURL=/WebTeamProject3/upload/"+realFileNm;
 			                }
 			            }else {
 			                  return3 += "&errstr=error";

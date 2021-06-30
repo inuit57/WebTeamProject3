@@ -25,7 +25,62 @@ Table of contents
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
 
+.profile1234 {
+	margin-top:50px;
+	margin-bottom:10px;
+    width: 125px;
+    height: 125px; 
+    border-radius: 70%;
+    overflow: hidden;
+    object-fit: cover;
+    border: 3px solid #59ab6e;
+}
 
+.btn4321 {
+	 height:50px; 
+	 width:100%; 
+	 border: 1px solid #59ab6e; 
+	 color:#59ab6e;
+	 background-color:transparent;
+}
+
+.btn321 {
+	
+	 height:50px; 
+	 width:25%;
+	 border: 1px solid black; 
+	 color:black;
+	 background-color:transparent;
+	 margin-left:-5px;
+	 margin-top:20px;
+	 font-size: 15px;
+}
+
+
+
+.input_amount{
+	width: 100%;
+	font-size: 25px;
+	margin-top: 40px;
+	border:none;
+	border-right:0px; 
+	border-top:0px; 
+	boder-left:0px;
+	boder-bottom:0px;
+
+}
+
+
+.btnkakao{
+	
+	width:20%;
+	border:none;
+	border-right:0px; 
+	border-top:0px; 
+	boder-left:0px;
+	boder-bottom:0px;
+	background-color:transparent;
+}
 
 
 /* Typography */

@@ -52,7 +52,7 @@ public class InqueryAdminFrontController extends HttpServlet{
 			
 			forward = new ActionForward();
 			
-			forward.setPath("./admin_inquery/admin_inquery_write_form.jsp");
+			forward.setPath("./admin/admin_inquery/admin_inquery_write_form.jsp");
 			forward.setRedirect(false);
 		} else if(command.equals("/InqueryAdminWriteAction.ai")){
 			System.out.println("C : /InqueryAdminWriteAction.ai 호출");

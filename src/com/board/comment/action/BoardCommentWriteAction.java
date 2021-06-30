@@ -13,6 +13,8 @@ public class BoardCommentWriteAction implements Action {
 
 		System.out.println("BoardCommentWriteAction_execute() 호출");
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		// 전달된 게시글번호 저장
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));

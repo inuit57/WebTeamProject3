@@ -13,7 +13,7 @@ public class UserPasswordEditAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		String id = (String)session.getAttribute("id");
+		String nickname = (String)session.getAttribute("user_nick");
 		
 		String pw = request.getParameter("pw");
 		String new_pw = request.getParameter("new_pw");
@@ -21,14 +21,17 @@ public class UserPasswordEditAction implements Action {
 		
 		UserDAO udao = new UserDAO();
 		
-		boolean b = udao.Login(id, pw);
+		String id = udao.getId(nickname);  
+		String nick_chk = udao.Login(id, pw); 
 		
 		ActionForward forward = new ActionForward();
 		
-		if(b) {
+		if(nick_chk != null) {
 			if(new_pw.equals(new_pw_check)) {
 				udao.changePassword(id,new_pw);
-				forward.setPath("./UserInfo.us?m=1");
+				
+				session.invalidate(); 
+				forward.setPath("./Main.do");
 				forward.setRedirect(true);
 			} else {
 				forward.setPath("./UserInfo.us?m=2");
@@ -38,9 +41,6 @@ public class UserPasswordEditAction implements Action {
 			forward.setPath("./UserInfo.us?m=3");
 			forward.setRedirect(true);
 		}
-		
-		
-		
 		
 		return forward;
 	}

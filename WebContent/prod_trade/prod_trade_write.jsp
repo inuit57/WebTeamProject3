@@ -1,33 +1,40 @@
+<%@page import="com.user.db.UserDAO"%>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>prod_trade_write</title>
- <script src="../jq/jquery-3.6.0.js"></script>
+
+<script src="./jq/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1>WebContent/prod_trade/prod_trade_write.jsp</h1>
-	<script type="text/javascript">
-		function subFunction(){
-		
-		var pdsub = $('#pdsub').val();
-		if(pdsub == ""){
-			$('#submsg').html('입력');
-		}
-		
-	}
+
+<div class="container" >
+<br><br>
+<!-- 	<h1>WebContent/prod_trade/prod_trade_write.jsp</h1> -->
 	
+	<%
+	String nick = (String)session.getAttribute("user_nick");
+
+	// 수정 필요
+//	if(nick == null){
+//		response.sendRedirect("./Login/LoginForm.jsp");
+//	}
 	
-	</script>
-	
-	<fieldset>
+
+	%>
+	<fieldset style="margin:auto;  width: 800px;">
 		<legend>중고거래 등록하기</legend>
 			<form action="./ProductRegisterAction.pr" method="post" enctype="multipart/form-data"
-				id="pdf" name="pdf">
-				<table border="1">
+				name="pdf">
+				<input type="hidden" name="nick" value=<%=nick%>>
+				
+				<table border="1"   class="table" >
 				<!-- switch문으로 작성 -->
 					<tr>
 						<td>카테고리</td>
@@ -50,35 +57,27 @@
 							</select>
 						</td>
 					</tr>
-					
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
-							<select name="status" required="required">
+							<select name="status" required="required" id="statusFree">
 								<option value="0">삽니다</option>
-								<option value="1">팝니다</option>
-								<option value="2">무료나눔</option>
+								<option value="1" selected="selected">팝니다</option>
+								<option value="2" id="free">무료나눔</option>
+								<option value="3" id="tradeCompl">거래완료</option>
 							</select>
-						</td>
-					</tr>
-					<tr> 
-						<td>작성자</td> <!-- 회원테이블에서 불러옴 -->
-						<td>
-							<input type="text" name="nick" id="pdnic" placeholder="작성자를 입력하세요."
-									>
 						</td>
 					</tr>
 					<tr> 
 						<td>글 제목</td>
 						<td id="pdsub">
-							<input type="text" name="subject" placeholder="제목을 입력하세요."
-							onkeyup="subFunction()">
+							<input type="text" name="prod_sub" id="psub" placeholder="제목을 입력하세요." >
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 가격</td>
 						<td>
-							<input type="number" name="price" id="pdprice" placeholder="가격을 입력하세요.">
+							<input type="number" name="prod_price" id="price" placeholder="가격을 입력하세요.">
 						</td>
 					</tr>
 					<tr> 
@@ -108,22 +107,76 @@
 					<tr> 
 						<td>글 내용</td>
 						<td>
-							<textarea rows="30" cols="60" name="content" id="pdcon"
+							<textarea rows="30" cols="60" name="prod_content"
+								id="pcontent"
 								placeholder="상품정보를 입력하세요."></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<input type="submit" value="거래등록">
+						<td colspan="2" align="right">
+							<input type="submit" id="prod_save" value="글쓰기">
 							<input type="reset" value="초기화">
 						</td>
 					</tr>
-					
 				</table>
 			</form>
 	</fieldset>
-
-	
-	
+	</div>
 </body>
+
+<script type="text/javascript">
+	
+	$(function(){
+		$("#prod_save").click(function(){
+			
+			var prod_sub = document.getElementById("psub").value;
+			var prod_price = document.getElementById("price").value;
+			var prod_content = document.getElementById("pcontent").value;
+			
+			if(prod_sub == ""){
+				alert("제목을 입력하세요.");
+				return false;
+				
+			}
+			if(prod_price == ""){
+				alert("가격을 입력하세요.");
+				return false;
+			}
+			
+			if(prod_content == "" || prod_content == null || prod_content == '&nbsp;' || prod_content == '<br>' || content == '<br/>' || prod_content == '<p>&nbsp;</p>'){
+				alert("본문을 입력하세요."); 
+				
+				return false; 
+			} 
+			
+			
+			document.fr.submit();
+			
+		});
+	});
+	
+	$(document).ready(function(){
+		$("#statusFree").on('change',function(){
+			if(his.value  == 2 || this.value == 3){
+				$("#price").val(0);
+				$("#price").attr('readonly',true);
+			}else{
+				$("#price").val("");
+				$("#price").attr('readonly',false);
+			}
+			
+			if(this.value == 3){
+				$("#psub").val('판매완료');
+				$("#psub").attr('readonly',true);
+
+			}else{
+				$("#psub").val("");
+				$("#psub").attr('readonly',false);
+				
+			}
+		});
+	
+	});
+</script>
 </html>
+<%@ include file="../inc/footer.jsp" %>

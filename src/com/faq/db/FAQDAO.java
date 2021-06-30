@@ -119,8 +119,10 @@ public class FAQDAO {
     
     
     
+
     
-    
+
+  
 	    //getFAQList()
 	    public List getFAQList(){
 	    	List faqList = new ArrayList();
@@ -310,11 +312,23 @@ public class FAQDAO {
 	    
     
 	    //getSearchList(keyword)
-	    public List getSearchList(String keyword){
+	    public List getSearchList(String[] keyword){
 	    	List faqList = new ArrayList();
 	    	try {
 				conn = getConnection();
-				sql = "select * from faq_board where faq_sub like '%"+keyword+"%' or faq_content like'%"+keyword+"%'";
+				
+				sql = "select * from faq_board where faq_sub like '%"+ keyword[0]+"%' ";
+						
+				for(int i=1; i<keyword.length; i++){
+					sql += "or faq_sub like '%"+ keyword[i]+"%' ";
+				}
+				
+				sql += "or faq_content like'%"+keyword[0]+"%' ";
+				
+				for(int i=1; i<keyword.length; i++){
+					sql += "or faq_content like '%"+ keyword[i]+"%' ";
+				}				
+				
 				
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
