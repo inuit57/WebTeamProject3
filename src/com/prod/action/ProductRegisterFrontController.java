@@ -115,14 +115,6 @@ public class ProductRegisterFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductSearchAction.pr")){
-			action = new ProductSearchAction(); 
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
 		}
 		
 		/***************************** 페이지 주소 이동 ******************************/

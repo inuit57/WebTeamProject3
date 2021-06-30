@@ -22,18 +22,26 @@
 	List productList = (List) request.getAttribute("productList");
 
 	ProdDAO pDAO = new ProdDAO();
-	int cnt = pDAO.getProductCount();
+	//int cnt = pDAO.getProductCount();
 	
-	List productListWant = (List)request.getAttribute("productListWant");
+	int cnt = productList.size(); 	
+	
+	//List productListWant = (List)request.getAttribute("productListWant");
 	
 	int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
 	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
 	
-	int item = -1 ;
-	if(request.getParameter("item") !=null){
-		 item = Integer.parseInt( request.getParameter("item"));
+	String itemS = request.getParameter("item") ;
+	String search_type = request.getParameter("search_type"); 
+	int item = -1 ; 
+	if(itemS!= null && !itemS.equals("")){
+		item =  Integer.parseInt( itemS);
 	}
+//	int item = -1 ;
+// 	if(request.getParameter("item") !=null || !request.getParameter("item").equals("")){
+// 		 item = Integer.parseInt( request.getParameter("item"));
+// 	}
 	
 	ProdDTO pDTO = new ProdDTO();
 %>
@@ -42,82 +50,151 @@
 <br>
 		<div align="center">
 		<h2>검색 조건 설정</h2>
-		<form action="#" method="get">
-		<select onchange="if(this.value) location.href=(this.value);" name="category">
-<!-- 				<option value="./ProductList.pr" selected="selected">카테고리</option> -->
-					<option value="./ProductList.pr" selected="selected"">전체</option>
-					<option value="./ProductList.pr?item=0"
+		<form action="./ProductList.pr" method="get">
+<!-- 		<select onchange="if(this.value) location.href=(this.value);" name="category"> -->
+<!-- 					<option value="./ProductList.pr" selected="selected"">전체</option> -->
+<!-- 					<option value="./ProductList.pr?item=0" -->
+<%-- 					<% if(item == 0){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>디지털기기</option> --%>
+<!-- 					<option value="./ProductList.pr?item=1" -->
+<%-- 					<% if(item == 1){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>생활가전</option> --%>
+<!-- 					<option value="./ProductList.pr?item=2" -->
+<%-- 					<% if(item == 2){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>가구/인테리어</option> --%>
+<!-- 					<option value="./ProductList.pr?item=3" -->
+<%-- 					<% if(item == 3){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>유아용품</option> --%>
+<!-- 					<option value="./ProductList.pr?item=4" -->
+<%-- 					<% if(item == 4){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>생활/가공식품</option> --%>
+<!-- 					<option value="./ProductList.pr?item=5" -->
+<%-- 					<% if(item == 5){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>스포츠/레저</option> --%>
+<!-- 					<option value="./ProductList.pr?item=6" -->
+<%-- 					<% if(item == 6){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>여성잡화/의류</option> --%>
+<!-- 					<option value="./ProductList.pr?item=7" -->
+<%-- 					<% if(item == 7){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>남성잡화/의류</option> --%>
+<!-- 					<option value="./ProductList.pr?item=8" -->
+<%-- 					<% if(item == 8){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>게임/취미</option> --%>
+<!-- 					<option value="./ProductList.pr?item=9" -->
+<%-- 					<% if(item == 9){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>뷰티/미용</option> --%>
+<!-- 					<option value="./ProductList.pr?item=10" -->
+<%-- 					<% if(item == 10){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>반려동물용품</option> --%>
+<!-- 					<option value="./ProductList.pr?item=11" -->
+<%-- 					<% if(item == 11){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>도서/티켓/음반</option> --%>
+<!-- 					<option value="./ProductList.pr?item=12" -->
+<%-- 					<% if(item == 12){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>식물</option> --%>
+<!-- 					<option value="./ProductList.pr?item=13" -->
+<%-- 					<% if(item == 13){ %> --%>
+<!-- 										selected -->
+<%-- 										<%} %>>기타 중고물품</option> --%>
+<!-- 			</select> -->
+
+			<select name="item">
+					<option value="" selected="selected"">전체</option>
+					<option value="0"
 					<% if(item == 0){ %>
 										selected
 										<%} %>>디지털기기</option>
-					<option value="./ProductList.pr?item=1"
+					<option value="1"
 					<% if(item == 1){ %>
 										selected
 										<%} %>>생활가전</option>
-					<option value="./ProductList.pr?item=2"
+					<option value="2"
 					<% if(item == 2){ %>
 										selected
 										<%} %>>가구/인테리어</option>
-					<option value="./ProductList.pr?item=3"
+					<option value="3"
 					<% if(item == 3){ %>
 										selected
 										<%} %>>유아용품</option>
-					<option value="./ProductList.pr?item=4"
+					<option value="4"
 					<% if(item == 4){ %>
 										selected
 										<%} %>>생활/가공식품</option>
-					<option value="./ProductList.pr?item=5"
+					<option value="5"
 					<% if(item == 5){ %>
 										selected
 										<%} %>>스포츠/레저</option>
-					<option value="./ProductList.pr?item=6"
+					<option value="6"
 					<% if(item == 6){ %>
 										selected
 										<%} %>>여성잡화/의류</option>
-					<option value="./ProductList.pr?item=7"
+					<option value="7"
 					<% if(item == 7){ %>
 										selected
 										<%} %>>남성잡화/의류</option>
-					<option value="./ProductList.pr?item=8"
+					<option value="8"
 					<% if(item == 8){ %>
 										selected
 										<%} %>>게임/취미</option>
-					<option value="./ProductList.pr?item=9"
+					<option value="9"
 					<% if(item == 9){ %>
 										selected
 										<%} %>>뷰티/미용</option>
-					<option value="./ProductList.pr?item=10"
+					<option value="10"
 					<% if(item == 10){ %>
 										selected
 										<%} %>>반려동물용품</option>
-					<option value="./ProductList.pr?item=11"
+					<option value="11"
 					<% if(item == 11){ %>
 										selected
 										<%} %>>도서/티켓/음반</option>
-					<option value="./ProductList.pr?item=12"
+					<option value="12"
 					<% if(item == 12){ %>
 										selected
 										<%} %>>식물</option>
-					<option value="./ProductList.pr?item=13"
+					<option value="13"
 					<% if(item == 13){ %>
 										selected
 										<%} %>>기타 중고물품</option>
 			</select>
 			
-			<select name="search_tap">
-				<option>
+			<select name="search_type">
+				<option value="seller"
+				
+				<% if(search_type.equals("seller")){ %> selected="selected" <%} %>
+				>
 					작성자
 				</option>
-				<option>
+				<option value="content"
+				
+				<% if(!search_type.equals("seller")){ %> selected="selected" <%} %>
+				>
 					제목/내용
 				</option>
 			</select>
-			<input type="text" placeholder="검색어를 입력하세요">
-			<input type="button" value="상품 검색"
-				onclick="#">
+			<input type="text" name="search_text" placeholder="검색어를 입력하세요"
+				value=<%= request.getParameter("search_text") %>
+			>
+			<input type="submit" value="상품 검색">
+			<input type="reset" value="조건 초기화">
 			<br> 
 			가격범위 설정
-			<input type="number" name="min_price"> ~ <input type="number" name="max_price">			
+			<input type="number" name="min_price" value="<%=request.getParameter("min_price")%>"> 
+			~ 
+			<input type="number" name="max_price" value="<%=request.getParameter("max_price")%>">			
 			</form>
 			</div>
 			
@@ -221,8 +298,6 @@
 					<a href="ProductList.pr?pageNum=<%=i%>">[<%=i %>]</a>
 					<%
 				}
-				////////////////옵션별 페이징 처리(상품 갯수만큼 페이징 처리하기)////////////////
-				//./ProductList.pr?item=< %=pDTO.getProd_category()% >
 			}
 			//다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
 			if(endPage < pageCount){
