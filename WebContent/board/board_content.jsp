@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.board.comment.db.boardCommentDTO"%>
