@@ -1,11 +1,12 @@
-package com.admin.inquery.action;
+package com.admin.user.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.admin.inquery.db.AdminInqueryDAO;
+import com.admin.user.db.AdminUserDAO;
 
-public class InqueryAdminSearchAction implements Action {
+public class AdminUserSearchAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -14,12 +15,12 @@ public class InqueryAdminSearchAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		
 		String sk = request.getParameter("sk");
-		String[] sv = request.getParameter("sv").split(" ");
+		String sv = request.getParameter("sv");
 		
 		
-		AdminInqueryDAO aiDAO = new AdminInqueryDAO();
+		AdminUserDAO auDAO = new AdminUserDAO();
 		
-		int cnt = aiDAO. adminInqueryCount(sk,sv);
+		int cnt = auDAO. adminUserCount(sk,sv);
 		
 		System.out.println(sk+sv);
 		
@@ -56,11 +57,11 @@ public class InqueryAdminSearchAction implements Action {
 		//aiDAO.inquerySearchList(sk,sv);
 	
 		
-		request.setAttribute("aiList",aiDAO.inquerySearchList(sk,sv,startRow,pageSize));
+		request.setAttribute("auList",auDAO.userSearchList(sk,sv,startRow,pageSize));
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setPath("./admin/admin_inquery/admin_inquery_search.jsp");
+		forward.setPath("./admin/admin_user/admin_user_search.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

@@ -67,7 +67,7 @@ public class AdminInqueryDAO {
     	try {
     		conn = getConnection();
     		
-    		sql = "select * from inquery order by inq_ref";
+    		sql = "select * from inquery order by inq_ref desc, inq_num asc";
     		
 			pstmt = conn.prepareStatement(sql);
 			
@@ -114,11 +114,9 @@ public class AdminInqueryDAO {
     		SQL.append("select * from inquery");
     		
     		if(check.equals("0")){
-    			SQL.append(" where inq_check=0 order by inq_ref limit ?,?");
-    			System.out.println("@@@@@@@@@@@check000000000");
+    			SQL.append(" where inq_check=0 order by inq_ref desc, inq_num asc limit ?,?");
     		}else{
-    			SQL.append(" where inq_check=1 order by inq_ref limit ?,?");
-    			System.out.println("@@@@@@@@@@@@@@check111111111111");
+    			SQL.append(" where inq_check=1 order by inq_ref desc, inq_num asc limit ?,?");
     		}
     		
 			pstmt = conn.prepareStatement(SQL+"");
@@ -391,7 +389,7 @@ public class AdminInqueryDAO {
     		sql+="or "+sk+" like '%"+sv[i]+"%'";
     	}
     	
-    	sql+= "order by inq_ref limit ?,?";
+    	sql+= "order by inq_ref desc, inq_num asc limit ?,?";
     	
     	
 		pstmt = conn.prepareStatement(sql);
@@ -563,8 +561,8 @@ public int adminInqueryCount(String sk, String[] sv){
 		
 			
 			//sql = "select * from itwill_board";
-			sql = "select * from inquery order by inq_ref "					
-					+ "limit ?,?";
+			sql = "select * from inquery order by inq_ref desc,  "					
+					+ "inq_num asc limit ?,?";
 			
 			
 			pstmt = conn.prepareStatement(sql);
