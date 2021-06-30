@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -10,11 +11,15 @@
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
 <%
-request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
 %>
 
 <body>
-	<h3>자주묻는질문</h3> 
+	<div class="container">
+	<br><br>  
+	<div style="margin:auto;  width: 800px;">
+	
+	<h3>FAQ 등록</h3> 
 	
 	<form action="./FAQAddAction.faq" method="post" name="fr">
 	
@@ -35,11 +40,15 @@ request.setCharacterEncoding("UTF-8");
 		<div>
 			<textarea name="faq_content" id="smartEditor" style="width: 100%; height: 412px;"></textarea>
 		</div>
-	    <button type="button" id="savebutton" >등록</button>
-	
+		
+		<div align="right">
+	    	<button type="button" id="savebutton" >등록</button>
+		</div>
 	</form>
 
-
+	</div>
+	</div>
+	<br><br>
 </body>
 
 <script type="text/javascript">
@@ -57,7 +66,6 @@ request.setCharacterEncoding("UTF-8");
 
 			} 
 	});
-
 
 	$(function() { 
 		$("#savebutton").click(function() { 
@@ -80,8 +88,7 @@ request.setCharacterEncoding("UTF-8");
 			
 			}); 
 		})
-			
 </script>
 
-
 </html>
+<%@ include file="../inc/footer.jsp" %>

@@ -125,7 +125,7 @@
 					<h4><%=pDTO.getProd_num()%></h4>
 					<h2><%=pDTO.getProd_sub()%></h2>
 					<h1><%=pDTO.getProd_price()%></h1>
-					<h3><%=pDTO.getUser_nick()%></h3>
+					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
 					<hr> 신고하기, 찜 (넣어야 할 기능), 위치
 					<hr> <%
 					 String category = "";
@@ -193,7 +193,7 @@
 					 }
 					 %>
 					<ul>
-						<li>카테고리 : <%=category%></li>
+						<li>카테고리 : <a href="./ProductList.pr?item=<%=category%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
 						<li>작성시간 : <%=pDTO.getProd_date()%></li>
