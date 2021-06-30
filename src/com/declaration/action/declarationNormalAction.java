@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import com.declaration.db.declarationDAO;
 import com.declaration.db.declarationDTO;
 
-public class declarationAction implements Action {
+public class declarationNormalAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
