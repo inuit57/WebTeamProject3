@@ -83,9 +83,9 @@
 		// 받는쪽지, 보내는쪽지 클릭시 해당 list불러오기
 		var mt = "<%=msgTag%>";
 		if(mt =="recv"){
-			$(".msgBtnR").addClass('active');
+			$(".msgBtnR").addClass('active');   //active 클래스 붙이기
 		}else{
-			$(".msgBtnS").addClass('active');
+			$(".msgBtnS").addClass('active');	//active 클래스 붙이기
 		}
 		
 		
