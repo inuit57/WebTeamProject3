@@ -10,6 +10,11 @@
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
+
+<div class="container">
+<br><br>
+
+	<div style="margin:auto;  width: 800px;">
 	<h1> 댓글 수정하기 </h1>
 	
 	<%
@@ -30,6 +35,9 @@
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 		<input type="submit" value="수정하기">
 	</form>
+	
+	</div>
+	</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->

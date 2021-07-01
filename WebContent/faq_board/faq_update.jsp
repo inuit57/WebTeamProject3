@@ -1,6 +1,8 @@
 <%@page import="com.faq.db.FAQDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../inc/top.jsp" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +14,14 @@
 <body>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
 	FAQDTO fdto = (FAQDTO) request.getAttribute("fdto");
 %>
 
-<h3>자주묻는질문</h3> 
+<div class="container">
+	<br><br>  
+	<div style="margin:auto;  width: 800px;">
+
+<h3>FAQ 수정</h3> 
 	<form action="./FAQUpdateAction.faq" method="post" name="fr">
 		<input type="hidden" name="faq_idx" value="<%=fdto.getFaq_idx() %>">  
 		
@@ -58,9 +63,13 @@
 				<textarea name="faq_content" id="smartEditor" style="width: 100%; height: 412px;"><%=fdto.getFaq_content()%></textarea>
 			</div>
 
-	   	   <button type="button" id="savebutton" >등록</button>   
-	
+		<div align="right">
+	   	   <button type="button" id="savebutton" >저장</button>   
+		</div>
 	</form>
+	
+	</div>
+	</div>
 
 </body>
 
