@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.admin.user.db.AdminUserDAO;
 
-public class AdminUserListAction implements Action {
+public class AdminUserListAction2 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -19,7 +19,8 @@ public class AdminUserListAction implements Action {
 
 		
 		int cnt = auDAO.adminUserCount();
-		int pageSize = 10;
+		
+		int pageSize = 7;
 		
 		String pageNum = request.getParameter("pageNum");
 		
@@ -69,7 +70,7 @@ public class AdminUserListAction implements Action {
 		request.setAttribute("auth", auth);
 		
 		
-		forward.setPath("./admin/admin_user/admin_user_all.jsp");
+		forward.setPath("./admin/admin_user/admin_user_all_sample.jsp");
 		forward.setRedirect(false);
 		
 		

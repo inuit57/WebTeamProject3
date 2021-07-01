@@ -56,7 +56,7 @@ public class UserDAO {
 		try {
 			conn = getConnection();
 
-			sql = "INSERT INTO member(user_id,user_nickname,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
+			sql = "INSERT INTO member(user_id,user_nick,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
 					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
@@ -90,7 +90,7 @@ public class UserDAO {
 		String id = null ; 
 		try {
 			conn = getConnection(); 
-			sql = "select user_id from member where user_nickname=?"; 
+			sql = "select user_id from member where user_nick=?"; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nick);
 			
@@ -112,7 +112,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nickname FROM member WHERE user_nickname=?";
+			sql = "SELECT user_nick FROM member WHERE user_nick=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();
@@ -184,7 +184,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
+			sql = "SELECT user_pw, user_use_yn, user_nick FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -304,7 +304,7 @@ public class UserDAO {
 		
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nickname FROM user WHERE user_id=?";
+			sql = "SELECT user_nickname FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -321,7 +321,7 @@ public class UserDAO {
 	public void changeBankAccount(String id, String bankName, String bankAccount) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE user SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
+			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bankName);
 			pstmt.setString(2, bankAccount);
@@ -337,6 +337,32 @@ public class UserDAO {
 		}
 	}
 	
+	public boolean isAdmin(String user_nick){
+		
+		try {
+			conn = getConnection(); 
+			sql = "select user_auth from member where user_nickname = ?" ; 
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_nick);
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()){
+				if(rs.getInt(1) == 2){ // 일반회원 1 , 관리자 2 
+					return true ; 
+				}else{
+					return false ; 
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		} 
+		
+		return false; 
+	}
 	public void charge(String user_nickname, int totalamount){
 		try {
 			conn = getConnection();

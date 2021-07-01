@@ -117,13 +117,6 @@ public class ProductRegisterFrontController extends HttpServlet{
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
-		
 		/***************************** 페이지 주소 이동 ******************************/
 		
 		if(forward != null) {

@@ -7,9 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
 <style type="text/css">
 #ad-sidebar {
         width: 15%;
@@ -39,73 +36,8 @@
 
 <%@ include file="../../inc/top.jsp" %>
 
-<script type="text/javascript">
-
-$(function(){
-	
-	$('.useryn').click(function(){
-
-		$.ajax({
-			 url: "./AdminUserActive.au", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-			 data:{user_nickname:$(this).attr('value')},
-			 success:function(){
-				 location.reload();
-			 } 					
-			});
-	
-	});
-	
-	$(".levelbt").on("click",function(){
- 		//클릭한 <input>을 $(this)로 선택해서 가져와서 
-
-		
-		$.ajax({
-			url:"./AdminUserGrade.au",
-			data:{user_nickname:$(this).val(),user_grade:$(this).prev().attr("value")},
-			success:function(){
-				
-			}
-			
-	});
-
-// 	$('.levelbt').click(function(){
-		
-		
-// 		alert($('#u_grade').attr('value'));
-// 	    $("input[type='number']")
-		
-// // 		console.log($("input[name='u_grade']").index());
-		
-		
-	
-		
-// 		$.ajax({
-// 			url:"./AdminUserGrade.au",
-// 			data:{user_nickname:$(this).attr('value'),user_grade:$('#u_grade').attr('value')},
-// 			success:function(){
-// 				location.reload();
-// 			}
-			
-			
-// 		});
-		
-		
-	});
-
-	
-});
-
-
-</script>
-
-
-
 </head>
 <body>
-
-
-	<h1 style="text-align: center;"> 회원 정보 관리</h1>
-
 <%
 	List auList = (List)request.getAttribute("auList");
 	
@@ -124,12 +56,10 @@ $(function(){
 	// 1p -> 10번, 2p -> 20번,... => 일반화
 	int endRow = currentPage*pageSize;
 	
-	int auth = (int)request.getAttribute("auth");
-	
-	
+
 %>
 
-	<div id="ad-sidebar">
+<div id="ad-sidebar">
 			
 			<ul>
 				<li><a href="./AdminBoard.ap">관리자 게시판</a>
@@ -140,34 +70,33 @@ $(function(){
 				
 		</div>
 
-	<div class="ad-content1">
 
-		<table border="1">
-				<tr>
-					<td>유저번호</td>
-					<td>닉네임</td>
-					<td>아이디</td>
-					<td>가입날짜</td>
-					<td>코인</td>
-					<td>연락처</td>
-					<td>주소</td>
-					<td>주소plus</td>
-					<td>은행명</td>
-					<td>은행계좌번호</td>
-					<td>회원/관리자</td>
-					<td>회원등급</td>
-					<td>탈퇴여부</td>
-					
-				</tr>
+<div class="ad-content1">
+
+<table border="1">
+		<tr>
+			<td>유저번호</td>
+			<td>닉네임</td>
+			<td>아이디</td>
+			<td>가입날짜</td>
+			<td>코인</td>
+			<td>연락처</td>
+			<td>주소</td>
+			<td>주소plus</td>
+			<td>은행명</td>
+			<td>은행계좌번호</td>
+			<td>회원/관리자</td>
+			<td>회원등급</td>
+			<td>탈퇴여부</td>
+			
+		</tr>
 
 
 <%
 for(int i=0;i<auList.size();i++){
 	UserDTO uDTO = (UserDTO)auList.get(i);
+
 %>
-
-
-
 <tr>
 <td><%=uDTO.getUser_num() %></td>
 <td><%=uDTO.getUser_nickname() %></td>
@@ -190,33 +119,11 @@ if(uDTO.getUser_auth()==2){
 <%
 }
 %>
-<td>
-<input type="number" min="1" max="3" id="u_grade" name="u_grade" value="<%=uDTO.getUser_grade()%>">
-<button class="levelbt" type="button" value="<%=uDTO.getUser_nickname()%>">변경</button>
-</td>
-<%
-if(uDTO.getUser_use_yn()==1){
-%>
-<td>활성화</td>
-<%
-}else{
-%>
-<td>비활성화(탈퇴)</td>
-<%
-} 
-%>
+<td><%=uDTO.getUser_grade() %></td>
+<td><%=uDTO.getUser_use_yn() %></td>
 
-<td><button class="useryn" type="button" value="<%=uDTO.getUser_nickname()%>">
-<%if(uDTO.getUser_use_yn()==1){ %>
-비활성화
-<%}else {%>
-활성화
-<%} %>
-</button></td>
 
 </tr>
-
-
 <%
 }
 %>
@@ -243,16 +150,7 @@ if(uDTO.getUser_use_yn()==1){
 		// 페이지 블럭의 끝 페이지 번호
 		int endPage = startPage+pageBlock-1;
 		
-		String url = request.getRequestURI().toString();
 		
-		
-		
-		if( auth == 0 ){
-			url = "./AdminUserList.au?pageNum=";
-		}else{
-			url = "./AdminUserList.au?auth="+auth+ "&pageNum=";
-			
-		}
 		
 		if(endPage > pageCount){
 			endPage = pageCount;
@@ -263,7 +161,7 @@ if(uDTO.getUser_use_yn()==1){
 		%>
 		
 <%-- 		<a href="<%=url%>&pageNum=<%=startPage-pageBlock%>">[이전]</a> --%>
-		<a href="<%=url%><%=startPage-pageBlock%>">[이전]</a>
+		<a href="./AdminUserSearch.au?pageNum=<%=startPage-pageBlock%>">[이전]</a>
 		<% 
 		}
 		
@@ -279,7 +177,7 @@ if(uDTO.getUser_use_yn()==1){
 		%> 
 	
 <%-- 		<a href="<%=url %>&pageNum=<%=i%>">[<%=i %>]</a> --%>
-		<a href="<%=url %><%=i%>">[<%=i %>]</a>
+		<a href="./AdminUserSearch.au?pageNum=<%=i%>">[<%=i %>]</a>
 		<% 
 		}
 		
@@ -288,7 +186,7 @@ if(uDTO.getUser_use_yn()==1){
 		%>
 	
 <%-- 		<a href="<%=url %>&pageNum=<%=startPage+pageBlock%>">[다음]</a> --%>
-		<a href="<%=url %><%=startPage+pageBlock%>">[다음]</a>
+		<a href="./AdminUserSearch.au?pageNum=<%=startPage+pageBlock%>">[다음]</a>
 		<%
 		
 		}
@@ -317,12 +215,10 @@ if(uDTO.getUser_use_yn()==1){
 			<input type="text" name="sv">
 			<input type="submit" value="검색">		
 		</form>
-
-</div>	
+	</div>
 
 </body>
 <div class="footer">
 <%@ include file="../../inc/footer.jsp" %>
 </div>
->>>>>>> refs/heads/develop
 </html>
