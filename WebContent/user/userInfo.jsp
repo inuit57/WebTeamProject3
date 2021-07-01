@@ -79,15 +79,7 @@ function file_upload(){
 		<label id="pw_error" class="error"></label><br>
 		<input type="submit" value="비밀번호 변경하기">
 
-	<%
-		//String user_nick = (String)session.getAttribute("user_nick"); 
-
-		UserDTO udto = (UserDTO) session.getAttribute("udto");
-
-		String m = request.getParameter("m");
-
-		String user_picture = udto.getUser_picture();
-	%>
+	
 
 
 	<!-- ------------------------test---------------------------- -->
