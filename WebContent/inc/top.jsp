@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="./inc/JS/top.js"></script>
 
 <link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+
 <title>기억마켓</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,6 +59,7 @@
                    <%
             		if (user_nick != null) {
             			%>
+
             			<a href="./UserInfoAction.us" style="margin-right: 30px" id="atag"><%=user_nick %>님</a>
             			<a href="./UserLogoutAction.us" style="margin-right: 30px" id="atag">로그아웃</a>
             			<a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
@@ -66,7 +69,7 @@
             						<p id="circle2"><%=msgAlarm %></p>
             					<%} %>
             			</a>
-            			
+
             			<%
             		}%>
                     
