@@ -53,6 +53,7 @@ function file_upload(){
 		<img alt="" src="./upload/<%=user_picture%>" id="image" onclick="file_upload()">
 	<%} %>
 	
+	<button style=" position: absolute; top: 170px; left : 145px; " class="btn1" type="button" onclick="file_upload()">수정</button>
 	</div>
 		<label>아이디</label><input  type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
 		<label>닉네임</label><input type="text" name="user_nick" value="<%=udto.getUser_nickname() %>"><br>
