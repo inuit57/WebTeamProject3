@@ -56,6 +56,7 @@
 		var img = document.getElementById("image01");
 		
 		$("#file1").val("");
+		$("#fileName01").val(""); 
 		img.setAttribute("src" , "./upload/product_default.jpeg" );
 	}
 	
@@ -63,6 +64,7 @@
 		var img = document.getElementById("image02");
 		
 		$("#file2").val("");
+		$("#fileName02").val(""); 
 		img.setAttribute("src" , "./upload/product_default.jpeg" );
 	}
 	
@@ -70,6 +72,7 @@
 		var img = document.getElementById("image03");
 		
 		$("#file3").val("");
+		$("#fileName03").val(""); 
 		img.setAttribute("src" , "./upload/product_default.jpeg" );
 	}
 	
@@ -77,6 +80,7 @@
 		var img = document.getElementById("image04");
 		
 		$("#file4").val("");
+		$("#fileName04").val(""); 
 		img.setAttribute("src" , "./upload/product_default.jpeg" );
 	}
 </script>
@@ -110,8 +114,7 @@
 				}
 			}
 		}
-		
-		%>
+		%>		
 	<fieldset style="margin:auto;  width: 800px;">
 		<legend>중고거래 등록수정하기</legend>
 			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data"
@@ -267,6 +270,7 @@
 							<div id="img_list" style="padding-left: 80px; position: relative;">
 								<% for (int i= 0 ; i< 4; i++){ %>
 									<img id="image0<%=i+1 %>" src="./upload/<%=img_list[i] %>"  width="150" height="150">
+									<input type="hidden" id ="fileName0<%=i+1 %>" name="fileName0<%=i+1 %>" value="<%=img_list[i] %>" >
 								<%} %>
 								<button style=" position: absolute; top: 0px; left : 210px; "type="button" onclick="fileDrop01()">X</button>
 								<button style=" position: absolute; top: 0px; left : 360px; " type="button" onclick="fileDrop02()">X</button>
@@ -289,6 +293,8 @@
 						</td>
 					</tr>
 				</table>
+				
+				
 			</form>
 	</fieldset>
 </div>	
