@@ -147,6 +147,8 @@
 							<input type="number" name="prod_price" id="price" value=<%=pDTO.getProd_price() %>>
 						</td>
 					</tr>
+					<!-- 이미지 미리보기 추가하기 -->
+					
 					<tr> 
 						<td>상품 이미지1</td>
 						<td>
