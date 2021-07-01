@@ -113,7 +113,7 @@
 <!-- 			</select> -->
 
 			<select name="item">
-					<option value="" selected="selected"">전체</option>
+					<option value="" selected="selected">전체</option>
 					<option value="0"
 					<% if(item == 0){ %>
 										selected
@@ -201,7 +201,6 @@
 			<input type="reset" value="조건 초기화">		
 			</form>
 			</div>
-			
 	<input type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'"><br>
 	<table border="1" class="table" style="height: 700px">

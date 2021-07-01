@@ -25,6 +25,218 @@ Table of contents
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
 
+
+.chkcolor{
+	color: #01DF3A;
+}
+
+.chkcolor2{
+	color: #848484;
+}
+
+
+
+#circle1 {
+color:white;
+background-color:#59ab6e;
+width:25px;
+height:25px;
+border-radius:75px;
+text-align:center;
+margin:0 auto;
+font-size:15px;
+vertical-align:middle;
+line-height:27px;
+float: right;
+margin-top: 7px;
+margin-right: 20px;
+font-weight:bold;
+border:0px;
+}
+
+
+#circle2 {
+color:white;
+font-weight:bold;
+background-color:#59ab6e;
+width:23px;
+height:23px;
+border-radius:75px;
+text-align:center;
+margin:0 auto;
+font-size:18px;
+vertical-align:middle;
+line-height:23px;
+float: right;
+margin-top: 8px;
+margin-right: 20px;
+}
+
+
+#detailSend{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;
+ height: 35px;
+ }
+ 
+ #detailSend_content{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border: 1px solid black;
+ }
+
+
+ #detailSend_date{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;
+ }
+ 
+ 
+ 
+ 
+ 
+ #detailRecv{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;
+ height: 35px;
+ }
+ 
+ #detailRecv_content{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border: 1px solid black;
+ }
+
+
+ #detailRecv_date{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;
+ }
+ 
+ #detailRecv_chk{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;
+ }
+ 
+
+
+#msgContent{
+ text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;
+ }
+
+#msg_content{
+	border:1px solid #6E6E6E;
+}
+
+.active{
+	background-color: d4d4d4;
+}
+
+/* The Modal (background) */
+.searchModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+    /* Modal Content/Box */
+.search-modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 70%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Modal (background) */
+.detailModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+    /* Modal Content/Box */
+.detail-modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 70%; /* Could be more or less, depending on screen size */
+}
+
+
+
+/* The Modal (background) */
+.detailModalSend {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+    /* Modal Content/Box */
+.detail-modal-Send-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 70%; /* Could be more or less, depending on screen size */
+}
+
+
+
+        
+#atag{
+	text-decoration:none;
+	color:white;
+	font-size: 20px;
+}
+
+
 .profile1234 {
 	margin-top:50px;
 	margin-bottom:10px;
@@ -34,6 +246,14 @@ Table of contents
     overflow: hidden;
     object-fit: cover;
     border: 3px solid #59ab6e;
+}
+
+.btnSend{
+	 height:30px; 
+	 width:120px; 
+	 border: 1px solid #59ab6e; 
+	 color:white;
+	 background-color:#59ab6e;
 }
 
 .btn4321 {
@@ -124,7 +344,7 @@ body, ul, li, p, a, label, input, div {
 }
 /* Nav */
 #templatemo_nav_top { min-height: 40px;}
-#templatemo_nav_top * { font-size: .9em !important;}
+#templatemo_nav_top * { font-size: 15px !important;}
 #templatemo_main_nav a { color: #212934;}
 #templatemo_main_nav a:hover { color: #69bb7e;}
 #templatemo_main_nav .navbar .nav-icon { margin-right: 20px;}

@@ -153,9 +153,6 @@ public class DeclarationFrontController extends HttpServlet{
 			
 		}
 		
-
-		
-		
 		System.out.println("C : 2.페이지 주소 매핑 완료");
 		
 		/******************* 2.페이지 주소 매핑(연결) ****************************/

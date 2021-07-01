@@ -6,7 +6,6 @@
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +25,6 @@
 </head>
 
 <body>
-	<!-- <h1>WebContent/prod_trade/prod_trade_detail.jsp</h1> -->
 	<%
 	ProdDTO pDTO = (ProdDTO) request.getAttribute("product");
 	String nick = (String)session.getAttribute("user_nick");
@@ -53,6 +51,7 @@
 		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
+>>>>>>> refs/heads/develop
 	</form>
 	</div>
 	<%} %>
@@ -73,6 +72,18 @@
 							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 						</ol>
 
+<<<<<<< HEAD
+
+
+<!--  		if(user_nick == null){
+				alert("로그인 후 이용 가능합니다.");
+				location.href='./UserLogin.us' 
+			} -->
+			
+
+
+
+=======
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">

@@ -23,7 +23,6 @@ function file_upload(){
 <title>회원 정보 수정</title>
 </head>
 <body>
-
 	<% 
 	//String user_nick = (String)session.getAttribute("user_nick"); 
 	

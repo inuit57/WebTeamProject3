@@ -27,7 +27,7 @@ public class InqueryAdminListAction implements Action {
 		// 게시판 페이징 처리 : DB에서 원하는 만큼만 글 가져오기
 		
 		// 한 페이지당 보여줄 글의 개수
-		int pageSize = 10;
+		int pageSize = 5;
 		
 		// 현재 페이지가 몇페이지 인지 확인
 		String pageNum = request.getParameter("pageNum");

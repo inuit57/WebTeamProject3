@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+
 <style type="text/css">
 #ad-sidebar {
         width: 15%;
@@ -217,4 +218,5 @@
 <div class="footer">
 <%@ include file="../../inc/footer.jsp" %>
 </div>
+>>>>>>> refs/heads/develop
 </html>

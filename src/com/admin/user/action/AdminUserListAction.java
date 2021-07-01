@@ -19,7 +19,6 @@ public class AdminUserListAction implements Action {
 
 		
 		int cnt = auDAO.adminUserCount();
-		
 		int pageSize = 10;
 		
 		String pageNum = request.getParameter("pageNum");

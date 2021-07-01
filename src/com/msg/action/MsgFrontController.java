@@ -132,5 +132,5 @@ public class MsgFrontController extends HttpServlet {
 		System.out.println("C : InqueryFrontController_doPost() 호출");
 		doProcess(request, response);
 	}
-
 }
+

@@ -239,5 +239,37 @@
 			}
 		});
 	});
+	
+	
+	$(document).ready(function(){
+		$("#statusFree").on('change',function(){
+			if(this.value  == 2 || this.value == 3){
+				$("#price").val(0);
+				$("#price").attr('readonly',true);
+			}else{
+				$("#price").val("");
+				$("#price").attr('readonly',false);
+			}
+			
+			if(this.value == 3){
+				$("#psub").val('판매완료');
+				$("#psub").attr('readonly',true);
+				
+			}else{
+				$("#psub").val("");
+				$("#psub").attr('readonly',false);
+				
+			}
+			
+		});
+	
+		
+	});
+	
+	
+	
+	
+	
+	
 </script>
 </html>

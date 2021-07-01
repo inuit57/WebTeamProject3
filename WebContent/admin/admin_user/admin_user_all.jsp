@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <style type="text/css">
@@ -323,4 +324,5 @@ if(uDTO.getUser_use_yn()==1){
 <div class="footer">
 <%@ include file="../../inc/footer.jsp" %>
 </div>
+>>>>>>> refs/heads/develop
 </html>

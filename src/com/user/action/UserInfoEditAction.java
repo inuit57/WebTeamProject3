@@ -47,6 +47,8 @@ public class UserInfoEditAction implements Action {
 		udto.setUser_addressPlus(multi.getParameter("user_address_plus"));
 		udto.setUser_picture(multi.getFilesystemName("user_picture"));
 		
+		session.setAttribute("user_profile", multi.getFilesystemName("user_picture"));
+		
 		System.out.println("Picture name : " + multi.getFilesystemName("user_picture"));
 		
 		UserDAO udao = new UserDAO();

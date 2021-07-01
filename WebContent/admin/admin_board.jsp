@@ -131,4 +131,5 @@ $(document).ready(function(){
 <div class="footer">
 <%@ include file="../inc/footer.jsp" %>
 </div>
+>>>>>>> refs/heads/develop
 </html>

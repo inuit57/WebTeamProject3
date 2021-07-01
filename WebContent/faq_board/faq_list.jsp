@@ -3,6 +3,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,6 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 
 </head>
 <body>
@@ -104,7 +104,7 @@
 		        <input type="checkbox" name="faq_idx" value="<%=fdto.getFaq_idx() %>">
 		      <%} %>
 		        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
-		         <h3><img src="./img/faq_q.png" style="width: 1.5vw"> <%=fdto.getFaq_sub() %></h3>
+		         <img src="./img/faq_q.png" style="width: 1.5vw"> <%=fdto.getFaq_sub() %>
 		        </a>
 		      </div>
 		    </div>
