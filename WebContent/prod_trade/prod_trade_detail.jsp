@@ -44,7 +44,7 @@
 	<!-- 신고폼 -->	
 	<% if(user_nick != null){ %>
 	<div style="margin:auto;  width: 800px; ">
-	<form name="declareForm" action="./declarationProd.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+	<form name="declareForm" action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 
 		<input type="submit" value="신고하기">
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
@@ -213,8 +213,10 @@
 					<!-- 관리자만 사용가능한 메뉴 생성 -->
 					<% if(user_nick != null){ %>
 						<input type="button" id="btnLike" value="찜하기" class="form-control"> 
-						<input type="button" value="구매하기" class="form-control"> 
-						<input type="button" value="채팅하기" class="form-control">
+						
+						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
+						<input type="button" value="구매요청" class="form-control" > 
+						<input type="button" value="채팅하기" class="form-control" >
 					<%}%>
 				</td>
 			</tr>
@@ -228,7 +230,10 @@
 		<% if ( pDTO.getUser_nick().equals(user_nick) ){ %>
 			<input type="button" value="수정하기"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
-		<%} %>
+			<!-- 로직 처리 필요 -->
+			<input type="button" value="판매완료"
+				onclick="#">
+		<%}%>
 		<% if( pDTO.getUser_nick().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
 			<input type="button" value="삭제하기"
 				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
@@ -243,6 +248,7 @@
 </body>
 
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		var user_nick = document.getElementById("nick");
 		$(".hide").hide();

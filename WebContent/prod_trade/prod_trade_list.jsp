@@ -34,6 +34,7 @@
 	
 	String itemS = request.getParameter("item") ;
 	String search_type = request.getParameter("search_type"); 
+	String search_text = request.getParameter("search_text") ; 
 	int item = -1 ; 
 	if(itemS!= null && !itemS.equals("")){
 		item =  Integer.parseInt( itemS);
@@ -173,28 +174,31 @@
 			
 			<select name="search_type">
 				<option value="seller"
-				
-				<% if(search_type.equals("seller")){ %> selected="selected" <%} %>
+				<% if(search_type!=null && search_type.equals("seller")){ %> selected="selected" <%} %>
 				>
 					작성자
 				</option>
 				<option value="content"
 				
-				<% if(!search_type.equals("seller")){ %> selected="selected" <%} %>
+				<% if(search_type!=null &&  !search_type.equals("seller")){ %> selected="selected" <%} %>
 				>
 					제목/내용
 				</option>
 			</select>
 			<input type="text" name="search_text" placeholder="검색어를 입력하세요"
-				value=<%= request.getParameter("search_text") %>
+				<% if ( search_text != null){ %>
+					value=<%= search_text %>
+				<%} %>
 			>
 			<input type="submit" value="상품 검색">
-			<input type="reset" value="조건 초기화">
+			
 			<br> 
 			가격범위 설정
 			<input type="number" name="min_price" value="<%=request.getParameter("min_price")%>"> 
 			~ 
-			<input type="number" name="max_price" value="<%=request.getParameter("max_price")%>">			
+			<input type="number" name="max_price" value="<%=request.getParameter("max_price")%>">	
+			
+			<input type="reset" value="조건 초기화">		
 			</form>
 			</div>
 			
