@@ -11,6 +11,75 @@
 <title>prod_trade_write</title>
 
 <script src="./jq/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	function imgPreview01(event){
+		var reader = new FileReader(); 
+		reader.onload = function(event){
+			var img = document.getElementById("image01"); 
+			img.setAttribute("src" , event.target.result)
+		};
+		
+		reader.readAsDataURL(event.target.files[0]); 
+	}
+
+	function imgPreview02(event){
+		var reader = new FileReader(); 
+		reader.onload = function(event){
+			var img = document.getElementById("image02"); 
+			img.setAttribute("src" , event.target.result)
+		};
+		
+		reader.readAsDataURL(event.target.files[0]); 
+	}
+	
+	function imgPreview03(event){
+		var reader = new FileReader(); 
+		reader.onload = function(event){
+			var img = document.getElementById("image03"); 
+			img.setAttribute("src" , event.target.result)
+		};
+		
+		reader.readAsDataURL(event.target.files[0]); 
+	}
+	
+	function imgPreview04(event){
+		var reader = new FileReader(); 
+		reader.onload = function(event){
+			var img = document.getElementById("image04"); 
+			img.setAttribute("src" , event.target.result)
+		};
+		
+		reader.readAsDataURL(event.target.files[0]); 
+	}
+	
+	function fileDrop01(){
+		var img = document.getElementById("image01");
+		
+		$("#file1").val("");
+		img.setAttribute("src" , "./upload/product_default.jpeg" );
+	}
+	
+	function fileDrop02(){
+		var img = document.getElementById("image02");
+		
+		$("#file2").val("");
+		img.setAttribute("src" , "./upload/product_default.jpeg" );
+	}
+	
+	function fileDrop03(){
+		var img = document.getElementById("image03");
+		
+		$("#file3").val("");
+		img.setAttribute("src" , "./upload/product_default.jpeg" );
+	}
+	
+	function fileDrop04(){
+		var img = document.getElementById("image04");
+		
+		$("#file4").val("");
+		img.setAttribute("src" , "./upload/product_default.jpeg" );
+	}
+</script>
 </head>
 <body>
 
@@ -83,31 +152,46 @@
 					<tr> 
 						<td>상품 이미지1</td>
 						<td>
-							<input type="file" name="file1" accept="image/*">
+							<input type="file" id ="file1" name="file1" accept="image/*" onchange="imgPreview01(event)" >
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 이미지2</td>
 						<td>
-							<input type="file" name="file2">
+							<input type="file" id ="file2" name="file2" accept="image/*" onchange="imgPreview02(event)" >
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 이미지3</td>
 						<td>
-							<input type="file" name="file3">
+							<input type="file" id ="file3" name="file3" accept="image/*" onchange="imgPreview03(event)" >
 						</td>
 					</tr>
 					<tr> 
 						<td>상품 이미지4</td>
 						<td>
-							<input type="file" name="file4">
+							<input type="file" id ="file4" name="file4" accept="image/*" onchange="imgPreview04(event)" >
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" > 
+							<div id="img_list" style="padding-left: 80px; position: relative;">
+								<img id="image01" src="./upload/product_default.jpeg"  width="150" height="150">
+								<img id="image02" src="./upload/product_default.jpeg"  width="150" height="150">
+								<img id="image03" src="./upload/product_default.jpeg"  width="150" height="150">
+								<img id="image04" src="./upload/product_default.jpeg"  width="150" height="150">
+								
+								<button style=" position: absolute; top: 0px; left : 210px; "type="button" onclick="fileDrop01()">X</button>
+								<button style=" position: absolute; top: 0px; left : 360px; " type="button" onclick="fileDrop02()">X</button>
+								<button style=" position: absolute; top: 0px; left : 510px; " type="button" onclick="fileDrop03()">X</button>
+								<button style=" position: absolute; top: 0px; left : 670px; " type="button" onclick="fileDrop04()">X</button>
+							</div>
 						</td>
 					</tr>
 					<tr> 
 						<td>글 내용</td>
 						<td>
-							<textarea rows="30" cols="60" name="prod_content"
+							<textarea rows="30" cols="50" name="prod_content"
 								id="pcontent"
 								placeholder="상품정보를 입력하세요."></textarea>
 						</td>
