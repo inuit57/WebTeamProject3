@@ -45,6 +45,49 @@ public class AdminUserFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/AdminUserSearch.au")){
+			System.out.println("/AdminUserSearch.au 호출");
+			
+			action = new AdminUserSearchAction();
+			
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/AdminUserListSample.au")){
+			System.out.println("/AdminUserListSample.au 호출");
+			
+			action = new AdminUserListAction2();
+			
+			try {
+				forward= action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/AdminUserActive.au")){
+			System.out.println("/AdminUserActive.au 호출");
+			
+			action = new AdminUserActivateAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+					
+		} else if(command.equals("/AdminUserGrade.au")){
+			System.out.println("/AdminUserGrade.au 호출");
+			
+			action = new AdminUserGradeAction();
+	
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		

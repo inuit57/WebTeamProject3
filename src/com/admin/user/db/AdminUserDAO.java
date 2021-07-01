@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.inquery.db.InqueryDTO;
 import com.user.db.UserDTO;
 
 
@@ -232,8 +233,47 @@ public class AdminUserDAO {
     	return cnt;
     }
     // adminUserCount(auth)
+  
+//adminInqueryCount(sk,sv)
+public int adminUserCount(String sk, String sv){
+	
+	int cnt = 0;
+	
+
+	try {
+		// 1,2 드라이버로드, 디비연결
+		conn = getConnection();
+		
+		// 3 sql 작성 & pstmt 객체 생성
+		sql = "select count(*) from member where "+sk+" like '%"+sv+"%'";
+		pstmt = conn.prepareStatement(sql);
+
+		
+		// 4 sql 실행			
+		rs = pstmt.executeQuery();
+		
+		// 5 데이터 처리
+		if(rs.next()){
+			cnt = rs.getInt(1);
+			//cnt = rs.getInt("count(*)");
+		}
+		System.out.println("SQL 구문 실행완료! ");
+		System.out.println("글 개수 : "+cnt+"개");
+		
+	} catch (Exception e) {
+		System.out.println(" 게시판 글 개수_에러 발생! ");
+		e.printStackTrace();
+	} finally{
+		// 자원 해제
+		closeDB();
+	}
+	
+			
+	return cnt;
+}// adminInqueryCount(sk,sv)
     
-    
+  
+  
     
     // getAdminUserList(startRow,pageSize)
     public List getAdminUserList(int startRow,int pageSize) {
@@ -300,12 +340,10 @@ public class AdminUserDAO {
     		
     		SQL.append("select * from member");
     		
-    		if(auth==0){
-    			SQL.append(" where user_auth=0 limit ?,?");
-    			System.out.println("@@@@@@@@@@@check000000000");
-    		}else{
+    		if(auth==1){
     			SQL.append(" where user_auth=1 limit ?,?");
-    			System.out.println("@@@@@@@@@@@@@@check111111111111");
+    		}else{
+    			SQL.append(" where user_auth=2 limit ?,?");
     		}
     		
   	
@@ -349,5 +387,116 @@ public class AdminUserDAO {
     	
     	return usList;
     }// getAdminUserList(auth,startRow,pageSize);
+    
+ // userSearchList(sk,sv,starRow,pageSize)
+    public List userSearchList(String sk,String sv,int startRow,int pageSize){
+    	
+    List auList = new ArrayList();
+    UserDTO uDTO = new UserDTO();
+    try {
+    	conn = getConnection();
+    	
+    	sql = "select * from member where "+sk+" like '%"+sv+"%' ";
+    	
+    	sql+= " limit ?,?";
+    	
+    	
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, startRow-1);
+		pstmt.setInt(2, pageSize);
+		
+		
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()){
+			uDTO = new UserDTO();
+			
+			uDTO.setUser_num(rs.getInt("user_num"));
+			uDTO.setUser_id(rs.getString("user_id"));
+			uDTO.setUser_nickname(rs.getString("user_nickname"));
+			uDTO.setUser_pw(rs.getString("user_pw"));
+			uDTO.setUser_joindate(rs.getTimestamp("user_joindate"));
+			uDTO.setUser_coin(rs.getInt("user_coin"));
+			uDTO.setUser_phone(rs.getString("user_phone"));
+			uDTO.setUser_address(rs.getString("user_address"));
+			uDTO.setUser_addressPlus(rs.getString("user_address_plus"));
+			uDTO.setUser_bankName(rs.getString("user_bankname"));
+			uDTO.setUser_bankAccount(rs.getString("user_bankaccount"));
+			uDTO.setUser_picture(rs.getString("user_picture"));
+			uDTO.setUser_auth(rs.getInt("user_auth"));
+			uDTO.setUser_grade(rs.getInt("user_grade"));
+			uDTO.setUser_use_yn(rs.getInt("user_use_yn"));
+			
+			auList.add(uDTO);
+		}
+		System.out.println("검색 완료!@@@@@@@@@@");
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		closeDB();
+	}
+    
+    return auList;
+    	
+    }// userSearchList(sk,sv,startRow,pageSize)
+    
+    // activateUser(user_nickname)
+    public void activateUser(String user_nickname){
+    	
+    	try {
+    		conn = getConnection();
+    		
+    		
+    		sql = "update member set user_use_yn=case  "
+    				+ "when user_use_yn=1 then 2 "
+    				+ "when user_use_yn=2 then 1 end"
+    				+ " where user_nickname=?";
+    			
+    		
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_nickname);
+			
+			
+			pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+	
+    	
+    }// activateUser(user_nickname)
+    
+    // changeUserGrade(user_grade)
+    public void changeUserGrade(int user_grade,String user_nickname){
+    	
+    	try {
+    		conn = getConnection();
+    		
+    		sql = "update member set user_grade=? where user_nickname=?";
+    		
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, user_grade);
+			pstmt.setString(2, user_nickname);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+
+    	
+    }// changeUserGrade(user_grade)
+    
+    
+    
     
 }

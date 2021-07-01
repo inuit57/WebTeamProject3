@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.admin.inquery.db.AdminInqueryDAO;
 
-public class InqueryAdminListAction implements Action {
+public class InqueryAdminListAction2 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -27,7 +27,7 @@ public class InqueryAdminListAction implements Action {
 		// 게시판 페이징 처리 : DB에서 원하는 만큼만 글 가져오기
 		
 		// 한 페이지당 보여줄 글의 개수
-		int pageSize = 10;
+		int pageSize = 8;
 		
 		// 현재 페이지가 몇페이지 인지 확인
 		String pageNum = request.getParameter("pageNum");
@@ -76,7 +76,7 @@ public class InqueryAdminListAction implements Action {
 		
 		
 		// "./admin_inquery/admin_inquery_list.jsp"
-		forward.setPath("./admin/admin_inquery/admin_inquery_list.jsp");
+		forward.setPath("./admin/admin_inquery/admin_inquery_list_sample.jsp");
 		forward.setRedirect(false);
 	
 		return forward;
