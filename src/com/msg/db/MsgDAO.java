@@ -209,6 +209,35 @@ public class MsgDAO {
 	//getRecvChk()
 	
 	
+	 
+	 
+	 //updateMsgChk(msg_idx)
+	 public void updateMsgChk(int msg_idx){
+			try {
+				// 1 드라이버 로드
+				// 2 디비 연결
+				// => 한번에 처리 하는 메서드로 변경
+				conn = getConnection();		
+				
+				// 3 sql (글번호를 계산하는 구문)
+				sql = "update msg set msg_chk=1 where msg_idx=?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, msg_idx);
+				
+				// 4 sql 실행
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				System.out.println("디비 연결 실패!!");
+				e.printStackTrace();
+			} finally{
+				// 자원해제 
+				closeDB();		
+			}
+			
+	 }
+	 //updateMsgChk(msg_idx)
 	
 	
 	

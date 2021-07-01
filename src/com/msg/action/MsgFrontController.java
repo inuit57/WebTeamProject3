@@ -61,6 +61,15 @@ public class MsgFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if (command.equals("/MsgReadChkAction.ms")) {
+			System.out.println("C : /MsgReadChkAction.ms 호출");
+			action = new MsgReadChkAction();
+
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		

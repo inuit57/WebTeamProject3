@@ -26,6 +26,14 @@
 		String msgTag = (String) request.getAttribute("msgTag");
 		int alarm = (int) request.getAttribute("alarm");
 	 	MsgDTO mdto = null;
+	 	int msgDiv = 0;
+	 	
+	 	if(msgTag.equals("send")){
+	 		msgDiv =1;
+	 		
+	 	}
+	 	
+	 	
 	 	
 	%>
 	
@@ -73,19 +81,19 @@
 		
 		
 		
-		//쪽지 모달 끄기
+		//쪽지 쓰기 모달 끄기
 		$("#msgExit").click(function () {
 			 $('.searchModal').hide();
-		});//쪽지 모달 끄기
+		});//쪽지 쓰기 모달 끄기
 		
 		
 		
 		// 받는쪽지, 보내는쪽지 클릭시 해당 list불러오기
 		var mt = "<%=msgTag%>";
-		if(mt =="recv"){
-			$(".msgBtnR").addClass('active');   //active 클래스 붙이기
+		if(mt =="send"){
+			$(".msgBtnS").addClass('active');//active 클래스 붙이기
 		}else{
-			$(".msgBtnS").addClass('active');	//active 클래스 붙이기
+			$(".msgBtnR").addClass('active'); //active 클래스 붙이기
 		}
 		
 		
@@ -101,7 +109,96 @@
 		})// 받는쪽지, 보내는쪽지 클릭시 해당 list불러오기
 		
 		
+		
+		<% 
+		for(int i=0; i<msgList.size();i++){
+			mdto = (MsgDTO) msgList.get(i);
+			
+		if(msgDiv == 0){
+		%>// 받는 쪽지 내용 불러오기
+		
+		// 읽음여부
+		$("#msgDetail<%=i%>").click(function() {
+			$("#detailModal").show();
+			$("#detailSend").val("<%=mdto.getSend_nick()%>"); 
+			$("#detailSend_date").val("<%=mdto.getMsg_date()%>"); 
+			$("#detailSend_content").val("<%=mdto.getMsg_content()%>"); 
+			
+			$.ajax({
+				 url:'./MsgReadChkAction.ms',
+			     type:'post',
+			     data:{"msg_idx":"<%=mdto.getMsg_idx()%>"}, 
+			     success:function(data){
+			    	 $(".<%=mdto.getMsg_idx() %>").removeClass('chkcolor');
+			    	 
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		       }); // 읽음여부
+			
+			
+			
+			
+			
+			
+			
+		})// 받는 쪽지 내용 불러오기
+		<% 	}else{ %>
+		// 보낸 쪽지 내용 불러오기
+		$("#msgDetailSend<%=i%>").click(function() {
+			<%
+			String mchk;
+			if(mdto.getMsg_chk() == 0){ 
+				mchk = "읽지 않음";
+			}else{
+				mchk = "읽음";
+			} %>
+			
+			$("#detailModalSend").show();
+			$("#detailRecv").val("<%=mdto.getSend_nick()%>"); 
+			$("#detailRecv_date").val("<%=mdto.getMsg_date()%>");
+			$("#detailRecv_chk").val("<%=mchk%>"); 
+			$("#detailRecv_content").val("<%=mdto.getMsg_content()%>"); 
+		})
+		
+		
+		<% }
+		}%>// 보낸 쪽지 내용 불러오기
+		
+		
+		
+		
+		
+		//받은 쪽지 모달 끄기
+		$("#msgExit2").click(function () {
+			 $('.detailModal').hide();
+		});//받은 쪽지 모달 끄기
+		
          
+		//보낸 모달 끄기
+		$("#msgExit3").click(function () {
+			 $('.detailModalSend').hide();
+		});//보낸 모달 끄기
+		
+		
+		
+		
+		//답장 모달 띄우기
+		$("#msgRE").click(function () {
+			var recvNick = $("#detailSend").val();
+			$('.detailModal').hide();
+			$("#modal").show();
+			$("#recv_nick").val(recvNick); 
+		});//답장 모달 띄우기
+		
+		
+		
+		
+		
+		
+		
+		
 	});
 	
 </script>
@@ -146,30 +243,57 @@
 						   <table class="table" style="margin-top: 30px"> 
 							<thead> 
 								<tr> 
+								<% if(msgDiv == 0){ %>
 									<th></th> 
 									<th id="nickChk">보낸사람</th> 
 									<th>내용</th> 
-									<th>읽음여부</th> 
+									<th>날짜</th> 
+								<%}else{%>
+									<th></th> 
+									<th id="nickChk">받는사람</th> 
+									<th>내용</th> 
+									<th>읽음여부</th>
+									<th>보낸날짜</th>
+								<%} %>
 								</tr> 
 							</thead> 
 							<tbody> 
 							<% 
-						
 							for(int i=0; i<msgList.size();i++){
 								mdto = (MsgDTO) msgList.get(i);
+								
 							%>
-								<tr> 
-									<td><input type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
-									<td><%=mdto.getRecv_nick() %></td> 
-									<td><input type="text" name="msg_content" id="msgContent" value="<%=mdto.getMsg_content() %>" disabled="disabled"></td> 
-									<td><%if(mdto.getMsg_chk() == 0){ %>
-										읽지 않음
+								
+									<% if(msgDiv == 0){ 
+										if(mdto.getMsg_chk() == 0){%>
+										<tr id="msgDetail<%=i%>" class="<%=mdto.getMsg_idx() %> chkcolor"> 
+											<td><input type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
+											<td><%=mdto.getSend_nick() %></td> 
+											<td><input id="msgContent" class="<%=mdto.getMsg_idx() %> chkcolor" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+											<td><%=mdto.getMsg_date()%></td>
+										</tr>
 										<%}else{ %>
-										읽음
+										<tr id="msgDetail<%=i%>" style="color: #848484"> 
+											<td><input type="checkbox"  name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
+											<td><%=mdto.getSend_nick() %></td> 
+											<td><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+											<td><%=mdto.getMsg_date()%></td>
+										</tr>
 										<%} %>
-									</td>
-								</tr> 
-							<%	
+									<%}else{%>
+									<tr id="msgDetailSend<%=i%>"> 
+										<td><input type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
+										<td><%=mdto.getRecv_nick() %></td> 
+										<td><input id="msgContent" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+										<td><%if(mdto.getMsg_chk() == 0){ %>
+											읽지 않음
+											<%}else{ %>
+											읽음
+											<%} %>
+										</td>
+										<td><%=mdto.getMsg_date()%></td>
+									</tr>
+									<%}
 								}
 									
 							%>
@@ -191,7 +315,7 @@
     
     
     
-    <!-- Start Modal -->
+    <!-- 쪽지 쓰기 모달 Start -->
     <div id="modal" class="searchModal">
     <div class="search-modal-content">
         <div class="row">
@@ -205,7 +329,7 @@
                     	<input type="hidden" value="<%=user_nick %>" name="send_nick">
                     <div style="margin-top: 30px; width: 100%">
                     	<h4 style="float: left; padding-top: 4px; margin-right: 15px">받는사람</h4>
-                    	<input type="text" placeholder="받는 사람을 입력하세요" name="recv_nick" style="width: 80%">
+                    	<input type="text" placeholder="받는 사람을 입력하세요" name="recv_nick" style="width: 80%" id="recv_nick">
                     </div>
                     <div class="form-group">
 		               <textarea name="msg_content" id="msg_content" cols="30" rows="10" class="form-control"  style="resize: none;" placeholder="내용을 입력하세요"></textarea>
@@ -223,7 +347,89 @@
             </span>
         </div>
     </div>
-    <!-- End Modal -->
+    <!-- 쪽지 쓰기 모달 END -->
+    
+    
+    
+     <!-- 받은 쪽지 자세히 보기 Start -->
+    <div id="detailModal" class="detailModal">
+    <div class="detail-modal-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                <div class="page-header">
+                	<img src="./img/msgRecv.png" style="width: 70px; margin-right: 10px; margin-top: 10px;float: left;">
+		            <h1 style="float: left; margin-top: 15px">받은 쪽지</h1>
+		            <img src="./img/exit.png" style="width: 35px; float: right;" id="msgExit2">
+		        </div>
+		        <hr>
+                    	<input type="hidden" value="<%=user_nick %>" name="recv_nick">
+                    <div style="margin-top: 30px; width: 100%">
+                    	<h4 style="float: left; padding-top: 4px; margin-right: 15px">보낸 사람 : </h4>
+                    	<input type="text" name="send_nick" id="detailSend" readonly onfocus="this.blur();">
+                    </div>
+                    <div style="margin-top: 10px; width: 100%; margin-bottom: 20px">
+                    	<h6 style="float: left; margin-right: 10px; padding-top: 4px">날짜 :</h6>
+                    	<input type="text" name="send_nick" id="detailSend_date" readonly onfocus="this.blur();" >
+                    </div>
+                    <div class="form-group">
+		               <textarea name="msg_content" id="detailSend_content" cols="30" rows="10" class="form-control"  style="resize: none;" disabled="disabled"></textarea>
+		               <button class="services-icon-wap btnSend" id="msgRE" style="float: right; margin-top: 10px"><i class="fa fa-envelope mx-2"></i>답장</button>
+                    </div>
+		            </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="closeModal();">
+            <span class="pop_bt modalCloseBtn" style="font-size: 13pt;">
+            </span>
+        </div>
+    </div>
+    <!-- 받은 쪽지 자세히 보기 End -->
+    
+    
+     <!-- 보낸 쪽지 자세히 보기 Start -->
+    <div id="detailModalSend" class="detailModalSend">
+    <div class="detail-modal-Send-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                <div class="page-header">
+                	<img src="./img/msgRecv.png" style="width: 70px; margin-right: 10px; margin-top: 10px;float: left;">
+		            <h1 style="float: left; margin-top: 15px">보낸 쪽지</h1>
+		            <img src="./img/exit.png" style="width: 35px; float: right;" id="msgExit3">
+		        </div>
+		        <hr>
+                    <div style="margin-top: 30px; width: 100%">
+                    	<h4 style="float: left; padding-top: 4px; margin-right: 15px">받는 사람 : </h4>
+                    	<input type="text" name="recv_nick" id="detailRecv" readonly onfocus="this.blur();">
+                    </div>
+                    <div style="margin-top: 10px; width: 100%; margin-bottom: 10px">
+                    	<h6 style="float: left; margin-right: 10px; padding-top: 4px">날짜 :</h6>
+                    	<input type="text" id="detailRecv_date" readonly onfocus="this.blur();" >
+                    </div>
+                    <div style="width: 100%; margin-bottom: 20px">
+                    	<h6 style="float: left; margin-right: 10px; padding-top: 4px">읽음여부 :</h6>
+                    	<input type="text" id="detailRecv_chk" readonly onfocus="this.blur();" >
+                    </div>
+                    <div class="form-group" style="margin-bottom: 50px">
+		               <textarea name="msg_content" id="detailRecv_content" cols="30" rows="10" class="form-control"  style="resize: none;" disabled="disabled"></textarea>
+                    </div>
+		            </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="closeModal();">
+            <span class="pop_bt modalCloseBtn" style="font-size: 13pt;">
+            </span>
+        </div>
+    </div>
+    <!-- 보낸 쪽지 자세히 보기 End -->
+    
+    
+    
     
     <%
 		}

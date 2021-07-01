@@ -28,7 +28,14 @@
 	
 	String user_nick = (String) session.getAttribute("user_nick");
 	String user_profile = (String) session.getAttribute("user_profile");
-	int msgAlarm = (int) session.getAttribute("msgAlarm");
+	int msgAlarm;
+	if(session.getAttribute("msgAlarm") == null){
+		msgAlarm = 0;
+	}else{
+		msgAlarm = (int)session.getAttribute("msgAlarm");
+	}
+	System.out.println( "====================================================================================================");
+	System.out.println(msgAlarm );
 	
 %>
 
@@ -54,7 +61,9 @@
             			<a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
             			<a href="./MsgListAction.ms">
             					<i class="fa fa-envelope" aria-hidden="true" id="atag"></i>
-            					<p id="circle2"><%=msgAlarm %></p>
+            					<%if(msgAlarm != 0){ %>
+            						<p id="circle2"><%=msgAlarm %></p>
+            					<%} %>
             			</a>
             			
             			<%

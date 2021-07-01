@@ -51,6 +51,7 @@ public class UserLoginAction implements Action {
 			session.setAttribute("user_nick", user_nick);
 			session.setAttribute("user_profile", udao.getProfile(user_nick));
 			session.setAttribute("msgAlarm", mdao.getRecvChk(user_nick));
+			System.out.println( mdao.getRecvChk(user_nick));
 			forward.setPath("./Main.do");
 			forward.setRedirect(true);
 		} else {
