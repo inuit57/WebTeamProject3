@@ -1,3 +1,4 @@
+<%@page import="javafx.scene.control.Alert"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,6 +28,18 @@ request.setCharacterEncoding("UTF-8");
 %>
 
 <script>
+
+	<%
+	
+	String user_nick = (String) session.getAttribute("user_nick");
+	if (user_nick == null) {
+	%>
+		window.close();
+		alert("세션이 종료되었습니다. 다시 로그인 해주세요.");
+	
+	<%
+	}else{
+	%>
 	
 	$(function() {
 		
@@ -145,6 +158,12 @@ request.setCharacterEncoding("UTF-8");
 
 	
 	
+	 
+    	
+	<%
+		}
+			
+	%>
 	
 	
 	

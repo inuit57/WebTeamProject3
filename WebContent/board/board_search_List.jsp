@@ -8,22 +8,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->	
-	<h1> 게시글 검색 내역 </h1>
-	
+<!-- 	<h1> 게시글 검색 내역 </h1> -->
+<div class="container">
+<br><br>
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
 %>	
-	<%=user_nick %>님 환영합니다.
+<%-- 	<%=user_nick %>님 환영합니다. --%>
 <%	
 	boardDAO bDAO = new boardDAO();
-	
 	// 전달된 정보저장
 	List boList = (List)request.getAttribute("boList");
 	String sk =(String) request.getAttribute("sk");
@@ -46,8 +45,12 @@
 	 int al_size = al.size();
 
 %>
+<div style="margin:auto;  width: 800px;">
+<div align="right">
+<input type="button" value="전체목록으로" onclick="location.href='board_List.bo?page_num=<%=pageNum%>'">
 <input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
-	<table border="1">
+</div>
+	<table  class="table table-bordered" border="1" >
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -75,11 +78,14 @@
 	%>	
 	</table>
 	
+	<div align="center">
 	<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
 		if(cnt != 0){ // 글이 있을때 표시
-			
+			%>
+			<hr>
+			<%
 			// 전체 페이지수 계산
 			// ex) 	총50개 -> 한페이지당 10개씩 출력, 5개
 			//		총57개 -> 한페이지당 10개씩 출력, 6개
@@ -105,9 +111,6 @@
 				<a href="BoardSearchAction.bo?pageNum=<%=startPage - pageBlock%>&sk=<%=sk%>&sv=<%=sv%>" >[이전]</a>
 				<%
 			}
-			
-			
-			
 			// 숫자 1...5
 			for(int i = startPage; i <= endPage; i++){
 				%>
@@ -123,17 +126,9 @@
 			}
 			
 		}
-		
 		/////////////////////////////////////////////////////////
-		
 	%>
-	
-	
-	
-	
-	
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-			
 		   <form action="./BoardSearchAction.bo" method="post">
          		<select name="sk">
             		<option value="user_nick">작성자</option>
@@ -142,25 +137,13 @@
          		<input type="text" name="sv">
          		<input type="submit" value="검색">  
          		<input type="hidden" name="pageNum" value="<%=pageNum%>">
-	      		<input type="button" value="전체목록으로" onclick="location.href='board_List.bo?page_num=<%=pageNum%>'">
+	      		
       		</form>
-		
+			<br>
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		</div>
+	</div>
+</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->

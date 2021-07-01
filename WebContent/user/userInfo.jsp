@@ -8,12 +8,76 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userInfoJS/userInfo.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+
+<script type="text/javascript">
+
+function file_upload(){
+	$('#img_upload').click();
+}
+</script>
+
 <link href="css/userInfo.css" rel="stylesheet">
 <title>회원 정보</title>
 </head>
 <body>
+
+	<% 
+	//String user_nick = (String)session.getAttribute("user_nick"); 
+	
+	UserDTO udto = (UserDTO)session.getAttribute("udto"); 
+	
+	String m = request.getParameter("m");
+	
+	String user_picture = udto.getUser_picture(); 
+	
+	%>
+	<div class="container">
+	<br><br>
+	<h3>마이 페이지</h3>
+	<a href="./MyPageBoardList.bo">내가 쓴 글</a>
+	<a href="./MyPageProductList.pr">나의 상품</a>
+	<a href="./MyPageInqueryList.in">나의 문의</a>
+	
+	<hr>
+	<fieldset>
+	<legend>회원 정보</legend>
+	<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
+	<div id="div_img">
+	<!-- 이미지가 없는 경우, 기본 이미지로 출력 -->
+	<% if(user_picture == null || user_picture.equals("")){ %>
+		<img alt="" src="./img/default_image.png" id="image" onclick="file_upload()">
+	<%}else{ %>
+		<img alt="" src="./upload/<%=user_picture%>" id="image" onclick="file_upload()">
+	<%} %>
+	
+	<button style=" position: absolute; top: 170px; left : 145px; " class="btn1" type="button" onclick="file_upload()">수정</button>
+	</div>
+		<label>아이디</label><input  type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
+		<label>닉네임</label><input type="text" id="user_nick" name="user_nick" onkeyup="checkNick();" value="<%=udto.getUser_nickname() %>"><label id="nickname_error" class="error"></label><br>
+		<label>전화번호</label><input type="text" id="user_phone" name="user_phone" onkeyup="checkPhone()" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><label id="phone_error" class="error"></label><br><br>
+		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" onkeyup="addressCheck();" value="<%=udto.getUser_address()%>" readonly="readonly">
+		<button id="address_find" onclick="findAddr()" >주소 찾기</button><br>
+
+		<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
+		<!-- 프로필 사진 -->
+		<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" > 
+		<label>가입 날짜</label><input type="text" name="user_join_date" value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
+		<input type="submit" value="회원정보 수정하기">
+	</form>
+	</fieldset>
+	<hr>
+	<fieldset>
+	<legend>비밀번호 변경</legend>
+	<form action="./UserPasswordEditAction.us" method="post" onsubmit="return checkPw()" >
+		<label>현재 비밀번호</label><input type="password" id="pw" name="pw"><br>
+		<label>변경 비밀번호</label><input type="password" id="new_pw" name="new_pw"><br>
+		<label>변경 비밀번호 확인</label><input type="password" id="new_pw_check" name="new_pw_check" ><br>
+		<label id="pw_error" class="error"></label><br>
+		<input type="submit" value="비밀번호 변경하기">
 
 	<%
 		//String user_nick = (String)session.getAttribute("user_nick"); 

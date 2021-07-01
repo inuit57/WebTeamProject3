@@ -3,6 +3,8 @@
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file="../inc/top.jsp" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,16 +13,17 @@
 <script src="./jq/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1>WebContent/prod_trade/prod_trade_modify.jsp</h1>
+<!-- 	<h1>WebContent/prod_trade/prod_trade_modify.jsp</h1> -->
 	
+	<div class="container" >
+	<br><br>
 		<%
 		String nick = (String)session.getAttribute("user_nick");
 		int num = Integer.parseInt(request.getParameter("num"));
 		ProdDAO pDAO = new ProdDAO();
 		ProdDTO pDTO = pDAO.getProduct(num);
 		%>
-	
-	<fieldset>
+	<fieldset style="margin:auto;  width: 800px;">
 		<legend>중고거래 등록수정하기</legend>
 			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data"
 				name="pdf">
@@ -105,7 +108,6 @@
 							</select>
 						</td>
 					</tr>
-					
 					<tr>
 						<td>중고거래 여부</td>
 						<td>
@@ -130,11 +132,9 @@
 									selected
 									<%} %>
 								>거래완료</option>
-								
 							</select>
 						</td>
 					</tr>
-					
 					<tr> 
 						<td>글 제목</td>
 						<td>
@@ -147,12 +147,13 @@
 							<input type="number" name="prod_price" id="price" value=<%=pDTO.getProd_price() %>>
 						</td>
 					</tr>
+					<!-- 이미지 미리보기 추가하기 -->
+					
 					<tr> 
 						<td>상품 이미지1</td>
 						<td>
 							<input type="file" name="file1" accept="image/*" 
 							value="<%= (pDTO.getProd_img()==null) ? "" : pDTO.getProd_img() %>">
-							
 						</td>
 					</tr>
 					<tr> 
@@ -186,15 +187,11 @@
 							<input type="reset" value="초기화">
 						</td>
 					</tr>
-					
 				</table>
 			</form>
 	</fieldset>
-	
-	
-	
+</div>	
 </body>
-
 
 <script type="text/javascript">
 	
@@ -220,13 +217,27 @@
 				
 				return false; 
 			} 
-			
-			
 			document.fr.submit();
-			
 		});
-		
-		
+	});
+	$(document).ready(function(){
+		$("#statusFree").on('change',function(){
+			if(this.value  == 2 || this.value == 3){
+				$("#price").val(0);
+				$("#price").attr('readonly',true);
+			}else{
+				$("#price").val("");
+				$("#price").attr('readonly',false);
+			}
+			if(this.value == 3){
+				$("#psub").val('판매완료');
+				$("#psub").attr('readonly',true);
+				
+			}else{
+				$("#psub").val("");
+				$("#psub").attr('readonly',false);
+			}
+		});
 	});
 	
 	

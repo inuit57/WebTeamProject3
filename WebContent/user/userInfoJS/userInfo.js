@@ -129,6 +129,17 @@ function addressCheck() {
 	
 }
 
+function imgPreview(event){
+	var reader = new FileReader(); 
+	reader.onload = function(event){
+		var img = document.getElementById("image"); 
+		img.setAttribute("src" , event.target.result)
+	};
+	
+	reader.readAsDataURL(event.target.files[0]); 
+}
+
+
 function checkPw() {
 	var new_pw = document.getElementById("new_pw").value;
 	var new_pw_check = document.getElementById("new_pw_check").value;

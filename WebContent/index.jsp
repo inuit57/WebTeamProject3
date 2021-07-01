@@ -11,8 +11,6 @@
 </head>
 <body>
 
-   <h1>Market</h1>
-
    <%
    response.sendRedirect("./main.bo");
     %>
