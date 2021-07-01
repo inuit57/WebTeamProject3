@@ -113,6 +113,9 @@
                         <li class="nav-item">
                         	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
                         </li>
+                         <li class="nav-item">
+                        	<a class="nav-link" href="./AuctionList.ac">경매</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

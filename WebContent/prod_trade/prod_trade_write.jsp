@@ -143,7 +143,7 @@
 				return false;
 			}
 			
-			if(prod_content == "" || prod_content == null || prod_content == '&nbsp;' || prod_content == '<br>' || content == '<br/>' || prod_content == '<p>&nbsp;</p>'){
+			if(prod_content == "" || prod_content == null || prod_content == '&nbsp;' || prod_content == '<br>' || prod_content == '<br/>' || prod_content == '<p>&nbsp;</p>'){
 				alert("본문을 입력하세요."); 
 				
 				return false; 
@@ -157,7 +157,7 @@
 	
 	$(document).ready(function(){
 		$("#statusFree").on('change',function(){
-			if(his.value  == 2 || this.value == 3){
+			if(this.value  == 2 || this.value == 3){
 				$("#price").val(0);
 				$("#price").attr('readonly',true);
 			}else{
