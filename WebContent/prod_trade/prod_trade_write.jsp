@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>prod_trade_write</title>
 
-<script src="./jq/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
 	function imgPreview01(event){
 		var reader = new FileReader(); 
@@ -191,7 +191,7 @@
 					<tr> 
 						<td>글 내용</td>
 						<td>
-							<textarea rows="30" cols="50" name="prod_content"
+							<textarea rows="30" cols="60" name="prod_content"
 								id="pcontent"
 								placeholder="상품정보를 입력하세요."></textarea>
 						</td>
