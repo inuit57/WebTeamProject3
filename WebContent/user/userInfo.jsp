@@ -44,7 +44,7 @@ function file_upload(){
 	<hr>
 	<fieldset>
 	<legend>회원 정보</legend>
-	<form action="./UserInfoEditAction.us" method="post" onsubmit="infoChk" enctype="multipart/form-data">
+	<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
 	<div id="div_img">
 	<!-- 이미지가 없는 경우, 기본 이미지로 출력 -->
 	<% if(user_picture == null || user_picture.equals("")){ %>
@@ -56,10 +56,11 @@ function file_upload(){
 	<button style=" position: absolute; top: 170px; left : 145px; " class="btn1" type="button" onclick="file_upload()">수정</button>
 	</div>
 		<label>아이디</label><input  type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
-		<label>닉네임</label><input type="text" name="user_nick" value="<%=udto.getUser_nickname() %>"><br>
-		<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
-		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly">
+		<label>닉네임</label><input type="text" id="user_nick" name="user_nick" onkeyup="checkNick();" value="<%=udto.getUser_nickname() %>"><label id="nickname_error" class="error"></label><br>
+		<label>전화번호</label><input type="text" id="user_phone" name="user_phone" onkeyup="checkPhone()" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><label id="phone_error" class="error"></label><br><br>
+		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" onkeyup="addressCheck();" value="<%=udto.getUser_address()%>" readonly="readonly">
 		<button id="address_find" onclick="findAddr()" >주소 찾기</button><br>
+
 		<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
 		<!-- 프로필 사진 -->
 		<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" > 

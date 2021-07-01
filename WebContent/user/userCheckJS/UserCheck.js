@@ -159,6 +159,10 @@ function checkPhone() {
 		$('#phone_error').css('color','red');
 		$('#phone_error').html('휴대폰 번호를 입력해 주세요.');
 		phoneFlag = false;
+	} else if(phone.length > 11) {
+		$('#phone_error').css('color','red');
+		$('#phone_error').html('휴대폰 번호를 확인해 주세요');
+		phoneFlag = false;
 	} else {
 		$('#phone_error').css('color','green');
 		$('#phone_error').html('');
