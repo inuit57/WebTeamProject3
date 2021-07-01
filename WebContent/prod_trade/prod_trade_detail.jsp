@@ -51,7 +51,6 @@
 		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
->>>>>>> refs/heads/develop
 	</form>
 	</div>
 	<%} %>
@@ -72,18 +71,6 @@
 							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 						</ol>
 
-<<<<<<< HEAD
-
-
-<!--  		if(user_nick == null){
-				alert("로그인 후 이용 가능합니다.");
-				location.href='./UserLogin.us' 
-			} -->
-			
-
-
-
-=======
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
