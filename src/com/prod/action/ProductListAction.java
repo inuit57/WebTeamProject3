@@ -44,6 +44,7 @@ public class ProductListAction implements Action {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) {
 				pageNum = "1";
+				
 		}
 		
 		//시작행

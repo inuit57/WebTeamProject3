@@ -376,7 +376,7 @@ public class ProdDAO {
 		
 	}//deleteProduct(num) 중고거래 글 삭제!!
 	
-	//updateCount(pDTO) 조회수 증가
+	//updateCount(num) 조회수 증가
 	public void updateCount(int num) {
 		
 		try {

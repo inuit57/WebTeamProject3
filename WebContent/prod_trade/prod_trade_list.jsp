@@ -43,7 +43,7 @@
 		<!-- int값으로 selected 값...하 안돼요  -->
 		<select onchange="if(this.value) location.href=(this.value);" name="category">
 <!-- 				<option value="./ProductList.pr" selected="selected">카테고리</option> -->
-					<option value="./ProductList.pr" selected="selected"">전체</option>
+					<option value="./ProductList.pr" selected="selected">전체</option>
 					<option value="./ProductList.pr?item=0"
 					<% if(item == 0){ %>
 										selected
