@@ -51,66 +51,6 @@
 		<div align="center">
 		<h2>검색 조건 설정</h2>
 		<form action="./ProductList.pr" method="get">
-<!-- 		<select onchange="if(this.value) location.href=(this.value);" name="category"> -->
-<!-- 					<option value="./ProductList.pr" selected="selected"">전체</option> -->
-<!-- 					<option value="./ProductList.pr?item=0" -->
-<%-- 					<% if(item == 0){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>디지털기기</option> --%>
-<!-- 					<option value="./ProductList.pr?item=1" -->
-<%-- 					<% if(item == 1){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>생활가전</option> --%>
-<!-- 					<option value="./ProductList.pr?item=2" -->
-<%-- 					<% if(item == 2){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>가구/인테리어</option> --%>
-<!-- 					<option value="./ProductList.pr?item=3" -->
-<%-- 					<% if(item == 3){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>유아용품</option> --%>
-<!-- 					<option value="./ProductList.pr?item=4" -->
-<%-- 					<% if(item == 4){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>생활/가공식품</option> --%>
-<!-- 					<option value="./ProductList.pr?item=5" -->
-<%-- 					<% if(item == 5){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>스포츠/레저</option> --%>
-<!-- 					<option value="./ProductList.pr?item=6" -->
-<%-- 					<% if(item == 6){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>여성잡화/의류</option> --%>
-<!-- 					<option value="./ProductList.pr?item=7" -->
-<%-- 					<% if(item == 7){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>남성잡화/의류</option> --%>
-<!-- 					<option value="./ProductList.pr?item=8" -->
-<%-- 					<% if(item == 8){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>게임/취미</option> --%>
-<!-- 					<option value="./ProductList.pr?item=9" -->
-<%-- 					<% if(item == 9){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>뷰티/미용</option> --%>
-<!-- 					<option value="./ProductList.pr?item=10" -->
-<%-- 					<% if(item == 10){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>반려동물용품</option> --%>
-<!-- 					<option value="./ProductList.pr?item=11" -->
-<%-- 					<% if(item == 11){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>도서/티켓/음반</option> --%>
-<!-- 					<option value="./ProductList.pr?item=12" -->
-<%-- 					<% if(item == 12){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>식물</option> --%>
-<!-- 					<option value="./ProductList.pr?item=13" -->
-<%-- 					<% if(item == 13){ %> --%>
-<!-- 										selected -->
-<%-- 										<%} %>>기타 중고물품</option> --%>
-<!-- 			</select> -->
-
 			<select name="item">
 					<option value="" selected="selected">전체</option>
 					<option value="0"
@@ -202,7 +142,7 @@
 			</div>
 	<input type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'"><br>
-	<table border="1" class="table" style="height: 700px">
+	<table border="1" class="table" style="height: 700px;">
 	
 		<%
 			int size = productList.size();	
