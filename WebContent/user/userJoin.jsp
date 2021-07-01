@@ -23,10 +23,20 @@
 	<form action="./UserJoinAction.us" method="post" onsubmit="return check()">
 	<div id="join_input">
 	<label>아이디</label><br>
-	<input type="text" name="id" id="id" placeholder="이메일 형식" onblur="idCheck();" autocomplete="off"><br>
+	<input type="text" name="id" id="id" 
+					<%if(request.getParameter("id") != null){ %>
+					value=<%=request.getParameter("id")  %>
+					<%} %>readonly><br>
+	
 	<label id="id_error" class="error"></label><br>
+	
 	<label>닉네임</label><br>
-	<input type="text" name="nickname" id="nickname" placeholder="특수 문자를 제외한 8글자 이내" onblur="checkNick()" autocomplete="off"><br>
+	<input type="text" name="nickname" id="nickname" placeholder="특수 문자를 제외한 8글자 이내" onblur="checkNick()" autocomplete="off"
+					<%if(request.getParameter("user_nickname") != null){ %>
+					value=<%=request.getParameter("user_nickname")  %>
+					<%} %>  ><br>
+					
+					
 	<label id="nickname_error" class="error"></label><br>
 	<label>비밀번호</label><br>
 	<input type="password" name="pw" id="pw" placeholder="영문,숫자,특수문자 포함 8자리" onkeyup="checkPw();"><br>
@@ -41,8 +51,6 @@
 	<label>상세주소</label><br>
 	<input type="text" name="address_plus" id="address_plus" onblur="addressCheck();" autocomplete="off"><br>
 	<label id="address_error" class="error"></label><br>
-	<label>이메일 인증</label><br>
-	<input type="text" id="email_check" name="email_check" placeholder="인증 번호"><input type="button" id="btn_emailcheck" value="인증번호 전송"><br>
 	</div>
 	<br><input type="submit" value="가입하기" id="join_submit">
 	</form>

@@ -15,11 +15,19 @@ public class UserInfoAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
+		System.out.println("============================================");
+		System.out.println((String)session.getAttribute("user_nick"));
+		System.out.println("============================================");
+		
 		String user_nick = (String)session.getAttribute("user_nick");
 		
 		UserDAO udao = new UserDAO();
 		
 		UserDTO udto = udao.getUserInfo(user_nick);
+		
+		System.out.println("============================================");
+		System.out.println(udto.getUser_id() + "/" + udto.getUser_nickname() );
+		System.out.println("============================================");
 		
 		session.setAttribute("udto", udto);
 		

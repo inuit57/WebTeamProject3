@@ -32,7 +32,7 @@ public class InqueryListAction implements Action {
 		
 		inDAO.getMyInqueryList(nick);
 			
-		request.setAttribute("myInqueryList", inDAO.getMyInqueryList(nick));	
+		request.setAttribute("myInqueryList", inDAO.getMyInqueryList(nick));
 			
 		forward.setPath("./inquery/inquery_list.jsp");
 		forward.setRedirect(false);	
