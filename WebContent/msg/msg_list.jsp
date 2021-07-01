@@ -24,7 +24,6 @@
 		
 		List msgList = (List) request.getAttribute("msgList");
 		String msgTag = (String) request.getAttribute("msgTag");
-		int alarm = (int) request.getAttribute("alarm");
 	 	MsgDTO mdto = null;
 	 	int msgDiv = 0;
 	 	
@@ -39,6 +38,23 @@
 	
 <script>
 	$(document).ready(function () {
+		
+		
+		// 쪽지 알림 
+		$.ajax({
+				 url:'./MsgAlarmAction.ms',
+			     type:'post',
+			     data:{"user_nick":"<%=user_nick%>"}, 
+			     success:function(data){
+			    	$("#circle1").val(data);
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		     }); // 읽음여부
+		// 쪽지 알림	
+		
+	
 		
  		// 쪽지 모달 보이기 
 		$("#msgWrite").click(function () {
@@ -81,10 +97,6 @@
 		
 		
 		
-		//쪽지 쓰기 모달 끄기
-		$("#msgExit").click(function () {
-			 $('.searchModal').hide();
-		});//쪽지 쓰기 모달 끄기
 		
 		
 		
@@ -130,17 +142,12 @@
 			     data:{"msg_idx":"<%=mdto.getMsg_idx()%>"}, 
 			     success:function(data){
 			    	 $(".<%=mdto.getMsg_idx() %>").removeClass('chkcolor');
-			    	 
+			    	 $(".<%=mdto.getMsg_idx() %>").addClass('chkcolor2');
 		               },
 		        		error:function(){
 		                alert("에러입니다");
 		               }
 		       }); // 읽음여부
-			
-			
-			
-			
-			
 			
 			
 		})// 받는 쪽지 내용 불러오기
@@ -161,14 +168,29 @@
 			$("#detailRecv_chk").val("<%=mchk%>"); 
 			$("#detailRecv_content").val("<%=mdto.getMsg_content()%>"); 
 		})
+		<% } %>
 		
+
+		 $("#chkPro<%=i%>").change(function(){
+	        if($("#chkPro<%=i%>").is(":checked")){
+	        	$('.searchModal').hide()
+	 			$('.detailModal').hide();
+	 			$('.detailModalSend').hide();;
+	        }else{
+	        }
+	    });
 		
-		<% }
+		 
+		<%
 		}%>// 보낸 쪽지 내용 불러오기
 		
 		
 		
-		
+
+		//쪽지 쓰기 모달 끄기
+		$("#msgExit").click(function () {
+			 $('.searchModal').hide();
+		});//쪽지 쓰기 모달 끄기
 		
 		//받은 쪽지 모달 끄기
 		$("#msgExit2").click(function () {
@@ -193,11 +215,20 @@
 		});//답장 모달 띄우기
 		
 		
+		// 쪽지 삭제
+		$("#msgDel").click(function() {
+  			if($("input:checkbox").is(":checked")){
+  				var fr = document.listchkDel;
+  				fr.submit();
+  			}else{
+  				alert("삭제할 글을 선택하세요");
+  				return false;
+  			}
+  		});	// 쪽지 삭제
+  		
+  		
 		
-		
-		
-		
-		
+ 		
 		
 	});
 	
@@ -217,7 +248,7 @@
                 <h4 style="text-align:center; margin-bottom: 40px; color:#59ab6e"><%=user_nick %>님</h4>
                 <table style="width: 100%; color: #585858;" class="tagTable">
               		<tr class="msgBtnR h3 text-decoration-none msgBtn" > 
-						<td><img src="./img/msgRecv.png" style="width: 30px; margin-right: 10px; margin-top: 10px">받은 쪽지<p id="circle1"><%=alarm %></p></td> 
+						<td><img src="./img/msgRecv.png" style="width: 30px; margin-right: 10px; margin-top: 10px">받은 쪽지<input type="text" id="circle1" readonly onfocus="this.blur();" ></td> 
 					</tr>
 					<tr class="msgBtnS h3 text-decoration-none msgBtn "> 
 						<td><img src="./img/msgSend.png" style="width: 30px; margin-right: 10px;margin-top: 10px">보낸 쪽지</td> 
@@ -238,7 +269,7 @@
                  <hr>
                
                <div class="row" style="margin-top: 30px">
-                  <form  action="./MsgDelAction.faq" method="post"  name="listchkDel">
+                  <form  action="./MsgDelAction.ms" method="post"  name="listchkDel">
 					<button class="services-icon-wap btnSend" id="msgDel"><i class="fas fa-times mx-2"></i>삭제하기</button>
 						   <table class="table" style="margin-top: 30px"> 
 							<thead> 
@@ -267,24 +298,24 @@
 									<% if(msgDiv == 0){ 
 										if(mdto.getMsg_chk() == 0){%>
 										<tr id="msgDetail<%=i%>" class="<%=mdto.getMsg_idx() %> chkcolor"> 
-											<td><input type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
+											<td><input id="chkPro<%=i%>" type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;"></td> 
 											<td><%=mdto.getSend_nick() %></td> 
 											<td><input id="msgContent" class="<%=mdto.getMsg_idx() %> chkcolor" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
 											<td><%=mdto.getMsg_date()%></td>
 										</tr>
 										<%}else{ %>
-										<tr id="msgDetail<%=i%>" style="color: #848484"> 
-											<td><input type="checkbox"  name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
+										<tr id="msgDetail<%=i%>" class="<%=mdto.getMsg_idx() %> chkcolor2"> 
+											<td><input id="chkPro<%=i%>" type="checkbox"  name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;"></td> 
 											<td><%=mdto.getSend_nick() %></td> 
 											<td><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
 											<td><%=mdto.getMsg_date()%></td>
 										</tr>
 										<%} %>
 									<%}else{%>
-									<tr id="msgDetailSend<%=i%>"> 
-										<td><input type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>"></td> 
+									<tr id="msgDetailSend<%=i%>" style="color: #848484"> 
+										<td><input id="chkPro<%=i%>" type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;"></td> 
 										<td><%=mdto.getRecv_nick() %></td> 
-										<td><input id="msgContent" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+										<td><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
 										<td><%if(mdto.getMsg_chk() == 0){ %>
 											읽지 않음
 											<%}else{ %>

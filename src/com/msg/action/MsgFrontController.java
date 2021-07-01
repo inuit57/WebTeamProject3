@@ -70,7 +70,27 @@ public class MsgFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if (command.equals("/MsgDelAction.ms")) {
+			System.out.println("C : /MsgDelAction.ms 호출");
+			action = new MsgDelAction();
+
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if (command.equals("/MsgAlarmAction.ms")) {
+			System.out.println("C : /MsgAlarmAction.ms 호출");
+			action = new MsgAlarmAction();
+
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 		
 		
 		

@@ -30,6 +30,11 @@ Table of contents
 	color: #01DF3A;
 }
 
+.chkcolor2{
+	color: #848484;
+}
+
+
 
 #circle1 {
 color:white;
@@ -46,6 +51,7 @@ float: right;
 margin-top: 7px;
 margin-right: 20px;
 font-weight:bold;
+border:0px;
 }
 
 

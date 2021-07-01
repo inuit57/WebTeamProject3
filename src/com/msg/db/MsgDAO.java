@@ -240,5 +240,34 @@ public class MsgDAO {
 	 //updateMsgChk(msg_idx)
 	
 	
+	 
+	 // msgDel(msg_idx)
+	 public void msgDel(String msg_idx){
+		 try {
+				// 1 드라이버 로드
+				// 2 디비 연결
+				// => 한번에 처리 하는 메서드로 변경
+				conn = getConnection();		
+				
+				// 3 sql (글번호를 계산하는 구문)
+				sql = "delete from msg where msg_idx=?";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				//?
+				pstmt.setString(1, msg_idx);
+				
+				// 4 sql 실행
+				pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				System.out.println("디비 연결 실패!!");
+				e.printStackTrace();
+			} finally{
+				closeDB();			
+			}
+	 }
+	 // msgDel(msg_idx)
 	
 }

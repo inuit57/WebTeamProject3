@@ -31,7 +31,6 @@ public class MsgListAction implements Action {
 		// 정보 저장 -> 영역 저장
 		request.setAttribute("msgList", mdao.getMsgList(msgTag, user_nick));
 		request.setAttribute("msgTag", msgTag);
-		request.setAttribute("alarm", mdao.getRecvChk(user_nick));
 		
 		// 페이지 이동
 		ActionForward forward = new ActionForward();
