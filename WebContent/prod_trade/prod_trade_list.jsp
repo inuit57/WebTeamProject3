@@ -48,7 +48,6 @@
 %>
 
 <br>
-<br>
 		<div align="center">
 		<h2>검색 조건 설정</h2>
 		<form action="./ProductList.pr" method="get">
