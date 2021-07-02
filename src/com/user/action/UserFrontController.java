@@ -107,7 +107,7 @@ public class UserFrontController extends HttpServlet{
 			forward = new ActionForward();
 			forward.setPath("./user/userInfo.jsp");
 			forward.setRedirect(false);
-		} else if(command.equals("/UserInfoAction.us")) {
+		}else if(command.equals("/UserInfoAction.us")) {
 			try {
 				action = new UserInfoAction();
 				forward = action.execute(request, response);
@@ -169,6 +169,9 @@ public class UserFrontController extends HttpServlet{
 			forward.setRedirect(false);
 		}
 		
+		
+		
+		
 		if(forward != null) {
 			if(forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
@@ -177,6 +180,18 @@ public class UserFrontController extends HttpServlet{
 				dis.forward(request, response);
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	@Override

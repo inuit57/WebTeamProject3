@@ -192,7 +192,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				if (rs.getString(1).equals(pw)) {
-					if (rs.getInt(2) == 0) {
+					if (rs.getInt(2) == 1) {
 						user_nick = rs.getString(3);
 					} else {
 						b = false;
