@@ -25,7 +25,9 @@ Table of contents
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
 
-
+.circle10{
+	display: none;
+}
 
 .chkcolor{
 	color: #01DF3A;
@@ -71,6 +73,7 @@ line-height:23px;
 float: right;
 margin-top: 8px;
 margin-right: 20px;
+border:0px;
 }
 
 

@@ -22,8 +22,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="./assets/css/fontawesome.min.css">
     
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
    
 </head>
+
 <body>
 
 <%
@@ -31,16 +33,44 @@
 	
 	String user_nick = (String) session.getAttribute("user_nick");
 	String user_profile = (String) session.getAttribute("user_profile");
-	int msgAlarm;
-	if(session.getAttribute("msgAlarm") == null){
-		msgAlarm = 0;
-	}else{
-		msgAlarm = (int)session.getAttribute("msgAlarm");
-	}
-	System.out.println( "====================================================================================================");
-	System.out.println(msgAlarm );
 	
 %>
+
+
+<script>
+	$(document).ready(function () {
+		
+		
+		// 쪽지 알림 
+		$.ajax({
+				 url:'./MsgAlarmAction.ms',
+			     type:'post',
+			     data:{"user_nick":"<%=user_nick%>"}, 
+			     success:function(data){
+			    	 
+			    	if(data.trim() == 0){
+			    		$("#circle2").addClass('circle10');
+			    	}else{
+			    		$("#circle2").removeClass('circle10');
+			    		$("#circle2").val(data);
+			    	}
+			    
+			    	
+			    	
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		     }); // 읽음여부
+		// 쪽지 알림	
+		
+	});
+	
+	
+
+	
+</script>
+
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top" style="position: sticky; top:0px; left: 0px; z-index: 9999; width: 100%;">
         <div class="container text-light">
@@ -65,9 +95,7 @@
             			<a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
             			<a href="./MsgListAction.ms">
             					<i class="fa fa-envelope" aria-hidden="true" id="atag"></i>
-            					<%if(msgAlarm != 0){ %>
-            						<p id="circle2"><%=msgAlarm %></p>
-            					<%} %>
+            					<input type="text" class="circle10" id="circle2" readonly onfocus="this.blur();" >
             			</a>
 
             			<%
