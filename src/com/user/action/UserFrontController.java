@@ -143,7 +143,6 @@ public class UserFrontController extends HttpServlet{
 			try {
 				action = new UserBankChangeAction();
 				forward = action.execute(request, response);
-				System.out.println("은행바꾸기 액션페이지 이동");
 			} catch (Exception e) {
 				System.out.println(e.toString());
 				System.out.println("UserFrontController command(UserBankChangeAction.us) Problem - KBH");
