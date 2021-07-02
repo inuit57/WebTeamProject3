@@ -67,7 +67,7 @@ public class AdminInqueryDAO {
     	try {
     		conn = getConnection();
     		
-    		sql = "select * from inquery order by inq_ref";
+    		sql = "select * from inquery order by inq_ref desc, inq_num asc";
     		
 			pstmt = conn.prepareStatement(sql);
 			
@@ -78,7 +78,6 @@ public class AdminInqueryDAO {
 				
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_date(rs.getString("inq_date"));
-				inDTO.setInq_img(rs.getString("inq_img"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
 				inDTO.setInq_num(rs.getInt("inq_num"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
@@ -102,7 +101,7 @@ public class AdminInqueryDAO {
     }// getAdminInqueryList()
 	
 	// getAdminInqueryList(check)
-    public List getAdminInqueryList(String check){
+    public List getAdminInqueryList(String check,int startRow, int pageSize){
     	
     	List aiList = new ArrayList();
    
@@ -115,12 +114,15 @@ public class AdminInqueryDAO {
     		SQL.append("select * from inquery");
     		
     		if(check.equals("0")){
-    			SQL.append(" where inq_check=0");
+    			SQL.append(" where inq_check=0 order by inq_ref desc, inq_num asc limit ?,?");
     		}else{
-    			SQL.append(" where inq_check=1 order by inq_ref");
+    			SQL.append(" where inq_check=1 order by inq_ref desc, inq_num asc limit ?,?");
     		}
     		
 			pstmt = conn.prepareStatement(SQL+"");
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);
+			
 			
 			rs = pstmt.executeQuery();
 			
@@ -129,7 +131,6 @@ public class AdminInqueryDAO {
 				
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_date(rs.getString("inq_date"));
-				inDTO.setInq_img(rs.getString("inq_img"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
 				inDTO.setInq_num(rs.getInt("inq_num"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
@@ -176,7 +177,7 @@ public class AdminInqueryDAO {
 			
 			// 임시로 만듬 나중에 세션값 제어할때 다시 inq_lev 값 받아서 작성
 			sql = "insert into inquery(inq_num,user_nick,inq_sub,inq_content, "
-					+ "inq_lev,inq_img,inq_date,inq_ref,inq_check) values(?,?,?,?,1,?,now(),?,?)";
+					+ "inq_lev,inq_date,inq_ref,inq_check) values(?,?,?,?,1,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -184,9 +185,8 @@ public class AdminInqueryDAO {
 			pstmt.setString(2, inDTO.getUser_nick());
 			pstmt.setString(3, inDTO.getInq_sub());
 			pstmt.setString(4, inDTO.getInq_content());
-			pstmt.setString(5, inDTO.getInq_img());;
-			pstmt.setInt(6, inDTO.getInq_num());
-			pstmt.setString(7, "1");
+			pstmt.setInt(5, inDTO.getInq_num());
+			pstmt.setString(6, "1");
 			
 			pstmt.executeUpdate();
 			
@@ -228,7 +228,6 @@ public class AdminInqueryDAO {
 				inDTO.setInq_sub(rs.getString("inq_sub"));
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
-				inDTO.setInq_img(rs.getString("inq_img"));
 				inDTO.setInq_date(rs.getString("inq_date"));
 				inDTO.setInq_ref(rs.getInt("inq_ref"));
 				inDTO.setInq_check(rs.getString("inq_check"));
@@ -331,7 +330,7 @@ public class AdminInqueryDAO {
     }// adminDelete(num)
     
     // inquerySearchList(sk,sv)
-    public List inquerySearchList(String sk,String sv){
+    public List inquerySearchList(String sk,String[] sv){
     	
     List inList = new ArrayList();
     InqueryDTO inDTO = null;
@@ -339,7 +338,12 @@ public class AdminInqueryDAO {
     try {
     	conn = getConnection();
     	
-    	sql = "select * from inquery where "+sk+" like '%"+sv+"%'";
+    	sql = "select * from inquery where "+sk+" like '%"+sv[0]+"%'";
+    	
+    	for(int i =1;i<sv.length;i++){
+    		sql+="or "+sk+"like '%"+sv[i]+"%'";
+    	}
+    	
     	
 		pstmt = conn.prepareStatement(sql);
 		
@@ -353,7 +357,6 @@ public class AdminInqueryDAO {
 			inDTO.setInq_sub(rs.getString("inq_sub"));
 			inDTO.setInq_content(rs.getString("inq_content"));
 			inDTO.setInq_lev(rs.getInt("inq_lev"));
-			inDTO.setInq_img(rs.getString("inq_img"));
 			inDTO.setInq_date(rs.getString("inq_date"));
 			inDTO.setInq_ref(rs.getInt("inq_ref"));
 			inDTO.setInq_check(rs.getString("inq_check"));
@@ -373,15 +376,21 @@ public class AdminInqueryDAO {
     }// inquerySearchList(sk,sv)
     
  // inquerySearchList(sk,sv,starRow,pageSize)
-    public List inquerySearchList(String sk,String sv,int startRow,int pageSize){
+    public List inquerySearchList(String sk,String[] sv,int startRow,int pageSize){
     	
     List inList = new ArrayList();
     InqueryDTO inDTO = null;
-    	
     try {
     	conn = getConnection();
     	
-    	sql = "select * from inquery where "+sk+" like '%"+sv+"%' limit ?,?";
+    	sql = "select * from inquery where "+sk+" like '%"+sv[0]+"%' ";
+    	
+    	for(int i =1;i<sv.length;i++){
+    		sql+="or "+sk+" like '%"+sv[i]+"%'";
+    	}
+    	
+    	sql+= "order by inq_ref desc, inq_num asc limit ?,?";
+    	
     	
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, startRow-1);
@@ -398,7 +407,6 @@ public class AdminInqueryDAO {
 			inDTO.setInq_sub(rs.getString("inq_sub"));
 			inDTO.setInq_content(rs.getString("inq_content"));
 			inDTO.setInq_lev(rs.getInt("inq_lev"));
-			inDTO.setInq_img(rs.getString("inq_img"));
 			inDTO.setInq_date(rs.getString("inq_date"));
 			inDTO.setInq_ref(rs.getInt("inq_ref"));
 			inDTO.setInq_check(rs.getString("inq_check"));
@@ -495,7 +503,7 @@ public int adminInqueryCount(String check){
 }// adminInqueryCount(check)
 
 //adminInqueryCount(sk,sv)
-public int adminInqueryCount(String sk, String sv){
+public int adminInqueryCount(String sk, String[] sv){
 	
 	int cnt = 0;
 	
@@ -553,8 +561,8 @@ public int adminInqueryCount(String sk, String sv){
 		
 			
 			//sql = "select * from itwill_board";
-			sql = "select * from inquery "					
-					+ "limit ?,?";
+			sql = "select * from inquery order by inq_ref desc,  "					
+					+ "inq_num asc limit ?,?";
 			
 			
 			pstmt = conn.prepareStatement(sql);
@@ -575,7 +583,6 @@ public int adminInqueryCount(String sk, String sv){
 				inDTO.setInq_sub(rs.getString("inq_sub"));
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
-				inDTO.setInq_img(rs.getString("inq_img"));
 				inDTO.setInq_date(rs.getString("inq_date"));
 				inDTO.setInq_ref(rs.getInt("inq_ref"));
 				inDTO.setInq_check(rs.getString("inq_check"));

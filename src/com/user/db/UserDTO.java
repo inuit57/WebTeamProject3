@@ -32,7 +32,7 @@ public class UserDTO {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	public String getUser_nick() {
+	public String getUser_nickname() {
 		return user_nick;
 	}
 	public void setUser_nickname(String user_nick) {

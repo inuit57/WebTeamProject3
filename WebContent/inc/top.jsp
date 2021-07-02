@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>중고거래(이름미정)</title>
+<script type="text/javascript" src="./inc/JS/top.js"></script>
+
+<link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+
+<title>기억마켓</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="./assets/img/apple-icon.png">
@@ -26,13 +30,23 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	String user_nick = (String) session.getAttribute("user_nick");
+	String user_profile = (String) session.getAttribute("user_profile");
+	int msgAlarm;
+	if(session.getAttribute("msgAlarm") == null){
+		msgAlarm = 0;
+	}else{
+		msgAlarm = (int)session.getAttribute("msgAlarm");
+	}
+	System.out.println( "====================================================================================================");
+	System.out.println(msgAlarm );
+	
 %>
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top" style="position: sticky; top:0px; left: 0px; z-index: 9999; width: 100%;">
         <div class="container text-light">
             <div class="w-100 d-flex justify-content-between">
                 <div>
-                    <i class="fa fa-envelope mx-2"></i>
+                    <i class="far fa-paper-plane  mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
                     <i class="fa fa-phone mx-2"></i>
                     <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340" style="margin-right: 10px">010-020-0340</a>
@@ -45,8 +59,17 @@
                    <%
             		if (user_nick != null) {
             			%>
-            			<a href="./UserInfoAction.us"><%=user_nick %>님</a>
-            			<a href="./UserLogoutAction.us">로그아웃</a>
+
+            			<a href="./UserInfoAction.us" style="margin-right: 30px" id="atag"><%=user_nick %>님</a>
+            			<a href="./UserLogoutAction.us" style="margin-right: 30px" id="atag">로그아웃</a>
+            			<a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
+            			<a href="./MsgListAction.ms">
+            					<i class="fa fa-envelope" aria-hidden="true" id="atag"></i>
+            					<%if(msgAlarm != 0){ %>
+            						<p id="circle2"><%=msgAlarm %></p>
+            					<%} %>
+            			</a>
+
             			<%
             		}%>
                     
@@ -62,7 +85,7 @@
         <div class="container d-flex justify-content-between align-items-center" >
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="./Main.do">
-                Zay
+                <img src="./img/logo_1.png" style="width: 200px">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,13 +102,19 @@
                             <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./ProductList.pr">Shop</a>
+                           <a class="nav-link" href="./ProductList.pr">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./board_List.bo">Board</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./FAQ.faq">FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./board_List.bo">board</a>
+                        	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
+                        </li>
+                         <li class="nav-item">
+                        	<a class="nav-link" href="./AuctionList.ac">경매</a>
                         </li>
                     </ul>
                 </div>
@@ -110,7 +139,7 @@
             			%>
             			<a href="./UserLogin.us">LOGIN </a>
             			<p>&emsp; &emsp;</p>
-            			<a href="./UserJoin.us">JOIN</a>
+            			<a href="./UserJoinChk.us">JOIN</a>
             			<%
             		}else{
             			%>
@@ -136,4 +165,3 @@
         </div>
     </nav>
     <!-- Close Header -->
-

@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>일반게시판 글수정</title>
 </head>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
@@ -21,7 +20,10 @@
 	String pageNum = request.getParameter("pageNum");
 %>
 
-	<fieldset>
+<div class="container">
+<br><br>
+
+	<fieldset style="margin:auto;  width: 800px;">
 		<form action="./BoardModifyAction.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>" name="fr" method="post">
 			제목 : <input type="text" name="board_sub" value="<%=bDTO.getBoard_sub()%>" > <br>
 			지역 :
@@ -62,7 +64,7 @@
 			<button type="button" id="savebutton">수정하기</button>
 		</form>
 	</fieldset>
-	
+</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->	

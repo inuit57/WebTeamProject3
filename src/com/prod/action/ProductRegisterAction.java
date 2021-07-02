@@ -17,10 +17,10 @@ public class ProductRegisterAction implements Action {
 
 		System.out.println("PR Action 페이지");
 		
-		
 		//파일업로드 폴더
 		ServletContext ctx = request.getServletContext();
 		String realpath = ctx.getRealPath("/upload");
+		
 		
 		int maxSize = 5 * 1024 * 1024;
 		
@@ -42,11 +42,26 @@ public class ProductRegisterAction implements Action {
 		pDTO.setProd_price(Integer.parseInt(multi.getParameter("prod_price")));
 		pDTO.setProd_content(multi.getParameter("prod_content"));
 		
-		String image
-			= multi.getFilesystemName("file1")+","
-			+ multi.getFilesystemName("file2")+","
-			+ multi.getFilesystemName("file3")+","
-			+ multi.getFilesystemName("file4");
+		String image =""; 
+		int null_cnt = 0 ; 
+		
+		for(int i = 1; i<=4 ; i++){
+			String imgName = multi.getFilesystemName("file"+i); 
+			if(imgName == null){
+				null_cnt ++; 
+			}else{
+				image+= (multi.getFilesystemName("file"+i)+","); 
+			}
+		}
+		
+		for(int i = 0 ; i< null_cnt; i++){
+			image +=("null,"); 
+		}
+//		String image
+//			= multi.getFilesystemName("file1")+","
+//			+ multi.getFilesystemName("file2")+","
+//			+ multi.getFilesystemName("file3")+","
+//			+ multi.getFilesystemName("file4");
 		
 		pDTO.setProd_img(image);
 		

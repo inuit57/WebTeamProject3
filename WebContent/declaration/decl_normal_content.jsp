@@ -23,8 +23,6 @@
 	
 	
 	boardDTO bDTO = (boardDTO)request.getAttribute("bDTO");
-	
-
 %>
 
 	<table border="1" style="width: 600px;">

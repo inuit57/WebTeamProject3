@@ -43,10 +43,10 @@ public class UserFrontController extends HttpServlet{
 			forward = new ActionForward();
 			forward.setPath("./index.jsp");
 			forward.setRedirect(false);
-		} else if (command.equals("/UserJoin.us")) {
+		} else if (command.equals("/UserJoinChk.us")) {
 			//회원 가입 페이지로 이동
 			forward = new ActionForward();
-			forward.setPath("./user/userJoin.jsp");
+			forward.setPath("./user/userJoinChk.jsp");
 			forward.setRedirect(false);
 		} else if(command.equals("/UserLogin.us")) {
 			//로그인 페이지로 이동
@@ -139,11 +139,35 @@ public class UserFrontController extends HttpServlet{
 				System.out.println(e.toString());
 				System.out.println("UserFrontController command(UserPasswordEditAction.us) Problem - KBH");
 			}
+		} else if(command.equals("/UserBankChangeAction.us")) {
+			try {
+				action = new UserBankChangeAction();
+				forward = action.execute(request, response);
+				System.out.println("은행바꾸기 액션페이지 이동");
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("UserFrontController command(UserBankChangeAction.us) Problem - KBH");
+			}
+		}else if(command.equals("/UserEmail.us")){
+			forward = new ActionForward();
+			forward.setPath("./user/mail.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/UserEmailSendAction.us")){
+			try {
+				action = new UserEmailSendAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/UserEmailChk.us")){
+			forward = new ActionForward();
+			forward.setPath("./user/mailChk.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/UserJoin.us")){
+			forward = new ActionForward();
+			forward.setPath("./user/userJoin.jsp");
+			forward.setRedirect(false);
 		}
-		
-		
-		
-		
 		
 		if(forward != null) {
 			if(forward.isRedirect()) {

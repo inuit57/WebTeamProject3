@@ -15,8 +15,11 @@
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
+
+<div class="container" >
+<br><br>
 	<h1>신고목록 - 일반게시판</h1>
-	
+	<hr>
 	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl'">
 	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
 	<br>
@@ -139,6 +142,7 @@
 		/////////////////////////////////////////////////////////
 		
 	%>
+</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->	

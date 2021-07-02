@@ -8,6 +8,36 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+
+<style type="text/css">
+#ad-sidebar {
+        width: 15%;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+      
+ #ad-sidebar li {
+  	list-style: none;
+  }
+      
+.ad-content1 {
+    width: 85%;
+    padding: 20px;
+    margin-bottom: 20px;
+    float:right;
+    height: 800px;
+  }
+
+.footer {
+ 	clear:both;
+ } 
+
+</style>
+
+
+
 <script type="text/javascript">
 
 	function modify(){
@@ -20,35 +50,49 @@
 	
 
 </script>
+<%@ include file="../../inc/top.jsp" %>
 
 </head>
 <body>
-		<h1>WebContent/admin_inquery/admin_inquery_list</h1>
+		<h1 style="text-align: center;">1:1 문의 게시판 관리</h1>
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
-	String sk =(String) request.getAttribute("sk");
-	String sv =(String) request.getAttribute("sv");
-	
-	
-	int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
-	int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
-	int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
+	//request.setAttribute("pageSize", pageSize);
+	//request.setAttribute("pageNum", pageNum);
 
+		int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
+		int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
+		int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());
+	
 
+		
+		int currentPage = pageNum;
 	
-	int currentPage = pageNum;
-
-	
-	int startRow = (currentPage-1)*pageSize+1;
-	
-	// 끝행 계산하기
-	// 1p -> 10번, 2p -> 20번,... => 일반화
-	int endRow = currentPage*pageSize;
-	
-	
+		
+		int startRow = (currentPage-1)*pageSize+1;
+		
+		// 끝행 계산하기
+		// 1p -> 10번, 2p -> 20번,... => 일반화
+		int endRow = currentPage*pageSize;
+		
+		String check = (String)request.getAttribute("check");
+		
+		
 	%>
 	
+	<div id="ad-sidebar">
+			
+			<ul>
+				<li><a href="./AdminBoard.ap">관리자 게시판</a>
+				<li><a href="./AdminUserList.au">회원 목록 조회</a></li>
+				<li><a href="./InqueryAdminList.ai">1:1 문의 내역조회</a>	</li>				
+				<li><a href="#">신고내역 조회</a></li>				
+			</ul>		
+				
+		</div>
+	
+	<div class="ad-content1">
 	<table border="1">
 		<tr>
 			<td>글 번호</td>
@@ -66,14 +110,14 @@
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
 			<td><%=inDTO.getUser_nick()%></td>
-			<td>
+			<td><a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
 				<%
 				if(inDTO.getInq_lev()==1){
 				%>
 				( <%=inDTO.getInq_ref()%>번글 답글)
 				
 				<%} %>
-				<a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
+			
 				<%=inDTO.getInq_sub() %></a></td>
 			<td><%=inDTO.getInq_date() %></td>
 			<td>
@@ -89,8 +133,7 @@
 		}
 		%>
 	</table>
-	
-	<%
+		<%
 		/////////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
 		
@@ -102,7 +145,7 @@
 			int pageCount = cnt/pageSize+(cnt % pageSize == 0? 0:1);
 			
 			// 한 화면에 보여줄 페이지 번호의 개수(페이지 블럭)
-			int pageBlock = 2;
+			int pageBlock = 5;
 			
 			// 페이지 블럭의 시작페이지 번호
 			// ex) 1~10페이지 : 1, 11~20 페이지 : 11, 21~30 페이지 : 21
@@ -117,36 +160,35 @@
 			
 		// 이전 (해당 페이지블럭의 첫번째 페이지 호출)
 		if(startPage > pageBlock){
+			
 			%>
-			<a href="./InqueryAdminSearch.ai?pageNum=<%=startPage-pageBlock%>&sk=<%=sk%>&sv=<%=sv%>">[이전]</a>
+			<a href="./InqueryAdminList.ai?pageNum=<%=startPage-pageBlock%>&check=<%=check%>">[이전]</a>
+
 			<% 
-		}
+			}			
 		
-		
-		
-		
+
 		// 숫자 1....5
 		for(int i = startPage;i<=endPage;i++){
+			
 			%>
-			<a href="./InqueryAdminSearch.ai?pageNum=<%=i%>&sk=<%=sk%>&sv=<%=sv%>">[<%=i %>]</a>
+			<a href="./InqueryAdminList.ai?pageNum=<%=i%>&check=<%=check%>">[<%=i %>]</a>
 			<% 
 		}
 		
 		// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
-		if(endPage < pageCount){
+		if(endPage < pageCount){			
 			%>
-			<a href="./InqueryAdminSearch.ai?pageNum=<%=startPage+pageBlock%>&sk=<%=sk%>&sv=<%=sv%>">[다음]</a>
-			<%
-			
-		}
-			
-		
-		}	
+			<a href="./InqueryAdminList.ai?pageNum=<%=startPage+pageBlock%>&check=<%=check%>">[다음]</a>
+			<% 
+			}}
 		/////////////////////////////////////////////////////////////	
+		%>
 	
-	%>
 	
 	<br>
+	
+
 	
 	
 	<a href="./InqueryAdminList.ai">전체</a>
@@ -170,7 +212,11 @@
 	<hr>
 	
 	<a href="./FAQ.faq"> FAQ게시판 </a>
-	
+	</div>
 	
 </body>
+<div class="footer">
+<%@ include file="../../inc/footer.jsp" %>
+</div>
+>>>>>>> refs/heads/develop
 </html>

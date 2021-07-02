@@ -41,7 +41,6 @@ public class ProductDetailAction implements Action {
 					//if(cookies[i].getName().equals(pDTO.getProd_num()+"")) {
 					if(cookies[i].getName().equals("prod_count"+num) && cookies[i].getValue().equals(request.getRemoteAddr())) {
 						count = 0;
-						System.out.println("테슽@@@@@"+cookies[i].getName());
 						break;
 					}else {
 						Cookie cookie = new Cookie("prod_count"+num,
@@ -51,7 +50,6 @@ public class ProductDetailAction implements Action {
 						//cookie.setPath("/");
 						response.addCookie(cookie);
 						count += 1;
-						System.out.println("else 출력~~~");
 					}
 				}
 			}
