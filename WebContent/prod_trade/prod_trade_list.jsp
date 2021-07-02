@@ -176,7 +176,7 @@
 					 <%=pDTO.getProd_sub() %>
 					 </a><br>
 					 <%=pDTO.getProd_price() %> <br>
-					 <%=pDTO.getUser_nick() %>
+					 <%=pDTO.getUser_nickname() %>
 			
 			</td>
 		<%

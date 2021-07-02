@@ -47,7 +47,7 @@
 		<input type="submit" value="신고하기">
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
-		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nick()%>">
+		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nickname()%>">
 		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
@@ -124,7 +124,7 @@
 					<h4><%=pDTO.getProd_num()%></h4>
 					<h2><%=pDTO.getProd_sub()%></h2>
 					<h1><%=pDTO.getProd_price()%></h1>
-					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
+					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nickname()%>"><%=pDTO.getUser_nickname()%></a></h3>
 					<hr> 신고하기, 찜 (넣어야 할 기능), 위치
 					<hr> <%
 					 String category = "";
@@ -225,14 +225,14 @@
 			</tr>
 		</table>
 		<div style="margin:auto;  width: 800px; ">
-		<% if ( pDTO.getUser_nick().equals(user_nick) ){ %>
+		<% if ( pDTO.getUser_nickname().equals(user_nick) ){ %>
 			<input type="button" value="수정하기"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			<!-- 로직 처리 필요 -->
 			<input type="button" value="판매완료"
 				onclick="#">
 		<%}%>
-		<% if( pDTO.getUser_nick().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
+		<% if( pDTO.getUser_nickname().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
 			<input type="button" value="삭제하기"
 				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
 		<%} %>

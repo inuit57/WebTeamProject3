@@ -47,7 +47,7 @@
 			   </select>
 		</div>
 		<div>
-			 <input type="hidden" name="user_nick" value="<%=user_nick %>"> <br>
+			 <input type="hidden" name="user_nickname" value="<%=user_nick %>"> <br>
 		제목 : <input type="text" name="board_sub" >
 		</div>
 		<!-- 내용 : <textarea rows="10" cols="30" name="board_content"></textarea><br>-->

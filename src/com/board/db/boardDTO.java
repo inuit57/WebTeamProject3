@@ -6,7 +6,7 @@ public class boardDTO {
 	
 	private int board_num;
 	private String board_area;
-	private String user_nick;
+	private String user_nickname;
 	private int board_count;
 	private String board_sub;
 	private String board_content;
@@ -26,11 +26,11 @@ public class boardDTO {
 	public void setBoard_area(String board_area) {
 		this.board_area = board_area;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 	public int getBoard_count() {
 		return board_count;
@@ -68,15 +68,6 @@ public class boardDTO {
 	public void setBoard_ip(String board_ip) {
 		this.board_ip = board_ip;
 	}
-	
-	@Override
-	public String toString() {
-		return "boardDTO [board_num=" + board_num + ", board_area=" + board_area + ", user_nick=" + user_nick
-				+ ", board_count=" + board_count + ", board_sub=" + board_sub + ", board_content=" + board_content
-				+ ", board_date=" + board_date + ", board_file=" + board_file + ", board_ip=" + board_ip + "]";
-	}
-	
-
 	
 	
 	

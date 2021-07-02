@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=bDTO.getUser_nick() %></td>
+			<td><%=bDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=bDTO.getBoard_date().substring(0, 10)%></td>
 		</tr>
@@ -65,7 +65,7 @@
 		<%for(int i=0; i<decl_normal_reason.size();i++){
 			declarationDTO dcDTO = (declarationDTO)decl_normal_reason.get(i);%>
 		<tr>
-			<td><%=dcDTO.getUser_nick() %></td>
+			<td><%=dcDTO.getUser_nickname() %></td>
 		<%
 			String reason ="";
 		

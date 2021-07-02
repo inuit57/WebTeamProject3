@@ -46,7 +46,7 @@
 		<input type="submit" value="신고하기" >
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<!-- 신고당하는 글 작성자 -->
-		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nick()%>">
+		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nickname()%>">
 		<input type="hidden" name="board_sub" value="<%=bDTO.getBoard_sub()%>">
 		<input type="hidden" name="board_type" value="0">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
@@ -63,7 +63,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=bDTO.getUser_nick() %></td>
+			<td><%=bDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=bDTO.getBoard_date().substring(0, 10)%></td>
 		</tr>
@@ -107,12 +107,12 @@
 			
 		%>
 			<tr>
-				<td style="width: 100px; text-align: center;"><%=bcDTO2.getUser_nick() %></td>
+				<td style="width: 100px; text-align: center;"><%=bcDTO2.getUser_nickname() %></td>
 				<td style="width: 300px; text-align: center;"><%=bcDTO2.getCmt_content() %></td>
 				<td style="width: 100px; text-align: center;"><%=bcDTO2.getCmt_date().substring(0, 10) %></td>
 				<th style="width: 100px;">
 					<%
-						if(bcDTO2.getUser_nick().equals(user_nick)|| user_nick.equals("admin")) {
+						if(bcDTO2.getUser_nickname().equals(user_nick)|| user_nick.equals("admin")) {
 					%>
 							<input type="button" value="수정" class="">
 							<form action="boardCommentDeleteAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
@@ -202,7 +202,7 @@
 	<form action="boardDeleteAction.bo" >
 	<%
 	// 유저가 작성자아이디와 일치하면 수정 삭제 버튼 보여줌 
-	if(bDTO.getUser_nick().equals(user_nick) || user_nick.equals("admin")){
+	if(bDTO.getUser_nickname().equals(user_nick) || user_nick.equals("admin")){
 	%>
 		<input type="button" value="수정하기" onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
 		<input type="submit" value="삭제하기" onclick="return confirm('게시글을 삭제하시겠습니까?')">

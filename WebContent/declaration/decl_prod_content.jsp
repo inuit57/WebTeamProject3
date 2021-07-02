@@ -38,7 +38,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=pDTO.getUser_nick() %></td>
+			<td><%=pDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=date.substring(0, 16)%>분</td>
 		</tr>
@@ -70,7 +70,7 @@
 		<%for(int i=0; i<decl_prod_reason.size();i++){
 			declarationDTO dcDTO = (declarationDTO)decl_prod_reason.get(i);%>
 		<tr>
-			<td><%=dcDTO.getUser_nick() %></td>
+			<td><%=dcDTO.getUser_nickname() %></td>
 		<%
 			String reason ="";
 		

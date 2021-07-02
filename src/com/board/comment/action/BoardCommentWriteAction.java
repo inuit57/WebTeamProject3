@@ -26,7 +26,7 @@ public class BoardCommentWriteAction implements Action {
 		bcDTO.setCmt_ip(request.getRemoteAddr());
 		
 		// DTO에 전달된 댓글정보 저장
-		bcDTO.setUser_nick(request.getParameter("user_nick"));
+		bcDTO.setUser_nickname(request.getParameter("user_nickname"));
 		bcDTO.setCmt_content(request.getParameter("cmt_content"));
 		bcDTO.setBoard_num(board_num);
 		

@@ -84,7 +84,7 @@ public class declarationDAO {
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, dcDTO.getBoard_type());
 			pstmt.setInt(3, dcDTO.getBoard_num());
-			pstmt.setString(4, dcDTO.getUser_nick());
+			pstmt.setString(4, dcDTO.getUser_nickname());
 			pstmt.setString(5, dcDTO.getBoard_sub());
 			pstmt.setInt(6, dcDTO.getDecl_reason());
 			pstmt.setString(7, dcDTO.getDecl_content());
@@ -145,7 +145,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setUser_nickname(rs.getString("user_nickname"));
 				dcDTO.setBoard_sub(rs.getString("board_sub"));
 				dcDTO.setDecl_state(rs.getInt("decl_state"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
@@ -221,7 +221,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setUser_nickname(rs.getString("user_nickname"));
 				dcDTO.setBoard_sub(rs.getString("board_sub"));
 				dcDTO.setDecl_state(rs.getInt("decl_state"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
@@ -282,7 +282,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setUser_nickname(rs.getString("user_nickname"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
 				dcDTO.setDecl_content(rs.getString("decl_content"));
 				dcDTO.setDecl_date(rs.getString("decl_date"));
@@ -476,7 +476,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setUser_nickname(rs.getString("user_nickname"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
 				dcDTO.setDecl_content(rs.getString("decl_content"));
 				dcDTO.setDecl_date(rs.getString("decl_date"));
@@ -571,7 +571,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setUser_nickname(rs.getString("user_nickname"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
 				dcDTO.setDecl_content(rs.getString("decl_content"));
 				dcDTO.setDecl_date(rs.getString("decl_date"));
