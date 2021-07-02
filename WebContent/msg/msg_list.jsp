@@ -232,6 +232,13 @@
 		
 	});
 	
+	
+	
+	
+	function 함수이름(){  
+	      $("#div의 id").load(window.location.href + "#div의 id");
+	}
+	
 </script>
 	
     <!-- Start Content -->
