@@ -56,7 +56,18 @@
 	<%} %>
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
-	
+
+<%
+	String[] temp = pDTO.getProd_img().split(",");
+	int not_null_cnt =0 ; 
+	for(int i = 0 ; i< temp.length ; i++){
+		System.out.println(temp[i]); 
+		if(!temp[i].equals("null") && temp[i] != null ){
+			not_null_cnt++; 
+		}
+	}
+	System.out.println("not null cnt : " +  not_null_cnt);
+%>
 		<table border="1" style="margin:auto;  width: 800px;">
 			<tr>
 				<td width="400">
@@ -67,8 +78,11 @@
 						<ol class="carousel-indicators">
 							<li data-target="#carousel-example-generic" data-slide-to="0"
 								class="active"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+							<% for(int i =1 ; i < not_null_cnt ; i++){ %>
+								<li data-target="#carousel-example-generic" data-slide-to="<%=i%>"></li>
+							<%} %>
+<!-- 							<li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+<!-- 							<li data-target="#carousel-example-generic" data-slide-to="3"></li> -->
 						</ol>
 
 						<!-- Wrapper for slides -->
@@ -93,15 +107,15 @@
 									String imgfile = pDTO.getProd_img().split(",")[i];
 									if ((imgfile == null) || (imgfile.equals("null"))) {
 										imgfile = "product_default.jpg";
-									}
+									}else{
 							%>
-							
-							<div class="item">
-								<img src="./upload/<%=imgfile %>" class="d-block w-100" alt="..."
-									style="width: 400px; height: 400px;">
-								<div class="carousel-caption">...</div>
-							</div>
+										<div class="item">
+											<img src="./upload/<%=imgfile %>" class="d-block w-100" alt="..."
+												style="width: 400px; height: 400px;">
+											<div class="carousel-caption">...</div>
+										</div>
 							<%
+									}
 								} //for
 							} //if
 							%>
