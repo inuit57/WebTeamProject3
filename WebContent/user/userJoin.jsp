@@ -31,7 +31,7 @@
 	<label id="id_error" class="error"></label><br>
 	
 	<label>닉네임</label><br>
-	<input type="text" name="nickname" id="nickname" placeholder="특수 문자를 제외한 8글자 이내" onblur="checkNick();" autocomplete="off"
+	<input type="text" name="nickname" id="nickname" placeholder="특수 문자를 제외한 8글자 이내" onblur="checkNick()" autocomplete="off"
 					<%if(request.getParameter("user_nickname") != null){ %>
 					value=<%=request.getParameter("user_nickname")  %>
 					<%} %>  ><br>

@@ -21,8 +21,11 @@
 	<h1>신고목록 - 일반게시판</h1>
 	<hr>
 	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl'">
-	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl'">
-	<hr>
+	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+	<br>
+	<input type="button" value="처리대기중" onclick="location.href='decl_normal_list.decl?state=1'">
+	<input type="button" value="처리완료" onclick="location.href='decl_normal_list.decl?state=2'">
+		
 	<%
 		// 전달된 신고글 목록 저장
 		List decl_normal_list = (List)request.getAttribute("decl_normal_list");
@@ -42,7 +45,8 @@
 			<td>제목</td>		
 			<td>신고날짜</td>		
 			<td>신고자</td>
-			<td>신고횟수</td>		
+			<td>신고횟수</td>
+			<td>처리상태</td>		
 		</tr>
 	<%
 	for(int i = 0; i < decl_normal_list.size(); i++){
@@ -55,19 +59,30 @@
 		// 신고테이블DB에 해당 게시글번호로 신고된 게시글 개수가 몇개인지 찾아옴
 		int decl_normal_cnt = dcDAO.getDecl_normal_count(board_num);
 		
-		boardDTO bDTO = new boardDTO(); // 게시글DTO 객체생성
-		bDTO = bDAO.getContent(board_num);
-		
 	%>
 		<tr>
 			<td><%=dcDTO.getDecl_writer() %></td> <!-- 신고당한 글 작성자 -->
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-				<a href="decl_normal_content.decl?board_num=<%=board_num%>"><%=bDTO.getBoard_sub() %></a>
-			</td> <!-- 신고당한 글의 제목 boardDTO에서 꺼내옴 -->
+				<a href="decl_normal_content.decl?board_num=<%=board_num%>"><%=dcDTO.getBoard_sub() %></a>
+			</td> 
 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		
 			<td><%=dcDTO.getUser_nick() %></td><!-- 게시글을 신고한사람 -->	
 			<td><%=decl_normal_cnt %></td>	
+			<%
+				String state = "";
+			
+			switch(dcDTO.getDecl_state()){
+			
+			case 1: 
+				state = "처리중";
+				break;
+			case 2:
+				state = "처리완료";
+				break;
+			}
+			%>
+			<td><%=state %></td>
 		</tr>
 	<%
 	}

@@ -27,9 +27,9 @@ public class UserJoinAction implements Action{
 		udto.setUser_bankName("");
 		udto.setUser_bankAccount("");
 		udto.setUser_picture("default_image.png");
-		udto.setUser_auth(1);
+		udto.setUser_auth(0);
 		udto.setUser_grade(1);
-		udto.setUser_use_yn(1);
+		udto.setUser_use_yn(0);
 		
 		//DAO를 이용한 DB 처리(INSERT)
 		UserDAO udao = new UserDAO();
