@@ -40,7 +40,6 @@
 <script>
 	$(document).ready(function () {
 		
-		
 		// 쪽지 알림 
 		$.ajax({
 				 url:'./MsgAlarmAction.ms',
@@ -235,10 +234,6 @@
 	
 	
 	
-	
-	function 함수이름(){  
-	      $("#div의 id").load(window.location.href + "#div의 id");
-	}
 	
 </script>
 	
