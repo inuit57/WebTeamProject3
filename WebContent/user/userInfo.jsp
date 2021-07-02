@@ -36,9 +36,6 @@ function file_upload(){
 	
 	%>
 
-	
-
-
 	<!-- ------------------------test---------------------------- -->
 	<div>
 	<div class="container">
@@ -92,7 +89,6 @@ function file_upload(){
 				<a href="./MyPageInqueryList.in">나의 문의</a><br>
 			</div>
 			<div>
-				
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
 					<label>아이디</label><input type="text" name="user_id"
 						readonly="readonly" value="<%=udto.getUser_id()%>"><br>
@@ -178,8 +174,6 @@ function file_upload(){
 		</div>
 	</div>
 	<!-- ------------------------test---------------------------- -->
-
-
 
 
 </body>
