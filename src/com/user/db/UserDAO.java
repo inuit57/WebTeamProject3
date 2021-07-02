@@ -90,7 +90,7 @@ public class UserDAO {
 		String id = null ; 
 		try {
 			conn = getConnection(); 
-			sql = "select user_id from member where user_nick=?"; 
+			sql = "select user_id from member where user_nickname=?"; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nick);
 			
@@ -112,7 +112,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nick FROM member WHERE user_nick=?";
+			sql = "SELECT user_nick FROM member WHERE user_nickname=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();
@@ -184,7 +184,7 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_pw, user_use_yn, user_nick FROM member WHERE user_id=?";
+			sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
