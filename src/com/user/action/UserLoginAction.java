@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.msg.db.MsgDAO;
 import com.user.db.UserDAO;
 
 public class UserLoginAction implements Action {
@@ -27,7 +26,6 @@ public class UserLoginAction implements Action {
 		String loginType = request.getParameter("loginType");
 		
 		UserDAO udao = new UserDAO();
-		MsgDAO mdao = new MsgDAO();
 	
     // 병한 형님 작업
 //		boolean b = udao.Login(id,pw);
@@ -51,7 +49,6 @@ public class UserLoginAction implements Action {
 			session.setAttribute("id", id);
 			session.setAttribute("user_nick", user_nick);
 			session.setAttribute("user_profile", udao.getProfile(user_nick));
-			session.setAttribute("msgAlarm", mdao.getRecvChk(user_nick));
 			forward.setPath("./Main.do");
 			forward.setRedirect(true);
 		} else {

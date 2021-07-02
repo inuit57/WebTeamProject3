@@ -59,9 +59,8 @@ function file_upload(){
 					<%
 						}
 					%><br>
-					<label>프로필 사진 변경</label><br><input type="file" name="user_picture"><br>
-					<span>
-					<table border="1px solid black">
+<!-- 					<label>프로필 사진 변경</label><br><input type="file" name="user_picture"><br> -->
+					<table border="1px solid black" >
 					<tr>
 						<td>아이디</td>
 						<td><%=udto.getUser_id()%></td>
@@ -82,8 +81,7 @@ function file_upload(){
 						<td>상세주소</td>
 						<td><%=udto.getUser_addressPlus()%></td>
 					</tr>
-				</table>
-				</span>
+					</table>
 				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br>
 				<a href="./MyPageProductList.pr">나의 상품</a><br>
 				<a href="./MyPageInqueryList.in">나의 문의</a><br>

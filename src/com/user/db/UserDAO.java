@@ -351,7 +351,7 @@ public class UserDAO {
 	public void changeBankAccount(String id, String bankName, String bankAccount) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE user SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
+			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bankName);
 			pstmt.setString(2, bankAccount);
