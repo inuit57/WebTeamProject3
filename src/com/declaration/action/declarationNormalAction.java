@@ -1,8 +1,9 @@
 package com.declaration.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 import com.declaration.db.declarationDAO;
 import com.declaration.db.declarationDTO;
@@ -28,9 +29,11 @@ public class declarationNormalAction implements Action {
 		dcDTO.setBoard_num(Integer.parseInt(request.getParameter("board_num")));
 		// 신고를 하는사람
 		dcDTO.setUser_nick(request.getParameter("user_nick"));
+		dcDTO.setBoard_sub(request.getParameter("board_sub"));
 		dcDTO.setDecl_reason(Integer.parseInt(request.getParameter("decl_reason"))); // 신고사유
 		dcDTO.setDecl_content(request.getParameter("decl_content")); // 기타내용
 		dcDTO.setDecl_writer(request.getParameter("decl_writer")); // 신고글 작성자
+		dcDTO.setDecl_state(Integer.parseInt(request.getParameter("decl_state"))); // 신고 처리상태
 		
 		
 		declarationDAO dcDAO = new declarationDAO();

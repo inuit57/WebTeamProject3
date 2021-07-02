@@ -77,7 +77,7 @@ public class declarationDAO {
 				num = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into declaration_board values(?,?,?,?,?,?,now(),?)";
+			sql = "insert into declaration_board values(?,?,?,?,?,?,?,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -85,9 +85,11 @@ public class declarationDAO {
 			pstmt.setInt(2, dcDTO.getBoard_type());
 			pstmt.setInt(3, dcDTO.getBoard_num());
 			pstmt.setString(4, dcDTO.getUser_nick());
-			pstmt.setInt(5, dcDTO.getDecl_reason());
-			pstmt.setString(6, dcDTO.getDecl_content());
-			pstmt.setString(7, dcDTO.getDecl_writer());
+			pstmt.setString(5, dcDTO.getBoard_sub());
+			pstmt.setInt(6, dcDTO.getDecl_reason());
+			pstmt.setString(7, dcDTO.getDecl_content());
+			pstmt.setString(8, dcDTO.getDecl_writer());
+			pstmt.setInt(9, dcDTO.getDecl_state());
 			
 			pstmt.executeUpdate();
 			
@@ -144,6 +146,8 @@ public class declarationDAO {
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
 				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setBoard_sub(rs.getString("board_sub"));
+				dcDTO.setDecl_state(rs.getInt("decl_state"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
 				dcDTO.setDecl_content(rs.getString("decl_content"));
 				dcDTO.setDecl_date(rs.getString("decl_date"));
@@ -166,6 +170,83 @@ public class declarationDAO {
     
     // getDecl_normal_list - 일반게시판 신고글 목록
     /********************************************************************/
+    
+    
+    /********************************************************************/
+    // getDecl_normal_list(state, startRow, pageSize) - state 숫자값에 따라 처리된글만 보여줄지 결정
+    public List getDecl_normal_list(int state, int startRow, int pageSize){
+    	List decl_normal_list = new ArrayList();
+    	
+    	StringBuffer SQL = new StringBuffer();
+    	
+    	try {
+    		conn = getConnection();
+    	
+//    		sql = "select * from declaration_board natural join "
+//    				+ "(select board_num, count(board_num) cnt "
+//    				+ " from declaration_board "
+//    				+ " group by(board_num)) board_cnt "
+//    				+ "where board_type = 0 "
+//    				+ "order by cnt desc; ";
+    		
+    		// 신고테이블에서 일반게시글타입인 전체글과 신고당한 게시글번호의 개수을 조회하는데
+    		// group by절을 이용해 같은 번호끼리 묶어주고 갯수가 많은 순서대로 정렬해줌
+    		//										=> 많이 신고당한 순으로 보여주기 위함
+//    		sql = "select *, count(board_num) cnt "
+//    				+ "from declaration_board "
+//    				+ "where board_type=0 "
+//    				+ "group by board_num "
+//    				+ "order by cnt desc "
+//    				+ "limit ?,?";
+    		
+    		SQL.append("select *,count(board_num) cnt from declaration_board ");
+    		
+    		if(state == 1){
+    			SQL.append(" where board_type=0 and decl_state=1 group by board_num order by cnt desc limit ?,?");
+    		} else {
+    			SQL.append(" where board_type=0 and decl_state=2 group by board_num order by cnt desc limit ?,?");
+    		}
+    		
+    	
+			pstmt = conn.prepareStatement(SQL+"");
+			
+			pstmt.setInt(1, startRow -1);
+			pstmt.setInt(2, pageSize);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				declarationDTO dcDTO = new declarationDTO();
+				
+				dcDTO.setDecl_num(rs.getInt("decl_num"));
+				dcDTO.setBoard_type(rs.getInt("board_type"));
+				dcDTO.setBoard_num(rs.getInt("board_num"));
+				dcDTO.setUser_nick(rs.getString("user_nick"));
+				dcDTO.setBoard_sub(rs.getString("board_sub"));
+				dcDTO.setDecl_state(rs.getInt("decl_state"));
+				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
+				dcDTO.setDecl_content(rs.getString("decl_content"));
+				dcDTO.setDecl_date(rs.getString("decl_date"));
+				dcDTO.setDecl_writer(rs.getString("decl_writer"));
+				dcDTO.setDecl_state(rs.getInt("decl_state"));
+				
+				decl_normal_list.add(dcDTO);
+				
+			}
+				System.out.println("*****************************************************************");
+				System.out.println("DAO : 일반게시판 신고글 신고순으로 조회");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    	return decl_normal_list;
+    }
+    // getDecl_normal_list(state, startRow, pageSize) - state 숫자값에 따라 처리된글만 보여줄지 결정
+    /********************************************************************/
+    
     
     /********************************************************************/
     // getDecl_normal_reason - 일반게시판 신고사유
@@ -541,5 +622,72 @@ public class declarationDAO {
     	
     }
     // decl_prod_delete(num) - 상품게시판 관리자가 삭제
+
+    /********************************************************************/
+    
+    
+    /********************************************************************/
+    // decl_state_update(board_num); - 신고된 글 삭제시 상태 업데이트
+    public void decl_state_update(int board_num){
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "update declaration_board set decl_state=2 where board_type=0 and board_num=?";
+    	
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	
+    }
+    // decl_state_update(board_num); - 신고된 글 삭제시 상태 업데이트
+    /********************************************************************/
+    
+    
+    /********************************************************************/
+    // decl_normal_listCount(state)
+    public int decl_normal_listCount(int state){
+    	
+    	int decl_normal_listcnt = 0;
+    	
+    	try {
+    		conn = getConnection();
+    	
+    		sql = "select count(*) from (select *, count(board_num) cnt from declaration_board where board_type=0 and decl_state=? group by board_num) d";
+    	
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, state);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				decl_normal_listcnt = rs.getInt(1);
+			}
+			
+			System.out.println("신고DB 게시글 개수 조회 완료");
+			System.out.println(decl_normal_listcnt + "개");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+    	return decl_normal_listcnt;
+    	
+    }
+    // decl_normal_listCount(state)
+    /********************************************************************/
+    /********************************************************************/
+    /********************************************************************/
+    /********************************************************************/
+
 
 }

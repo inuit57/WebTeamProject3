@@ -1,5 +1,6 @@
 package com.declaration.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ public class decl_normal_listAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("M : decl_normal_listAction_execute() 호출");
+		
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		declarationDAO dcDAO = new declarationDAO();
 		
@@ -37,7 +40,19 @@ public class decl_normal_listAction implements Action {
 		int endRow = currentPage * pageSize;
 		
 		// 신고게시판에 있는 글의 목록을 신고가 많은 순으로 정렬해서 한번씩 보여주는 함수
-		List decl_normal_list = dcDAO.getDecl_normal_list(startRow, pageSize);
+		
+		List decl_normal_list = new ArrayList();
+		
+		if( state == 0 ){
+		
+			decl_normal_list = dcDAO.getDecl_normal_list(startRow, pageSize);
+		
+		} else {
+			
+			decl_normal_list = dcDAO.getDecl_normal_list(state, startRow, pageSize);
+			decl_normal_listcnt = dcDAO.decl_normal_listCount(state);
+		
+		}
 		
 		request.setAttribute("decl_normal_list", decl_normal_list);
 		request.setAttribute("decl_normal_listcnt", decl_normal_listcnt);
