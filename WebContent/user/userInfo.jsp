@@ -23,62 +23,7 @@
 	String user_picture = udto.getUser_picture(); 
 	
 	%>
-	<div class="container">
-	<br><br>
-	<h3>마이 페이지</h3>
-	<a href="./MyPageBoardList.bo">내가 쓴 글</a>
-	<a href="./MyPageProductList.pr">나의 상품</a>
-	<a href="./MyPageInqueryList.in">나의 문의</a>
-	
-	<hr>
-	<fieldset>
-	<legend>회원 정보</legend>
-	<form action="./UserInfoEditAction.us" method="post" onsubmit="infoChk" enctype="multipart/form-data">
-	<div id="div_img">
-	<!-- 이미지가 없는 경우, 기본 이미지로 출력 -->
-	<% if(user_picture == null || user_picture.equals("")){ %>
-		<img alt="" src="./img/default_image.png" id="image">
-	<%}else{ %>
-		<img alt="" src="./upload/<%=user_picture%>" id="image">
-	<%} %>
-	</div>
-		<label>아이디</label><input  type="text" name="user_id" readonly="readonly" value="<%=udto.getUser_id()%>"><br>
-		<label>닉네임</label><input type="text" name="user_nick" value="<%=udto.getUser_nickname() %>"><br>
-		<label>전화번호</label><input type="text" name="user_phone" value="<%=udto.getUser_phone() %>" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
-		<label>주소</label><input type="text" class="address" id="user_address" name="user_address" value="<%=udto.getUser_address()%>" readonly="readonly">
-		<button id="address_find" onclick="findAddr()" >주소 찾기</button><br>
-		<label>상세주소</label><input type="text" class="address" name="user_address_plus" value="<%=udto.getUser_addressPlus()%>"><br>
-		<label>프로필 사진</label><input type="file" name="user_picture" > <br>
-		<label>가입 날짜</label><input type="text" name="user_join_date" value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
-		<input type="submit" value="회원정보 수정하기">
-	</form>
-	</fieldset>
-	<hr>
-	<fieldset>
-	<legend>비밀번호 변경</legend>
-	<form action="./UserPasswordEditAction.us" method="post" onsubmit="return checkPw()" >
-		<label>현재 비밀번호</label><input type="password" id="pw" name="pw"><br>
-		<label>변경 비밀번호</label><input type="password" id="new_pw" name="new_pw"><br>
-		<label>변경 비밀번호 확인</label><input type="password" id="new_pw_check" name="new_pw_check" ><br>
-		<label id="pw_error" class="error"></label><br>
-		<input type="submit" value="비밀번호 변경하기">
-	<%
-	if(m != null) {
-		if(m.equals("1")) {
-			
-			session.invalidate();
-			response.sendRedirect("./Main.do");
-			
-		} else if(m.equals("2")) {
-			%>
-			<label>변경 비밀번호가 틀립니다.</label>
-			<%
-		} else if(m.equals("3")) {
-			%>
-			<label>비밀번호가 틀립니다.</label>
-			<%
-		}
-	}
+
 	
 	%>
 	</form>

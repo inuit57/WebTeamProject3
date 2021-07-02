@@ -112,7 +112,9 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
+
 			sql = "SELECT user_nickname FROM member WHERE user_nickname=?";
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();

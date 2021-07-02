@@ -48,6 +48,7 @@ public class UserLoginAction implements Action {
 // 			session.setAttribute("nick", user_nick);
 // 			forward.setPath("./index.us");
 		if(user_nick != null) {
+			session.setAttribute("id", id);
 			session.setAttribute("user_nick", user_nick);
 			session.setAttribute("user_profile", udao.getProfile(user_nick));
 			session.setAttribute("msgAlarm", mdao.getRecvChk(user_nick));

@@ -14,6 +14,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%
+	String prodNum = request.getParameter(""); //상품 번호
+	String roomId = request.getParameter(""); //채팅 방 고유 아이디
+	String sellerId = request.getParameter(""); //판매자 아이디
+	String buyerId = request.getParameter(""); //구매자 아이디
+	
+	
+	
+	%>
+
+
 	<textarea rows="5" cols="30" id="msgArea"></textarea><br>
 	<input type="text" id="seq"><br>
 	<input type="button" value="send" onclick="socketMsgSend();">

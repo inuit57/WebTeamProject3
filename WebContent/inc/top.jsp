@@ -60,7 +60,7 @@
             		if (user_nick != null) {
             			%>
 
-            			<a href="./UserInfoAction.us" style="margin-right: 30px" id="atag"><%=user_nick %>님</a>
+            			<a href="#" style="margin-right: 30px" id="atag" onclick="openWindowInfo();"><%=user_nick %>님</a>
             			<a href="./UserLogoutAction.us" style="margin-right: 30px" id="atag">로그아웃</a>
             			<a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
             			<a href="./MsgListAction.ms">

@@ -11,9 +11,9 @@
 </head>
 <body>
 
-   <%
-   response.sendRedirect("./main.bo");
-    %>
+    <%
+    response.sendRedirect("./main.bo");
+     %>
 
    <a href="./main.bo">메인</a><br>
    <a href="./UserLogin.us">로그인</a><br>
