@@ -1,3 +1,4 @@
+
 <%@page import="com.msg.db.MsgDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -231,6 +232,13 @@
  		
 		
 	});
+	
+	
+	
+	
+	function 함수이름(){  
+	      $("#div의 id").load(window.location.href + "#div의 id");
+	}
 	
 </script>
 	
@@ -470,4 +478,5 @@
 
 <%@ include file="../inc/footer.jsp" %>
 </body>
+
 </html>
