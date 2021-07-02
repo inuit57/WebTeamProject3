@@ -6,10 +6,13 @@ public class declarationDTO {
 	private int board_type;
 	private int board_num;
 	private String user_nick;
+	private String board_sub;
 	private int decl_reason;
 	private String decl_content;
 	private String decl_date;
 	private String decl_writer;
+	private int decl_state;
+	
 	
 	public int getDecl_num() {
 		return decl_num;
@@ -35,6 +38,12 @@ public class declarationDTO {
 	public void setUser_nick(String user_nick) {
 		this.user_nick = user_nick;
 	}
+	public String getBoard_sub() {
+		return board_sub;
+	}
+	public void setBoard_sub(String board_sub) {
+		this.board_sub = board_sub;
+	}
 	public int getDecl_reason() {
 		return decl_reason;
 	}
@@ -59,6 +68,14 @@ public class declarationDTO {
 	public void setDecl_writer(String decl_writer) {
 		this.decl_writer = decl_writer;
 	}
+	public int getDecl_state() {
+		return decl_state;
+	}
+	public void setDecl_state(int decl_state) {
+		this.decl_state = decl_state;
+	}
+	
+	
 	
 
 }

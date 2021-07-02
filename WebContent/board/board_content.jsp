@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>일반게시판 내용</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style type="text/css">
 	form {
 		display: inline;
@@ -37,12 +38,11 @@
 	List boardCommentList = (List)request.getAttribute("boardCommentList");
 	int cmt_pageSize = Integer.parseInt(request.getAttribute("cmt_pageSize").toString());
 	int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
-	
 	boardCommentDAO bcDAO = new boardCommentDAO();
 	int cmt_cnt = bcDAO.getBoardCommentCount(board_num);
 	
 %>
-	<form action="./declaration.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+	<form action="./declaration_normal.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 		<input type="submit" value="신고하기" >
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<!-- 신고당하는 글 작성자 -->
@@ -89,7 +89,6 @@
 	ArrayList al = bcDAO.getCommentList(board_num);
 	int al_size = al.size(); 
 	int cmtViewCnt = 5; //한번에 보이는 댓글갯수
-	
 	%>
 	
 		
@@ -115,11 +114,7 @@
 					<%
 						if(bcDTO2.getUser_nick().equals(user_nick)|| user_nick.equals("admin")) {
 					%>
-							<form action="board_Comment_Modify.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
-								<input type="submit" value="수정" onclick="return confirm('이댓글을 수정하시겠습니까?')">
-								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">
-								<input type="hidden" name="cmt_content" value="<%=bcDTO2.getCmt_content()%>">
-							</form>
+							<input type="button" value="수정" class="">
 							<form action="boardCommentDeleteAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
 								<input type="submit" value="삭제" onclick="return confirm('이댓글을 삭제하시겠습니까?')">
 								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">

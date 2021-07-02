@@ -8,6 +8,36 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+
+<style type="text/css">
+#ad-sidebar {
+        width: 15%;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+      
+ #ad-sidebar li {
+  	list-style: none;
+  }
+      
+.ad-content1 {
+    width: 85%;
+    padding: 20px;
+    margin-bottom: 20px;
+    float:right;
+    height: 800px;
+  }
+
+.footer {
+ 	clear:both;
+ } 
+
+</style>
+
+
+
 <script type="text/javascript">
 
 	function modify(){
@@ -20,10 +50,11 @@
 	
 
 </script>
+<%@ include file="../../inc/top.jsp" %>
 
 </head>
 <body>
-		<h1>WebContent/admin_inquery/admin_inquery_list</h1>
+		<h1 style="text-align: center;">1:1 문의 게시판 관리</h1>
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
@@ -50,6 +81,18 @@
 		
 	%>
 	
+	<div id="ad-sidebar">
+			
+			<ul>
+				<li><a href="./AdminBoard.ap">관리자 게시판</a>
+				<li><a href="./AdminUserList.au">회원 목록 조회</a></li>
+				<li><a href="./InqueryAdminList.ai">1:1 문의 내역조회</a>	</li>				
+				<li><a href="#">신고내역 조회</a></li>				
+			</ul>		
+				
+		</div>
+	
+	<div class="ad-content1">
 	<table border="1">
 		<tr>
 			<td>글 번호</td>
@@ -169,7 +212,11 @@
 	<hr>
 	
 	<a href="./FAQ.faq"> FAQ게시판 </a>
-	
+	</div>
 	
 </body>
+<div class="footer">
+<%@ include file="../../inc/footer.jsp" %>
+</div>
+>>>>>>> refs/heads/develop
 </html>

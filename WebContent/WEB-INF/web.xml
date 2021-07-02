@@ -41,4 +41,21 @@
     <servlet-name>DeclarationFrontController</servlet-name>
     <url-pattern>*.decl</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>chat</servlet-name>
+    <servlet-class>chattest.websocket</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>chat</servlet-name>
+    <url-pattern>*.so</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  
+  
 </web-app>

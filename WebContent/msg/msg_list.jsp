@@ -1,3 +1,4 @@
+
 <%@page import="com.msg.db.MsgDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -477,4 +478,5 @@
 
 <%@ include file="../inc/footer.jsp" %>
 </body>
+
 </html>

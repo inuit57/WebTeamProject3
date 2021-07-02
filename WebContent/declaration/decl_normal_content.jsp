@@ -23,8 +23,6 @@
 	
 	
 	boardDTO bDTO = (boardDTO)request.getAttribute("bDTO");
-	
-
 %>
 
 	<table border="1" style="width: 600px;">
@@ -103,10 +101,11 @@
 		</tr>
 		<%} %>
 	</table>
-	
-	<input type="button" value="목록으로" onclick="location.href='decl_normal_list.decl'">
-	<input type="button" value="해당글 삭제하기" onclick="location.href='decl_normal_boardDeleteAction.decl?board_num=<%=bDTO.getBoard_num()%>'">
-	
+	<form action="decl_normal_boardDeleteAction.decl" onsubmit="return confirm('해당 신고글을 삭제하시겠습니까?')" method="get">
+		<input type="button" value="목록으로" onclick="location.href='decl_normal_list.decl'">
+		<input type="submit" value="해당글 삭제하기" >
+		<input type="hidden" name="board_num" value="<%=bDTO.getBoard_num()%>">
+	</form>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->	
