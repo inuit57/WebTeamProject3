@@ -269,5 +269,8 @@ public class MsgDAO {
 			}
 	 }
 	 // msgDel(msg_idx)
-	
+	 
+	 
+	 
+	 
 }
