@@ -19,6 +19,7 @@ public class decl_normal_contentAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		declarationDAO dcDAO = new declarationDAO();
 		List decl_normal_reason = dcDAO.getDecl_normal_reason(board_num);

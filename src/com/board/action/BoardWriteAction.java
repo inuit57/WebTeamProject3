@@ -26,7 +26,7 @@ public class BoardWriteAction implements Action{
 		bDTO.setBoard_ip(request.getRemoteAddr());
 		
 		bDTO.setBoard_area(request.getParameter("board_area"));
-		bDTO.setUser_nick(request.getParameter("user_nick"));
+		bDTO.setUser_nickname(request.getParameter("user_nickname"));
 		bDTO.setBoard_sub(request.getParameter("board_sub"));
 		bDTO.setBoard_content(request.getParameter("board_content"));
 		
