@@ -18,6 +18,16 @@
 function file_upload(){
 	$('#img_upload').click();
 }
+
+function imgPreview(event){
+	var reader = new FileReader(); 
+	reader.onload = function(event){
+		var img = document.getElementById("image2"); 
+		img.setAttribute("src" , event.target.result)
+	};
+
+	reader.readAsDataURL(event.target.files[0]); 
+}
 </script>
 
 <link href="css/userInfo.css" rel="stylesheet">
@@ -87,7 +97,22 @@ function file_upload(){
 				<a href="./MyPageInqueryList.in">나의 문의</a><br>
 			</div>
 			<div>
+					<%
+						if (user_picture == null || user_picture.equals("")) {
+					%>
+					<img alt="" src="./img/default_image.png" id="image2" onclick="file_upload()" style="width: 150px;height: 150px;border: 5px solid #59AB6E;">
+					<%
+						} else {
+					%>
+					<img alt="" src="./upload/<%=user_picture%>" id="image2" onclick="file_upload()" style="width: 150px;height: 150px;	border: 5px solid #59AB6E;">
+					<%
+						}
+					%><br>
+					<button id="img_edit_btn" style=" position: absolute; top: 40px; left : 350px;" onclick="file_upload()">수정</button>
+					
+					
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
+					<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" > 
 					<label>아이디</label><input type="text" name="user_id"
 						readonly="readonly" value="<%=udto.getUser_id()%>"><br>
 					<label>닉네임</label><input type="text" id="user_nick"
