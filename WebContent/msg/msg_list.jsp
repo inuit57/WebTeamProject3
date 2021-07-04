@@ -43,27 +43,63 @@
 		
 		// 다수에게 쪽지 보내기
 		$("#recv_nick").blur(function() {
-			var recv_nick = $("#recv_nick").val();
-			if(recv_nick != ""){
-			const box = document.getElementById("box");
-			const newP = document.createElement('p');
-            newP.innerHTML = "<input type='text' id='boxAdd' value='"+recv_nick+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
-            box.appendChild(newP);
-            RecvnickAdd += recv_nick + "/";
-            $("#recv_nick").val("");
+			var nickname = $("#recv_nick").val();
+			if(nickname != ""){
+            $.ajax({
+				 url:'./UserNickCheckAction.us',
+			     type:'post',
+			     data:{"nickname":nickname}, 
+			     success:function(data){
+			    	 if(data == 1){
+			    		const box = document.getElementById("box");
+						const newP = document.createElement('p');
+			            newP.innerHTML = "<input type='text' id='boxAdd' value='"+nickname+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
+			            box.appendChild(newP);
+			            RecvnickAdd += nickname + "/";
+			            $("#recv_nick").val("");
+			    	 }else{
+			    		 alert("존재하지 않는 회원입니다.");
+			    		 $("#recv_nick").val("");
+			    	 }
+
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		     });
+            
+            
 			}
 		})//  다수에게 쪽지 보내기
 		
 		
 		//답장 모달 띄우기
 		$("#msgRE").click(function () {
-			RecvnickAdd = $("#detailSend").val();
+			var nickname = $("#detailSend").val();
 			$('.detailModal').hide();
 			$("#modal").show();
-			const box = document.getElementById("box");
-			const newP = document.createElement('p');
-            newP.innerHTML = "<input type='text' id='boxAdd' value='"+RecvnickAdd+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
-            box.appendChild(newP);
+			 $.ajax({
+				 url:'./UserNickCheckAction.us',
+			     type:'post',
+			     data:{"nickname":nickname}, 
+			     success:function(data){
+			    	 if(data == 1){
+			    		const box = document.getElementById("box");
+						const newP = document.createElement('p');
+			            newP.innerHTML = "<input type='text' id='boxAdd' value='"+nickname+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
+			            box.appendChild(newP);
+			            RecvnickAdd += nickname + "/";
+			            $("#recv_nick").val("");
+			    	 }else{
+			    		 alert("존재하지 않는 회원입니다.");
+			    		 $("#recv_nick").val("");
+			    	 }
+
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		     });
 		});//답장 모달 띄우기
 		
 		
