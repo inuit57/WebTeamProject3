@@ -191,8 +191,9 @@ public class UserDAO {
 	         pstmt.setString(1, id);
 	         rs = pstmt.executeQuery();
 	         if (rs.next()) {
+	        	System.out.println(rs.getString("user_pw"));
 	            if (rs.getString(1).equals(pw)) {
-	               if (rs.getInt(2) == 0) {
+	               if (rs.getInt(2) == 1) { // 1 : 사용 , 2 : 탈퇴된 회원 
 	                  user_nick = rs.getString(3);
 	               } else {
 	                  b = false;

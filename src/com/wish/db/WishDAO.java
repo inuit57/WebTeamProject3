@@ -191,18 +191,20 @@ public class WishDAO {
 	}//wishCount(num) 찜 횟수 계산
 	
 	//wishList() 찜 목록 가져오기
-	public List wishList(String user_nick) {
+	public List<WishDTO> wishList(String user_nick) {
 		
-		List wishList = new ArrayList();
+		List<WishDTO> wishList = new ArrayList();
 		
 		try {
 			
 			conn = getConnection();
 			
-			sql = "select wish_num from prod_wish where user_nick=?";
+			sql = "select * from prod_wish where user_nick=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_nick);
+			
+			rs = pstmt.executeQuery(); 
 			
 			while(rs.next()) {
 				WishDTO wDTO = new WishDTO();
