@@ -66,7 +66,7 @@ public class WishDAO {
 			
 			conn = getConnection();
 			//sql = "select prod_num from prod_wish where prod_num="+num+" and user_nick='"+nick+"'";
-			sql = "select prod_num from prod_wish where prod_num=? and user_nickname=?";
+			sql = "select prod_num from prod_wish where prod_num=? and user_nick=?";
 			pstmt = conn.prepareStatement(sql);
 			
 		    

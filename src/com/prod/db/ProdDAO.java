@@ -126,7 +126,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nickname(rs.getString("user_nickname"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 				
 				productList.add(pDTO);
 				
@@ -187,7 +187,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nickname(rs.getString("user_nickname"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 
 				
 				productList.add(pDTO);
@@ -233,7 +233,7 @@ public class ProdDAO {
 			// 검색어가 있는 경우의 처리 
 			if(search_text != null && !search_text.equals("")){
 				if(search_type.equals("seller")){
-					sql += " and user_nickname like ? "; 
+					sql += " and user_nick like ? "; 
 				}else{
 					sql += " and prod_sub like ? or prod_content like ? ";
 				}
@@ -337,7 +337,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nickname(rs.getString("user_nickname"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 				
 			}
 			
@@ -413,7 +413,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nickname(rs.getString("user_nickname"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 				
 				productList.add(pDTO);
 			}
@@ -434,7 +434,7 @@ public class ProdDAO {
 			
 			conn = getConnection();
 			sql = "update prod_trade set "//카테고리, 거래여부, 이름, 가격, 글제목, 글내용, 파일
-					+ "prod_category=?, prod_status=?, user_nickname=?, "
+					+ "prod_category=?, prod_status=?, user_nick=?, "
 					+ "prod_price=?, prod_sub=?, prod_content=?, prod_img=? "
 					+ "where prod_num=?";
 			pstmt = conn.prepareStatement(sql);
