@@ -139,11 +139,13 @@
 	
 				</td>
 				<td width="400">
+
 <%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
 					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
 					<h1>가격 : <%=pDTO.getProd_price()%>원</h1>
 					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
 					<hr> 
+
 					<hr> <%
 					 String category = "";
 					

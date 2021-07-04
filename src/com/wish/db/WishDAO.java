@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -185,10 +187,44 @@ public class WishDAO {
 		}
 		
 		return wishCount;
-	}
-	//wishCount(num) 찜 횟수 계산
+		
+	}//wishCount(num) 찜 횟수 계산
 	
-	
+	//wishList() 찜 목록 가져오기
+	public List wishList(String user_nick) {
+		
+		List wishList = new ArrayList();
+		
+		try {
+			
+			conn = getConnection();
+			
+			sql = "select wish_num from prod_wish where user_nick=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nick);
+			
+			while(rs.next()) {
+				WishDTO wDTO = new WishDTO();
+				wDTO.setProd_num(rs.getInt("prod_num"));
+				wDTO.setUser_nick(rs.getString("user_nick"));
+				wDTO.setWish_date(rs.getTimestamp("wish_date"));
+				wDTO.setWish_num(rs.getInt("wish_num"));
+				
+				wishList.add(wDTO);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+		return wishList;
+		
+	}//wishList() 찜 목록 가져오기
 	
 	
 	
