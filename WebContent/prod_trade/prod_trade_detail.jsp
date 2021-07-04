@@ -1,3 +1,4 @@
+<%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.user.db.UserDAO"%>
 <%@page import="com.user.db.UserDTO"%>
 <%@page import="com.wish.db.WishDTO"%>
@@ -31,10 +32,11 @@
 	WishDTO wDTO = new WishDTO();
 	WishDAO wDAO = new WishDAO();
 	UserDAO uDAO = new UserDAO(); 
+	ProdDAO pDAO = new ProdDAO(); 
+	
 	int pageNum = Integer.parseInt(request.getParameter("pageNum").toString());
 	//int wishCount = (int)request.getAttribute("wishCount");
 	%>
-	<!-- <a href="./main.bo">메인</a> -->
 
 	<div class="container" >
 	<br><br>
@@ -216,7 +218,8 @@
 						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
-						<li>작성시간 : <%=pDTO.getProd_date()%></li>
+<%-- 						<li>작성시간 : <%=pDTO.getProd_date()%></li> --%>
+						<li>작성시간 : <%=pDAO.timeForToday(pDTO.getProd_num())%></li>
 					</ul> 
 					
 					찜 횟수 &nbsp; 
@@ -231,8 +234,9 @@
 					
 					<!-- 관리자만 사용가능한 메뉴 생성 -->
 					<% if(user_nick != null){ %>
-						<input type="button" id="btnLike" value="찜하기" class="form-control"> 
-						
+						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
+							<input type="button" id="btnLike" value="찜하기" class="form-control"> 
+						<%} %>
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
 						<input type="button" value="구매요청" class="form-control" > 
 						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >

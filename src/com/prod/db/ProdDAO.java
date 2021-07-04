@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -507,6 +508,48 @@ public class ProdDAO {
 	}//updateCount(pDTO) 조회수 증가
 	
 	
+	public String timeForToday(int num){
+		Timestamp now_t = new Timestamp(System.currentTimeMillis()); 
+		Timestamp prod_t ; 
+		long betweenTime  = 0L ; 
+		
+		String timeForToday =""; 
+		
+		System.out.println(now_t);
+		
+		try {
+			conn = getConnection();
+			sql = "select prod_date from prod_trade where prod_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()){
+				prod_t = rs.getTimestamp(1); 
+				betweenTime = (long)Math.floor((now_t.getTime() - prod_t.getTime()) / 1000 / 60);
+				long betweenTimeHour = (long)Math.floor(betweenTime / 60);
+				long betweenTimeDay = (long)Math.floor(betweenTime / 60 / 24);
+				
+				if (betweenTime < 1) timeForToday = "방금전";
+				else if (betweenTime < 60) {
+		        	timeForToday = betweenTime +"분전";
+				}else if (betweenTimeHour < 24) {
+		        	timeForToday = betweenTimeHour+ "시간전";
+		        }else if (betweenTimeDay < 365) {
+		        	timeForToday = betweenTimeDay +"일전";
+		        }else{
+		        	timeForToday = (long)Math.floor(betweenTimeDay / 365)+"년전";
+		        }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		} 
+		
+		return timeForToday; 
+	}
 	
 	
 
