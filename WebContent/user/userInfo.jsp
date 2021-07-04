@@ -28,6 +28,27 @@ function imgPreview(event){
 
 	reader.readAsDataURL(event.target.files[0]); 
 }
+
+function myBoard(){
+	self.close();
+	window.opener.location.href="./MyPageBoardList.bo";
+}
+
+function myProduct(){
+	self.close();
+	window.opener.location.href="./MyPageProductList.pr";
+}
+
+function myInquery(){
+	self.close();
+	window.opener.location.href="./MyPageInqueryList.in";
+}
+
+function myWish(){
+	self.close();
+	// 찜목록 페이지로 이동되는 동작 추가 필요 
+	window.opener.location.href="#";
+}
 </script>
 
 <link href="css/userInfo.css" rel="stylesheet">
@@ -47,7 +68,6 @@ function imgPreview(event){
 	%>
 
 	<!-- ------------------------test---------------------------- -->
-	<div>
 	<div class="container">
 		<ul class="tab_title">
 			<li class="on">마이페이지</li>
@@ -91,10 +111,18 @@ function imgPreview(event){
 						<td>상세주소</td>
 						<td><%=udto.getUser_addressPlus()%></td>
 					</tr>
-					</table>
-				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br>
-				<a href="./MyPageProductList.pr">나의 상품</a><br>
-				<a href="./MyPageInqueryList.in">나의 문의</a><br>
+					<tr>
+					<td colspan="4">
+						<button onclick="myBoard()">내가 쓴글 </button>	
+						<button onclick="myProduct()">나의 상품 </button>
+						<button onclick="myInquery()">나의 문의 </button>
+						<button onclick="myWish()">내 찜목록 </button>
+					</td>
+					</tr>
+				</table>
+<!-- 				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br> -->
+<!-- 				<a href="./MyPageProductList.pr">나의 상품</a><br> -->
+<!-- 				<a href="./MyPageInqueryList.in">나의 문의</a><br> -->
 			</div>
 			<div>
 					<%
@@ -162,7 +190,7 @@ function imgPreview(event){
 					<label>비밀번호가 틀립니다.</label>
 					<%
 						}
-						}
+					}
 					%>
 				</form>
 			</div>
@@ -195,7 +223,6 @@ function imgPreview(event){
 			</div>
 			</div>
 		</div>
-	</div>
 	<!-- ------------------------test---------------------------- -->
 
 
