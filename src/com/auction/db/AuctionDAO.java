@@ -58,9 +58,10 @@ public class AuctionDAO {
 	public void insertAuction(AuctionDTO aDTO) {
 		
 		int num = 0;
+		int bidNum = 0;
 		
-		try {
-			
+		
+		try {	
 			conn = getConnection();
 			sql = "select max(auct_num) from prod_auct";
 			
@@ -88,8 +89,42 @@ public class AuctionDAO {
 			pstmt.setInt(9, aDTO.getAuct_count());
 			
 			pstmt.executeUpdate();
-			
+					
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+		//-------
+		try {
+			
+			conn = getConnection();
+			
+			sql = "select max(bid_num) from auct_bid";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bidNum = rs.getInt(1)+1;
+			}
+			
+			//4번 유저코인 member user_coin
+			sql = "insert into auct_bid "
+					+ " value(?,?,0,0,now(),now(), "
+					+ "0)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bidNum);
+			pstmt.setInt(2, num);
+		
+			
+			pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			closeDB();
@@ -212,10 +247,56 @@ public class AuctionDAO {
 		}
 	}//updateCount(aDTO) 조회수 
 	
+	//deleteAuction(num); 경매게시글 삭제하기
+	public void deleteAuction(int num) {
+		
+			try {
+				conn = getConnection();
+				sql = "delete from prod_auct where auct_num=?";
+				System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@삭제화이팅");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				closeDB();
+			}
+		
+	}//deleteAuction(num); 경매게시글 삭제하기
 	
-	
-	
-	
+	//getAuctionUpdate(aDTO) 경매게시글 수정하기
+	public void getAuctionUpdate(AuctionDTO aDTO) {
+		
+		try {
+			conn = getConnection();
+			
+			//거래여부,글제목,상품가격,이미지,글내용 where auct_num
+			sql = "update prod_auct set "
+					+ "auct_status=?, auct_sub=?, auct_price=?, "
+					+ "auct_img=?, auct_content=? "
+					+ "where auct_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, aDTO.getAuct_status());
+			pstmt.setString(2, aDTO.getAuct_sub());
+			pstmt.setInt(3, aDTO.getAuct_price());
+			pstmt.setString(4, aDTO.getAuct_img());
+			pstmt.setString(5, aDTO.getAuct_content());
+			pstmt.setInt(6, aDTO.getAuct_num());
+
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+	}//getAuctionUpdate(aDTO) 경매게시글 수정하기
 	
 	
 	

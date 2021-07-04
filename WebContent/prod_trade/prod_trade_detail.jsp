@@ -125,7 +125,6 @@
 					<h2><%=pDTO.getProd_sub()%></h2>
 					<h1><%=pDTO.getProd_price()%></h1>
 					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
-					<hr> 신고하기, 찜 (넣어야 할 기능), 위치
 					<hr> <%
 					 String category = "";
 					
