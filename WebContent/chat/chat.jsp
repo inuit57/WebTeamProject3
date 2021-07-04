@@ -45,7 +45,7 @@ var msgArea = document.getElementById("msgArea");
 var webSocket;
 
 function webSocketInit() {
-	webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
+	webSocket = new WebSocket("ws://localhost:8087/WebTeamProject/websocket");
 	webSocket.onopen = function(event) {socketOpen(event);};
 	webSocket.onclose = function(event) {socketClose(event);};
 	webSocket.onmessage = function(event) {socketMessage(event);};

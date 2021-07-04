@@ -53,7 +53,14 @@
     <url-pattern>*.bo</url-pattern>
   </servlet-mapping>
   
-  
+  <servlet>
+    <servlet-name>chatting</servlet-name>
+    <servlet-class>com.chat.ChatController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>chatting</servlet-name>
+    <url-pattern>*.ch</url-pattern>
+  </servlet-mapping>
   
   
   

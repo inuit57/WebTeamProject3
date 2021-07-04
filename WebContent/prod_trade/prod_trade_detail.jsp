@@ -214,7 +214,7 @@
 						
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
 						<input type="button" value="구매요청" class="form-control" > 
-						<input type="button" value="채팅하기" class="form-control" >
+						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
 					<%}%>
 				</td>
 			</tr>
@@ -277,6 +277,9 @@
 			})
 		});
 	});
+	function openWindowChat() {
+		window.open("./chat.ch","회원정보","width=300,height=600,top=150,left=500");
+	}
 </script>
 
 </html>
