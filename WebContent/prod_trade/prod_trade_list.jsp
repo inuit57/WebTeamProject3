@@ -175,9 +175,8 @@
 					 width="150" height="150"><br>
 					 <%=pDTO.getProd_sub() %>
 					 </a><br>
-					 <%=pDTO.getProd_price() %> <br>
+					 <%=pDTO.getProd_price() %>원 <br>
 					 <%=pDTO.getUser_nick() %>
-			
 			</td>
 		<%
 			num++;
