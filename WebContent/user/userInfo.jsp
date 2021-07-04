@@ -65,8 +65,14 @@ function myWish(){
 	
 	String user_picture = udto.getUser_picture(); 
 	
+	String onClose = request.getParameter("onClose");
+	
+	if("1".equals(onClose)){
 	%>
-
+	<script type="text/javascript">
+		self.close(); 
+	</script>
+	<%} %>
 	<!-- ------------------------test---------------------------- -->
 	<div class="container">
 		<ul class="tab_title">
