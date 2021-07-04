@@ -20,7 +20,7 @@
 	request.setCharacterEncoding("utf-8");
 
 	List decl_normal_reason = (List)request.getAttribute("decl_normal_reason");
-	
+	int state = Integer.parseInt(request.getParameter("state"));
 	
 	boardDTO bDTO = (boardDTO)request.getAttribute("bDTO");
 %>
@@ -105,6 +105,7 @@
 		<input type="button" value="목록으로" onclick="location.href='decl_normal_list.decl'">
 		<input type="submit" value="해당글 삭제하기" >
 		<input type="hidden" name="board_num" value="<%=bDTO.getBoard_num()%>">
+		<input type="hidden" name="state" value="<%=state%>">
 	</form>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 

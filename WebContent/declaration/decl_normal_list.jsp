@@ -20,7 +20,7 @@
 <br><br>
 	<h1>신고목록 - 일반게시판</h1>
 	<hr>
-	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl'">
+	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
 	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
 	<br>
 	<input type="button" value="처리대기중" onclick="location.href='decl_normal_list.decl?state=1'">
@@ -33,6 +33,7 @@
 		int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());	
 		int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 		int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		boardDAO bDAO = new boardDAO();
 		declarationDAO dcDAO = new declarationDAO();
@@ -64,25 +65,25 @@
 			<td><%=dcDTO.getDecl_writer() %></td> <!-- 신고당한 글 작성자 -->
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-				<a href="decl_normal_content.decl?board_num=<%=board_num%>"><%=dcDTO.getBoard_sub() %></a>
+				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=state%>"><%=dcDTO.getBoard_sub() %></a>
 			</td> 
 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		
 			<td><%=dcDTO.getUser_nickname() %></td><!-- 게시글을 신고한사람 -->	
 			<td><%=decl_normal_cnt %></td>	
 			<%
-				String state = "";
+				String decl_state = "";
 			
 			switch(dcDTO.getDecl_state()){
 			
 			case 1: 
-				state = "처리중";
+				decl_state = "처리중";
 				break;
 			case 2:
-				state = "처리완료";
+				decl_state = "처리완료";
 				break;
 			}
 			%>
-			<td><%=state %></td>
+			<td><%=decl_state %></td>
 		</tr>
 	<%
 	}
@@ -117,7 +118,7 @@
 			// 이전(해당 페이지블럭의 첫번째 페이지 호출)
 			if(startPage > pageBlock){
 				%>
-				<a href="decl_normal_list.decl?pageNum=<%=startPage - pageBlock%>" >[이전]</a>
+				<a href="decl_normal_list.decl?pageNum=<%=startPage - pageBlock%>&state=0" >[이전]</a>
 				<%
 			}
 			
@@ -126,14 +127,14 @@
 			// 숫자 1...5
 			for(int i = startPage; i <= endPage; i++){
 				%>
-					<a href="decl_normal_list.decl?pageNum=<%=i%>">[<%=i %>]</a>				
+					<a href="decl_normal_list.decl?pageNum=<%=i%>&state=0">[<%=i %>]</a>				
 				<%
 			}
 			
 			// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
 			if(endPage < pageCount){
 				%>
-				<a href="decl_normal_list.decl?pageNum=<%=startPage + pageBlock%>">[다음]</a>
+				<a href="decl_normal_list.decl?pageNum=<%=startPage + pageBlock%>&state=0">[다음]</a>
 				<%
 			}
 			

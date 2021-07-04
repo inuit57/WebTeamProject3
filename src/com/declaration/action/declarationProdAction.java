@@ -29,7 +29,8 @@ public class declarationProdAction implements Action {
 		dcDTO.setDecl_reason(Integer.parseInt(request.getParameter("decl_reason"))); // 신고사유
 		dcDTO.setDecl_content(request.getParameter("decl_content")); // 기타내용
 		dcDTO.setDecl_writer(request.getParameter("decl_writer")); // 신고글 작성자
-		
+		dcDTO.setBoard_sub(request.getParameter("board_sub"));
+		dcDTO.setDecl_state(Integer.parseInt(request.getParameter("decl_state")));
 		
 		declarationDAO dcDAO = new declarationDAO();
 		dcDAO.declWrite(dcDTO);
