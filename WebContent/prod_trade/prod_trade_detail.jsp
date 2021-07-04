@@ -40,8 +40,11 @@
 	<br><br>
 
 	<!-- 신고폼 -->	
-	<% if(user_nick != null){ %>
+	
+	
 	<div style="margin:auto;  width: 800px; ">
+	<button onclick="location.href='./ProductList.pr'">목록으로</button>
+	<% if(user_nick != null){ %>
 	<form name="declareForm" action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 
 		<input type="submit" value="신고하기">
@@ -52,8 +55,9 @@
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 	</form>
-	</div>
 	<%} %>
+	</div>
+	
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
 
@@ -135,11 +139,11 @@
 	
 				</td>
 				<td width="400">
-					<h4><%=pDTO.getProd_num()%></h4>
-					<h2><%=pDTO.getProd_sub()%></h2>
-					<h1><%=pDTO.getProd_price()%></h1>
-					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
-					<hr> 신고하기, 찜 (넣어야 할 기능), 위치
+<%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
+					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
+					<h1>가격 : <%=pDTO.getProd_price()%>원</h1>
+					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
+					<hr> 
 					<hr> <%
 					 String category = "";
 					
@@ -206,7 +210,7 @@
 					 }
 					 %>
 					<ul>
-						<li>카테고리 : <a href="./ProductList.pr?item=<%=category%>"><%=category%></a></li>
+						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
 						<li>작성시간 : <%=pDTO.getProd_date()%></li>
