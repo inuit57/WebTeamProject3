@@ -78,7 +78,7 @@ public class ProductListAction implements Action {
 		request.setAttribute("currentPage", currentPage);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("./prod_trade/prod_trade_list.jsp");
+		forward.setPath("./prod_trade/mypage_wish_list.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

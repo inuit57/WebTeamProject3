@@ -47,7 +47,7 @@ function myInquery(){
 function myWish(){
 	self.close();
 	// 찜목록 페이지로 이동되는 동작 추가 필요 
-	window.opener.location.href="#";
+	window.opener.location.href="./favoriteListAction.fp";
 }
 </script>
 
