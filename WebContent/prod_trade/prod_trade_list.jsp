@@ -177,7 +177,9 @@
 					 </a><br>
 
 					 <%=pDTO.getProd_price() %>원 <br>
-					 <%=pDTO.getUser_nickname() %>
+					 <%=pDTO.getUser_nickname() %><br>
+<%-- 					 <%= pDTO.getProd_num()%> --%>
+					 <%=pDAO.timeForToday(pDTO.getProd_num()) %>
 
 			</td>
 		<%
