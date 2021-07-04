@@ -65,7 +65,7 @@
 					 width="150" height="150">
 		</td>
 		<td><%=pDTO.getProd_sub() %></td> <!--  글 제목 -->
-		<td><%=pDTO.getUser_nick() %></td> <!--  글 작성자 -->
+		<td><%=pDTO.getUser_nickname() %></td> <!--  글 작성자 -->
 		<td><%=pDTO.getProd_price() %>원 </td> <!--  가격 -->
 		<td><%=wishList.get(i).getWish_date() %></td> <!--  찜한 시간 -->
  	</tr>

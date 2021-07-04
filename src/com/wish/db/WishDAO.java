@@ -209,7 +209,7 @@ public class WishDAO {
 			while(rs.next()) {
 				WishDTO wDTO = new WishDTO();
 				wDTO.setProd_num(rs.getInt("prod_num"));
-				wDTO.setUser_nick(rs.getString("user_nick"));
+				wDTO.setUser_nickname(rs.getString("user_nick"));
 				wDTO.setWish_date(rs.getTimestamp("wish_date"));
 				wDTO.setWish_num(rs.getInt("wish_num"));
 				

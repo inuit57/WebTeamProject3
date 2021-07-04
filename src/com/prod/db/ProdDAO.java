@@ -295,7 +295,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nickname(rs.getString("user_nickname"));
+				pDTO.setUser_nickname(rs.getString("user_nick")); // user_nick으로 이건 되어있습니다. (엑셀문서상)
 
 				
 				productList.add(pDTO);
