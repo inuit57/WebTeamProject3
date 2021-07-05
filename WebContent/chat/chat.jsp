@@ -16,15 +16,12 @@
 <body>
 
 	<%
-	String prodNum = request.getParameter(""); //상품 번호
-	String roomId = request.getParameter(""); //채팅 방 고유 아이디
-	String sellerId = request.getParameter(""); //판매자 아이디
-	String buyerId = request.getParameter(""); //구매자 아이디
-	
-	
-	
+	String roomId = (String)session.getAttribute("roomId");
 	%>
-
+	
+	룸 아이디 : <%=roomId %><br>
+	
+	<input type="hidden" id="roomId" name="roomId" value="<%=roomId %>">
 
 	<textarea rows="5" cols="30" id="msgArea"></textarea><br>
 	<input type="text" id="seq"><br>
@@ -63,15 +60,18 @@ function socketClose(event) {
 }
 
 function socketMsgSend() {
-	var msg = $("#seq").val();
+	var msg = $('#roomId').val() +'|'+ $("#seq").val();
 	webSocket.send(msg);
-	msgArea.value += "나 : " + msg + "\n";
+	msgArea.value += "나 : " + msg.split('|')[1] + "\n";
 	
 }
 
 function socketMessage(event) {
 	var receiveData = event.data;
-	msgArea.value += "익명 : " + receiveData + "\n";
+	if(receiveData.split('|')[0] == document.getElementById('roomId')) {
+		msgArea.value += "상대 : " + receiveData.split('|')[1] + "\n";	
+	}
+	
 }
 
 function socketError(event) {

@@ -1,5 +1,5 @@
 
-package com.chat;
+package com.chat.action;
 
 public class ActionForward {
 	// 페이지를 이동시 이동 경로를 저장할 객체 

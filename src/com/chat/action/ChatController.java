@@ -1,4 +1,4 @@
-package com.chat;
+package com.chat.action;
 
 import java.io.IOException;
 
@@ -7,9 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.admin.board.action.Action;
-import com.admin.board.action.ActionForward;
 
 public class ChatController extends HttpServlet{
 	
@@ -28,6 +25,20 @@ public class ChatController extends HttpServlet{
 			forward = new ActionForward();
 			
 			forward.setPath("./chat/chat.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/ChatAction.ch")) {
+			System.out.println("ChatAction 들어옴");
+			try {
+				action = new ChatAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("ChatController's else if(chatAction.ch) Error - KBH");
+			}
+		} else if(command.equals("/chatlist.ch")) {
+			forward = new ActionForward();
+			
+			forward.setPath("./chat/chatlist.jsp");
 			forward.setRedirect(false);
 		}
 		

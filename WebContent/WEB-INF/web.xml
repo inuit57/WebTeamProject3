@@ -55,7 +55,7 @@
   
   <servlet>
     <servlet-name>chatting</servlet-name>
-    <servlet-class>com.chat.ChatController</servlet-class>
+    <servlet-class>com.chat.action.ChatController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>chatting</servlet-name>
