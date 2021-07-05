@@ -255,7 +255,8 @@
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			<!-- 로직 처리 필요 -->
 			<input type="button" value="판매완료"
-				onclick="#">
+				onclick="location.href='./ProductSellComplete.pr?num=<%=pDTO.getProd_num()%>' ">
+				
 		<%}%>
 		<% if( pDTO.getUser_nickname().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
 			<input type="button" value="삭제하기"
