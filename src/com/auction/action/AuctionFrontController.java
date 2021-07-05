@@ -70,6 +70,34 @@ public class AuctionFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/AuctionDeleteAction.ac")) {
+			
+			//AuctionDeleteAction 객체
+			action = new AuctionDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/AuctionModify.ac")) {
+			
+			forward = new ActionForward();
+			forward.setPath("./auction/auction_modify.jsp");
+			forward.setRedirect(false);
+			
+		}else if(command.equals("/AuctionModifyAction.ac")) {
+			
+			//AuctionModifyAction 객체
+			action = new AuctionModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		

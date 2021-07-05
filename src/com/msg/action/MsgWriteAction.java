@@ -18,20 +18,25 @@ public class MsgWriteAction implements Action {
 				// 전달된 정보(파라미터 저장)
 				MsgDTO mdto = new MsgDTO();
 				
-				mdto.setRecv_nick(request.getParameter("recv_nick"));
-				mdto.setSend_nick(request.getParameter("send_nick"));
-				mdto.setMsg_content(request.getParameter("msg_content"));
+//				mdto.setRecv_nick(request.getParameter("recv_nick"));
 				
-				System.out.println(request.getParameter("recv_nick"));
-				System.out.println(request.getParameter("send_nick"));
-				System.out.println(request.getParameter("msg_content"));
 				
-				// DB저장
-				MsgDAO mdao = new MsgDAO();
+				String[] recv_nick = request.getParameter("write_recv").split("/");
 				
-				// FAQ작성 메서드 
-				mdao.msgWrite(mdto);
-				
+				for(int i =0; i<recv_nick.length; i++){
+					
+					mdto.setRecv_nick(recv_nick[i]);
+					mdto.setSend_nick(request.getParameter("send_nick"));
+					mdto.setMsg_content(request.getParameter("msg_content"));
+					
+					
+					// DB저장
+					MsgDAO mdao = new MsgDAO();
+					
+					// FAQ작성 메서드 
+					mdao.msgWrite(mdto);
+					
+				}
 				
 				// 페이지 이동(ActionForward객체)
 				ActionForward forward = new ActionForward();

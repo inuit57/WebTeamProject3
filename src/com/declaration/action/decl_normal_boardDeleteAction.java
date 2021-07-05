@@ -15,6 +15,7 @@ public class decl_normal_boardDeleteAction implements Action {
 		System.out.println("BoardDeleteAction_execute() 호출");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		boardDAO bDAO = new boardDAO();
 		bDAO.deleteBoard(board_num);
@@ -30,11 +31,11 @@ public class decl_normal_boardDeleteAction implements Action {
 		bcDAO.delete_cmt_to_board(board_num);
 		
 		// 관리자가 신고된 글 삭제시 처리상태를 1(처리중)에서 2(처리완료)로 변경
-		dcDAO.decl_state_update(board_num);
+		dcDAO.decl_state_normal_update(board_num);
 		
 		// 페이지이동
 		ActionForward forward = new ActionForward();
-		forward.setPath("decl_normal_list.decl");
+		forward.setPath("decl_normal_list.decl?state="+state);
 		forward.setRedirect(true);
 		
 		return forward;

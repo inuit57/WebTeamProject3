@@ -6,7 +6,7 @@ public class WishDTO {
 	
 	private int wish_num;
 	private int prod_num;
-	private String user_nick;
+	private String user_nickname;
 	private Timestamp wish_date;
 	
 	public int getWish_num() {
@@ -21,11 +21,11 @@ public class WishDTO {
 	public void setProd_num(int prod_num) {
 		this.prod_num = prod_num;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 	public Timestamp getWish_date() {
 		return wish_date;
@@ -35,7 +35,7 @@ public class WishDTO {
 	}
 	@Override
 	public String toString() {
-		return "WishDTO [wish_num=" + wish_num + ", prod_num=" + prod_num + ", user_nick=" + user_nick + ", wish_date="
+		return "WishDTO [wish_num=" + wish_num + ", prod_num=" + prod_num + ", user_nickname=" + user_nickname + ", wish_date="
 				+ wish_date + "]";
 	}
 	

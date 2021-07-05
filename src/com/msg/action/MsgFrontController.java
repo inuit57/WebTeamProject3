@@ -1,6 +1,7 @@
 package com.msg.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.faq.action.FAQAddAction;
+import com.msg.db.MsgDAO;
+import com.user.db.UserDAO;
 
 @WebServlet("*.ms")
 public class MsgFrontController extends HttpServlet {

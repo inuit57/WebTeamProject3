@@ -1,3 +1,4 @@
+
 package com.declaration.db;
 
 public class declarationDTO {
@@ -12,7 +13,6 @@ public class declarationDTO {
 	private String decl_date;
 	private String decl_writer;
 	private int decl_state;
-	
 	
 	public int getDecl_num() {
 		return decl_num;
@@ -79,3 +79,4 @@ public class declarationDTO {
 	
 
 }
+

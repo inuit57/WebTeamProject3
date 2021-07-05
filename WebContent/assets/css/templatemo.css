@@ -25,14 +25,23 @@ Table of contents
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
 
+#boxAdd{
+background-color:#CEF6D8;
+border:1px solid #A9F5BC;
+float: left;
+width: 150px;
+}
 
+.circle10{
+display: none;
+}
 
 .chkcolor{
-	color: #01DF3A;
+color: #01DF3A;
 }
 
 .chkcolor2{
-	color: #848484;
+color: #848484;
 }
 
 
@@ -71,6 +80,7 @@ line-height:23px;
 float: right;
 margin-top: 8px;
 margin-right: 20px;
+border:0px;
 }
 
 

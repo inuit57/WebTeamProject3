@@ -17,9 +17,11 @@
 <!-- 헤더파일들어가는 곳 -->
 	<h1>신고목록 - 상품게시판</h1>
 	
-	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl'">
-	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl'">
-
+	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
+	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+	<br>
+	<input type="button" value="처리대기중" onclick="location.href='decl_prod_list.decl?state=1'">
+	<input type="button" value="처리완료" onclick="location.href='decl_prod_list.decl?state=2'">
 
 	<%
 		// 전달된 신고글 목록 저장
@@ -28,6 +30,7 @@
 		int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());	
 		int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 		int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		ProdDAO pDAO = new ProdDAO();
 		declarationDAO dcDAO = new declarationDAO();
@@ -41,6 +44,7 @@
 			<td>신고날짜</td>		
 			<td>신고자</td>
 			<td>신고횟수</td>
+			<td>처리상태</td>	
 		</tr>
 	<%
 	for(int i = 0; i < decl_prod_list.size(); i++){
@@ -52,19 +56,30 @@
 		// 신고테이블DB에 해당 게시글번호로 신고된 게시글 개수가 몇개인지 찾아옴		
 		int decl_prod_cnt = dcDAO.getDecl_prod_count(num);
 		
-		ProdDTO pDTO = new ProdDTO();
-		pDTO = pDAO.getProduct(num);
-	
 	%>	
 		<tr>
 			<td><%=dcDTO.getDecl_writer() %></td>
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-			<a href="decl_prod_content.decl?num=<%=num%>"><%=pDTO.getProd_sub() %></a>
+			<a href="decl_prod_content.decl?num=<%=num%>&state=<%=state%>"><%=dcDTO.getBoard_sub() %></a>
 			</td>
 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>
 			<td><%=dcDTO.getUser_nickname() %></td>
 			<td><%=decl_prod_cnt %></td>
+			<%
+				String decl_state = "";
+			
+			switch(dcDTO.getDecl_state()){
+			
+			case 1: 
+				decl_state = "처리중";
+				break;
+			case 2:
+				decl_state = "처리완료";
+				break;
+			}
+			%>
+			<td><%=decl_state %></td>
 		</tr>
 	<%
 	}

@@ -28,6 +28,7 @@
 	List decl_prod_reason = (List)request.getAttribute("decl_prod_reason");
 	ProdDTO pDTO = (ProdDTO)request.getAttribute("pDTO");
 	String date = pDTO.getProd_date().toString();
+	int state = Integer.parseInt(request.getParameter("state"));
 %>
 	<table border="1" style="width: 600px;">
 		<tr>
@@ -38,7 +39,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=pDTO.getUser_nick() %></td>
+			<td><%=pDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=date.substring(0, 16)%>분</td>
 		</tr>
@@ -70,7 +71,7 @@
 		<%for(int i=0; i<decl_prod_reason.size();i++){
 			declarationDTO dcDTO = (declarationDTO)decl_prod_reason.get(i);%>
 		<tr>
-			<td><%=dcDTO.getUser_nick() %></td>
+			<td><%=dcDTO.getUser_nickname() %></td>
 		<%
 			String reason ="";
 		
@@ -107,11 +108,12 @@
 		<%} %>
 	</table>
 	
-	<form action="decl_prod_DeleteAction.decl?" onsubmit="return confirm('해당 신고글을 삭제하시겠습니까?')" method="get">
+	<form action="decl_prod_DeleteAction.decl" onsubmit="return confirm('해당 신고글을 삭제하시겠습니까?')" method="get">
 		<input type="button" value="목록으로" onclick="location.href='decl_prod_list.decl'">
 		<input type="submit" value="해당글 삭제하기" >
 		<input type="hidden" name="num" value="<%=pDTO.getProd_num()%>">
-	</form>
+		<input type="hidden" name="state" value="<%=state%>">
+	</form> 
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->	
