@@ -111,7 +111,10 @@
 		    <div id="collapse<%=i %>" class="panel-collapse collapse" role="tabpanel" >
 		      <div class="panel-body">
 		        <h4><img src="./img/faq_a.png" style="width: 1.5vw; margin-bottom: 30px; margin-right: 15px "> <%=fdto.getFaq_content() %></h4>
-		        <input type="button" onclick="location.href='./FAQUpdate.faq?idx=<%=fdto.getFaq_idx() %>'" id="chkUpdate" style="margin-top: 30px"  value="글수정">
+		        <!--  글 수정 버튼 -->
+		        <% if( udao.isAdmin(user_nick)){ %>
+		        	<input type="button" onclick="location.href='./FAQUpdate.faq?idx=<%=fdto.getFaq_idx() %>'" id="chkUpdate" style="margin-top: 30px"  value="글수정">
+		        <%} %>
 		      </div>
 		    </div>
 		  </div>
