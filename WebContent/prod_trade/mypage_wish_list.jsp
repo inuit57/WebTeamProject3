@@ -40,7 +40,7 @@
 
 <!-- <h1> 나의 찜목록 </h1> -->
 <div class="container">
-<div style="margin:auto;  width: 800px; ">
+<div style="margin:auto; margin-top:80px; margin-bottom:300px; width: 800px; ">
 <table border="1"  >
 	<tr>
 		<th>상품사진</th>
@@ -69,6 +69,12 @@
 		<td><%=pDTO.getProd_price() %>원 </td> <!--  가격 -->
 		<td><%=wishList.get(i).getWish_date() %></td> <!--  찜한 시간 -->
  	</tr>
+	<%} //for문 %>
+	<% if ( wishList.size() < 1 ){ %>
+	<tr>
+		<td colspan="10"> 등록된 상품이 없습니다.
+		</td>
+	</tr>
 	<%} %>
 </table>
 </div>
