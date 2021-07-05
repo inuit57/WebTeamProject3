@@ -10,6 +10,19 @@
 <meta charset="UTF-8">
 <title>auction_list.jsp</title>
 </head>
+
+<style>
+	table, tr, td{
+		border: 1px;
+		margin-left: auto; 
+		margin-right: auto; 
+		text-align: center;
+		
+	}
+
+
+</style>
+
 <body>
 
 <div class="container">
@@ -36,7 +49,7 @@
 			</select>
 	<input type="button" value="경매 등록"
 				onclick="location.href='AuctionRegister.ac'"><br>
-	<table border="1" class="table" style="height: 700px">
+	<table border="1" class="table" style="height: 500px">
 	
 		<%
 			int size = AuctionList.size();

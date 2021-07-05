@@ -8,6 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>일반게시판 내용</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -15,17 +16,30 @@
 	form {
 		display: inline;
 	}
+table{
+
+border-right:none;
+border-left:none;
+
+}
+
+.page {text-align: center;}
+	
 </style>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
+<div class="container" >
+<div style="margin:auto;  width: 600px; ">
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
 %>
+	<br>
 	<%=user_nick %>님 환영합니다.
+	
 <%
 	
 
@@ -43,7 +57,7 @@
 	
 %>
 	<form action="./declaration_normal.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
-		<input type="submit" value="신고하기" >
+		<input type="submit" value="신고하기" style="float: right;" class="btn btn-danger">
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<!-- 신고당하는 글 작성자 -->
 		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nick()%>">
@@ -53,8 +67,8 @@
 		
 	</form>
 	
-	
-	<table border="1" style="width: 600px;">
+	<table border="1" style="width: 600px;" class="table table-striped">
+		 
 		<tr>
 			<th>글번호</th>
 			<td><%=bDTO.getBoard_num() %></td>
@@ -76,11 +90,12 @@
 			<td colspan="3"><%=bDTO.getBoard_sub() %></td>
 		</tr>
 		<tr>
-			<th colspan="4">글내용</th>
-		</tr>
-		<tr>
+			<th rowspan="2">글내용</th>
 			<td colspan="4" rowspan="2"  style="height: 200px;"><%=bDTO.getBoard_content() %></td>
 		</tr>
+		<tr>
+		</tr>
+	
 	</table>
 	<hr style="width: 600px; margin-left: 0">
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@댓글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
@@ -107,16 +122,16 @@
 			
 		%>
 			<tr>
-				<td style="width: 100px; text-align: center;"><%=bcDTO2.getUser_nick() %></td>
-				<td style="width: 300px; text-align: center;"><%=bcDTO2.getCmt_content() %></td>
-				<td style="width: 100px; text-align: center;"><%=bcDTO2.getCmt_date().substring(0, 10) %></td>
+				<td style="width: 100px;"><%=bcDTO2.getUser_nick() %></td>
+				<td style="width: 300px;"><%=bcDTO2.getCmt_content() %></td>
+				<td style="width: 100px;"><%=bcDTO2.getCmt_date().substring(0, 10) %></td>
 				<th style="width: 100px;">
 					<%
 						if(bcDTO2.getUser_nick().equals(user_nick)|| user_nick.equals("admin")) {
 					%>
-							<input type="button" value="수정" class="">
+							<input type="button" value="수정" class="btn btn-secondary btn-sm">
 							<form action="boardCommentDeleteAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
-								<input type="submit" value="삭제" onclick="return confirm('이댓글을 삭제하시겠습니까?')">
+								<input type="submit" value="삭제" onclick="return confirm('이댓글을 삭제하시겠습니까?')" class="btn btn-secondary btn-sm">
 								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">
 							</form>
 					<%
@@ -129,6 +144,8 @@
 	%>
 		</table>
 		
+		
+<div class="page">		
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
@@ -182,7 +199,7 @@
 		/////////////////////////////////////////////////////////
 	%>
 		
-	
+</div>
 	<hr style="width: 600px; margin-left: 0">
 	
 	
@@ -190,8 +207,8 @@
 										<!-- 댓글 작성공간 -->
 	<form action="BoardCommentWriteAction.bco?board_num=<%=bDTO.getBoard_num()%>&pageNum=<%=pageNum %>" method="post">
 		<input type="hidden" name="user_nick" value="<%=user_nick%>">
-		댓글 : <input type="text" name="cmt_content" style="width: 480px;">
-		<input type="submit" value="댓글등록">	
+		댓글 : <input type="text" name="cmt_content" style="width: 450px;" >
+		<input type="submit" value="댓글등록" class="btn btn-primary">	
 	</form>
 										<!-- 댓글 작성공간 -->
 										
@@ -204,15 +221,19 @@
 	// 유저가 작성자아이디와 일치하면 수정 삭제 버튼 보여줌 
 	if(bDTO.getUser_nick().equals(user_nick) || user_nick.equals("admin")){
 	%>
-		<input type="button" value="수정하기" onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
-		<input type="submit" value="삭제하기" onclick="return confirm('게시글을 삭제하시겠습니까?')">
+		<input type="button" value="수정하기" class="btn btn-light"
+			   onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
+		<input type="submit" value="삭제하기" onclick="return confirm('게시글을 삭제하시겠습니까?')" class="btn btn-light">
 	<%		
 		} // 아니면 목록으로 버튼만 보여줌
 	
 	%>
-		<input type="button" value="목록으로" onclick="location.href='board_List.bo?pageNum=<%=pageNum%>';">
+		<input type="button" value="목록으로" onclick="location.href='board_List.bo?pageNum=<%=pageNum%>';" class="btn btn-light">
 		<input type="hidden" name="board_num" value="<%=bDTO.getBoard_num() %>">
 	</form>
+	</div>
+	</div>	
+	<br>
 
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 

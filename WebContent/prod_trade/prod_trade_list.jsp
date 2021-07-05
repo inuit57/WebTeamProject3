@@ -11,6 +11,20 @@
 <meta charset="UTF-8">
 <title>prod_trade_list.jsp</title>
 </head>
+<style>
+ 	table, tr, td{ 
+ 		border: 1px; 
+ 		margin-left: auto;  
+		margin-right: auto;  
+ 		text-align: center;
+	}  
+	
+	
+
+
+</style>
+
+
 <body>
 
 <div class="container">
@@ -142,7 +156,7 @@
 			</div>
 	<input type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'"><br>
-	<table border="1" class="table" style="height: 700px;">
+	<table border="1" class="table" style="height: 500px">
 	
 		<%
 			int size = productList.size();	
@@ -160,7 +174,7 @@
 			<% for(int j=0;j<col;j++){ 
 				if(num >= size) break; 
 				pDTO = (ProdDTO)productList.get(num);%>
-			<td>
+			<td class="td">
 				<%
 				 String imgfile = pDTO.getProd_img();
 			if(imgfile != null){
