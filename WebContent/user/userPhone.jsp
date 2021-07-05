@@ -50,6 +50,7 @@
 		var pchk1= /^010([0-9]{8})$/;
 		var pchk2 = /^01([1|6|7|8|9])([0-9]{3})([0-9]{4})$/;
 		var pchkBtn = 0;
+		var Code = "";
 		
 		$("#user_phone").keyup(function(){
 			var phone = $("#user_phone").val();
@@ -96,7 +97,10 @@
 				     type:'post',
 				     data:{"user_phone":phone}, 
 				     success:function(data){
+				    	 Code = data;
+				    	 alert("인증번호가 발송되었습니다.");
 				    	 $("#modal").show();
+				    	 
 			               },
 			        		error:function(){
 			                alert("에러입니다");
@@ -115,6 +119,20 @@
 		
 		
 		
+		//인증 번호 체크
+		$("#phoneCodeChk").click(function(){
+			var  phoneC = $("#phoneCode").val();
+			
+			if(phoneC == Code){
+				$('#fr').submit();
+				alert("인증되었습니다.");
+			}else{
+				alert("인증번호가 일치하지 않습니다. 다시 입력해 주세요");
+			}
+				
+		});
+		//인증 번호 체크
+		
 		
 		
 		
@@ -131,6 +149,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+				<form action="./UserJoin.us" method="post"  id="fr">
 					<a href="./Main.do"><img src="./img/logo_1.png" style="width: 380px; margin-bottom: 50px"></a>
 					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
 						문자인증
@@ -148,6 +167,7 @@
 					<div class="container-login100-form-btn" style="margin-top: 40px">
 						<input class="login100-form-btn" type="button" id="phoneChk" value="문자인증" style="width: 100%"><br>
 					</div>
+				</form>	
 			</div>
 		</div>
 	</div>
