@@ -152,6 +152,18 @@ public class DeclarationFrontController extends HttpServlet{
 			}
 			
 		}
+		else if(command.equals("/declarationListSample.decl")) {
+			System.out.println("C : /declarationListSample.decl 호");
+			
+			action = new decl_normal_listAction2();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 		System.out.println("C : 2.페이지 주소 매핑 완료");
 		

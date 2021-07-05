@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
+<title>회원정보 조회</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 
 <style type="text/css">
 #ad-sidebar {
@@ -22,7 +22,34 @@
  #ad-sidebar li {
   	list-style: none;
   }
-      
+
+#ad-sidebar .li1 {
+  	font-weight: bold !important;
+  }
+  
+ #ad-sidebar li a:VISITED {
+ 	font-weight: bold !important;
+ 	color: black;
+ }
+ 
+.li-1{
+ 	display: none;
+ }
+
+.li1:hover{
+	background-color: green;
+	cursor: pointer;
+}
+
+.li-1 li:hover{
+	background-color: green;
+	cursor: pointer;
+}
+
+#ad-sidebar a {
+	text-decoration: none;
+}
+        
 .ad-content1 {
     width: 85%;
     padding: 20px;
@@ -35,6 +62,7 @@
  	clear:both;
  } 
 
+
 </style>
 
 <%@ include file="../../inc/top.jsp" %>
@@ -44,10 +72,10 @@
 $(function(){
 	
 	$('.useryn').click(function(){
-
+				
 		$.ajax({
 			 url: "./AdminUserActive.au", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
-			 data:{user_nickname:$(this).attr('value')},
+			 data:{user_nick:$(this).attr('value')},
 			 success:function(){
 				 location.reload();
 			 } 					
@@ -61,36 +89,22 @@ $(function(){
 		
 		$.ajax({
 			url:"./AdminUserGrade.au",
-			data:{user_nickname:$(this).val(),user_grade:$(this).prev().attr("value")},
+			data:{user_nick:$(this).val(),user_grade:$(this).prev().attr("value")},
 			success:function(){
-				
+				alert('회원 등급이 변경되었습니다.');
 			}
 			
 	});
-
-// 	$('.levelbt').click(function(){
-		
-		
-// 		alert($('#u_grade').attr('value'));
-// 	    $("input[type='number']")
-		
-// // 		console.log($("input[name='u_grade']").index());
-		
-		
+});
 	
-		
-// 		$.ajax({
-// 			url:"./AdminUserGrade.au",
-// 			data:{user_nickname:$(this).attr('value'),user_grade:$('#u_grade').attr('value')},
-// 			success:function(){
-// 				location.reload();
-// 			}
+	
+		$('.li1').click(function(){
+			// 왼쪽 사이드 메뉴바 토글
+			$(this).next().fadeToggle('slow',function(){
+				
+			})
 			
-			
-// 		});
-		
-		
-	});
+		});
 
 	
 });
@@ -129,37 +143,60 @@ $(function(){
 	
 %>
 
-	<div id="ad-sidebar">
+	
+		<div id="ad-sidebar">
 			
 			<ul>
-				<li><a href="./AdminBoard.ap">관리자 게시판</a>
-				<li><a href="./AdminUserList.au">회원 목록 조회</a></li>
-				<li><a href="./InqueryAdminList.ai">1:1 문의 내역조회</a>	</li>				
-				<li><a href="#">신고내역 조회</a></li>				
+				<li><a href="./AdminBoard.ap">관리자 게시판</a>	</li>				
+				<li class="li1">회원목록 조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./AdminUserList.au">전체</a></li>
+					<li><a href="./AdminUserList.au?auth=1">일반회원</a></li>
+					<li><a href="./AdminUserList.au?auth=2">관리자</a></li>
+					</ul>
+				 </div>					
+				<li class="li1">1:1 문의 내역조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./InqueryAdminList.ai">전체</a></li>
+					<li><a href="./InqueryAdminList.ai?check=0">답변 요청글</a></li>
+					<li><a href="./InqueryAdminList.ai?check=1">답변 완료글</a></li>
+					</ul>
+				 </div>								
+				<li class="li1">신고내역 조회</li>
+				 <div class="li-1">
+				 	<ul>
+				 	<li><a href="./declarationList.decl">전체</a></li>	
+				 	<li><a href="./decl_prod_list.decl">상품게시판 신고내역</a></li>	
+				 	<li><a href="./decl_normal_list.decl">일반게시판 신고내역</a></li>
+				 	</ul>	
+				 </div>
+							
 			</ul>		
 				
 		</div>
 
 	<div class="ad-content1">
 
-		<table border="1">
+		<table class="table" border="1">
+			<thead class="table-dark">
 				<tr>
-					<td>유저번호</td>
-					<td>닉네임</td>
-					<td>아이디</td>
-					<td>가입날짜</td>
-					<td>코인</td>
-					<td>연락처</td>
-					<td>주소</td>
-					<td>주소plus</td>
-					<td>은행명</td>
-					<td>은행계좌번호</td>
-					<td>회원/관리자</td>
-					<td>회원등급</td>
-					<td>탈퇴여부</td>
+					<th>닉네임</th>
+					<th>아이디</th>
+					<th>가입날짜</th>
+					<th>코인</th>
+					<th>연락처</th>
+					<th>주소</th>
+					<th>주소plus</th>
+					<th>은행명</th>
+					<th>은행계좌번호</th>
+					<th>회원/관리자</th>
+					<th>회원등급</th>
+					<th>탈퇴여부</th>
 					
 				</tr>
-
+			</thead>
 
 <%
 for(int i=0;i<auList.size();i++){
@@ -169,16 +206,42 @@ for(int i=0;i<auList.size();i++){
 
 
 <tr>
-<td><%=uDTO.getUser_num() %></td>
 <td><%=uDTO.getUser_nickname() %></td>
 <td><%=uDTO.getUser_id() %></td>
 <td><%=uDTO.getUser_joindate() %></td>
 <td><%=uDTO.getUser_coin() %></td>
 <td><%=uDTO.getUser_phone() %></td>
+
+<%
+if(uDTO.getUser_address()==null){	
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_address() %></td>
+<%
+}
+if(uDTO.getUser_addressPlus()==null){
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_addressPlus() %></td>
+<%
+}
+if(uDTO.getUser_bankName()==null){
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_bankName() %></td>
+<%
+}
+if(uDTO.getUser_bankAccount()==null){
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_bankAccount() %></td>
+<%
+} 
+%>
 <%
 if(uDTO.getUser_auth()==2){
 %>
@@ -192,27 +255,20 @@ if(uDTO.getUser_auth()==2){
 %>
 <td>
 <input type="number" min="1" max="3" id="u_grade" name="u_grade" value="<%=uDTO.getUser_grade()%>">
-<button class="levelbt" type="button" value="<%=uDTO.getUser_nickname()%>">변경</button>
+<button class="levelbt btn btn-outline-success" id="levelbt" type="button" value="<%=uDTO.getUser_nickname()%>">변경</button>
 </td>
 <%
 if(uDTO.getUser_use_yn()==1){
 %>
-<td>활성화</td>
+<td>활성화&nbsp;<button class="useryn btn btn-outline-danger" id="useryn" type="button" value="<%=uDTO.getUser_nickname()%>">X</button></td>
 <%
 }else{
 %>
-<td>비활성화(탈퇴)</td>
+<td>비활성화(탈퇴)&nbsp;<button class="useryn btn btn-outline-success" id="useryn" type="button" value="<%=uDTO.getUser_nickname()%>">O</button></td>
 <%
 } 
 %>
 
-<td><button class="useryn" type="button" value="<%=uDTO.getUser_nickname()%>">
-<%if(uDTO.getUser_use_yn()==1){ %>
-비활성화
-<%}else {%>
-활성화
-<%} %>
-</button></td>
 
 </tr>
 
@@ -324,5 +380,4 @@ if(uDTO.getUser_use_yn()==1){
 <div class="footer">
 <%@ include file="../../inc/footer.jsp" %>
 </div>
->>>>>>> refs/heads/develop
 </html>

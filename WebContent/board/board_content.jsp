@@ -60,7 +60,7 @@ border-left:none;
 		<input type="submit" value="신고하기" style="float: right;" class="btn btn-danger">
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<!-- 신고당하는 글 작성자 -->
-		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nick()%>">
+		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nickname()%>">
 		<input type="hidden" name="board_sub" value="<%=bDTO.getBoard_sub()%>">
 		<input type="hidden" name="board_type" value="0">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
@@ -77,7 +77,7 @@ border-left:none;
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=bDTO.getUser_nick() %></td>
+			<td><%=bDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=bDTO.getBoard_date().substring(0, 10)%></td>
 		</tr>
@@ -106,7 +106,7 @@ border-left:none;
 	int cmtViewCnt = 5; //한번에 보이는 댓글갯수
 	%>
 	
-		
+<div class="why">	
 		<table>
 			<tr>
 				<th style="width: 100px; "> 작성자 </th>
@@ -122,30 +122,47 @@ border-left:none;
 			
 		%>
 			<tr>
-				<td style="width: 100px;"><%=bcDTO2.getUser_nick() %></td>
-				<td style="width: 300px;"><%=bcDTO2.getCmt_content() %></td>
-				<td style="width: 100px;"><%=bcDTO2.getCmt_date().substring(0, 10) %></td>
+
+				<td style="width: 100px; text-align: center;"><%=bcDTO2.getUser_nickname() %></td>
+				<td style="width: 300px; text-align: center;"><%=bcDTO2.getCmt_content() %></td>
+				<td style="width: 100px; text-align: center;"><%=bcDTO2.getCmt_date().substring(0, 10) %></td>
 				<th style="width: 100px;">
 					<%
-						if(bcDTO2.getUser_nick().equals(user_nick)|| user_nick.equals("admin")) {
+						if(bcDTO2.getUser_nickname().equals(user_nick)|| user_nick.equals("admin")) {
 					%>
-							<input type="button" value="수정" class="btn btn-secondary btn-sm">
+							<input type="button" value="수정" class="u<%=i%>">
 							<form action="boardCommentDeleteAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
 								<input type="submit" value="삭제" onclick="return confirm('이댓글을 삭제하시겠습니까?')" class="btn btn-secondary btn-sm">
 								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">
 							</form>
+							
+							<form action="boardCommentModifyAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
+								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">
+								<div class="in<%=i %>" style="display:none;"></div>
+							</form>
+<script type="text/javascript">
+
+	 $(function() {
+	    $(".u<%=i %>").on("click",function(){
+	    var d = "<hr><input type='text' placeholder='수정하실 댓글을 작성해주세요.' size='50' name='cmt_content_modify' />&nbsp&nbsp<input type='submit' value='댓글수정하기'/>";
+	       // $(".in").html(d);
+	       $(this).parents(".why").find(".in<%=i %>").html(d);
+	       $(".in<%=i %>").fadeToggle();
+	   }); 
+	});  
+</script>
 					<%
 						}
 					%>
+					
 				</th>
 			</tr>
 	<%
 	}
 	%>
+	
 		</table>
-		
-		
-<div class="page">		
+</div>		
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
@@ -206,9 +223,9 @@ border-left:none;
 	
 										<!-- 댓글 작성공간 -->
 	<form action="BoardCommentWriteAction.bco?board_num=<%=bDTO.getBoard_num()%>&pageNum=<%=pageNum %>" method="post">
-		<input type="hidden" name="user_nick" value="<%=user_nick%>">
-		댓글 : <input type="text" name="cmt_content" style="width: 450px;" >
-		<input type="submit" value="댓글등록" class="btn btn-primary">	
+		<input type="hidden" name="user_nickname" value="<%=user_nick%>">
+		댓글 : <input type="text" name="cmt_content" style="width: 480px;">
+		<input type="submit" value="댓글등록">	
 	</form>
 										<!-- 댓글 작성공간 -->
 										
@@ -219,7 +236,7 @@ border-left:none;
 	<form action="boardDeleteAction.bo" >
 	<%
 	// 유저가 작성자아이디와 일치하면 수정 삭제 버튼 보여줌 
-	if(bDTO.getUser_nick().equals(user_nick) || user_nick.equals("admin")){
+	if(bDTO.getUser_nickname().equals(user_nick) || user_nick.equals("admin")){
 	%>
 		<input type="button" value="수정하기" class="btn btn-light"
 			   onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >

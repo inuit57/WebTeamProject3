@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.user.db.UserDAO;
 
@@ -27,6 +28,8 @@ public class UserFrontController extends HttpServlet{
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = request.getSession(); 
 		
 		// 가상주소 전체 가져오기
 		String requestURI = request.getRequestURI();
@@ -67,7 +70,13 @@ public class UserFrontController extends HttpServlet{
 			PrintWriter out = response.getWriter();
 			String a = request.getParameter("nickname");
 			boolean isExist = false;
-			isExist = new UserDAO().checkNick(a);
+
+			// 현재 닉네임을 그대로 유지하는 경우, 따로 검사를 하지는 않도록 수정 
+			String curr_nick = (String)session.getAttribute("user_nick"); 
+			if(!a.equals(curr_nick)){
+				isExist = new UserDAO().checkNick(a);
+			}
+			
 			if(isExist) {
 				out.write("1");
 			} else {

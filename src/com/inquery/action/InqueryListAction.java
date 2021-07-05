@@ -15,24 +15,24 @@ public class InqueryListAction implements Action {
 
 		
 		HttpSession session = request.getSession();
-		//String nick = (String) session.getAttribute("user_nick");
+		String user_nick = (String) session.getAttribute("user_nick");
 		
 		// 테스트용 닉
-		String nick = "홍길정";
+		
 		
 		ActionForward forward = new ActionForward();
 		// 세션정보처리 들고다니는 값이 무엇인지에 따라 값이 달라질 수 있음 id가 nick으로
-	/*	if(nick==null){
+		/*if( nick==null){
 			forward.setPath("");
 			forward.setRedirect(true);
-			return forward;
-		}*/
+			return forward;*/
+		
 			
 		InqueryDAO inDAO = new InqueryDAO();
 		
-		inDAO.getMyInqueryList(nick);
+		inDAO.getMyInqueryList(user_nick);
 			
-		request.setAttribute("myInqueryList", inDAO.getMyInqueryList(nick));
+		request.setAttribute("myInqueryList", inDAO.getMyInqueryList(user_nick));
 			
 		forward.setPath("./inquery/inquery_list.jsp");
 		forward.setRedirect(false);	

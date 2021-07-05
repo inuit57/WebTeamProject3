@@ -1,3 +1,4 @@
+<%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.user.db.UserDAO"%>
 <%@page import="com.user.db.UserDTO"%>
 <%@page import="com.wish.db.WishDTO"%>
@@ -56,10 +57,11 @@ border-bottom:none;
 	WishDTO wDTO = new WishDTO();
 	WishDAO wDAO = new WishDAO();
 	UserDAO uDAO = new UserDAO(); 
+	ProdDAO pDAO = new ProdDAO(); 
+	
 	int pageNum = Integer.parseInt(request.getParameter("pageNum").toString());
 	//int wishCount = (int)request.getAttribute("wishCount");
 	%>
-	<!-- <a href="./main.bo">메인</a> -->
 
 	<div class="container" >
 	<br><br>
@@ -75,7 +77,7 @@ border-bottom:none;
 		<input type="submit" value="신고하기" class="btn btn-danger" >
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
-		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nick()%>">
+		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nickname()%>">
 		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
@@ -168,10 +170,11 @@ border-bottom:none;
 				</td>
 				<td width="400" id="t1">
 
+
 <%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
 					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
 					<h1>가격 : <%=pDTO.getProd_price()%>원</h1>
-					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
+					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nickname()%>"><%=pDTO.getUser_nickname()%></a></h3>
 					<hr> 
 
 					<hr> <%
@@ -243,7 +246,8 @@ border-bottom:none;
 						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
-						<li>작성시간 : <%=pDTO.getProd_date()%></li>
+<%-- 						<li>작성시간 : <%=pDTO.getProd_date()%></li> --%>
+						<li>작성시간 : <%=pDAO.timeForToday(pDTO.getProd_num())%></li>
 					</ul> 
 					
 					찜 횟수 &nbsp; 
@@ -260,8 +264,10 @@ border-bottom:none;
 					
 					<!-- 관리자만 사용가능한 메뉴 생성 -->
 					<% if(user_nick != null){ %>
-						<input type="button" id="btnLike" value="찜하기" class="btn btn-warning">
-						
+
+						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
+							<input type="button" id="btnLike" value="찜하기" class="btn btn-warning"> 
+						<%} %>
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
 						<input type="button" value="구매요청" class="form-control" > 
 						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
@@ -276,14 +282,16 @@ border-bottom:none;
 		</table>
 		<br>
 		<div style="margin:auto;  width: 800px; ">
-		<% if ( pDTO.getUser_nick().equals(user_nick) ){ %>
+		<% if ( pDTO.getUser_nickname().equals(user_nick) ){ %>
 			<input type="button" value="수정하기" class="btn btn-light"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			<!-- 로직 처리 필요 -->
 			<input type="button" value="판매완료"
-				onclick="#">
+				onclick="location.href='./ProductSellComplete.pr?num=<%=pDTO.getProd_num()%>' ">
+				
 		<%}%>
-		<% if( pDTO.getUser_nick().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
+
+		<% if( pDTO.getUser_nickname().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
 			<input type="button" value="삭제하기" class="btn btn-light"
 				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
 		<%} %>
