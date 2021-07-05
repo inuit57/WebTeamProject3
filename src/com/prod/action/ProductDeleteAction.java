@@ -23,11 +23,13 @@ public class ProductDeleteAction implements Action {
 		WishDAO wDAO = new WishDAO(); 
 		MsgDAO msgDAO = new MsgDAO(); 
 		
+		String prod_sub = pDAO.getProduct(num).getProd_sub(); 
+		
 		pDAO.deleteProduct(num);
 
 		//쪽지 발송
 		List<String> memberList = wDAO.getWishMembers(num); 
-		msgDAO.msgWrite(memberList);
+		msgDAO.msgWrite(memberList , prod_sub);
 		
 		wDAO.favoriteDelete(num); //찜목록에서도 삭제
 		

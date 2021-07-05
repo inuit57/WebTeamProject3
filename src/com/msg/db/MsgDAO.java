@@ -120,7 +120,7 @@ public class MsgDAO {
 	 *  찜목록의 상품에 변동사항이 생길 경우, 시스템적으로 보내주는 메시지 
 	 *  보내야 하는 회원들의 목록을 받아서 각각 insert를 해주는 식으로 구현 
 	 */
-	public void msgWrite(List<String> memberList){
+	public void msgWrite(List<String> memberList,  String prod_sub){
 
     	int num = 0;
 		try {
@@ -155,7 +155,7 @@ public class MsgDAO {
 				pstmt.setInt(1, num);
 				pstmt.setString(2, memberList.get(i));
 				pstmt.setString(3, "system");
-				pstmt.setString(4, "찜목록해두신 상품이 판매완료 되었습니다."); 
+				pstmt.setString(4, "찜목록해두신 ["+prod_sub+"] 상품이 판매완료 되었습니다."); 
 				// 삭제된 경우에는 다른 메시지를 띄워주도록 ?? 
 				pstmt.setInt(5, 0);
 				
