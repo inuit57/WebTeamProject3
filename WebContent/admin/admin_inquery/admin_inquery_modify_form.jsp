@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>1:1문의 답변 작성</title>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
 </head>
@@ -20,7 +20,7 @@
 	
 		<form  name="fr" action="./InqueryAdminModify.ai" method="post">
 		글번호 :  <input type="text" name="num" value="<%=inDTO.getInq_num() %>" readonly><br>
-		글쓴이 : <input type="text" name="name"  value="<%=inDTO.getUser_nick() %>" readonly>  <br>
+		글쓴이 : <input type="text" name="name"  value="<%=inDTO.getUser_nickname() %>" readonly>  <br>
 		제목 : <input type="text" id="subject" name="subject" value="<%=inDTO.getInq_sub()%>" ><br> 
 		<textarea class="form-control" rows="20" name="content" id="smartEditor" style="width: 100%; height: 412px;">
 		<%=inDTO.getInq_content() %>

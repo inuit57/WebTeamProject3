@@ -23,7 +23,7 @@ public class InqueryAdminSearchAction implements Action {
 		
 		System.out.println(sk+sv);
 		
-		int pageSize = 15;
+		int pageSize = 10;
 		
 		// 현재 페이지가 몇페이지 인지 확인
 		String pageNum = request.getParameter("pageNum");

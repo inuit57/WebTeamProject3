@@ -63,7 +63,7 @@
 			<a href="decl_prod_content.decl?num=<%=num%>"><%=pDTO.getProd_sub() %></a>
 			</td>
 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>
-			<td><%=dcDTO.getUser_nick() %></td>
+			<td><%=dcDTO.getUser_nickname() %></td>
 			<td><%=decl_prod_cnt %></td>
 		</tr>
 	<%

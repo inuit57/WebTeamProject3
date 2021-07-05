@@ -442,7 +442,7 @@ public int adminUserCount(String sk, String sv){
     }// userSearchList(sk,sv,startRow,pageSize)
     
     // activateUser(user_nickname)
-    public void activateUser(String user_nickname){
+    public void activateUser(String user_nick){
     	
     	try {
     		conn = getConnection();
@@ -456,7 +456,7 @@ public int adminUserCount(String sk, String sv){
     		
 			pstmt=conn.prepareStatement(sql);
 			
-			pstmt.setString(1, user_nickname);
+			pstmt.setString(1, user_nick);
 			
 			
 			pstmt.executeUpdate();
@@ -495,6 +495,7 @@ public int adminUserCount(String sk, String sv){
 
     	
     }// changeUserGrade(user_grade)
+    
     
     
     

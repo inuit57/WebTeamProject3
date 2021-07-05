@@ -16,13 +16,13 @@ public class AdminUserGradeAction implements Action {
 			request.setCharacterEncoding("utf-8");
 			
 			int user_grade = Integer.parseInt(request.getParameter("user_grade"));
-			String user_nickname = request.getParameter("user_nickname");
+			String user_nick = request.getParameter("user_nick");
 				
-			System.out.println(user_grade+user_nickname);
+			System.out.println(user_grade+user_nick);
 			
 			AdminUserDAO auDAO = new AdminUserDAO();
 			
-			auDAO.changeUserGrade(user_grade,user_nickname);
+			auDAO.changeUserGrade(user_grade,user_nick);
 				
 		
 		
