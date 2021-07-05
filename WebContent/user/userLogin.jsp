@@ -5,6 +5,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="./user/images/icons/favicon.ico"/>
@@ -112,7 +120,32 @@ console.log(Kakao.isInitialized());
 
 <script type="text/javascript">
 	$(document).ready(function () {
+		
+		var pchk1= /^010([0-9]{8})$/;
+		var pchk2 = /^01([1|6|7|8|9])([0-9]{3})([0-9]{4})$/;
+		var pchkBtn = 0;
+		var Code = "";
+		var phone = "";
+		var userID="";
+		var userPW="";
+		
+		$("#user_phone").keyup(function(){
+			phone = $("#user_phone").val();
+			if(phone == null) {
+			      $('.phoneError').css('color','red');
+			      $('.phoneError').html('연락처를 를 입력해 주세요.');
+			      pchkBtn = 0;
+			 }else if(phone.match(pchk1) != null || phone.match(pchk2) != null){
+				 $('.phoneError').html('');
+				 pchkBtn = 1;
+		     }else {
+		    	  $('.phoneError').css('color','red');
+			      $('.phoneError').html('연락처를 정확히 입력하세요');
+			      pchkBtn = 0;
+		     }
+		});
 
+		// 아이디 기억하기
 		$("#id").val(Cookies.get('key'));      
 	    if($("#id").val() != ""){
 	        $("#rememCKB1").attr("checked", true);
@@ -130,7 +163,91 @@ console.log(Kakao.isInitialized());
 		    if($("#rememCKB1").is(":checked")){
 		        Cookies.set('key', $("#id").val(), { expires: 7 });
 		    }
-		});	
+		});	// 아이디 기억하기
+		
+		
+		//아이디 찾기 모달 보이기
+		$("#searchID").click(function () {
+			 $("#searchIDModal").show();
+			 $("#user_phone").focus();
+		});//아이디 찾기 모달 보이기
+		
+		
+		//비밀번호 찾기 모달 보이기
+		$("#searchPW").click(function () {
+			 $("#searchPWModal").show();
+		});//비밀번호 찾기 모달 보이기
+		
+		
+		//아이디찾기 모달 끄기
+		$("#searchIDExit").click(function () {
+			 $('.phoneError').html("");
+			 $("#user_phone").val("");
+			 $('#searchIDModal').hide();
+		});//아이디찾기 모달 끄기
+		
+		
+		//인증 모달 끄기
+		$(".msgExit").click(function () {
+			location.reload();
+		});//인증 모달 끄기
+		
+		
+		// 아이디찾기 인증번호 발송
+		$("#IDphoneCode").click(function () {
+		if(pchkBtn == 1){
+			$.ajax({
+				 url:'./UserPhoneCodeAction.us',
+			     type:'post',
+			     data:{"user_phone":phone}, 
+			     success:function(data){
+			    	 Code = data;
+			    	 alert("인증번호가 발송되었습니다.");
+			    	 $("#searchIDModal").html($("#modal"));
+					 $("#modal").removeClass('modalHidden');
+					 $("#phoneCode").focus();
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		       }); // 인증번호 보내기
+			 
+		}
+		});// 아이디찾기 인증번호 발송
+		
+		
+		
+		//인증 번호 체크
+		$("#phoneCodeChk").click(function(){
+			var  phoneC = $("#phoneCode").val();
+			if(phoneC == Code){
+				$.ajax({
+					 url:'./UserSearchId.us',
+				     type:'post',
+				     data:{"user_phone":phone}, 
+				     success:function(data){
+				    	alert("인증되었습니다.");
+						$("#searchIDModal").html($("#userInfo"));
+						$("#userInfo").removeClass('modalHidden');	 
+					 	$(".userInfoID").html(data);
+				     },
+			        error:function(){
+			        alert("에러입니다");
+			        }
+			    }); // 회원 정보 반환
+			}else{
+				alert("인증번호가 일치하지 않습니다. 다시 입력해 주세요");
+			}
+				
+		});
+		//인증 번호 체크
+		
+		
+		
+		
+		
+		
+		
 
 	});
 </script>
@@ -185,15 +302,17 @@ console.log(Kakao.isInitialized());
 					<div class="flex-sb-m w-full p-b-48">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="rememCKB1" type="checkbox" name="remember">
-							<label class="label-checkbox100" for="rememCKB1">
+							<label class="label-checkbox100" for="rememCKB1" style="color: black;">
 								아이디 기억하기
 							</label>
 						</div>
 
 						<div>
-							<a href="#" class="txt3">
-								아이디 / 비밀번호 찾기
-							</a>
+							<i class="fa fa-lock" style="float:left;"></i>
+							<p id="searchID" class="stxt3" style="float:left; margin-right: 10px; margin-left: 5px">아이디 </p>
+							<p class="stxt3" style="float:left;"> | </p>
+							<p id="searchPW" class="stxt3" style="float:left; margin-left: 10px"> 비밀번호 찾기</p>
+							
 						</div>
 					</div>
 					
@@ -212,12 +331,110 @@ console.log(Kakao.isInitialized());
 
 
 
-	
+		<!-- 아이디찾기 모달 Start -->
+	 	<div id="searchIDModal" class="searchIDModal">
+	    <div class="searchID-modal-content">
+	   				 <img src="./img/exit.png" style="width: 35px; float: right;" id="searchIDExit">
+					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
+						아이디 찾기
+					</span>
+					<div style="margin-bottom: 30px">
+						<i class="fa fa-phone" style="font-size: 25px; margin-top: 7px; margin-left: 10px; margin-right: 10px; float:left;"></i>
+						<p style="font-size: 25px; font-weight: 2px;">회원정보에 등록된 전화번호로 아이디 찾기</p>
+						<p style="margin-left: 40px;font-size: 17px;">회원정보에 등록된 전화번호와 입력한 전화번호가 일치해야 합니다.</p>	
+					</div>
+					<span class="phoneError" style="margin-left: 5px"></span>
+					<div class="wrap-input100 validate-input" data-validate = "전화번호를 입력하세요">
+						<input class="input100 user_phone_ID" type="number" id="user_phone" placeholder="전화번호" >
+						<span class="focus-input100"></span>
+					</div>
+					<div class="container-login100-form-btn" style="margin-top: 40px; margin-bottom: 20px">
+						<input class="login100-form-btn" type="button" id="IDphoneCode" value="인증번호 받기" style="width: 100%"><br>
+					</div>
+	        </div>
+	    </div>
+	    <!-- 아이디찾기 모달 END -->	
+	    
+	    
+	    <!-- 인증번호 모달 Start -->
+	    <div id="modal" class="phoneModal02 modalHidden">
+	    <div class="phone02-modal-content">
+	   				 <img src="./img/exit.png" style="width: 35px; float: right;" class="msgExit">
+					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
+						문자인증
+					</span>
+					
+					<span class="txt1 p-b-11" style="font-size: 20px">
+						인증번호
+					</span>
+					<div class="wrap-input100 validate-input" data-validate = "인증번호를 입력하세요">
+						<input class="input100" type="text" id="phoneCode" name="phoneCode" placeholder="인증번호" >
+						<span class="focus-input100"></span>
+					</div>
+									
+					<div class="container-login100-form-btn" style="margin-top: 40px">
+						<input class="login100-form-btn" type="button" id="phoneCodeChk" value="확인" style="width: 100%"><br>
+					</div>
+	        </div>
+	    </div>
+	    <!-- 인증번호 모달 END -->	
+	    
+	    
+	    <!-- 회원 정보 모달 Start -->
+	    <div id="userInfo" class="userInfo modalHidden">
+	    <div class="userInfo-modal-content">
+					<img src="./img/exit.png" style="width: 35px; float: right;" class="msgExit">
+					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
+						아이찾기
+					</span>
+					<div style="margin-bottom: 80px; margin-left: 10px; margin-right: 10px">
+					<div style="margin-bottom: 30px">
+						<span class="txt1 p-b-11" style="font-size: 20px; margin-right: 10px">
+							회원님의 <b>아이디</b>는
+						</span>
+						<b>
+						<span class="userInfoID" style="font-size: 25px;color:#59ab6e;">
+						</span>
+						</b>
+						<span class="txt1 p-b-11" style="font-size: 20px; margin-left: 10px">
+							입니다.
+						</span>
+					</div>
+					<input class="login100-form-btn" type="button" value="비밀번호찾기" style="width: 30px;float: right;"><br>
+					</div>
+	        </div>
+	    </div>
+	    <!-- 회원 정보 END -->	
+	   
+		
 
 
 
 
-
+		<!-- 비밀번호 찾기 모달 Start -->
+	 	<div id="searchPWModal" class="searchPWModal">
+	    <div class="searchPW-modal-content">
+	   				 <img src="./img/exit.png" style="width: 35px; float: right;" id="msgExit">
+					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
+						비밀번호 찾기
+					</span>
+					<p style="color: black; font-size: 20px">비밀번호를 찾는 방법을 선택해 주세요.</p>
+					<div style="margin-top: 50px">
+						<div>
+						<input type="checkbox" style="zoom:1.5;margin-top: 5px">
+						<i class="fa fa-phone" style="font-size: 20px; margin-top: 4px; margin-left: 10px"></i>
+						<span style="margin-left: 10px">회원정보에 등록한 휴대전화로 인증</span>		
+						</div>
+						<br>
+						<div>
+						<input type="checkbox" style="zoom:1.5; margin-top: 5px">
+						<i class="fa fa-envelope" style="font-size: 15px; margin-top: 4px; margin-left: 10px"></i>
+						<span style="margin-left: 10px">회원정보에 등록한 이메일로 인증</span>
+						</div>
+					</div>
+	        </div>
+	    </div>
+		<!-- 비밀번호 찾기 모달 End -->
 
 
 

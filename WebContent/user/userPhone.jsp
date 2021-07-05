@@ -47,6 +47,8 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		
+		$("#user_phone").focus();
+		
 		var pchk1= /^010([0-9]{8})$/;
 		var pchk2 = /^01([1|6|7|8|9])([0-9]{3})([0-9]{4})$/;
 		var pchkBtn = 0;
@@ -100,6 +102,7 @@
 				    	 Code = data;
 				    	 alert("인증번호가 발송되었습니다.");
 				    	 $("#modal").show();
+				    	 $("#phoneCode").focus();
 				    	 
 			               },
 			        		error:function(){

@@ -190,6 +190,14 @@ public class UserFrontController extends HttpServlet{
 			forward = new ActionForward();
 			forward.setPath("./user/userJoin.jsp");
 			forward.setRedirect(false);
+		}else if(command.equals("/UserSearchId.us")){
+			//회원 아이디 반환 ajax
+			PrintWriter out = response.getWriter();
+			String user_phone = request.getParameter("user_phone");
+			String user_id = "";
+			user_id = new UserDAO().searchID(user_phone);
+			out.write(user_id);
+			out.close();
 		}
 		
 		

@@ -1,5 +1,111 @@
 /* ///////////////////////////////////////////////////// */
 /* [ 모달 ] */
+
+/* The Modal (background) */
+.searchPWModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.searchPW-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
+
+/* The Modal (background) */
+.searchIDModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.searchID-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Modal (background) */
+.userInfo {
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.userInfo-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
+
+
+/* The Modal (background) */
+.phoneModal02 {
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.phone02-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 25%;
+        margin-right: 25%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
 /* The Modal (background) */
 .phoneModal {
         display: none; /* Hidden by default */
@@ -24,8 +130,19 @@
 }
 
 
+.modalHidden{
+	display: none;
+}
+
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
+
+
+.stxt3:HOVER{
+	color: #01DF3A;
+}
+
+
 
 @font-face {
   font-family: Raleway-Regular;

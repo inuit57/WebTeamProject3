@@ -133,7 +133,29 @@ public class UserDAO {
 		return tmp;
 	}
 	
-	
+	public String searchID(String user_phone) {
+		// 폰번호에 따른 아이디 조회하는 함수
+		String user_id = "";
+
+		try {
+			conn = getConnection();
+
+			sql = "SELECT user_id FROM member WHERE user_phone=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				user_id = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		return user_id;
+	}
 	
 	
 	
