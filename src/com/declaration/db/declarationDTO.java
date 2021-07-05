@@ -1,3 +1,4 @@
+
 package com.declaration.db;
 
 public class declarationDTO {
@@ -78,3 +79,4 @@ public class declarationDTO {
 	
 
 }
+

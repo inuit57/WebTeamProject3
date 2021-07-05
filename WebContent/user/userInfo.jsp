@@ -13,6 +13,8 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+
 <script type="text/javascript">
 
 function file_upload(){
@@ -82,21 +84,23 @@ function myWish(){
 			<li>계좌정보 변경</li>
 			<li>회원 탈퇴</li>
 		</ul>
-		<div class="tab_cont">
-			<div class="on">
+		<div class="tab_cont" >
+			
+			<div class="on" >
+		
 					<%
 						if (user_picture == null || user_picture.equals("")) {
 					%>
-					<img alt="" src="./img/default_image.png" id="image">
+					<img alt="" src="./img/default_image.png" id="image" style="margin-top: 30px;">
 					<%
 						} else {
 					%>
-					<img alt="" src="./upload/<%=user_picture%>" id="image">
+					<img alt="" src="./upload/<%=user_picture%>" id="image" style="margin-top: 30px;">
 					<%
 						}
-					%><br>
+					%><br><br>
 <!-- 					<label>프로필 사진 변경</label><br><input type="file" name="user_picture"><br> -->
-					<table border="1px solid black" >
+					<table class="table" >
 					<tr>
 						<td>아이디</td>
 						<td><%=udto.getUser_id()%></td>
@@ -117,15 +121,12 @@ function myWish(){
 						<td>상세주소</td>
 						<td><%=udto.getUser_addressPlus()%></td>
 					</tr>
-					<tr>
-					<td colspan="4">
-						<button onclick="myBoard()">내가 쓴글 </button>	
-						<button onclick="myProduct()">나의 상품 </button>
-						<button onclick="myInquery()">나의 문의 </button>
-						<button onclick="myWish()">내 찜목록 </button>
-					</td>
-					</tr>
+
 				</table>
+					
+				<button type="button" onclick="location.href='./MyPageBoardList.bo'" class="btn btn-outline-success" style="margin-right: 30px;">내가 쓴글 </button>
+				<button type="button" onclick="location.href='./MyPageProductList.pr'" class="btn btn-outline-success" style="margin-right: 30px;">나의 상품</button>
+				<button type="button" onclick="location.href='./MyPageInqueryList.in'" class="btn btn-outline-success" style="margin-right: 30px;">나의 문의</button>
 <!-- 				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br> -->
 <!-- 				<a href="./MyPageProductList.pr">나의 상품</a><br> -->
 <!-- 				<a href="./MyPageInqueryList.in">나의 문의</a><br> -->
@@ -148,30 +149,40 @@ function myWish(){
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
 					<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" > 
 					<label>아이디</label><input type="text" name="user_id"
+
 						readonly="readonly" value="<%=udto.getUser_id()%>"><br>
-					<label>닉네임</label><input type="text" id="user_nick"
+					<label>닉네임</label>
+					<input type="text" id="user_nick"
 						name="user_nick" onkeyup="checkNick();"
-						value="<%=udto.getUser_nickname()%>"><label
-						id="nickname_error" class="error"></label><br> <label>전화번호</label><input
+						value="<%=udto.getUser_nickname()%>">
+						<label id="nickname_error" class="error"></label><br> 
+						<label>전화번호</label>
+						<input
 						type="text" id="user_phone" name="user_phone"
 						onkeyup="checkPhone()" value="<%=udto.getUser_phone()%>"
-						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><label
-						id="phone_error" class="error"></label>
-					<br> <label>주소</label><input type="text" class="address"
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						<label id="phone_error" class="error"></label>
+					<br> 
+					<label>주소</label>
+					<input type="text" class="address"
 						id="user_address" name="user_address" onkeyup="addressCheck();"
 						value="<%=udto.getUser_address()%>" readonly="readonly">
 					<button id="address_find" onclick="findAddr()">주소 찾기</button>
-					<br> <label>상세주소</label><input type="text"
+					<br> 
+					<label>상세주소</label>
+					<input type="text"
 						id="user_address_plus" class="address" name="user_address_plus"
 						onkeyup="addressCheck();" value="<%=udto.getUser_addressPlus()%>"><label
-						id="address_error" class="error"></label><br>  <label>가입
-						날짜</label><input type="text" name="user_join_date"
+						id="address_error" class="error"></label><br>  
+						<label>가입날짜</label>
+						<input type="text" name="user_join_date"
 						value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
 					<!-- 		<input type="button" value="회원정보 수정하기" onclick="aaa();"><label id="infoChange_text"></label><br> -->
 					<input type="submit" value="회원정보 수정하기">
 				</form>
 			</div>
 			<div>
+			<br><br>
 				<form action="./UserPasswordEditAction.us" method="post"
 					onsubmit="return checkPw()">
 					<label>현재 비밀번호</label><input type="password" id="pw" name="pw"><br>
@@ -201,6 +212,7 @@ function myWish(){
 				</form>
 			</div>
 			<div>
+				<br><br>
 				<label>은행 이름 :</label><label><%=udto.getUser_bankName()%></label><br>
 				<label>계좌 번호 :</label><label><%=udto.getUser_bankAccount()%></label><br>
 
@@ -223,9 +235,13 @@ function myWish(){
 				</form>
 			</div>
 			<div>
-				<form action="./UserDeleteAction.us" method="post">
+			<br><br>
+				<!--  <form action="./UserDeleteAction.us" method="post">
 					<input type="submit" value="회원탈퇴">
-				</form>
+				</form>-->
+				
+				<button type="button" class="btn btn-outline-danger" onclick="location.href='./UserDeleteAction.us'">회원탈퇴 </button>
+				
 			</div>
 			</div>
 		</div>
