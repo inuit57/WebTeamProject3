@@ -21,7 +21,10 @@ function file_upload(){
 </script>
 
 <link href="css/userInfo.css" rel="stylesheet">
-<title>회원 정보</title>
+
+<link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+
+<title>기억마켓</title>
 </head>
 <body>
 

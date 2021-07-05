@@ -163,6 +163,29 @@ public class UserFrontController extends HttpServlet{
 			forward = new ActionForward();
 			forward.setPath("./user/mailChk.jsp");
 			forward.setRedirect(false);
+		}else if(command.equals("/UserPhone.us")){
+			forward = new ActionForward();
+			forward.setPath("./user/userPhone.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/UserPhoneChk.us")){
+			//폰번호 중복 체크 ajax
+			PrintWriter out = response.getWriter();
+			String user_phone = request.getParameter("user_phone");
+			boolean isExist = false;
+			isExist = new UserDAO().checkPhone(user_phone);
+			if(isExist) {
+				out.write("1");
+			} else {
+				out.write("0");
+			}
+			out.close();
+		}else if(command.equals("/UserPhoneCodeAction.us")){
+			try {
+				action = new UserPhoneCodeAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
 		}else if(command.equals("/UserJoin.us")){
 			forward = new ActionForward();
 			forward.setPath("./user/userJoin.jsp");

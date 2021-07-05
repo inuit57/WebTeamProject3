@@ -1,0 +1,49 @@
+package com.user.action;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class UserPhoneCodeAction implements Action {
+
+	@Override
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		
+		  final String ACCOUNT_SID = "AC724debbbb1937daf3a2073b18562502d";
+		  final String AUTH_TOKEN = "bbf79dac2bc7a6a7d7e9a022e8c2feb0";
+
+		  Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		  
+		  
+		  String user_phone = request.getParameter("user_phone");
+		  String phone = "+82";
+		 if(user_phone.length() == 11){
+			 phone += user_phone.substring(1, 11);
+			 
+		 }else if(user_phone.length() == 10){
+			 phone += user_phone.substring(1, 10);
+		 }
+		 
+		  Message message = Message.creator(new PhoneNumber(phone),
+		       new PhoneNumber("+13123134334"), 
+             // 이 번호는 twilio가입하면 줍니다
+		        "제발!!!!!").create();
+             // xxxx는 나중에 random함수로 구현할 예정
+
+		  System.out.println(message.getSid());
+		    
+		  PrintWriter out = response.getWriter();
+		  out.print("성공");
+		  out.close();
+		
+		return null;
+	}
+
+}

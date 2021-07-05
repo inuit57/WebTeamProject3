@@ -132,7 +132,43 @@ public class UserDAO {
 		}
 		return tmp;
 	}
+	
+	
+	
+	
+	
+	//checkPhone(user_phone)
+	public boolean checkPhone(String user_phone) {
+		// 전화번호 조회하는 함수
+		boolean tmp = false;
 
+		try {
+			conn = getConnection();
+
+			sql = "SELECT user_phone FROM member WHERE user_phone=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				tmp = true;
+			} else {
+				tmp = false;
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		return tmp;
+	}
+	//checkPhone(user_phone)
+
+	
+	
+	
+	
 	public boolean checkId(String a) {
 		// 아이디(이메일) 조회하는 함수
 		boolean tmp = false;

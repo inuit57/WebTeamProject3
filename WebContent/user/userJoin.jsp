@@ -8,17 +8,24 @@
 <script type="text/javascript" src="./user/userCheckJS/UserCheck.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href="css/userJoin.css" rel="stylesheet">
+
+<link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+
+<title>기억마켓</title>
+
+
 <script type="text/javascript">
 <!--
 
 //-->
 </script>
-<title>회원가입</title>
+
+
 </head>
 <body>
    <div id="join">
    <div id="logo">
-      <label id="logo">기억마켓</label>
+      <a href="./Main.do"><img src="./img/logo_1.png"  style="width: 380px; margin-bottom: 50px"></a>
    </div>
    <form action="./UserJoinAction.us" method="post" onsubmit="return check()">
    <div id="join_input">

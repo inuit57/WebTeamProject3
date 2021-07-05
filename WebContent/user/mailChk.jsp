@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
 
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="./user/images/icons/favicon.ico"/>
@@ -32,6 +31,13 @@
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
 
+
+<link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+
+<title>기억마켓</title>
+
+
+
 	<%
 		String content = (String)session.getAttribute("content");
 		String id= (String)session.getAttribute("id");
@@ -48,6 +54,8 @@
 		request.setCharacterEncoding("UTF-8");
 		
 	%>
+	
+	
 
 </head>
 <body>
@@ -86,7 +94,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 				<form class="login100-form validate-form flex-sb flex-w" action="./UserJoin.us" id="fr" name="fr" method="post">
-					<a href="./Main.do"><img src="./img/logo.png"></a>
+					<a href="./Main.do"><img src="./img/logo_1.png" style="width: 380px; margin-bottom: 50px"></a>
 					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
 						인증번호
 					</span>

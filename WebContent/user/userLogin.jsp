@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+
 
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="./user/images/icons/favicon.ico"/>
@@ -31,6 +31,11 @@
 
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
+
+
+<link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>기억마켓</title>
+
 
 
 		<%
@@ -125,7 +130,7 @@ console.log(Kakao.isInitialized());
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 				<form class="login100-form validate-form flex-sb flex-w" action="./UserLoginAction.us" id="loginfr">
-					<a href="./Main.do"><img src="./img/logo.png"></a>
+					<a href="./Main.do"><img src="./img/logo_1.png" style="width: 380px; margin-bottom: 50px"></a>
 					<span class="login100-form-title p-b-32" style="color: #59ab6e;">
 						Login
 					</span>
@@ -171,7 +176,7 @@ console.log(Kakao.isInitialized());
 						<input class="login100-form-btn" type="submit" id="login" value="Login" style="width: 100%"><br>
 						<img src="./img/kakao_login.png" onclick="kakaoLogin();" style="width: 100%; margin-top: 5px">
 					</div>
-						<a href="./UserJoinChk.us" style="margin-top:30px;margin-left:40%;font-size: 0.9vw">회원가입</a>
+						<a href="./UserJoinChk.us" style="margin-top:30px;margin-left:40%;font-size: 17px">회원가입</a>
 				</form>
 			</div>
 		</div>
