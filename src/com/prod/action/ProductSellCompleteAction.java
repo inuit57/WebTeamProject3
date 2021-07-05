@@ -28,9 +28,10 @@ public class ProductSellCompleteAction implements Action {
 		
 		// 찜목록에 해당 상품 찜한 사람들 가져오기 
 		List<String> memberList = wDAO.getWishMembers(prod_num); 
+		String prod_sub = pDAO.getProduct(prod_num).getProd_sub(); 
 		
 		// 시스템 메시지 보내주기 
-		msgDAO.msgWrite(memberList); 
+		msgDAO.msgWrite(memberList , prod_sub); 
 		
 		// 찜목록에서 해당 상품 삭제 
 		wDAO.favoriteDelete(prod_num);
