@@ -61,7 +61,7 @@ public class bidDAO {
 			
 			conn = getConnection();
 			
-			sql = "select auct_num from auct_bid where auct_num=? and user_nick";
+			sql = "select auct_num from auct_bid where auct_num=? and user_nick=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
@@ -87,35 +87,21 @@ public class bidDAO {
 	
 	
 	//insertBid(num, nick) 입찰 등록하기
-	public void insertBid(int num, String user_nick, int bidprice) {
-		
-		int bidInsert = 0;
+	public void updateBid(int num, String user_nick, int bidprice) {
 		
 		bidDTO bDTO = new bidDTO();
 		
 		try {
-			
 			conn = getConnection();
-			sql = "select max(bid_num) from auct_bid";
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				bidInsert = rs.getInt(1)+1;
-			}
-			
-			sql = "insert into auct_bid "
-					+ "values(?,?,?,?,now(),?,?)";
+			sql = "update auct_bid set "
+					+ "auct_num=?, user_nick=?, "
+					+ "bid_coin=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, bidInsert);
-			pstmt.setInt(2, num);
-			pstmt.setString(3, user_nick);
-			pstmt.setInt(4, bDTO.getUser_coin());
-			pstmt.setDate(5, null);
-			pstmt.setInt(6, bidprice);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, user_nick);
+			pstmt.setInt(3, bidprice);
 			
 			pstmt.executeUpdate();
 			

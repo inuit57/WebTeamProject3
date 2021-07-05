@@ -18,6 +18,37 @@
 function file_upload(){
 	$('#img_upload').click();
 }
+
+function imgPreview(event){
+	var reader = new FileReader(); 
+	reader.onload = function(event){
+		var img = document.getElementById("image2"); 
+		img.setAttribute("src" , event.target.result)
+	};
+
+	reader.readAsDataURL(event.target.files[0]); 
+}
+
+function myBoard(){
+	self.close();
+	window.opener.location.href="./MyPageBoardList.bo";
+}
+
+function myProduct(){
+	self.close();
+	window.opener.location.href="./MyPageProductList.pr";
+}
+
+function myInquery(){
+	self.close();
+	window.opener.location.href="./MyPageInqueryList.in";
+}
+
+function myWish(){
+	self.close();
+	// 찜목록 페이지로 이동되는 동작 추가 필요 
+	window.opener.location.href="./favoriteListAction.fp";
+}
 </script>
 
 <link href="css/userInfo.css" rel="stylesheet">
@@ -34,10 +65,15 @@ function file_upload(){
 	
 	String user_picture = udto.getUser_picture(); 
 	
+	String onClose = request.getParameter("onClose");
+	
+	if("1".equals(onClose)){
 	%>
-
+	<script type="text/javascript">
+		self.close(); 
+	</script>
+	<%} %>
 	<!-- ------------------------test---------------------------- -->
-	<div>
 	<div class="container">
 		<ul class="tab_title">
 			<li class="on">마이페이지</li>
@@ -81,13 +117,36 @@ function file_upload(){
 						<td>상세주소</td>
 						<td><%=udto.getUser_addressPlus()%></td>
 					</tr>
-					</table>
-				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br>
-				<a href="./MyPageProductList.pr">나의 상품</a><br>
-				<a href="./MyPageInqueryList.in">나의 문의</a><br>
+					<tr>
+					<td colspan="4">
+						<button onclick="myBoard()">내가 쓴글 </button>	
+						<button onclick="myProduct()">나의 상품 </button>
+						<button onclick="myInquery()">나의 문의 </button>
+						<button onclick="myWish()">내 찜목록 </button>
+					</td>
+					</tr>
+				</table>
+<!-- 				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br> -->
+<!-- 				<a href="./MyPageProductList.pr">나의 상품</a><br> -->
+<!-- 				<a href="./MyPageInqueryList.in">나의 문의</a><br> -->
 			</div>
 			<div>
+					<%
+						if (user_picture == null || user_picture.equals("")) {
+					%>
+					<img alt="" src="./img/default_image.png" id="image2" onclick="file_upload()" style="width: 150px;height: 150px;border: 5px solid #59AB6E;">
+					<%
+						} else {
+					%>
+					<img alt="" src="./upload/<%=user_picture%>" id="image2" onclick="file_upload()" style="width: 150px;height: 150px;	border: 5px solid #59AB6E;">
+					<%
+						}
+					%><br>
+					<button id="img_edit_btn" style=" position: absolute; top: 40px; left : 350px;" onclick="file_upload()">수정</button>
+					
+					
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
+					<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" > 
 					<label>아이디</label><input type="text" name="user_id"
 						readonly="readonly" value="<%=udto.getUser_id()%>"><br>
 					<label>닉네임</label><input type="text" id="user_nick"
@@ -137,7 +196,7 @@ function file_upload(){
 					<label>비밀번호가 틀립니다.</label>
 					<%
 						}
-						}
+					}
 					%>
 				</form>
 			</div>
@@ -170,7 +229,6 @@ function file_upload(){
 			</div>
 			</div>
 		</div>
-	</div>
 	<!-- ------------------------test---------------------------- -->
 
 

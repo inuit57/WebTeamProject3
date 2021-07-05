@@ -56,7 +56,7 @@
 		
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 		<input type="hidden" name="board_num" value="<%=board_num%>">
-		<input type="hidden" name="user_nick" value="<%=user_nick%>"><!-- 신고 하는사람 -->
+		<input type="hidden" name="user_nickname" value="<%=user_nick%>"><!-- 신고 하는사람 -->
 		<input type="hidden" name="board_sub" value="<%=board_sub%>">
 		<input type="hidden" name="board_type" value="<%=board_type%>">
 		<input type="hidden" name="decl_state" value="1"> <!-- 신고처리 상태 1: 신고접수 2: 처리완료 -->

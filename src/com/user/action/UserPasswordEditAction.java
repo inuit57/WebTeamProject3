@@ -31,7 +31,8 @@ public class UserPasswordEditAction implements Action {
 				udao.changePassword(id,new_pw);
 				
 				session.invalidate(); 
-				forward.setPath("./Main.do");
+				//forward.setPath("./Main.do");
+				forward.setPath("./UserInfo.us?onClose=1");
 				forward.setRedirect(true);
 			} else {
 				forward.setPath("./UserInfo.us?m=2");

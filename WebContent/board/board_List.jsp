@@ -62,7 +62,7 @@
 			<td>
 				<a href="board_content.bo?board_num=<%=dto.getBoard_num()%>&pageNum=<%=pageNum%>"><%=dto.getBoard_sub() %></a>
 			</td>
-			<td><%=dto.getUser_nick() %></td>
+			<td><%=dto.getUser_nickname() %></td>
 			<td><%=dto.getBoard_date().substring(0, 10) + "일 " + dto.getBoard_date().substring(11, 16) + "분" %></td>
 			<td><%=dto.getBoard_count() %></td>
 		</tr>
@@ -127,7 +127,7 @@
 			<hr>
 		   <form action="./BoardSearchAction.bo" method="post">
          		<select name="sk">
-            		<option value="user_nick">작성자</option>
+            		<option value="user_nickname">작성자</option>
             		<option value="board_sub">글 제목</option>
          		</select>
          		<input type="text" name="sv">
