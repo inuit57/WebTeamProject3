@@ -249,7 +249,7 @@ public class UserDAO {
 	public void userDelete(String id) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE member SET user_use_yn=1 WHERE user_id=?";
+			sql = "UPDATE member SET user_use_yn=2 WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();

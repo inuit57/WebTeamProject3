@@ -139,7 +139,7 @@ public class WishDAO {
 				favInsert = rs.getInt(1)+1;
 			}
 			
-			sql = "insert into prod_wish "
+			sql = "insert into prod_wish(wish_num,prod_num, user_nick,wish_date) "
 					+ "values(?,?,?,now())";
 			
 			pstmt = conn.prepareStatement(sql);

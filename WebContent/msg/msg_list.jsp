@@ -1,4 +1,3 @@
-
 <%@page import="com.msg.db.MsgDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -40,6 +39,35 @@
 <script>
 	$(document).ready(function () {
 		
+		var RecvnickAdd = "";
+		
+		// 다수에게 쪽지 보내기
+		$("#recv_nick").blur(function() {
+			var recv_nick = $("#recv_nick").val();
+			if(recv_nick != ""){
+			const box = document.getElementById("box");
+			const newP = document.createElement('p');
+            newP.innerHTML = "<input type='text' id='boxAdd' value='"+recv_nick+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
+            box.appendChild(newP);
+            RecvnickAdd += recv_nick + "/";
+            $("#recv_nick").val("");
+			}
+		})//  다수에게 쪽지 보내기
+		
+		
+		//답장 모달 띄우기
+		$("#msgRE").click(function () {
+			RecvnickAdd = $("#detailSend").val();
+			$('.detailModal').hide();
+			$("#modal").show();
+			const box = document.getElementById("box");
+			const newP = document.createElement('p');
+            newP.innerHTML = "<input type='text' id='boxAdd' value='"+RecvnickAdd+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
+            box.appendChild(newP);
+		});//답장 모달 띄우기
+		
+		
+		
 		
 		// 쪽지 알림 
 		$.ajax({
@@ -80,9 +108,10 @@
 		
 		// 폼 입력 유효성
 		$("#msgSend").click(function () {
-			if(document.msgfr.recv_nick.value == ""){
+			
+			if(RecvnickAdd == ""){
 				alert("받는 사람을 입력하세요");
-				document.msgfr.recv_nick.focus();
+				$("#recv_nick").focus();
 				return false;
 			}
 			
@@ -92,8 +121,13 @@
 				return false;
 			}
 			
+			
+			if(RecvnickAdd != "" && document.msgfr.msg_content.value != ""){
+			$("#recv_nick_list").val(RecvnickAdd);
 			document.msgfr.submit();
 			alert("쪽지를 성공적으로 보냈습니다.");
+			}
+			
 		});// 폼 입력 유효성
 		
 		
@@ -131,7 +165,9 @@
 		%>// 받는 쪽지 내용 불러오기
 		
 		// 읽음여부
-		$("#msgDetail<%=i%>").click(function() {
+		$(".msgDetail<%=i%>").click(function() {
+			
+			
 			$("#detailModal").show();
 			$("#detailSend").val("<%=mdto.getSend_nick()%>"); 
 			$("#detailSend_date").val("<%=mdto.getMsg_date()%>"); 
@@ -150,11 +186,10 @@
 		               }
 		       }); // 읽음여부
 			
-			
 		})// 받는 쪽지 내용 불러오기
 		<% 	}else{ %>
 		// 보낸 쪽지 내용 불러오기
-		$("#msgDetailSend<%=i%>").click(function() {
+		$(".msgDetailSend<%=i%>").click(function() {
 			<%
 			String mchk;
 			if(mdto.getMsg_chk() == 0){ 
@@ -162,7 +197,7 @@
 			}else{
 				mchk = "읽음";
 			} %>
-			
+			 
 			$("#detailModalSend").show();
 			$("#detailRecv").val("<%=mdto.getSend_nick()%>"); 
 			$("#detailRecv_date").val("<%=mdto.getMsg_date()%>");
@@ -171,25 +206,16 @@
 		})
 		<% } %>
 		
-
-		 $("#chkPro<%=i%>").change(function(){
-	        if($("#chkPro<%=i%>").is(":checked")){
-	        	$('.searchModal').hide()
-	 			$('.detailModal').hide();
-	 			$('.detailModalSend').hide();;
-	        }else{
-	        }
-	    });
-		
 		 
 		<%
-		}%>// 보낸 쪽지 내용 불러오기
+		}%>// for문끝
 		
 		
 		
 
 		//쪽지 쓰기 모달 끄기
 		$("#msgExit").click(function () {
+			location.reload();
 			 $('.searchModal').hide();
 		});//쪽지 쓰기 모달 끄기
 		
@@ -207,14 +233,7 @@
 		
 		
 		
-		//답장 모달 띄우기
-		$("#msgRE").click(function () {
-			var recvNick = $("#detailSend").val();
-			$('.detailModal').hide();
-			$("#modal").show();
-			$("#recv_nick").val(recvNick); 
-		});//답장 모달 띄우기
-		
+	
 		
 		// 쪽지 삭제
 		$("#msgDel").click(function() {
@@ -228,17 +247,44 @@
   		});	// 쪽지 삭제
   		
   		
-		
- 		
+  		
+//   		// 체크박스 전체선택
+// 		 $(".allChk").change(function(){
+// 	        if($(".allChk").prop("checked")){
+// 	 			$('.allchk').prop("checked",true);
+// 	        }else{
+// 	        	$('.allchk').prop("checked",false);
+// 	        }
+// 	    });// 체크박스 전체선택
+  		
 		
 	});
 	
+	 const remove = (obj) => {
+         document.getElementById('box').removeChild(obj.parentNode);
+     }// 받는사람 삭제
+     
+     
+     
+		
+	 function checkSelectAll(checkbox)  {
+		  const selectall 
+		    = document.querySelector('input[name="selectall"]');
+		  
+		  if(checkbox.checked === false)  {
+		    selectall.checked = false;
+		  }
+		}
+
+		function selectAll(selectAll)  {
+		  const checkboxes 
+		     = document.getElementsByName('msg_idx');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked
+		  })
+		}
 	
-	
-	
-	function 함수이름(){  
-	      $("#div의 id").load(window.location.href + "#div의 id");
-	}
 	
 </script>
 	
@@ -278,7 +324,8 @@
                
                <div class="row" style="margin-top: 30px">
                   <form  action="./MsgDelAction.ms" method="post"  name="listchkDel">
-					<button class="services-icon-wap btnSend" id="msgDel"><i class="fas fa-times mx-2"></i>삭제하기</button>
+                  	<input type="checkbox" name="selectall" class="allChk" style="zoom:1.5;float: left;margin-top: 3px;margin-left: 5px"  onclick='selectAll(this)'><p style="float: left;">전체선택</p>
+					<button class="services-icon-wap btnSend" id="msgDel" style="margin-left: 30px"><i class="fas fa-times mx-2"></i>삭제하기</button>
 						   <table class="table" style="margin-top: 30px"> 
 							<thead> 
 								<tr> 
@@ -305,32 +352,33 @@
 								
 									<% if(msgDiv == 0){ 
 										if(mdto.getMsg_chk() == 0){%>
-										<tr id="msgDetail<%=i%>" class="<%=mdto.getMsg_idx() %> chkcolor"> 
-											<td><input id="chkPro<%=i%>" type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;"></td> 
-											<td><%=mdto.getSend_nick() %></td> 
-											<td><input id="msgContent" class="<%=mdto.getMsg_idx() %> chkcolor" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
-											<td><%=mdto.getMsg_date()%></td>
+										<tr class="<%=mdto.getMsg_idx() %> chkcolor"> 
+										
+											<td><input id="chkPro<%=i%>" class="allchk" type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;" onclick='checkSelectAll(this)'></td> 
+											<td class="msgDetail<%=i%>" ><%=mdto.getSend_nick() %></td> 
+											<td class="msgDetail<%=i%>" ><input id="msgContent" class="<%=mdto.getMsg_idx() %> chkcolor" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+											<td class="msgDetail<%=i%>" ><%=mdto.getMsg_date()%></td>
 										</tr>
 										<%}else{ %>
-										<tr id="msgDetail<%=i%>" class="<%=mdto.getMsg_idx() %> chkcolor2"> 
-											<td><input id="chkPro<%=i%>" type="checkbox"  name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;"></td> 
-											<td><%=mdto.getSend_nick() %></td> 
-											<td><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
-											<td><%=mdto.getMsg_date()%></td>
+										<tr class="<%=mdto.getMsg_idx() %> chkcolor2"> 
+				 							<td><input id="chkPro<%=i%>" class="allchk" type="checkbox"  name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;" onclick='checkSelectAll(this)'></td> 
+											<td class="msgDetail<%=i%>" ><%=mdto.getSend_nick() %></td> 
+											<td class="msgDetail<%=i%>" ><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+											<td class="msgDetail<%=i%>" ><%=mdto.getMsg_date()%></td>
 										</tr>
 										<%} %>
 									<%}else{%>
-									<tr id="msgDetailSend<%=i%>" style="color: #848484"> 
-										<td><input id="chkPro<%=i%>" type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;"></td> 
-										<td><%=mdto.getRecv_nick() %></td> 
-										<td><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
-										<td><%if(mdto.getMsg_chk() == 0){ %>
+									<tr style="color: #848484"> 
+										<td><input id="chkPro<%=i%>" class="allchk" type="checkbox" name="msg_idx" value="<%=mdto.getMsg_idx() %>" style="zoom:1.5;" onclick='checkSelectAll(this)'></td> 
+										<td class="msgDetailSend<%=i%>"><%=mdto.getRecv_nick() %></td> 
+										<td class="msgDetailSend<%=i%>"><input id="msgContent" style="color: #848484" value="<%=mdto.getMsg_content() %>" readonly onfocus="this.blur();"></td> 
+										<td class="msgDetailSend<%=i%>"><%if(mdto.getMsg_chk() == 0){ %>
 											읽지 않음
 											<%}else{ %>
 											읽음
 											<%} %>
 										</td>
-										<td><%=mdto.getMsg_date()%></td>
+										<td class="msgDetailSend<%=i%>"><%=mdto.getMsg_date()%></td>
 									</tr>
 									<%}
 								}
@@ -366,9 +414,14 @@
 		        </div>
                 <form action="./MsgWriteAction.ms" method="post" name="msgfr">
                     	<input type="hidden" value="<%=user_nick %>" name="send_nick">
-                    <div style="margin-top: 30px; width: 100%">
-                    	<h4 style="float: left; padding-top: 4px; margin-right: 15px">받는사람</h4>
-                    	<input type="text" placeholder="받는 사람을 입력하세요" name="recv_nick" style="width: 80%" id="recv_nick">
+                    	<input type="hidden" name="write_recv" id="recv_nick_list" >
+                    <div style="margin-top: 30px; width: 100%;">
+                    	<h4 style="float: left; padding-top: 4px; margin-right: 15px">받는사람 : </h4>
+                    	<div id="box">
+                    		<div style="float: left;">
+				            <input type="text" placeholder="받는 사람" id="recv_nick" style="width: 150px"> 
+				        	</div>
+				        </div>
                     </div>
                     <div class="form-group">
 		               <textarea name="msg_content" id="msg_content" cols="30" rows="10" class="form-control"  style="resize: none;" placeholder="내용을 입력하세요"></textarea>
@@ -475,6 +528,7 @@
     %>
 
 
+    
 
 <%@ include file="../inc/footer.jsp" %>
 </body>

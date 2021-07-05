@@ -65,8 +65,11 @@ border-bottom:none;
 	<br><br>
 
 	<!-- 신고폼 -->	
-	<% if(user_nick != null){ %>
+	
+	
 	<div style="margin:auto;  width: 800px; ">
+	<button onclick="location.href='./ProductList.pr'">목록으로</button>
+	<% if(user_nick != null){ %>
 	<form name="declareForm" action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 
 		<input type="submit" value="신고하기" class="btn btn-danger" >
@@ -77,13 +80,27 @@ border-bottom:none;
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 	</form>
-	</div>
 	<%} %>
+	</div>
+	
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
 	
 	<div style="margin:auto;  width: 800px; ">	
 		<table border="1" class="table" style="height: 500px; frame= void;">
+
+<%
+	String[] temp = pDTO.getProd_img().split(",");
+	int not_null_cnt =0 ; 
+	for(int i = 0 ; i< temp.length ; i++){
+		System.out.println(temp[i]); 
+		if(!temp[i].equals("null") && temp[i] != null ){
+			not_null_cnt++; 
+		}
+	}
+	System.out.println("not null cnt : " +  not_null_cnt);
+%>
+
 			<tr>
 				<td width="400">
 					 <!-- <img src="./upload/" width="400" height="400"> -->
@@ -93,8 +110,11 @@ border-bottom:none;
 						<ol class="carousel-indicators">
 							<li data-target="#carousel-example-generic" data-slide-to="0"
 								class="active"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+							<% for(int i =1 ; i < not_null_cnt ; i++){ %>
+								<li data-target="#carousel-example-generic" data-slide-to="<%=i%>"></li>
+							<%} %>
+<!-- 							<li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+<!-- 							<li data-target="#carousel-example-generic" data-slide-to="3"></li> -->
 						</ol>
 
 						<!-- Wrapper for slides -->
@@ -119,15 +139,15 @@ border-bottom:none;
 									String imgfile = pDTO.getProd_img().split(",")[i];
 									if ((imgfile == null) || (imgfile.equals("null"))) {
 										imgfile = "product_default.jpg";
-									}
+									}else{
 							%>
-							
-							<div class="item">
-								<img src="./upload/<%=imgfile %>" class="d-block w-100" alt="..."
-									style="width: 400px; height: 400px;">
-								<div class="carousel-caption">...</div>
-							</div>
+										<div class="item">
+											<img src="./upload/<%=imgfile %>" class="d-block w-100" alt="..."
+												style="width: 400px; height: 400px;">
+											<div class="carousel-caption">...</div>
+										</div>
 							<%
+									}
 								} //for
 							} //if
 							%>
@@ -147,9 +167,13 @@ border-bottom:none;
 	
 				</td>
 				<td width="400" id="t1">
-					<h2><%=pDTO.getProd_sub()%></h2>
-					<h1><%=pDTO.getProd_price()%></h1>
-					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
+
+<%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
+					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
+					<h1>가격 : <%=pDTO.getProd_price()%>원</h1>
+					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
+					<hr> 
+
 					<hr> <%
 					 String category = "";
 					
@@ -216,7 +240,7 @@ border-bottom:none;
 					 }
 					 %>
 					<ul id="u1">
-						<li>카테고리 : <a href="./ProductList.pr?item=<%=category%>"><%=category%></a></li>
+						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
 						<li>작성시간 : <%=pDTO.getProd_date()%></li>
@@ -239,8 +263,8 @@ border-bottom:none;
 						<input type="button" id="btnLike" value="찜하기" class="btn btn-warning">
 						
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
-						<input type="button" value="구매요청" class="btn btn-success">
-						<input type="button" value="채팅하기" class="btn btn-info" >
+						<input type="button" value="구매요청" class="form-control" > 
+						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
 					<%}%>
 				</td>
 			</tr>
@@ -307,6 +331,9 @@ border-bottom:none;
 			})
 		});
 	});
+	function openWindowChat() {
+		window.open("./chat.ch","회원정보","width=300,height=600,top=150,left=500");
+	}
 </script>
 
 </html>
