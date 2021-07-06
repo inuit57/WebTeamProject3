@@ -5,14 +5,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="./user/images/icons/favicon.ico"/>
@@ -36,6 +28,7 @@
 	<link rel="stylesheet" type="text/css" href="./user/css/util.css">
 	<link rel="stylesheet" type="text/css" href="./user/css/main.css">
 <!--===============================================================================================-->
+
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
@@ -228,8 +221,12 @@ console.log(Kakao.isInitialized());
 				     success:function(data){
 				    	alert("인증되었습니다.");
 						$("#searchIDModal").html($("#userInfo"));
-						$("#userInfo").removeClass('modalHidden');	 
-					 	$(".userInfoID").html(data);
+						$("#userInfo").removeClass('modalHidden');	
+						if(data == ""){
+							$(".nonmember").html("<b>해당 번호로 가입된 아이디가 없습니다.</b>");
+						}else{
+					 		$(".userInfoID").html(data);
+						}
 				     },
 			        error:function(){
 			        alert("에러입니다");
@@ -241,11 +238,6 @@ console.log(Kakao.isInitialized());
 				
 		});
 		//인증 번호 체크
-		
-		
-		
-		
-		
 		
 		
 
@@ -308,7 +300,7 @@ console.log(Kakao.isInitialized());
 						</div>
 
 						<div>
-							<i class="fa fa-lock" style="float:left;"></i>
+							<i class="fa fa-lock" style="float:left; margin-top: 5px"></i>
 							<p id="searchID" class="stxt3" style="float:left; margin-right: 10px; margin-left: 5px">아이디 </p>
 							<p class="stxt3" style="float:left;"> | </p>
 							<p id="searchPW" class="stxt3" style="float:left; margin-left: 10px"> 비밀번호 찾기</p>
@@ -317,7 +309,7 @@ console.log(Kakao.isInitialized());
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<input class="login100-form-btn" type="submit" id="login" value="Login" style="width: 100%"><br>
+						<input class="login100-form-btn" type="submit" id="loginUser" value="Login" style="width: 100%"><br>
 						<img src="./img/kakao_login.png" onclick="kakaoLogin();" style="width: 100%; margin-top: 5px">
 					</div>
 						<a href="./UserJoinChk.us" style="margin-top:30px;margin-left:40%;font-size: 17px">회원가입</a>
@@ -345,7 +337,7 @@ console.log(Kakao.isInitialized());
 					</div>
 					<span class="phoneError" style="margin-left: 5px"></span>
 					<div class="wrap-input100 validate-input" data-validate = "전화번호를 입력하세요">
-						<input class="input100 user_phone_ID" type="number" id="user_phone" placeholder="전화번호" >
+						<input class="user_phone_ID" type="number" id="user_phone" placeholder="전화번호"  style="height: 50px">
 						<span class="focus-input100"></span>
 					</div>
 					<div class="container-login100-form-btn" style="margin-top: 40px; margin-bottom: 20px">
@@ -356,7 +348,7 @@ console.log(Kakao.isInitialized());
 	    <!-- 아이디찾기 모달 END -->	
 	    
 	    
-	    <!-- 인증번호 모달 Start -->
+<!-- 	    인증번호 모달 Start -->
 	    <div id="modal" class="phoneModal02 modalHidden">
 	    <div class="phone02-modal-content">
 	   				 <img src="./img/exit.png" style="width: 35px; float: right;" class="msgExit">
@@ -368,7 +360,7 @@ console.log(Kakao.isInitialized());
 						인증번호
 					</span>
 					<div class="wrap-input100 validate-input" data-validate = "인증번호를 입력하세요">
-						<input class="input100" type="text" id="phoneCode" name="phoneCode" placeholder="인증번호" >
+						<input class="user_phone_ID" type="text" id="phoneCode" name="phoneCode" placeholder="인증번호" >
 						<span class="focus-input100"></span>
 					</div>
 									
@@ -377,7 +369,7 @@ console.log(Kakao.isInitialized());
 					</div>
 	        </div>
 	    </div>
-	    <!-- 인증번호 모달 END -->	
+<!-- 	    인증번호 모달 END	 -->
 	    
 	    
 	    <!-- 회원 정보 모달 Start -->
@@ -389,16 +381,13 @@ console.log(Kakao.isInitialized());
 					</span>
 					<div style="margin-bottom: 80px; margin-left: 10px; margin-right: 10px">
 					<div style="margin-bottom: 30px">
-						<span class="txt1 p-b-11" style="font-size: 20px; margin-right: 10px">
-							회원님의 <b>아이디</b>는
+						<span class="txt1 p-b-11 nonmember" style="font-size: 20px; margin-right: 10px">
+							<b>아이디</b> :
 						</span>
 						<b>
 						<span class="userInfoID" style="font-size: 25px;color:#59ab6e;">
 						</span>
 						</b>
-						<span class="txt1 p-b-11" style="font-size: 20px; margin-left: 10px">
-							입니다.
-						</span>
 					</div>
 					<input class="login100-form-btn" type="button" value="비밀번호찾기" style="width: 30px;float: right;"><br>
 					</div>
@@ -414,7 +403,7 @@ console.log(Kakao.isInitialized());
 		<!-- 비밀번호 찾기 모달 Start -->
 	 	<div id="searchPWModal" class="searchPWModal">
 	    <div class="searchPW-modal-content">
-	   				 <img src="./img/exit.png" style="width: 35px; float: right;" id="msgExit">
+	   				 <img src="./img/exit.png" style="width: 35px; float: right;" class="msgExit">
 					<span class="login100-form-title p-b-32" style="color: #59ab6e;margin-top: 20px;margin-bottom: 30px">
 						비밀번호 찾기
 					</span>

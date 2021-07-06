@@ -19,16 +19,28 @@
 .searchPW-modal-content {
         background-color: #fefefe;
         margin-top: 10%; /* 15% from the top and centered */
-        margin-left: 25%;
-        margin-right: 25%;
+        margin-left: 30%;
+        margin-right: 30%;
         padding: 20px;
         border: 1px solid #888;
-        width: 50%; /* Could be more or less, depending on screen size */
+        width: 35%; /* Could be more or less, depending on screen size */
 }
 
 
 
 /* The Modal (background) */
+.user_phone_ID{
+	font-family: Raleway-Medium;
+    color: #555555;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 55px;
+    padding: 0 25px 0 25px;
+}
+
 .searchIDModal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
@@ -46,11 +58,11 @@
 .searchID-modal-content {
         background-color: #fefefe;
         margin-top: 10%; /* 15% from the top and centered */
-        margin-left: 25%;
-        margin-right: 25%;
+        margin-left: 30%;
+        margin-right: 30%;
         padding: 20px;
         border: 1px solid #888;
-        width: 50%; /* Could be more or less, depending on screen size */
+        width: 35%; /* Could be more or less, depending on screen size */
 }
 
 
@@ -71,11 +83,11 @@
 .userInfo-modal-content {
         background-color: #fefefe;
         margin-top: 10%; /* 15% from the top and centered */
-        margin-left: 25%;
-        margin-right: 25%;
+        margin-left: 30%;
+        margin-right: 30%;
         padding: 20px;
         border: 1px solid #888;
-        width: 50%; /* Could be more or less, depending on screen size */
+        width: 35%; /* Could be more or less, depending on screen size */
 }
 
 
@@ -98,11 +110,11 @@
 .phone02-modal-content {
         background-color: #fefefe;
         margin-top: 10%; /* 15% from the top and centered */
-        margin-left: 25%;
-        margin-right: 25%;
+        margin-left: 30%;
+        margin-right: 30%;
         padding: 20px;
         border: 1px solid #888;
-        width: 50%; /* Could be more or less, depending on screen size */
+        width: 35%; /* Could be more or less, depending on screen size */
 }
 
 
@@ -126,7 +138,7 @@
         margin: 10% auto; /* 15% from the top and centered */
         padding: 20px;
         border: 1px solid #888;
-        width: 60%; /* Could be more or less, depending on screen size */
+        width: 35%; /* Could be more or less, depending on screen size */
 }
 
 
