@@ -41,12 +41,12 @@
 		<%
 			int size = AuctionList.size();
 			int col = 6; //열
-			int row = 2; //행
+			int row = size / col +1; //행
 			int num = (pageNum-1)*row*col;
 			
 			if(size > 0 && num <= size){
 				
-				//for(int i=0;i<row;i++){
+				for(int i=0;i<row;i++){
 				%>	
 				
 				<tr>
@@ -75,14 +75,15 @@
 				num++;
 			if (size<=num) break;
 			
-				} %>
+				} // 안쪽 for %>
 			</tr>
+			<%} // 바깥for %>
 			<% 
 			}else{%>
 		<tr>
 			<td> 해당되는 상품이 없습니다.</td>
 		</tr>
-		<%} %>
+		<%}%>
 				
 	</table>
 		

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -56,8 +58,7 @@ public class WishDAO {
 	
 	//좋아요 눌렀는지 안눌렀는지 체크 메소드 favoriteCheck(int num, String nick)
 	public int favoriteCheck(int num, String nick) {
-		
-		
+			
 		int check = 0;
 		
 		try {
@@ -119,6 +120,32 @@ public class WishDAO {
 		
 	}//favoriteDelete()
 	
+	/**
+	 *  
+	 *  특정 상품을 삭제하였을 경우, 모든 찜목록에서 해당 상품 삭제 
+	 *  
+	 * @param prod_num : 상품 번호 
+	 */
+	public void favoriteDelete(int prod_num) {
+		
+		try {
+			conn = getConnection();
+			sql = "delete from prod_wish where prod_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, prod_num);
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+	}//favoriteDelete()
+	
 	//favoriteInsert() 
 	public void favoriteInsert(int num, String nick) {
 		
@@ -137,7 +164,7 @@ public class WishDAO {
 				favInsert = rs.getInt(1)+1;
 			}
 			
-			sql = "insert into prod_wish "
+			sql = "insert into prod_wish(wish_num,prod_num, user_nick,wish_date) "
 					+ "values(?,?,?,now())";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -185,15 +212,71 @@ public class WishDAO {
 		}
 		
 		return wishCount;
-	}
-	//wishCount(num) 찜 횟수 계산
+		
+	}//wishCount(num) 찜 횟수 계산
+	
+	//wishList() 찜 목록 가져오기
+	public List<WishDTO> wishList(String user_nick) {
+		
+		List<WishDTO> wishList = new ArrayList();
+		
+		try {
+			
+			conn = getConnection();
+			
+			sql = "select * from prod_wish where user_nick=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_nick);
+			
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				WishDTO wDTO = new WishDTO();
+				wDTO.setProd_num(rs.getInt("prod_num"));
+				wDTO.setUser_nickname(rs.getString("user_nick"));
+				wDTO.setWish_date(rs.getTimestamp("wish_date"));
+				wDTO.setWish_num(rs.getInt("wish_num"));
+				
+				wishList.add(wDTO);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		}
+		
+		return wishList;
+		
+	}//wishList() 찜 목록 가져오기
 	
 	
-	
-	
-	
-	
-	
-	
+	// 해당 상품을 찜한 사람 List 가져오기 
+	public List<String> getWishMembers(int prod_num){
+		List<String> memberList = new ArrayList<>(); 
+		
+		try {
+			conn = getConnection(); 
+			
+			sql = "select user_nick from prod_wish where prod_num = ? "; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prod_num);
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()){
+				memberList.add(rs.getString(1)); 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+		return memberList; 
+	} // public List<String> getWishMembers(int prod_num){
 	
 }

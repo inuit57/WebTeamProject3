@@ -27,7 +27,7 @@
 
 <meta charset="UTF-8">
 <!-- s<title>auction_detail.jsp</title> --> 
-
+<%@ include file="../inc/top.jsp" %>
 </head>
 
 <style>
@@ -93,11 +93,12 @@ a.button {
 	right: 10px;
 	top: 10px;
 }
+
+
 </style>
 <body>
 
 	<%
-	String user_nick = (String)session.getAttribute("user_nick");
 	AuctionDTO aDTO = (AuctionDTO)request.getAttribute("Auction");
 	
 	
@@ -105,6 +106,7 @@ a.button {
 	
 	bidDAO bDAO = new bidDAO(); 
 	bidDTO bDTO = new bidDTO();
+	UserDAO uDAO = new UserDAO();
 	
 	%>
 	
@@ -112,27 +114,26 @@ a.button {
 <script>
 
 	function openModal(modalname) {
+		
 		document.get
 		$("#modal").fadeIn(300);
 		$("." + modalname).fadeIn(300);
 	}
-
-	$(document).ready(function() {
-
-		$("#modal, .close").on('click', function() {
-			$("#modal").fadeOut(300);
-			$(".modal-con").fadeOut(300);
-		});
-
-	});
+	
+	
+	function closeModal(modalname){
+	
+		document.get
+		$("#modal").fadeOut(300);
+		$("." + modalname).fadeOut(300);
+	}
+	
+	
 </script>
+	<div class="container" >
 	
-	
-	
-	<form action="#" method="post" name="afr">
-	<input type="hidden" name="nick" value=<%=user_nick%>>
-	
-		<table border="1">
+			
+		<table border="1" style="margin:auto;  width: 800px;">
 			<tr>
 				<td width="400">
 					 <!-- <img src="./upload/" width="400" height="400"> -->
@@ -149,19 +150,26 @@ a.button {
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
-								<img src="./upload/<%=aDTO.getAuct_img().split(",")[0]%>" class="d-block w-100" alt="..."
+							
+							<%
+							String img0 = aDTO.getAuct_img().split(",")[0] ; 
+							if ( img0 == null || img0.equals("null")){
+								img0 = "product_default.jpg";
+							}
+							%>
+								<img src="./upload/<%=img0%>" class="d-block w-100" alt="..."
 									style="width: 400px; height: 400px;"> 
 									
 								<div class="carousel-caption">...</div>
 							</div>
 			
 							<% 
-					
-							for (int i = 1; i < aDTO.getAuct_img().split(",").length ; i++) {
-								String imgfile = aDTO.getAuct_img().split(",")[i];
-								if ((imgfile == null) || (imgfile.equals("null"))) {
-									imgfile = "product_default.jpg";
-								}
+							if(aDTO.getAuct_img().split(",").length > 1){
+								for (int i = 1; i < aDTO.getAuct_img().split(",").length ; i++) {
+									String imgfile = aDTO.getAuct_img().split(",")[i];
+									if ((imgfile == null) || (imgfile.equals("null"))) {
+										imgfile = "product_default.jpg";
+									}
 							%>
 							
 							<div class="item">
@@ -169,7 +177,11 @@ a.button {
 									style="width: 400px; height: 400px;">
 								<div class="carousel-caption">...</div>
 							</div>
-							<%} %>
+							
+							<%
+								} //for
+							} //if
+							%>
 						</div>
 
 						<!-- Controls -->
@@ -189,8 +201,7 @@ a.button {
 					<h4><%=aDTO.getAuct_num()%></h4>
 					<h2><%=aDTO.getAuct_sub()%></h2>
 					<h1><%=aDTO.getAuct_price()%></h1>
-				<h1><span id="maxPrice"><%=bDAO.getMaxPrice(bDTO.getAuct_num())%></span></h1>
-					<h3><%=aDTO.getUser_nick()%></h3>
+					<h1><span id="maxPrice">최고가 : <%=bDAO.getMaxPrice(aDTO.getAuct_num())%></span></h1>
 					<hr> <%
 					 
 					 String status = "";
@@ -204,44 +215,65 @@ a.button {
 					 	break;
 					 }
 					 %>
-										<ul>
+					
+					<ul>
 						
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=aDTO.getAuct_count() == 0 ? 1 : aDTO.getAuct_count()%></li>
-						<small><li>작성시간 : <%=aDTO.getAuct_date()%></li></small>
+						<li>작성시간 : <%=aDTO.getAuct_date()%></li>
 					</ul> 
 					
 					<!-- 관리자만 사용가능한 메뉴 생성 -->
-					<div id="wrap">
- 						<input type="button" value="입찰하기" class="form-control" id="bidbutton"
- 							   onclick="openModal('modal1');">
-					</div>
+					<% if(user_nick != null){ 
+						 if ( !aDTO.getUser_nick().equals(user_nick) ){
+						%>
 					
-					<input type="button" value="채팅하기" class="form-control">
+					<c:if test="<%=bDAO.bidCheck(aDTO.getAuct_num(), user_nick) == 0%>">
+						
+							<input type="button" value="입찰하기" class="form-control" id="bidbutton"
+	 							   onclick="openModal('modal1');">
+			
+					</c:if>
 					
-
+					<c:if test="<%=bDAO.bidCheck(aDTO.getAuct_num(), user_nick) == 1%>">
+						
+							<input type="button" value="입찰완료" class="form-control" id="bidbutton"
+								style="color:red;" disabled="disabled">
+					</c:if>		
+						
+						<input type="button" value="채팅하기" class="form-control" >
+						
+					<%}
+					}%>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2" height="400">
+			<tr style="border: 1px solid">
+				<td colspan="2" height="400" style="vertical-align: top">
 					<h1>상세정보</h1> <%=aDTO.getAuct_content()%>
-
 				</td>
 			</tr>
-
 		</table>
+		<div style="margin:auto;  width: 800px; ">
+		<% if ( aDTO.getUser_nick().equals(user_nick) ){ %>
+			<input type="button" value="수정하기"
+				onclick="location.href='./AuctionModify.ac?num=<%=aDTO.getAuct_num()%>'">
+		<%}%>
+		<% if( aDTO.getUser_nick().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
+			<input type="button" value="삭제하기"
+			onclick="location.href='./AuctionDeleteAction.ac?num=<%=aDTO.getAuct_num()%>'">
+		<%} %>
+		</div>
+<!-- 	</form> -->
+<!--  		if(user_nick == null){
+				alert("로그인 후 이용 가능합니다.");
+				location.href='./UserLogin.us' 
+			} -->
+	</div>
+	
 
-		<input type="button" value="삭제하기"
-			onclick="location.href='./AuctionDeleteAction.pr?num=<%=aDTO.getAuct_num()%>'">
-
-
-	</form>
-
-
-
-	<div id="modal"></div>
+	<div id="modal">
 	<div class="modal-con modal1">
-		<a href="javascript:;" class="close">X</a>
+		<a href="javascript:;" class="close" onclick="closeModal('modal1');">X</a>
 		<p class="title">입찰하기</p>
 		<div class="con">
 				<input type="hidden" value="<%=user_nick %>" name="user_nick">
@@ -250,13 +282,13 @@ a.button {
 				<input type="button" value="입찰하기" id="bidsave">
 		</div>
 	</div>
+</div>
 
 
 
 
 
-
-	<%-- <%@ include file="../inc/footer.jsp" %> --%>
+<%@ include file="../inc/footer.jsp" %>
 </body>
 
 
@@ -264,7 +296,19 @@ a.button {
 	
 	$(document).ready(function(){
 		
+		
+		
+		
 		$("#bidsave").click(function(){
+			
+			var bidprice = document.getElementById("bidprice").value;
+			
+			if(bidprice == ""){
+				alert("가격을 입력하세요.");
+				return false;
+				
+			}
+			
 			
 			$.ajax({
 				
@@ -282,8 +326,15 @@ a.button {
 					if(data.check == 0){
 						$("#bidbutton").css("color","red");
 						$("#bidbutton").val("입찰완료");
+						$("#bidbutton").attr('disabled', true);
 						$("#modal").hide();
 						$("#maxPrice").html(data.maxPrice);
+					}else{
+						alert("입찰이 불가능합니다.");
+						$("#bidbutton").css("color","red");
+						$("#bidbutton").val("입찰완료");
+						$("#bidbutton").attr('disabled', true);
+						$("#modal").hide();
 					}
 					
 				}
@@ -293,11 +344,10 @@ a.button {
 		});
 		
 		
-		
-		
 	});
 
 
+	
 
 
 

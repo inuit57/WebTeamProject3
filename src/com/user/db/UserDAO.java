@@ -181,37 +181,38 @@ public class UserDAO {
 
 	public String Login(String id, String pw) {
 
-		boolean b = false;
-		String user_nick = null;
+	      boolean b = false;
+	      String user_nick = null;
 
-		try {
-			conn = getConnection();
-			sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				if (rs.getString(1).equals(pw)) {
-					if (rs.getInt(2) == 1) {
-						user_nick = rs.getString(3);
-					} else {
-						b = false;
-					}
-				} else {
-					b = false;
-				}
-			} else {
-				b = false;
-			}
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			System.out.println("UserDAO.Login() function error - KBH");
-		} finally {
-			closeDB();
-		}
+	      try {
+	         conn = getConnection();
+	         sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, id);
+	         rs = pstmt.executeQuery();
+	         if (rs.next()) {
+	        	System.out.println(rs.getString("user_pw"));
+	            if (rs.getString(1).equals(pw)) {
+	               if (rs.getInt(2) == 1) { // 1 : 사용 , 2 : 탈퇴된 회원 
+	                  user_nick = rs.getString(3);
+	               } else {
+	                  b = false;
+	               }
+	            } else {
+	               b = false;
+	            }
+	         } else {
+	            b = false;
+	         }
+	      } catch (Exception e) {
+	         System.out.println(e.toString());
+	         System.out.println("UserDAO.Login() function error - KBH");
+	      } finally {
+	         closeDB();
+	      }
 
-		return user_nick;
-	}
+	      return user_nick;
+	   }
 
 	public UserDTO getUserInfo(String user_nick) {
 

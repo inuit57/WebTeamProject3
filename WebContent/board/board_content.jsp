@@ -46,7 +46,7 @@
 		<input type="submit" value="신고하기" >
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<!-- 신고당하는 글 작성자 -->
-		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nick()%>">
+		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nickname()%>">
 		<input type="hidden" name="board_sub" value="<%=bDTO.getBoard_sub()%>">
 		<input type="hidden" name="board_type" value="0">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
@@ -63,7 +63,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=bDTO.getUser_nick() %></td>
+			<td><%=bDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=bDTO.getBoard_date().substring(0, 10)%></td>
 		</tr>
@@ -91,7 +91,7 @@
 	int cmtViewCnt = 5; //한번에 보이는 댓글갯수
 	%>
 	
-		
+<div class="why">	
 		<table>
 			<tr>
 				<th style="width: 100px; "> 작성자 </th>
@@ -107,28 +107,46 @@
 			
 		%>
 			<tr>
-				<td style="width: 100px; text-align: center;"><%=bcDTO2.getUser_nick() %></td>
+				<td style="width: 100px; text-align: center;"><%=bcDTO2.getUser_nickname() %></td>
 				<td style="width: 300px; text-align: center;"><%=bcDTO2.getCmt_content() %></td>
 				<td style="width: 100px; text-align: center;"><%=bcDTO2.getCmt_date().substring(0, 10) %></td>
 				<th style="width: 100px;">
 					<%
-						if(bcDTO2.getUser_nick().equals(user_nick)|| user_nick.equals("admin")) {
+						if(bcDTO2.getUser_nickname().equals(user_nick)|| user_nick.equals("admin")) {
 					%>
-							<input type="button" value="수정" class="">
+							<input type="button" value="수정" class="u<%=i%>">
 							<form action="boardCommentDeleteAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
 								<input type="submit" value="삭제" onclick="return confirm('이댓글을 삭제하시겠습니까?')">
 								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">
 							</form>
+							
+							<form action="boardCommentModifyAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
+								<input type="hidden" name="cmt_num" value="<%=bcDTO2.getCmt_num()%>">
+								<div class="in<%=i %>" style="display:none;"></div>
+							</form>
+<script type="text/javascript">
+
+	 $(function() {
+	    $(".u<%=i %>").on("click",function(){
+	    var d = "<hr><input type='text' placeholder='수정하실 댓글을 작성해주세요.' size='50' name='cmt_content_modify' />&nbsp&nbsp<input type='submit' value='댓글수정하기'/>";
+	       // $(".in").html(d);
+	       $(this).parents(".why").find(".in<%=i %>").html(d);
+	       $(".in<%=i %>").fadeToggle();
+	   }); 
+	});  
+</script>
 					<%
 						}
 					%>
+					
 				</th>
 			</tr>
 	<%
 	}
 	%>
+	
 		</table>
-		
+</div>		
 		<%
 		/////////////////////////////////////////////////////////
 		// 페이징 처리 - 하단부 페이지 링크
@@ -189,7 +207,7 @@
 	
 										<!-- 댓글 작성공간 -->
 	<form action="BoardCommentWriteAction.bco?board_num=<%=bDTO.getBoard_num()%>&pageNum=<%=pageNum %>" method="post">
-		<input type="hidden" name="user_nick" value="<%=user_nick%>">
+		<input type="hidden" name="user_nickname" value="<%=user_nick%>">
 		댓글 : <input type="text" name="cmt_content" style="width: 480px;">
 		<input type="submit" value="댓글등록">	
 	</form>
@@ -202,7 +220,7 @@
 	<form action="boardDeleteAction.bo" >
 	<%
 	// 유저가 작성자아이디와 일치하면 수정 삭제 버튼 보여줌 
-	if(bDTO.getUser_nick().equals(user_nick) || user_nick.equals("admin")){
+	if(bDTO.getUser_nickname().equals(user_nick) || user_nick.equals("admin")){
 	%>
 		<input type="button" value="수정하기" onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
 		<input type="submit" value="삭제하기" onclick="return confirm('게시글을 삭제하시겠습니까?')">

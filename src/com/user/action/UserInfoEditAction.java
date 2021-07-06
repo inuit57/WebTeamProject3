@@ -56,11 +56,11 @@ public class UserInfoEditAction implements Action {
 		udao.userInfoEdit(udto);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("./Main.do");
+		
+		//UserInfo.us
+		//forward.setPath("./Main.do");
+		forward.setPath("./UserInfo.us?onClose=1");
 		forward.setRedirect(true);
-		
-		
-
 		
 		return forward;
 	}

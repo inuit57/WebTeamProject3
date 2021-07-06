@@ -27,7 +27,7 @@ public class declarationAction implements Action {
 		dcDTO.setBoard_type(Integer.parseInt(request.getParameter("board_type")));
 		dcDTO.setBoard_num(Integer.parseInt(request.getParameter("board_num")));
 		// 신고를 하는사람
-		dcDTO.setUser_nick(request.getParameter("user_nick"));
+		dcDTO.setUser_nickname(request.getParameter("user_nickname"));
 		dcDTO.setDecl_reason(Integer.parseInt(request.getParameter("decl_reason"))); // 신고사유
 		dcDTO.setDecl_content(request.getParameter("decl_content")); // 기타내용
 		dcDTO.setDecl_writer(request.getParameter("decl_writer")); // 신고글 작성자

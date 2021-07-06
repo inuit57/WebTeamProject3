@@ -1,5 +1,6 @@
 package com.declaration.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ public class decl_prod_listAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("M : decl_prod_listAction_execute() 호출");
+		
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		declarationDAO dcDAO = new declarationDAO();
 		
@@ -33,7 +36,17 @@ public class decl_prod_listAction implements Action {
 		
 		int endRow = currentPage * pageSize;
 		
-		List decl_prod_list = dcDAO.getDecl_prod_list(startRow, pageSize);
+		List decl_prod_list = new ArrayList();
+		
+		if(state == 0) {
+		
+			decl_prod_list = dcDAO.getDecl_prod_list(startRow, pageSize);
+		
+		} else {
+			
+			decl_prod_list = dcDAO.getDecl_prod_list(state, startRow, pageSize);
+			decl_prod_listcnt = dcDAO.decl_prod_listCount(state);
+		}
 		
 		request.setAttribute("decl_prod_list", decl_prod_list);
 		request.setAttribute("decl_prod_listcnt", decl_prod_listcnt);

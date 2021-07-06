@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class ProdDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, pDTO.getUser_nick());
+			pstmt.setString(2, pDTO.getUser_nickname());
 			pstmt.setInt(3, pDTO.getProd_category());
 			pstmt.setInt(4, pDTO.getProd_status());
 			pstmt.setString(5, pDTO.getProd_sub());
@@ -126,7 +127,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 				
 				productList.add(pDTO);
 				
@@ -187,7 +188,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 
 				
 				productList.add(pDTO);
@@ -295,7 +296,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setUser_nickname(rs.getString("user_nick")); // user_nick으로 이건 되어있습니다. (엑셀문서상)
 
 				
 				productList.add(pDTO);
@@ -337,7 +338,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 				
 			}
 			
@@ -413,7 +414,7 @@ public class ProdDAO {
 				pDTO.setProd_price(rs.getInt("prod_price"));
 				pDTO.setProd_status(rs.getInt("prod_status"));
 				pDTO.setProd_sub(rs.getString("prod_sub"));
-				pDTO.setUser_nick(rs.getString("user_nick"));
+				pDTO.setUser_nickname(rs.getString("user_nick"));
 				
 				productList.add(pDTO);
 			}
@@ -442,7 +443,7 @@ public class ProdDAO {
 			
 			pstmt.setInt(1, pDTO.getProd_category());
 			pstmt.setInt(2, pDTO.getProd_status());
-			pstmt.setString(3, pDTO.getUser_nick());
+			pstmt.setString(3, pDTO.getUser_nickname());
 			pstmt.setInt(4, pDTO.getProd_price());
 			pstmt.setString(5, pDTO.getProd_sub());
 			pstmt.setString(6, pDTO.getProd_content());
@@ -507,6 +508,73 @@ public class ProdDAO {
 	}//updateCount(pDTO) 조회수 증가
 	
 	
+	/**
+	 *  상품 상태를 변경해주는 메소드 
+	 * 
+	 * @param prod_num : 상품 번호
+	 * @param status : 상품 상태 ( 0: 삽니다, 1 : 팝니다, 2:무료나눔, 3: 거래완료)  
+	 */
+	public void updateStatus(int prod_num , int status){
+		
+		try {
+			conn = getConnection(); 
+			sql = "update prod_trade set prod_status = ? where prod_num = ? "; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, status);
+			pstmt.setInt(2, prod_num);
+	
+			pstmt.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(); 
+		}
+		
+	}
+	
+	public String timeForToday(int num){
+		Timestamp now_t = new Timestamp(System.currentTimeMillis()); 
+		Timestamp prod_t ; 
+		long betweenTime  = 0L ; 
+		
+		String timeForToday =""; 
+		
+		System.out.println(now_t);
+		
+		try {
+			conn = getConnection();
+			sql = "select prod_date from prod_trade where prod_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery(); 
+			
+			if(rs.next()){
+				prod_t = rs.getTimestamp(1); 
+				betweenTime = (long)Math.floor((now_t.getTime() - prod_t.getTime()) / 1000 / 60);
+				long betweenTimeHour = (long)Math.floor(betweenTime / 60);
+				long betweenTimeDay = (long)Math.floor(betweenTime / 60 / 24);
+				
+				if (betweenTime < 1) timeForToday = "방금전";
+				else if (betweenTime < 60) {
+		        	timeForToday = betweenTime +"분전";
+				}else if (betweenTimeHour < 24) {
+		        	timeForToday = betweenTimeHour+ "시간전";
+		        }else if (betweenTimeDay < 365) {
+		        	timeForToday = betweenTimeDay +"일전";
+		        }else{
+		        	timeForToday = (long)Math.floor(betweenTimeDay / 365)+"년전";
+		        }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB();
+		} 
+		
+		return timeForToday; 
+	}
 	
 	
 

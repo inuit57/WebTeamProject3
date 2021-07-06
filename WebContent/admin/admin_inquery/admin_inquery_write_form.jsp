@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>1:1 문의 답변 작성</title>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
 </head>
@@ -12,11 +12,12 @@
 	<h1>WebContent/admin_inquery/admin_inquery_write_form.jsp</h1>
 	<%
 	 int num = Integer.parseInt(request.getParameter("num"));
+	String nick = (String) session.getAttribute("user_nick");
 	%>
 		
 		<form  name="fr" action="./InqueryAdminWriteAction.ai" method="post">
 		<input type="hidden" name="num" value="<%=num%>">
-		글쓴이 : <input type="text" name="name"> <br>
+		글쓴이 : <input type="text" name="name" value="<%=nick%>"> <br>
 		제목 : <input type="text" id="subject" name="subject"><br> 
 		<textarea class="form-control" rows="20" name="content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br>
 	
