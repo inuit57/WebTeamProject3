@@ -13,17 +13,11 @@
 <!-- <title>중고거래(이름미정)</title> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="./css/style.css">
+
 <!-- <script src="./js/jquery-3.6.0.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -65,22 +59,22 @@
 
 	<div style="margin:auto;  width: 800px;">
 	<div align="center">
-	<h2>자주 묻는 질문</h2> 
+	<h1 style="margin-bottom: 80px">자주 묻는 질문</h1> 
 	
 	<form class="form-inline" action="./FAQSerchAction.faq" method="post" name="searchFrom">
 	 <div class="form-group">
-		<input class="form-control" type="text" name="faq_search" placeholder="검색어를 입력해주세요" >
-	    <input class="form-control" type="button" onclick="faqSearch()" id="searchBtn" style="margin-left:-30px;" value="검색">
+		<input class="form-control" type="text" name="faq_search" placeholder="검색어를 입력해주세요" style="height: 50px">
+		<i class="fa fa-search" onclick="faqSearch()" id="searchBtn"  style="float: right; margin-top: -40px;font-size:30px; margin-right: 20px"></i>
 	 </div> 
     </form>
     </div>
     <hr>
-    <div align="center">
-	    <a href="./FAQ.faq">전체 | </a>
-	    <a href="./FAQ.faq?tag=oper">운영정책 | </a>
-	    <a href="./FAQ.faq?tag=uid">계정,인증 | </a>
-	    <a href="./FAQ.faq?tag=sell">구매,판매 | </a>
-	    <a href="./FAQ.faq?tag=proc">거래 품목 | </a>
+    <div align="center" class="aTag">
+	    <a href="./FAQ.faq">전체  </a>|
+	    <a href="./FAQ.faq?tag=oper">운영정책  </a>|
+	    <a href="./FAQ.faq?tag=uid">계정,인증  </a>|
+	    <a href="./FAQ.faq?tag=sell">구매,판매  </a>|
+	    <a href="./FAQ.faq?tag=proc">거래 품목  </a>|
 		<a href="./FAQ.faq?tag=etc">기타</a>
     </div>
 	<br>
@@ -92,36 +86,38 @@
 	<%} %>
 	
 	<form  action="./FAQDelAction.faq" method="post"  name="listchkDel">
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="accoContent" style="margin-bottom: 150px">
+	<ul class="accordion">
 	<% 
 		for(int i=0; i<faqList.size();i++){
 			fdto = (FAQDTO) faqList.get(i);
 		%>
-		  <div class="panel panel-default">
-		    <div class="panel-heading" role="tab">
-		      <div class="panel-title">
+		   <li class="item">
+		  	 <h2 class="accordionTitle">
 		      <% if( udao.isAdmin(user_nick)){ %>
 		        <input type="checkbox" name="faq_idx" value="<%=fdto.getFaq_idx() %>">
 		      <%} %>
 		        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=i %>" aria-expanded="false" aria-controls="collapse<%=i %>">
 		         <img src="./img/faq_q.png" style="width: 1.5vw"> <%=fdto.getFaq_sub() %>
 		        </a>
-		      </div>
-		    </div>
-		    <div id="collapse<%=i %>" class="panel-collapse collapse" role="tabpanel" >
+		      <span class="accIcon"></span>
+		     </h2>
+		    <div id="collapse<%=i %>" class="text panel-collapse collapse" role="tabpanel" >
 		      <div class="panel-body">
 		        <h4><img src="./img/faq_a.png" style="width: 1.5vw; margin-bottom: 30px; margin-right: 15px "> <%=fdto.getFaq_content() %></h4>
 		        <input type="button" onclick="location.href='./FAQUpdate.faq?idx=<%=fdto.getFaq_idx() %>'" id="chkUpdate" style="margin-top: 30px"  value="글수정">
 		      </div>
 		    </div>
-		  </div>
+		  </li>
 		<%	
 		}
 	%>
-	 </div>
+	</ul>
+	</div>
 	</form>
 	
 	</div>
 </div>
 
 	<%@ include file="../inc/footer.jsp" %>
+	<script  src="./js/script.js"></script>

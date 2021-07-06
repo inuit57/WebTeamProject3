@@ -186,6 +186,21 @@ public class UserFrontController extends HttpServlet{
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
+			
+		}else if(command.equals("/UserPwUpdate.us")){
+			try {
+				action = new UserPwUpdate();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+		}else if(command.equals("/UserMailSendAction.us")){
+			try {
+				action = new UserMailSendAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
 		}else if(command.equals("/UserJoin.us")){
 			forward = new ActionForward();
 			forward.setPath("./user/userJoin.jsp");

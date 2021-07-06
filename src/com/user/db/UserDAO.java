@@ -358,6 +358,30 @@ public class UserDAO {
 		
 	}
 	
+	public void updatePW(String user_pw, String user_phone , String user_id) {
+		try {
+			conn = getConnection();
+			if(user_phone.equals("0")){
+				sql = "UPDATE member SET user_pw=? WHERE user_id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_pw);
+				pstmt.setString(2, user_id);
+			}else{
+				sql = "UPDATE member SET user_pw=? WHERE user_phone=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_pw);
+				pstmt.setString(2, user_phone);
+			}
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		
+	}
+	
 	public String getUserNick(String id) {
 		
 		String nick = null;

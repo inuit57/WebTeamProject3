@@ -1,5 +1,6 @@
 package com.user.action;
 
+import java.io.PrintWriter;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -17,32 +18,22 @@ import com.user.db.UserDAO;
 import com.user.mail.SMTPAuthenticatior;
 import com.user.mail.random;
 
-public class UserEmailSendAction implements Action {
+public class UserMailSendAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		
-		String id = request.getParameter("id");
-
-		UserDAO udao = new UserDAO();
-		
-		boolean result = udao.checkId(id);
-		
-		
-		ActionForward forward = new ActionForward();
-		
-		if(!result){
+			request.setCharacterEncoding("UTF-8");
 			
+			String id = request.getParameter("id");
+	
+			UserDAO udao = new UserDAO();
+		
 			
-			
-			session.setAttribute("id", id);
 			String subject = "기억마켓 인증메일입니다.";
 			random r = new random();
 			String content = r.randomNum();
-			session.setAttribute("content", content);
+			
 			response.setContentType("text/html;charset=UTF-8");
 			String username="mataradamin@gmail.com";
 			
@@ -74,17 +65,12 @@ public class UserEmailSendAction implements Action {
 				System.out.println("SMTP 서버가 잘못설정되었거나 서비스에 문제가 있습니다.");
 				e.printStackTrace();
 			}
-			
-			forward.setPath("./UserEmailChk.us");
-			forward.setRedirect(true);
-			
-			
-		}else{
-			session.setAttribute("id", id);
-			forward.setPath("./UserEmail.us");
-			forward.setRedirect(true);
-		}
-		return forward;
+		
+		   	PrintWriter out = response.getWriter();
+			out.print(content);
+			out.close();
+			  
+		return null;
 	}
 
 }

@@ -19,7 +19,7 @@ public class UserPhoneCodeAction implements Action {
 		request.setCharacterEncoding("UTF-8");
 		
 		  final String ACCOUNT_SID = "AC724debbbb1937daf3a2073b18562502d";
-		  final String AUTH_TOKEN = "6b02b9d326c1f2a2a9e454d61fe45e18";
+		  final String AUTH_TOKEN = "bfbbdcf57e88b975c6ec245bcb006c89";
 
 		  Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		  
