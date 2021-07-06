@@ -7,6 +7,34 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="jquery/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+		
+
+	
+		function goChat(i) {
+			
+			var val = document.getElementById('btn'+i).value;
+
+			$(function(){
+				$.ajax('./MakeSession.ch', {
+					type: "POST",
+					data : {val:val},
+					async: false,
+					success: function(data) {
+						location.href = "./chat.ch";
+					}
+				});
+			});
+			
+
+
+			
+			
+		}
+	
+	
+	</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -53,21 +81,6 @@
 			</table>
 	<%} %>
 	
-	<script type="text/javascript">
-		
-
 	
-		function goChat(i) {
-			
-			var val = document.getElementById('btn'+i).value;
-			
-			sessionStorage.setItem('roomId', val);
-			alert(sessionStorage.getItem('roomId'));
-			location.href = "./chat.ch";
-			
-		}
-	
-	
-	</script>
 </body>
 </html>

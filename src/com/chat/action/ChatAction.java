@@ -46,6 +46,7 @@ public class ChatAction implements Action {
 			
 			
 			session.setAttribute("roomId", roomId);
+			session.setAttribute("chatRole", "buyer");
 			
 			forward.setPath("./chat.ch");
 			forward.setRedirect(true);

@@ -110,6 +110,7 @@ public class chatDAO {
 			pstmt.setString(1, seller);
 			rs = pstmt.executeQuery();
 			
+			
 			arrlist = new ArrayList<chatDTO>();
 			
 			while(rs.next()) {
