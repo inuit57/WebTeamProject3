@@ -1,9 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,700");
-body {
-  margin: 0;
-  background-color: #c9d6df;
-  font-family: 'Montserrat', sans-serif;
-}
 
 .about {
   position: fixed;

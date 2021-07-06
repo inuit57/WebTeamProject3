@@ -70,18 +70,18 @@
     </div>
     <hr>
     <div align="center" class="aTag">
-	    <a href="./FAQ.faq">전체  </a>|
-	    <a href="./FAQ.faq?tag=oper">운영정책  </a>|
-	    <a href="./FAQ.faq?tag=uid">계정,인증  </a>|
-	    <a href="./FAQ.faq?tag=sell">구매,판매  </a>|
-	    <a href="./FAQ.faq?tag=proc">거래 품목  </a>|
-		<a href="./FAQ.faq?tag=etc">기타</a>
+	    <button class="btn-5" onclick="location.href='./FAQ.faq'">전체</button>
+	    <button class="btn-5" onclick="location.href='./FAQ.faq?tag=oper'">운영정책</button>
+	    <button class="btn-5" onclick="location.href='./FAQ.faq?tag=uid'">계정,인증</button>
+	    <button class="btn-5" onclick="location.href='./FAQ.faq?tag=sell'">구매,판매</button>
+	    <button class="btn-5" onclick="location.href='./FAQ.faq?tag=proc'">거래 품목</button>
+	    <button class="btn-5" onclick="location.href='./FAQ.faq?tag=etc'">기타</button>
     </div>
 	<br>
 	
 	<% if( udao.isAdmin(user_nick)){ %>
-		<input type="button" onclick="location.href='./FAQAdd.faq'" value="글쓰기">
-		<input type="button" id="chkDel" value="선택  삭제">
+		<input class="services-icon-wap btnSend" type="button" onclick="location.href='./FAQAdd.faq'" value="글쓰기">
+		<input class="services-icon-wap btnSend" type="button" id="chkDel" value="선택  삭제">
 		<hr>
 	<%} %>
 	
@@ -107,7 +107,7 @@
 		        <h4><img src="./img/faq_a.png" style="width: 1.5vw; margin-bottom: 30px; margin-right: 15px "> <%=fdto.getFaq_content() %></h4>
 		        <!--  글 수정 버튼 -->
 		        <% if( udao.isAdmin(user_nick)){ %>
-		        	<input type="button" onclick="location.href='./FAQUpdate.faq?idx=<%=fdto.getFaq_idx() %>'" id="chkUpdate" style="margin-top: 30px"  value="글수정">
+		        	<input class="services-icon-wap btnSend" type="button" onclick="location.href='./FAQUpdate.faq?idx=<%=fdto.getFaq_idx() %>'" id="chkUpdate" style="margin-top: 30px"  value="글수정">
 		        <%} %>
 		      </div>
 		    </div>
