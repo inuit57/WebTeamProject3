@@ -6,7 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="jquery/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./user/userLoginJS/userLogin.js"></script>
-<title></title>
+<link href="./img/title.png" rel="shortcut icon" type="image/x-icon">
+<title>기억마켓</title>
+
 
 </head>
 <body>
