@@ -226,8 +226,19 @@ public class WishDAO {
 		
 	}//wishList() 찜 목록 가져오기
 	
-	
-	
+	//높은 찜 횟수 게시글
+	public int maxWish() {
+		
+		int maxWish = 0;
+		
+		conn = getConnection();
+		sql = "select max(";
+		
+		
+		
+		
+		return maxWish;
+	}
 	
 	
 	

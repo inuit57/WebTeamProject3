@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="./assets/css/fontawesome.min.css">
     
+    <link rel="stylesheet" href="./assets/css/templatemo-breezed.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/font-awesome.css">
+    
    
 </head>
 <body>
@@ -96,13 +99,10 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
                            <a class="nav-link" href="./ProductList.pr">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                        	<a class="nav-link" href="./AuctionList.ac">Auction</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./board_List.bo">Board</a>
@@ -113,9 +113,7 @@
                         <li class="nav-item">
                         	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
                         </li>
-                         <li class="nav-item">
-                        	<a class="nav-link" href="./AuctionList.ac">경매</a>
-                        </li>
+                         
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

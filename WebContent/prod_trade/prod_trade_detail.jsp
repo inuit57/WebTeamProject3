@@ -235,13 +235,17 @@ border-bottom:none;
 					<br>
 					
 					<!-- 관리자만 사용가능한 메뉴 생성 -->
-					<% if(user_nick != null){ %>
+					<% if(user_nick != null){ 
+						if ( !pDTO.getUser_nick().equals(user_nick) ){							
+						%>
 						<input type="button" id="btnLike" value="찜하기" class="btn btn-warning">
 						
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
 						<input type="button" value="구매요청" class="btn btn-success">
 						<input type="button" value="채팅하기" class="btn btn-info" >
-					<%}%>
+					<%}
+						}
+					%>
 				</td>
 			</tr>
 			<tr>
