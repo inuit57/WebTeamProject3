@@ -10,9 +10,10 @@
 <script src="./js/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1>WebContent/inquery/inquery_modify_form.jsp</h1>
+	<h1>1:1 문의 수정</h1>
 
 <%
+	
 	InqueryDTO inDTO = (InqueryDTO) request.getAttribute("inDTO");
 	
 %>

@@ -68,7 +68,9 @@ function deleteIn(){
 		
 			<%
 			
+
 			if(inDTO.getUser_nickname().equals(user_nickname)){// 세션값 아이디 받아서 수정
+
 			%>
 		
 			<a href="./InqueryModifyForm.in?num=<%=inDTO.getInq_num()%>" 

@@ -34,12 +34,12 @@
 		int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
 
 		
-		String check = (String)request.getAttribute("check");
-		
+		String check = (String)request.getAttribute("check");		
 		
 	%>
+		<div class="innerContent table-responsive inquery">
 	
-	<table class="table" border="1">
+	<table class="table table-sm table-hover" border="1">
 	 <thead class="table-dark">
 		<tr>
 			<td>글 번호</td>
@@ -80,6 +80,6 @@
 		}
 		%>
 	</table>
-	
+	</div>
 </body>
 </html>
