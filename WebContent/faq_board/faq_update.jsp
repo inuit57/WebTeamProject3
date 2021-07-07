@@ -8,6 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./css/style.css">
+
 </head>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
@@ -21,13 +23,12 @@
 	<br><br>  
 	<div style="margin:auto;  width: 800px;">
 
-<h3>FAQ 수정</h3> 
+<h1>FAQ 수정</h1> 
 	<form action="./FAQUpdateAction.faq" method="post" name="fr">
 		<input type="hidden" name="faq_idx" value="<%=fdto.getFaq_idx() %>">  
 		
-		<div>
-			카테고리
-	             <select name="faq_cate">
+		<div style="margin-top: 50px;">
+	             <select name="faq_cate" style="float: left;width: 20%;height: 50px">
 	               <option value="etc"
 	               	<%if(fdto.getFaq_cate().equals("etc")){ %>
 	               		selected
@@ -56,15 +57,15 @@
 	             </select>
 	         </div>
 	         <div>
-				제목 
-				<input type="text" name="faq_sub" value="<%=fdto.getFaq_sub()%>">
+				<input class="form-control" type="text" name="faq_sub" value="<%=fdto.getFaq_sub()%>" placeholder="제목을 입력해주세요" style="height: 50px;float: left; width:80%">
 			</div>
+			<div style="color: #CEF6D8">z</div>
 			<div>
 				<textarea name="faq_content" id="smartEditor" style="width: 100%; height: 412px;"><%=fdto.getFaq_content()%></textarea>
 			</div>
 
 		<div align="right">
-	   	   <button type="button" id="savebutton" >저장</button>   
+	   	   <button class="services-icon-wap btnSend"  type="button" id="savebutton" >저장</button>   
 		</div>
 	</form>
 	

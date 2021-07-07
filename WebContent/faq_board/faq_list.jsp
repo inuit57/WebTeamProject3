@@ -13,7 +13,7 @@
 <!-- <title>중고거래(이름미정)</title> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/style.css">
 
 <!-- <script src="./js/jquery-3.6.0.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
