@@ -59,15 +59,10 @@ public class TradeLogDAO {
 	// trade_target(== seller)   
 	
 	
-	// 충전시 동작하는 함수 
-	// buyer (session에 저장된 user_nick)  
-	// coin :  충전 금액을 기록  + member의 coin을 증가
-	// type = 0 
-	
 	/**
 	 * 충전 시 동작하는 함수
 	 * 
-	 * type : 0 
+	 * type : 0(충전)
 	 * 
 	 * @param user_nick  : session에 저장된 유저명. 
 	 * @param coin : 증가시켜주는 코인량 
