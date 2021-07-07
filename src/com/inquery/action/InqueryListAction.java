@@ -17,15 +17,11 @@ public class InqueryListAction implements Action {
 		HttpSession session = request.getSession();
 		String user_nick = (String) session.getAttribute("user_nick");
 		
-		// 테스트용 닉
-		
+		System.out.println(user_nick);
 		
 		ActionForward forward = new ActionForward();
-		// 세션정보처리 들고다니는 값이 무엇인지에 따라 값이 달라질 수 있음 id가 nick으로
-		/*if( nick==null){
-			forward.setPath("");
-			forward.setRedirect(true);
-			return forward;*/
+		
+		
 		
 			
 		InqueryDAO inDAO = new InqueryDAO();

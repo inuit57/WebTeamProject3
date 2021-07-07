@@ -77,6 +77,7 @@ function myWish(){
 	<%} %>
 	<!-- ------------------------test---------------------------- -->
 	<div class="container">
+		<br><br>
 		<ul class="tab_title">
 			<li class="on">마이페이지</li>
 			<li>회원정보 수정</li>
@@ -84,6 +85,7 @@ function myWish(){
 			<li>계좌정보 변경</li>
 			<li>회원 탈퇴</li>
 		</ul>
+		
 		<div class="tab_cont" >
 			
 			<div class="on" >
@@ -100,6 +102,8 @@ function myWish(){
 						}
 					%><br><br>
 <!-- 					<label>프로필 사진 변경</label><br><input type="file" name="user_picture"><br> -->
+
+<!-- 마이페이지 탭 -->
 					<table class="table" >
 					<tr>
 						<td>아이디</td>
@@ -115,22 +119,40 @@ function myWish(){
 					</tr>
 					<tr>
 						<td>주소</td>
+						<% 
+						if(udto.getUser_address()==null){
+						%>
+						<td></td>
+						<%
+						}else{
+						%>
 						<td><%=udto.getUser_address()%></td>
+						<%
+						}
+						%>
 					</tr>
 					<tr>
 						<td>상세주소</td>
+						<%if(udto.getUser_addressPlus()==null){ %>
+						<td></td>
+						<%
+						}else{
+						%>
 						<td><%=udto.getUser_addressPlus()%></td>
+						<%
+						}
+						%>
 					</tr>
 
 				</table>
 					
-				<button type="button" onclick="location.href='./MyPageBoardList.bo'" class="btn btn-outline-success" style="margin-right: 30px;">내가 쓴글 </button>
-				<button type="button" onclick="location.href='./MyPageProductList.pr'" class="btn btn-outline-success" style="margin-right: 30px;">나의 상품</button>
-				<button type="button" onclick="location.href='./MyPageInqueryList.in'" class="btn btn-outline-success" style="margin-right: 30px;">나의 문의</button>
-<!-- 				<a href="./MyPageBoardList.bo">내가 쓴 글</a><br> -->
-<!-- 				<a href="./MyPageProductList.pr">나의 상품</a><br> -->
-<!-- 				<a href="./MyPageInqueryList.in">나의 문의</a><br> -->
+				<button type="button" onclick="myBoard()" class="btn btn-outline-success" style="margin-right: 30px;">내가 쓴글 </button>
+				<button type="button" onclick="myProduct()" class="btn btn-outline-success" style="margin-right: 30px;">나의 상품</button>
+				<button type="button" onclick="myInquery()" class="btn btn-outline-success" style="margin-right: 30px;">나의 문의</button>
+
 			</div>
+			
+			<!-- 회원정보 수정 -->
 			<div>
 					<%
 						if (user_picture == null || user_picture.equals("")) {
@@ -147,50 +169,81 @@ function myWish(){
 					
 					
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">
-					<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" > 
-					<label>아이디</label><input type="text" name="user_id"
-
-						readonly="readonly" value="<%=udto.getUser_id()%>"><br>
-					<label>닉네임</label>
-					<input type="text" id="user_nick"
-						name="user_nick" onkeyup="checkNick();"
-						value="<%=udto.getUser_nickname()%>">
+					<input type="file" id="img_upload" style="display:none;" accept="image/*" name="user_picture" onchange="imgPreview(event)" >
+					<br>
+				
+						
+						
+					<input type="text" class="form-control" name="user_id" value="<%=udto.getUser_id()%>" readonly> 
+					
+						<input type="text" class="form-control" id="user_nick" name="user_nick" 
+						value="<%=udto.getUser_nickname()%>" onkeyup="checkNick();" > 
+						
 						<label id="nickname_error" class="error"></label><br> 
-						<label>전화번호</label>
-						<input
-						type="text" id="user_phone" name="user_phone"
+						<input type="text" class="form-control" id="user_phone" name="user_phone" 
 						onkeyup="checkPhone()" value="<%=udto.getUser_phone()%>"
-						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 
+						
 						<label id="phone_error" class="error"></label>
 					<br> 
-					<label>주소</label>
-					<input type="text" class="address"
-						id="user_address" name="user_address" onkeyup="addressCheck();"
-						value="<%=udto.getUser_address()%>" readonly="readonly">
-					<button id="address_find" onclick="findAddr()">주소 찾기</button>
-					<br> 
-					<label>상세주소</label>
-					<input type="text"
-						id="user_address_plus" class="address" name="user_address_plus"
-						onkeyup="addressCheck();" value="<%=udto.getUser_addressPlus()%>"><label
-						id="address_error" class="error"></label><br>  
-						<label>가입날짜</label>
-						<input type="text" name="user_join_date"
+						
+						<%
+						if(udto.getUser_address()==null){
+						%>
+						
+					<input type="text" class="form-control address" name="user_address" onkeyup="addressCheck();"
+						id="user_address" value="주소" readonly style="display: inline-block;"> 
+						
+						<% 
+						}else{
+						%>
+					<input type="text" class="form-control address" name="user_address" onkeyup="addressCheck();"
+						id="user_address" value="<%=udto.getUser_address()%>" readonly style="display: inline-block;"> 
+						<%
+						} 
+						%>
+				
+						<%
+						if(udto.getUser_addressPlus()==null){
+						%>		
+					 	
+						<input type="text"
+						id="user_address_plus" class="form-control address" name="user_address_plus"
+						onkeyup="addressCheck();" value="상세주소"  style="display: inline-block;">
+						<% 
+						}else{
+						%>					 	
+						<input type="text"
+						id="user_address_plus" class="form-control address" name="user_address_plus"
+						onkeyup="addressCheck();" value="<%=udto.getUser_addressPlus()%>"  style="display: inline-block;">
+						<%
+						}
+						%>	<br>					
+						<label id="address_error" class="error"></label> <br>
+										
+					<button id="address_find" onclick="findAddr()" class="btn btn-outline-success">주소 찾기</button><br><br>
+						<input type="text" name="user_join_date" class="form-control"
 						value="<%=udto.getUser_joindate()%>" readonly="readonly"><br>
 					<!-- 		<input type="button" value="회원정보 수정하기" onclick="aaa();"><label id="infoChange_text"></label><br> -->
-					<input type="submit" value="회원정보 수정하기">
+					<input type="submit" class="btn btn-outline-success" value="회원정보 수정 하기">
 				</form>
 			</div>
 			<div>
 			<br><br>
+			
+			<!-- 비밀번호 변경 탭 -->
+			
 				<form action="./UserPasswordEditAction.us" method="post"
 					onsubmit="return checkPw()">
-					<label>현재 비밀번호</label><input type="password" id="pw" name="pw"><br>
-					<label>변경 비밀번호</label><input type="password" id="new_pw"
-						name="new_pw"><br> <label>변경 비밀번호 확인</label><input
-						type="password" id="new_pw_check" name="new_pw_check"><br>
-					<label id="pw_error" class="error"></label><br> <input
-						type="submit" value="비밀번호 변경하기">
+					
+					<input type="password" class="form-control password"  id="pw" name="pw" placeholder="현재 비밀번호 입력">
+					<input type="password" class="form-control password"  id="new_pw" name="new_pw" placeholder="변경할 비밀번호 입력">
+					<input type="password" class="form-control password"  id="new_pw_check" name="new_pw_check" placeholder="변경할 비밀번호 확인">
+					<label id="pw_error" class="error"></label><br> 
+					<input class="btn btn-outline-success" type="submit" value="비밀번호 변경하기">
+
+					
+			
 					<%
 						if (m != null) {
 							if (m.equals("1")) {
@@ -211,14 +264,25 @@ function myWish(){
 					%>
 				</form>
 			</div>
+			
+			
+			<!-- 은행계좌 변경 탭 -->
+			
 			<div>
-				<br><br>
-				<label>은행 이름 :</label><label><%=udto.getUser_bankName()%></label><br>
-				<label>계좌 번호 :</label><label><%=udto.getUser_bankAccount()%></label><br>
-
+				<br>
+				<%if(udto.getUser_bankName()==null){ %>				
+				<input type="text" class="form-control password bank"  id="bankname" name="bankname" value="은행명" readonly>
+				<%}else{ %>
+				<input type="text" class="form-control password bank"  id="bankname" name="bankname" value="<%=udto.getUser_bankName()%>" readonly>
+				<%} %>
+				<%if(udto.getUser_bankAccount()==null){ %>
+				<input type="text" class="form-control password bank"  id="banknumber" name="banknumber" value="계좌번호" readonly>
+				<%}else{ %>
+				<input type="text" class="form-control password bank"  id="banknumber" name="banknumber" value="<%=udto.getUser_bankAccount()%>" readonly>
+				<%} %>
 				<form action="./UserBankChangeAction.us" method="post"
 					onsubmit="return check()">
-					<select id="bankname" name="bankname">
+					<select class="form-select bank" id="bankname" name="bankname">
 						<option value="none">은행을 선택 하세요.</option>
 						<option value="카카오뱅크">카카오뱅크</option>
 						<option value="국민은행">국민은행</option>
@@ -228,19 +292,21 @@ function myWish(){
 						<option value="기업은행">기업은행</option>
 						<option value="하나은행">하나은행</option>
 						<option value="한국시티은행">한국시티은행</option>
-					</select><br> <label>계좌 번호</label><input type="text" id="bankaccount"
-						name="bankaccount"
-						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"><br>
-					<input type="submit" value="계좌 정보 저장">
+						</select><br> 
+						
+				<input type="text" class="form-control password bank"  id="bankaccount" name="bankaccount" 
+					 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="계좌번호를 입력하세요">
+										
+				<input class="btn btn-outline-success" type="submit" value="계좌 정보 저장">					
 				</form>
 			</div>
 			<div>
 			<br><br>
-				<!--  <form action="./UserDeleteAction.us" method="post">
-					<input type="submit" value="회원탈퇴">
-				</form>-->
+			
+			
+			<!-- 회원 탈퇴 탭 -->
 				
-				<button type="button" class="btn btn-outline-danger" onclick="location.href='./UserDeleteAction.us'">회원탈퇴 </button>
+				<button type="button" class="btn btn-outline-danger" onclick="deleteUser();">회원탈퇴 </button>
 				
 			</div>
 			</div>

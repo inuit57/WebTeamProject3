@@ -9,31 +9,40 @@
 <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 <style>
     
-*{
-  font-size: 13px;  
-    }
-.table{
+
+.table td{
+	font-size:18px;
 	margin: 0;
+}
+
+.table a{
+	text-decoration: none;
+	color: black;
+	transition: all 0.5s;
+}
+
+.table a:hover{
+	color:white;
+	background-color: green;
 }
     
 </style>
 
 </head>
 <body>
-
-	<h2 style="text-align: center;"> 회원 정보 관리</h2>
-
 <%
-	List auList = (List)request.getAttribute("auList");
-		
+	List auList = (List)request.getAttribute("auList");		
 	
 %>
 
+	<h2 style="text-align: center;"> 회원 정보 관리</h2>
+
+
+	<div class="ad-content1 innerContent table-responsive user">
 	
 
-	<div class="ad-content1 innerContent">
 
-		<table class="table" border="1">
+		<table class="table table-sm table-hover" border="1">
 		<thead class="table-dark">
 				<tr>					
 					<td>닉네임</td>

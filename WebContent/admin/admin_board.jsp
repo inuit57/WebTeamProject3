@@ -6,98 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<style type="text/css">
- #ad-sidebar {
-        width: 15%;
-        padding: 20px;
-        margin-bottom: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-  #ad-sidebar li {
-  	list-style: none;
-  	text-decoration: none;
-  }
-  
-  #ad-sidebar .li1 {
-  	font-weight: bold !important;
-  }
-  
-   #ad-sidebar li a:VISITED {
-   	font-weight: bold !important;
-   	color: black;
-   }
-  
-
-  
- .li-1{
- 	display: none;
- }
-
-.li1:hover{
-	background-color: green;
-	cursor: pointer;
-}
-
-.li-1 li:hover{
-	background-color: green;
-	cursor: pointer;
-}
-
-#ad-sidebar a {
-	text-decoration: none;
-	color:black;
-}
-
-     
- .ad-content1 {
-    width: 85%;
-    padding: 20px;
-    margin-bottom: 20px;
-    float:none;
-  
-    overflow: hidden;
-    height: 400px;
-  }
-  
-  .innerContent {
-  	width: 100%;
-  }
-  
-  
- .ad-content2 {
- 	clear:both;
- 	margin-left:15%;
-    width: 40%;
-    padding: 20px;
-    margin-bottom: 20px;
-    float:left;
-   
-    overflow: hidden;
-    height: 500px;
-    
-  }
-  
- .ad-content3 {
- 	
-    width: 40%;
-    padding: 20px;
-    margin-bottom: 20px;
-    float:right;
- 
-    overflow: hidden;
-    height: 500px;
-    
-  }
-  
- .footer {
- 	clear:both;
- } 
-  
-
-
-
-</style>
+<link rel="stylesheet" href="./css/admin.css">
 
 
 <%@ include file="../inc/top.jsp" %>
@@ -115,6 +24,14 @@ $(document).ready(function(){
 			});
 	
 	$.ajax({
+	    url: "./declarationListSample.decl", // 신고게시판 샘플 추가 필요
+	    method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+	   success:function(data){
+		   $(".ad-content2").html(data);		   
+			   }
+			});
+	
+	$.ajax({
 	    url: "./InqueryAdminListSample.ai", // 1:1 문의 게시판 관리자용 샘플
 	    method: "GET",   // HTTP 요청 메소드(GET, POST 등)
 	   success:function(data){
@@ -122,13 +39,6 @@ $(document).ready(function(){
 			   }
 			});
 	
-	$.ajax({
-	    url: "./declarationListSample.decl", // 신고게시판 샘플 추가 필요
-	    method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-	   success:function(data){
-		   $(".ad-content2").html(data);		   
-			   }
-			});
 			
 	$('.li1').click(function(){
 		// 왼쪽 사이드 메뉴바 토글
@@ -147,11 +57,11 @@ $(document).ready(function(){
 
 	
 	<div class="container-fluid">	
-	<h1 style="text-align: center;">관리자 게시판</h1>
 		<div id="ad-sidebar">
 			
+					<a href="./AdminBoard.ap">관리자 게시판	</a>
+						
 			<ul>
-				<li><a href="./AdminBoard.ap">관리자 게시판</a>	</li>				
 				<li class="li1">회원목록 조회</li>
 				 <div class="li-1">
 				 	<ul>
@@ -172,8 +82,8 @@ $(document).ready(function(){
 				 <div class="li-1">
 				 	<ul>
 				 	<li><a href="./declarationList.decl">전체</a></li>	
-				 	<li><a href="./decl_prod_list.decl">상품게시판</a></li>	
-				 	<li><a href="./decl_normal_list.decl">일반게시판</a></li>
+				 	<li><a href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a href="./decl_normal_list.decl?state=1">일반게시판</a></li>
 				 	</ul>	
 				 </div>
 							

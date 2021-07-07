@@ -27,9 +27,9 @@
 <body>
 <!-- 헤더파일들어가는 곳 -->
 
+	<div class="innerContent table-responsive normal">
 
 	<h2 style="text-align: center;">신고목록 - 일반게시판</h2>
-
 		
 	<%
 		// 전달된 신고글 목록 저장
@@ -43,7 +43,7 @@
 		declarationDAO dcDAO = new declarationDAO();
 	%>
 	
-	<table class="table" border="1">
+	<table class="table table-sm table-hover" border="1">
 	 <thead class="table-dark">
 		<tr>
 			<td>피의자</td>	<!-- 신고당한 글 작성자 -->	
@@ -95,7 +95,7 @@
 	}
 	%>	
 	</table>
-
+</div>
 
 <!-- 푸터 들어가는 곳 -->
 

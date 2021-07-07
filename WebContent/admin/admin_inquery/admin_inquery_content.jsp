@@ -8,42 +8,9 @@
 <title>1:1문의 글 내용</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-<style type="text/css">
-#ad-sidebar {
-        width: 15%;
-        padding: 20px;
-        margin-bottom: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-      
- #ad-sidebar li {
-  	list-style: none;
-  }
-      
-.ad-content1 {
-    width: 85%;
-    padding: 20px;
-    margin-bottom: 20px;
-    float:right;
-    height: 800px;
-  }
+<link rel="stylesheet" href="./css/admin.css">
 
-.footer {
- 	clear:both;
- } 
- 
- .li-1{
- 	display: none;
- }
-
-.li1:hover{
-	background-color: green;
-	cursor: pointer;
-}
-
-</style>
-
+ -->
 <script type="text/javascript">
 $(function(){
 	
@@ -110,7 +77,7 @@ $(function(){
 				
 		</div>
 		
-<div class="ad-content1">
+<div class="ad-content0">
   		<table class="table" border="1">
    		
 			<tr>
@@ -147,7 +114,7 @@ $(function(){
 	if(!inDTO.getInq_check().equals("1")){
 %>
 
-	<a href="./InqueryAdminWriteFormAction.ai?num=<%=inDTO.getInq_num()%>"> 답변달기</a>
+	<button class="btn btn-outline-success" type="button" onclick="location.href='./InqueryAdminWriteFormAction.ai?num=<%=inDTO.getInq_num()%>'">답변달기</button>
 <%} %>
 </div>
 

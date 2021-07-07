@@ -9,62 +9,7 @@
 <title>회원정보 조회</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-
-<style type="text/css">
-#ad-sidebar {
-        width: 15%;
-        padding: 20px;
-        margin-bottom: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-      
- #ad-sidebar li {
-  	list-style: none;
-  }
-
-#ad-sidebar .li1 {
-  	font-weight: bold !important;
-  }
-  
- #ad-sidebar li a:VISITED {
- 	font-weight: bold !important;
- 	color: black;
- }
- 
-.li-1{
- 	display: none;
- }
-
-.li1:hover{
-	background-color: green;
-	cursor: pointer;
-}
-
-.li-1 li:hover{
-	background-color: green;
-	cursor: pointer;
-}
-
-#ad-sidebar a {
-	text-decoration: none;
-}
-        
-.ad-content1 {
-    width: 85%;
-    padding: 20px;
-    margin-bottom: 20px;
-    float:right;
-    height: 800px;
-  }
-
-.footer {
- 	clear:both;
- } 
-
-
-</style>
-
+<link rel="stylesheet" href="./css/admin.css">
 <%@ include file="../../inc/top.jsp" %>
 
 <script type="text/javascript">
@@ -117,8 +62,8 @@ $(function(){
 </head>
 <body>
 
-
-	<h1 style="text-align: center;"> 회원 정보 관리</h1>
+	<br>
+	<h1 style="text-align: center; margin-top: 50px;"> 회원 정보 관리</h1>
 
 <%
 	List auList = (List)request.getAttribute("auList");
@@ -143,11 +88,12 @@ $(function(){
 	
 %>
 
-	
+		
 		<div id="ad-sidebar">
 			
+					<a href="./AdminBoard.ap">관리자 게시판	</a>
+						
 			<ul>
-				<li><a href="./AdminBoard.ap">관리자 게시판</a>	</li>				
 				<li class="li1">회원목록 조회</li>
 				 <div class="li-1">
 				 	<ul>
@@ -168,8 +114,8 @@ $(function(){
 				 <div class="li-1">
 				 	<ul>
 				 	<li><a href="./declarationList.decl">전체</a></li>	
-				 	<li><a href="./decl_prod_list.decl">상품게시판 신고내역</a></li>	
-				 	<li><a href="./decl_normal_list.decl">일반게시판 신고내역</a></li>
+				 	<li><a href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a href="./decl_normal_list.decl?state=1">일반게시판</a></li>
 				 	</ul>	
 				 </div>
 							
@@ -177,9 +123,9 @@ $(function(){
 				
 		</div>
 
-	<div class="ad-content1">
+	<div class="ad-content0 table-responsive">
 
-		<table class="table" border="1">
+		<table class="table table-sm table-hover" border="1">
 			<thead class="table-dark">
 				<tr>
 					<th>닉네임</th>
@@ -318,6 +264,8 @@ if(uDTO.getUser_use_yn()==1){
 		if(startPage > pageBlock){
 		%>
 		
+		
+		
 <%-- 		<a href="<%=url%>&pageNum=<%=startPage-pageBlock%>">[이전]</a> --%>
 		<a href="<%=url%><%=startPage-pageBlock%>">[이전]</a>
 		<% 
@@ -358,21 +306,25 @@ if(uDTO.getUser_use_yn()==1){
 
 <br>
 
-<a href="./AdminUserList.au">전체</a>
-	<a href="./AdminUserList.au?auth=1">일반회원</a>
-	<a href="./AdminUserList.au?auth=2">관리자</a>
-	<br>
+
 	<br>
 	
 	
 	<form action="./AdminUserSearch.au" method="post">
-			<select name="sk">
+	<div class="search01">
+			<select style="width:100px;" class="form-select" name="sk">
 				<option value="user_nickname">닉네임 </option>
 				<option value="user_id">아이디 </option>
 			</select>
-			<input type="text" name="sv">
-			<input type="submit" value="검색">		
+			<input style="width:300px;" type="text" class="form-control" name="sv">
+			<input type="submit" class="btn btn-outline-success" value="검색">		
+		</div>
 		</form>
+	<br>
+	
+	<a href="./AdminUserList.au">전체</a>
+	<a href="./AdminUserList.au?auth=1">일반회원</a>
+	<a href="./AdminUserList.au?auth=2">관리자</a>
 
 </div>	
 
