@@ -30,7 +30,7 @@
 		
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
-			<td><%=inDTO.getUser_nick() %></td>
+			<td><%=inDTO.getUser_nickname() %></td>
 			<td><a href="./InqueryContent.in?num=<%=inDTO.getInq_num()%>"><%=inDTO.getInq_sub() %></a></td>	
 			<td><%=inDTO.getInq_date() %></td>
 		</tr>

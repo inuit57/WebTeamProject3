@@ -242,7 +242,7 @@
 						<form action="" method="post" name="chatform">
 						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
-						<input type="hidden" name="seller" value="<%=pDTO.getUser_nick()%>">
+						<input type="hidden" name="seller" value="<%=pDTO.getUser_nickname()%>">
 						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
 						</form>
 					<%}%>
