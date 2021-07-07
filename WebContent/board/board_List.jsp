@@ -8,6 +8,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<style type="text/css">
+	
+	.table {
+		text-align: center;
+	}
+	td a {
+		text-decoration: none;
+	}
+</style>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
@@ -19,9 +29,7 @@
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
-%>
-<%-- 	<%=user_nick %>님 환영합니다. --%>
-<%
+
 	boardDAO bDAO = new boardDAO();
 	int cnt = bDAO.getBoardCount();
 
@@ -35,12 +43,13 @@
 	<div style="margin:auto;  width: 800px;">
 	<div align="right">
 	<% if(user_nick != null){ %>
-		<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
+		<input type="button" class="btn btn-success" value="글쓰기" style="margin-bottom: 2%" onclick="location.href='./board_Write.bo'">
 	<%} %>
 	</div>
-	<table  class="table table-bordered" border="1" >
+	<table class="table">
 	
 	<% if(boardList.size() > 0){ %>
+	<thead class="table-dark">
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -48,6 +57,7 @@
 			<td>작성시간</td>
 			<td>조회수</td>
 		</tr>
+	</thead>
 	<%}else{ %>
 		<tr>
 			<td align="center">조회된 글이 없습니다.</td>
@@ -131,7 +141,7 @@
             		<option value="board_sub">글 제목</option>
          		</select>
          		<input type="text" name="sv">
-         		<input type="submit" value="검색">  
+         		<input type="submit" class="btn btn-success" value="검색">  
          		<input type="hidden" name="pageNum" value="<%=pageNum%>">
       		</form>
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->

@@ -92,8 +92,12 @@
 				decl_state = "처리완료";
 				break;
 			}
+			if(decl_state.equals("처리중")){
 			%>
-			<td><%=decl_state %></td>
+				<td style="color: red"><b><%=decl_state %></b></td>
+			<%}else { %>
+				<td style="color: yellowgreen"><b><%=decl_state %></b></td>
+			<%} %>
 		</tr>
 	<%
 	}

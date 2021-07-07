@@ -253,7 +253,7 @@ public class boardCommentDAO {
 			
 			conn = getConnection();
 			
-			sql = "select * from normal_board_comment  where board_num=?";
+			sql = "select * from normal_board_comment  where board_num=? order by cmt_num desc";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, board_num);

@@ -62,7 +62,7 @@
 	</table>
 	
 	<table class="table">
-	<thead class="table-green">
+	<thead class="table-dark">
 		<tr>
 			<th>신고자</th>
 			<th>신고사유</th>

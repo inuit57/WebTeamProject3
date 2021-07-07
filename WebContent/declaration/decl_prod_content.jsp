@@ -66,15 +66,17 @@
 	<hr style="width: 600px; margin-left: 0">
 	
 	<table class="table">
+	<thead class="table-dark">
 		<tr>
 			<th>신고자</th>
 			<th>신고사유</th>
 			<th>기타내용</th>
 			<th>신고날짜</th>
 		</tr>
+	</thead>
 		<%for(int i=0; i<decl_prod_reason.size();i++){
 			declarationDTO dcDTO = (declarationDTO)decl_prod_reason.get(i);%>
-		<tr>
+		<tr style="text-align: center">
 			<td><%=dcDTO.getUser_nickname() %></td>
 		<%
 			String reason ="";
@@ -113,8 +115,8 @@
 	</table>
 	
 	<form action="decl_prod_DeleteAction.decl" onsubmit="return confirm('해당 신고글을 삭제하시겠습니까?')" method="get">
-		<input type="button" value="목록으로" onclick="location.href='decl_prod_list.decl'">
-		<input type="submit" value="해당글 삭제하기" >
+		<input type="button" class="btn btn-success" value="목록으로" style="margin-bottom: 2%; margin-left: 80%" onclick="location.href='decl_prod_list.decl?state=<%=state%>'">
+		<input type="submit" class="btn btn-danger" value="해당글 삭제하기" style="margin-bottom: 2%">
 		<input type="hidden" name="num" value="<%=pDTO.getProd_num()%>">
 		<input type="hidden" name="state" value="<%=state%>">
 	</form> 

@@ -13,9 +13,10 @@
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
-	
-	<input type="button" class="btn btn-info" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
-	<input type="button" class="btn btn-info" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+<div align="center" style="margin-top: 2%; margin-bottom: 2%">	
+	<input type="button" class="btn btn-light" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
+	<input type="button" class="btn btn-light" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+</div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 
 <!-- 푸터 들어가는 곳 -->		
