@@ -2,6 +2,7 @@ package com.board.action;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +18,7 @@ public class BoardContentAction implements Action {
 		System.out.println("BoardContentAction_execute() 호출");
 		
 		boardDAO bDAO = new boardDAO();
-		// 조회수 증가
+		
 		int cmt_cnt = bDAO.getBoardCount();
 		
 		// 한페이지당 보여줄 글의 개수
@@ -26,6 +27,34 @@ public class BoardContentAction implements Action {
 		
 		// 전달된 정보저장
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		
+		int count = 0;
+		
+		Cookie[] cookies = request.getCookies();
+		
+		// IP 조회 : request.getRemoteAddr()
+					if(cookies != null) {
+						for(int i=0;i<cookies.length;i++) {
+							//if(cookies[i].getName().equals(pDTO.getProd_num()+"")) {
+							if(cookies[i].getName().equals("board_count"+board_num) && cookies[i].getValue().equals(request.getRemoteAddr())) {
+								count = 0;
+								break;
+							}else {
+								Cookie cookie = new Cookie("board_count"+board_num,
+															request.getRemoteAddr());
+															//String.valueOf(pDTO.getProd_num()+""));
+								cookie.setMaxAge(60*60*24);
+								//cookie.setPath("/");
+								response.addCookie(cookie);
+								count += 1;
+							}
+						}
+					}
+				
+					if(count > 0) {
+						bDAO.updateReadcount(board_num);
+					}
+		
 		
 		// 현페이지가 몇페이지 인지 확인
 		String cmt_pageNum = request.getParameter("cmt_pageNum");
@@ -40,8 +69,6 @@ public class BoardContentAction implements Action {
 		
 		boardCommentDAO bcDAO = new boardCommentDAO();
 		List boardCommentList = bcDAO.getBoardCommentList(startRow, cmt_pageSize);
-		
-		bDAO.updateReadcount(board_num);
 		
 		boardDTO bDTO = bDAO.getContent(board_num);
 		
