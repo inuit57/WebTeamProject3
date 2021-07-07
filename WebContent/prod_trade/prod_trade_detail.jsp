@@ -239,7 +239,12 @@
 						<%} %>
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
 						<input type="button" value="구매요청" class="form-control" > 
+						<form action="" method="post" name="chatform">
+						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
+						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
+						<input type="hidden" name="seller" value="<%=pDTO.getUser_nick()%>">
 						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
+						</form>
 					<%}%>
 				</td>
 			</tr>
@@ -304,7 +309,10 @@
 		});
 	});
 	function openWindowChat() {
-		window.open("./chat.ch","회원정보","width=300,height=600,top=150,left=500");
+		window.open("","Chat","width=300,height=650,top=150,left=500");
+		document.chatform.target = "Chat";
+		document.chatform.action = "./ChatAction.ch";
+		document.chatform.submit();
 	}
 </script>
 

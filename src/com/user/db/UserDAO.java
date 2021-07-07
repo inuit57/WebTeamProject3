@@ -432,6 +432,9 @@ public class UserDAO {
 	
 	
 	public void changeBankAccount(String id, String bankName, String bankAccount) {
+		
+		int result = 0;
+		
 		try {
 			conn = getConnection();
 			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
@@ -440,7 +443,15 @@ public class UserDAO {
 			pstmt.setString(2, bankAccount);
 			pstmt.setString(3, id);
 			
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
+			
+			if(result==1) {
+				sql= "update member set user_grade=2 where user_id=?";
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+				
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e.toString());

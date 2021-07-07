@@ -1,4 +1,4 @@
-package com.chat;
+package com.chat.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
