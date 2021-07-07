@@ -5,7 +5,6 @@
 <%@page import="com.user.db.UserDTO"%>
 <%@page import="com.wish.db.WishDTO"%>
 <%@page import="com.wish.db.WishDAO"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
