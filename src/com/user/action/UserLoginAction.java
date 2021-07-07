@@ -33,8 +33,12 @@ public class UserLoginAction implements Action {
     
 		String user_nick = "";
 		
+	
+		
 		if(loginType.equals("normal")){
+			System.out.println("로그인 방식 : 노멀");
 			user_nick = udao.Login(id,pw);
+			
 		}else{
 			user_nick = udao.checkEmail(id);
 		}
@@ -52,7 +56,7 @@ public class UserLoginAction implements Action {
 			forward.setPath("./Main.do");
 			forward.setRedirect(true);
 		} else {
-			System.out.println(user_nick);
+			System.out.println("user_nick : " + user_nick);
 			forward.setPath("./UserLogin.us?error=1");
 			forward.setRedirect(true);
 		}

@@ -24,7 +24,14 @@ Table of contents
 15. Large devices (desktops, 992px and up)
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
+a{
+	 text-decoration:none
+}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 /* BUTTON 5 */
 /* GENERAL BUTTON STYLING */
 .btn-5,
@@ -78,6 +85,8 @@ Table of contents
   height: 100%;
   width: 135%;
 }
+
+
 
 #boxAdd{
 background-color:#CEF6D8;
@@ -205,7 +214,13 @@ border:0px;
  }
  
 
-
+.contentHid{
+text-overflow:ellipsis; 
+ overflow:hidden; 
+ white-space:nowrap;
+ background-color:transparent;
+ border:0px;	
+}
 #msgContent{
  text-overflow:ellipsis; 
  overflow:hidden; 
@@ -500,9 +515,6 @@ body, ul, li, p, a, label, input, div {
 // No media query since this is the default in Bootstrap
 */
 /* Small devices (landscape phones, 576px and up)*/
-.product-wap .h3, .product-wap li, .product-wap i, .product-wap p {
-  font-size: 12px !important;
-}
 .product-wap .product-color-dot {
   width: 6px;
   height: 6px;

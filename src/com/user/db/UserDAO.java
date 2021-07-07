@@ -241,6 +241,7 @@ public class UserDAO {
 
 	      boolean b = false;
 	      String user_nick = null;
+	      System.out.println("id :: " + id ); // ok 
 
 	      try {
 	         conn = getConnection();
@@ -249,10 +250,11 @@ public class UserDAO {
 	         pstmt.setString(1, id);
 	         rs = pstmt.executeQuery();
 	         if (rs.next()) {
-	        	System.out.println(rs.getString("user_pw"));
+	        	System.out.println("PW : " + rs.getString("user_pw"));
 	            if (rs.getString(1).equals(pw)) {
 	               if (rs.getInt(2) == 1) { // 1 : 사용 , 2 : 탈퇴된 회원 
 	                  user_nick = rs.getString(3);
+	                  System.out.println("user_nick : " + user_nick);
 	               } else {
 	                  b = false;
 	               }
@@ -260,6 +262,7 @@ public class UserDAO {
 	               b = false;
 	            }
 	         } else {
+	        	 System.out.println("찾는 회원 정보 없음!!");
 	            b = false;
 	         }
 	      } catch (Exception e) {
