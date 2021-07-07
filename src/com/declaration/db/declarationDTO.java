@@ -1,3 +1,4 @@
+
 package com.declaration.db;
 
 public class declarationDTO {
@@ -5,14 +6,13 @@ public class declarationDTO {
 	private int decl_num;
 	private int board_type;
 	private int board_num;
-	private String user_nick;
+	private String user_nickname;
 	private String board_sub;
 	private int decl_reason;
 	private String decl_content;
 	private String decl_date;
 	private String decl_writer;
 	private int decl_state;
-	
 	
 	public int getDecl_num() {
 		return decl_num;
@@ -32,11 +32,11 @@ public class declarationDTO {
 	public void setBoard_num(int board_num) {
 		this.board_num = board_num;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 	public String getBoard_sub() {
 		return board_sub;
@@ -79,3 +79,4 @@ public class declarationDTO {
 	
 
 }
+

@@ -6,43 +6,56 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+<style>
+    
 
+.table td{
+	font-size:18px;
+	margin: 0;
+}
 
+.table a{
+	text-decoration: none;
+	color: black;
+	transition: all 0.5s;
+}
+
+.table a:hover{
+	color:white;
+	background-color: green;
+}
+    
+</style>
 
 </head>
 <body>
-
-	<h1 style="text-align: center;"> 회원 정보 관리</h1>
-
 <%
-	List auList = (List)request.getAttribute("auList");
-		
+	List auList = (List)request.getAttribute("auList");		
 	
 %>
 
+	<h2 style="text-align: center;"> 회원 정보 관리</h2>
+
+
+	<div class="ad-content1 innerContent table-responsive user">
 	
 
-	<div class="ad-content1">
 
-		<table border="1">
-				<tr>
-					<td>유저번호</td>
+		<table class="table table-sm table-hover" border="1">
+		<thead class="table-dark">
+				<tr>					
 					<td>닉네임</td>
 					<td>아이디</td>
 					<td>가입날짜</td>
 					<td>코인</td>
-					<td>연락처</td>
-					<td>주소</td>
-					<td>주소plus</td>
-					<td>은행명</td>
-					<td>은행계좌번호</td>
+					<td>연락처</td>			
 					<td>회원/관리자</td>
 					<td>회원등급</td>
 					<td>탈퇴여부</td>
 					
 				</tr>
-
+		</thead>
 
 <%
 for(int i=0;i<auList.size();i++){
@@ -50,16 +63,14 @@ for(int i=0;i<auList.size();i++){
 
 %>
 <tr>
-<td><%=uDTO.getUser_num() %></td>
+
 <td><%=uDTO.getUser_nickname() %></td>
 <td><%=uDTO.getUser_id() %></td>
 <td><%=uDTO.getUser_joindate() %></td>
 <td><%=uDTO.getUser_coin() %></td>
 <td><%=uDTO.getUser_phone() %></td>
-<td><%=uDTO.getUser_address() %></td>
-<td><%=uDTO.getUser_addressPlus() %></td>
-<td><%=uDTO.getUser_bankName() %></td>
-<td><%=uDTO.getUser_bankAccount() %></td>
+
+
 <%
 if(uDTO.getUser_auth()==2){
 %>
@@ -91,7 +102,7 @@ if(uDTO.getUser_use_yn()==1){
 %>
 
 </table>
-
+</div>
 </body>
 
 </html>

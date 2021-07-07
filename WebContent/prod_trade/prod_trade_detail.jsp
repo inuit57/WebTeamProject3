@@ -1,3 +1,4 @@
+<%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.user.db.UserDAO"%>
 <%@page import="com.user.db.UserDTO"%>
 <%@page import="com.wish.db.WishDTO"%>
@@ -56,34 +57,52 @@ border-bottom:none;
 	WishDTO wDTO = new WishDTO();
 	WishDAO wDAO = new WishDAO();
 	UserDAO uDAO = new UserDAO(); 
+	ProdDAO pDAO = new ProdDAO(); 
+	
 	int pageNum = Integer.parseInt(request.getParameter("pageNum").toString());
 	//int wishCount = (int)request.getAttribute("wishCount");
 	%>
-	<!-- <a href="./main.bo">메인</a> -->
 
 	<div class="container" >
 	<br><br>
 
 	<!-- 신고폼 -->	
-	<% if(user_nick != null){ %>
+	
+	
 	<div style="margin:auto;  width: 800px; ">
+	<button onclick="location.href='./ProductList.pr'">목록으로</button>
+	<% if(user_nick != null){ %>
 	<form name="declareForm" action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 
 		<input type="submit" value="신고하기" class="btn btn-danger" >
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
-		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nick()%>">
+		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nickname()%>">
 		<input type="hidden" name="board_sub" value="<%=pDTO.getProd_sub()%>">
 		<input type="hidden" name="board_type" value="1">
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 	</form>
-	</div>
 	<%} %>
+	</div>
+	
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
 	
 	<div style="margin:auto;  width: 800px; ">	
 		<table border="1" class="table" style="height: 500px; frame= void;">
+
+<%
+	String[] temp = pDTO.getProd_img().split(",");
+	int not_null_cnt =0 ; 
+	for(int i = 0 ; i< temp.length ; i++){
+		System.out.println(temp[i]); 
+		if(!temp[i].equals("null") && temp[i] != null ){
+			not_null_cnt++; 
+		}
+	}
+	System.out.println("not null cnt : " +  not_null_cnt);
+%>
+
 			<tr>
 				<td width="400">
 					 <!-- <img src="./upload/" width="400" height="400"> -->
@@ -93,8 +112,11 @@ border-bottom:none;
 						<ol class="carousel-indicators">
 							<li data-target="#carousel-example-generic" data-slide-to="0"
 								class="active"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+							<% for(int i =1 ; i < not_null_cnt ; i++){ %>
+								<li data-target="#carousel-example-generic" data-slide-to="<%=i%>"></li>
+							<%} %>
+<!-- 							<li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+<!-- 							<li data-target="#carousel-example-generic" data-slide-to="3"></li> -->
 						</ol>
 
 						<!-- Wrapper for slides -->
@@ -119,15 +141,15 @@ border-bottom:none;
 									String imgfile = pDTO.getProd_img().split(",")[i];
 									if ((imgfile == null) || (imgfile.equals("null"))) {
 										imgfile = "product_default.jpg";
-									}
+									}else{
 							%>
-							
-							<div class="item">
-								<img src="./upload/<%=imgfile %>" class="d-block w-100" alt="..."
-									style="width: 400px; height: 400px;">
-								<div class="carousel-caption">...</div>
-							</div>
+										<div class="item">
+											<img src="./upload/<%=imgfile %>" class="d-block w-100" alt="..."
+												style="width: 400px; height: 400px;">
+											<div class="carousel-caption">...</div>
+										</div>
 							<%
+									}
 								} //for
 							} //if
 							%>
@@ -147,9 +169,14 @@ border-bottom:none;
 	
 				</td>
 				<td width="400" id="t1">
-					<h2><%=pDTO.getProd_sub()%></h2>
-					<h1><%=pDTO.getProd_price()%></h1>
-					<h3><a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nick()%>"><%=pDTO.getUser_nick()%></a></h3>
+
+
+<%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
+					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
+					<h1>가격 : <%=pDTO.getProd_price()%>원</h1>
+					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nickname()%>"><%=pDTO.getUser_nickname()%></a></h3>
+					<hr> 
+
 					<hr> <%
 					 String category = "";
 					
@@ -216,10 +243,11 @@ border-bottom:none;
 					 }
 					 %>
 					<ul id="u1">
-						<li>카테고리 : <a href="./ProductList.pr?item=<%=category%>"><%=category%></a></li>
+						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
-						<li>작성시간 : <%=pDTO.getProd_date()%></li>
+<%-- 						<li>작성시간 : <%=pDTO.getProd_date()%></li> --%>
+						<li>작성시간 : <%=pDAO.timeForToday(pDTO.getProd_num())%></li>
 					</ul> 
 					
 					찜 횟수 &nbsp; 
@@ -234,18 +262,20 @@ border-bottom:none;
 					
 					<br>
 					
-					<!-- 관리자만 사용가능한 메뉴 생성 -->
-					<% if(user_nick != null){ 
-						if ( !pDTO.getUser_nick().equals(user_nick) ){							
-						%>
-						<input type="button" id="btnLike" value="찜하기" class="btn btn-warning">
-						
+					<% if(user_nick != null){ %>
+
+						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
+							<input type="button" id="btnLike" value="찜하기" class="btn btn-warning"> 
+						<%} %>
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
-						<input type="button" value="구매요청" class="btn btn-success">
-						<input type="button" value="채팅하기" class="btn btn-info" >
-					<%}
-						}
-					%>
+						<input type="button" value="구매요청" class="form-control" > 
+						<form action="" method="post" name="chatform">
+						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
+						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
+						<input type="hidden" name="seller" value="<%=pDTO.getUser_nickname()%>">
+						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
+						</form>
+					<%}%>
 				</td>
 			</tr>
 			<tr>
@@ -256,14 +286,16 @@ border-bottom:none;
 		</table>
 		<br>
 		<div style="margin:auto;  width: 800px; ">
-		<% if ( pDTO.getUser_nick().equals(user_nick) ){ %>
+		<% if ( pDTO.getUser_nickname().equals(user_nick) ){ %>
 			<input type="button" value="수정하기" class="btn btn-light"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			<!-- 로직 처리 필요 -->
 			<input type="button" value="판매완료"
-				onclick="#">
+				onclick="location.href='./ProductSellComplete.pr?num=<%=pDTO.getProd_num()%>' ">
+				
 		<%}%>
-		<% if( pDTO.getUser_nick().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
+
+		<% if( pDTO.getUser_nickname().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
 			<input type="button" value="삭제하기" class="btn btn-light"
 				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
 		<%} %>
@@ -311,6 +343,12 @@ border-bottom:none;
 			})
 		});
 	});
+	function openWindowChat() {
+		window.open("","Chat","width=300,height=650,top=150,left=500");
+		document.chatform.target = "Chat";
+		document.chatform.action = "./ChatAction.ch";
+		document.chatform.submit();
+	}
 </script>
 
 </html>

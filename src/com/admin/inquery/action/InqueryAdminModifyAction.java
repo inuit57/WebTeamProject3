@@ -25,7 +25,7 @@ public class InqueryAdminModifyAction implements Action {
 		InqueryDTO inDTO = new InqueryDTO();
 		
 		inDTO.setInq_num(Integer.parseInt(request.getParameter("num")));
-		inDTO.setUser_nick(request.getParameter("name"));
+		inDTO.setUser_nickname(request.getParameter("name"));
 		inDTO.setInq_sub(request.getParameter("subject"));
 		inDTO.setInq_content(request.getParameter("content"));
 		

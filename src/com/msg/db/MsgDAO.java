@@ -54,10 +54,6 @@ public class MsgDAO {
 	}
 	
 	
-	
-	
-	
-	
 	//msgWrite(MsgDTO mdto)
 	public void msgWrite(MsgDTO mdto){
 
@@ -115,6 +111,67 @@ public class MsgDAO {
 				closeDB();		
 			}
 		
+	}//msgWrite(MsgDTO mdto)
+	
+	
+	//msgWrite(MsgDTO mdto)
+	/**
+	 * 
+	 *  찜목록의 상품에 변동사항이 생길 경우, 시스템적으로 보내주는 메시지 
+	 *  보내야 하는 회원들의 목록을 받아서 각각 insert를 해주는 식으로 구현 
+	 */
+	public void msgWrite(List<String> memberList,  String prod_sub){
+
+    	int num = 0;
+		try {
+			// 1 드라이버 로드
+			// 2 디비 연결
+			// => 한번에 처리 하는 메서드로 변경
+			conn = getConnection();		
+			
+			// 3 sql (글번호를 계산하는 구문)
+			sql = "select max(msg_idx) from msg";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			// 4 sql 실행
+			rs = pstmt.executeQuery();
+			
+			// 5 데이터 처리
+			//  max(num) - sql 함수를 실행했을경우 커서이동 가능(데이터여부 상관없음)
+			//  num     - sql 컬럼의 경우  커서 이동 불가능
+			if(rs.next()){
+				//num = rs.getInt("max(num)")+1;
+				num = rs.getInt(1)+1;
+			}
+			////////////////////////////////////////////////////
+			
+			// 3 sql 작성 (insert) & pstmt 객체 생성
+			for(int i =0 ; i< memberList.size() ; i++){
+				sql = "insert into msg(msg_idx, recv_nick, send_nick, msg_content, msg_chk, msg_date) values(?,?,?,?,?,now())";
+				
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, num);
+				pstmt.setString(2, memberList.get(i));
+				pstmt.setString(3, "system");
+				pstmt.setString(4, "찜목록해두신 ["+prod_sub+"] 상품이 판매완료 되었습니다."); 
+				// 삭제된 경우에는 다른 메시지를 띄워주도록 ?? 
+				pstmt.setInt(5, 0);
+				
+				// 4 sql 실행	
+				pstmt.executeUpdate();
+				num++; 
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("디비 연결 실패!!");
+			e.printStackTrace();
+		} finally{
+			// 자원해제 
+			closeDB();		
+		}
+			
 	}//msgWrite(MsgDTO mdto)
 	
 	
@@ -269,5 +326,8 @@ public class MsgDAO {
 			}
 	 }
 	 // msgDel(msg_idx)
-	
+	 
+	 
+	 
+	 
 }

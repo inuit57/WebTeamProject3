@@ -6,7 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>1:1문의 게시판 (관리자)</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/admin.css">
+
+
 
 <script type="text/javascript">
 
@@ -21,9 +26,35 @@
 
 </script>
 
+<script type="text/javascript">
+$(function(){
+	
+	
+	
+	
+		$('.li1').click(function(){
+			// 왼쪽 사이드 메뉴바 토글
+			$(this).next().fadeToggle('slow',function(){
+				
+			})
+			
+		});
+
+	
+});
+
+
+</script>
+
+
+
+
+<%@ include file="../../inc/top.jsp" %>
+
+
 </head>
 <body>
-		<h1>WebContent/admin_inquery/admin_inquery_list</h1>
+		<h1 style="text-align: center;">1:1 문의 게시판 관리</h1>
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
@@ -49,15 +80,51 @@
 	
 	%>
 	
-	<table border="1">
-		<tr>
-			<td>글 번호</td>
-			<td>닉네임</td>
-			<td>제목</td>
-			<td>날짜</td>
-			<td>수정/삭제</td>
-		</tr>
-		
+				<div id="ad-sidebar">
+			
+					<a href="./AdminBoard.ap">관리자 게시판	</a>
+						
+			<ul>
+				<li class="li1">회원목록 조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./AdminUserList.au">전체</a></li>
+					<li><a href="./AdminUserList.au?auth=1">일반회원</a></li>
+					<li><a href="./AdminUserList.au?auth=2">관리자</a></li>
+					</ul>
+				 </div>					
+				<li class="li1">1:1 문의 내역조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./InqueryAdminList.ai">전체</a></li>
+					<li><a href="./InqueryAdminList.ai?check=0">답변 요청글</a></li>
+					<li><a href="./InqueryAdminList.ai?check=1">답변 완료글</a></li>
+					</ul>
+				 </div>								
+				<li class="li1">신고내역 조회</li>
+				 <div class="li-1">
+				 	<ul>
+				 	<li><a href="./declarationList.decl">전체</a></li>	
+				 	<li><a href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a href="./decl_normal_list.decl?state=1">일반게시판</a></li>
+				 	</ul>	
+				 </div>
+							
+			</ul>		
+				
+		</div>
+	
+	<div class="ad-content0 table-responsive">
+		<table class="table table-sm table-hover" border="1">
+		  <thead class="table-dark">
+			<tr>
+				<td>글 번호</td>
+				<td>닉네임</td>
+				<td>제목</td>
+				<td>날짜</td>
+				<td>수정/삭제</td>
+			</tr>
+		  </thead>
 		<%
 		for(int i=0;i<aiList.size();i++){
 			InqueryDTO inDTO = (InqueryDTO) aiList.get(i);
@@ -65,7 +132,7 @@
 		
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
-			<td><%=inDTO.getUser_nick()%></td>
+			<td><%=inDTO.getUser_nickname()%></td>
 			<td>
 				<%
 				if(inDTO.getInq_lev()==1){
@@ -155,22 +222,24 @@
 	<br>
 	
 	
+	
 	<form action="./InqueryAdminSearch.ai" method="post">
-			<select name="sk">
-				<option value="user_nick">작성자</option>
-				<option value="inq_sub">글 제목</option>
+	<div class="search01">
+			<select style="width:100px;" class="form-select" name="sk">
+				<option value="user_nickname">닉네임 </option>
+				<option value="user_id">아이디 </option>
 			</select>
-			<input type="text" name="sv">
-			<input type="submit" value="검색">		
+			<input style="width:300px;" type="text" class="form-control" name="sv">
+			<input type="submit" class="btn btn-outline-success" value="검색">		
+		</div>
 		</form>
 	
 	
 	
-	
 	<hr>
-	
-	<a href="./FAQ.faq"> FAQ게시판 </a>
-	
-	
+
 </body>
+<div class="footer">
+<%@ include file="../../inc/footer.jsp" %>
+</div>
 </html>

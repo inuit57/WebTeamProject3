@@ -17,7 +17,12 @@ public class decl_normal_listAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("M : decl_normal_listAction_execute() 호출");
 		
-		int state = Integer.parseInt(request.getParameter("state"));
+		int state=0;
+		String state1 = request.getParameter("state");
+		
+		if(state1!=null){
+			state = Integer.parseInt(request.getParameter("state"));	
+		}
 		
 		declarationDAO dcDAO = new declarationDAO();
 		

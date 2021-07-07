@@ -74,18 +74,17 @@ public class InqueryDAO {
 			}
 			
 			// 임시로 만듬 나중에 세션값 제어할때 다시 inq_lev 값 받아서 작성
-			sql = "insert into inquery(inq_num,user_nick,inq_sub,inq_content, "
-					+ "inq_lev,inq_img,inq_date,inq_ref,inq_check) values(?,?,?,?,0,?,now(),?,?)";
+			sql = "insert into inquery(inq_num,user_nickname,inq_sub,inq_content, "
+					+ "inq_lev,inq_date,inq_ref,inq_check) values(?,?,?,?,0,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, inDTO.getUser_nick());
+			pstmt.setString(2, inDTO.getUser_nickname());
 			pstmt.setString(3, inDTO.getInq_sub());
 			pstmt.setString(4, inDTO.getInq_content());
-			pstmt.setString(5, inDTO.getInq_img());;
-			pstmt.setInt(6, num);
-			pstmt.setString(7, "0");
+			pstmt.setInt(5, num);
+			pstmt.setString(6, "0");
 			
 			pstmt.executeUpdate();
 			
@@ -103,7 +102,7 @@ public class InqueryDAO {
   }//addInquery(inDTO)
     
     // getMyList(nick)
-    public List getMyInqueryList(String nick){
+    public List getMyInqueryList(String nickname){
     	
     	List myInqueryList = new ArrayList();
     	
@@ -112,12 +111,12 @@ public class InqueryDAO {
     		
     		sql = "select * from inquery where inq_ref in "
     				+ "(select inq_ref from inquery "
-    				+ " where user_nick=?)";
+    				+ " where user_nickname=?)";
     		
     		
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, nick);
+			pstmt.setString(1, nickname);
 			
 			rs = pstmt.executeQuery();
 			
@@ -125,11 +124,10 @@ public class InqueryDAO {
 				InqueryDTO inDTO = new InqueryDTO();
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_date(rs.getString("inq_date"));
-				inDTO.setInq_img(rs.getString("inq_img"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
 				inDTO.setInq_num(rs.getInt("inq_num"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
-				inDTO.setUser_nick(rs.getString("user_nick"));
+				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_check(rs.getString("inq_check"));
 				
 				myInqueryList.add(inDTO);
@@ -170,11 +168,10 @@ public class InqueryDAO {
 			if(rs.next()){
 				
 				inDTO.setInq_num(rs.getInt("inq_num"));
-				inDTO.setUser_nick(rs.getString("user_nick"));
+				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
-				inDTO.setInq_img(rs.getString("inq_img"));
 				inDTO.setInq_date(rs.getString("inq_date"));
 				inDTO.setInq_ref(rs.getInt("inq_ref"));
 				inDTO.setInq_check(rs.getString("inq_check"));

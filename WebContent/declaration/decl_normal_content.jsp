@@ -20,7 +20,7 @@
 	request.setCharacterEncoding("utf-8");
 
 	List decl_normal_reason = (List)request.getAttribute("decl_normal_reason");
-	
+	int state = Integer.parseInt(request.getParameter("state"));
 	
 	boardDTO bDTO = (boardDTO)request.getAttribute("bDTO");
 %>
@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><%=bDTO.getUser_nick() %></td>
+			<td><%=bDTO.getUser_nickname() %></td>
 			<th>작성일</th>
 			<td><%=bDTO.getBoard_date().substring(0, 10)%></td>
 		</tr>
@@ -65,7 +65,7 @@
 		<%for(int i=0; i<decl_normal_reason.size();i++){
 			declarationDTO dcDTO = (declarationDTO)decl_normal_reason.get(i);%>
 		<tr>
-			<td><%=dcDTO.getUser_nick() %></td>
+			<td><%=dcDTO.getUser_nickname() %></td>
 		<%
 			String reason ="";
 		
@@ -105,6 +105,7 @@
 		<input type="button" value="목록으로" onclick="location.href='decl_normal_list.decl'">
 		<input type="submit" value="해당글 삭제하기" >
 		<input type="hidden" name="board_num" value="<%=bDTO.getBoard_num()%>">
+		<input type="hidden" name="state" value="<%=state%>">
 	</form>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 

@@ -132,7 +132,65 @@ public class UserDAO {
 		}
 		return tmp;
 	}
+	
+	public String searchID(String user_phone) {
+		// 폰번호에 따른 아이디 조회하는 함수
+		String user_id = "";
 
+		try {
+			conn = getConnection();
+
+			sql = "SELECT user_id FROM member WHERE user_phone=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				user_id = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		return user_id;
+	}
+	
+	
+	
+	//checkPhone(user_phone)
+	public boolean checkPhone(String user_phone) {
+		// 전화번호 조회하는 함수
+		boolean tmp = false;
+
+		try {
+			conn = getConnection();
+
+			sql = "SELECT user_phone FROM member WHERE user_phone=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				tmp = true;
+			} else {
+				tmp = false;
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		return tmp;
+	}
+	//checkPhone(user_phone)
+
+	
+	
+	
+	
 	public boolean checkId(String a) {
 		// 아이디(이메일) 조회하는 함수
 		boolean tmp = false;
@@ -191,8 +249,9 @@ public class UserDAO {
 	         pstmt.setString(1, id);
 	         rs = pstmt.executeQuery();
 	         if (rs.next()) {
+	        	System.out.println(rs.getString("user_pw"));
 	            if (rs.getString(1).equals(pw)) {
-	               if (rs.getInt(2) == 0) {
+	               if (rs.getInt(2) == 1) { // 1 : 사용 , 2 : 탈퇴된 회원 
 	                  user_nick = rs.getString(3);
 	               } else {
 	                  b = false;
@@ -249,7 +308,7 @@ public class UserDAO {
 	public void userDelete(String id) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE member SET user_use_yn=1 WHERE user_id=?";
+			sql = "UPDATE member SET user_use_yn=2 WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -294,6 +353,30 @@ public class UserDAO {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			System.out.println("UserDAO.UserInfoEdit() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		
+	}
+	
+	public void updatePW(String user_pw, String user_phone , String user_id) {
+		try {
+			conn = getConnection();
+			if(user_phone.equals("0")){
+				sql = "UPDATE member SET user_pw=? WHERE user_id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_pw);
+				pstmt.setString(2, user_id);
+			}else{
+				sql = "UPDATE member SET user_pw=? WHERE user_phone=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_pw);
+				pstmt.setString(2, user_phone);
+			}
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
 		} finally {
 			closeDB();
 		}
@@ -349,6 +432,9 @@ public class UserDAO {
 	
 	
 	public void changeBankAccount(String id, String bankName, String bankAccount) {
+		
+		int result = 0;
+		
 		try {
 			conn = getConnection();
 			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
@@ -357,7 +443,15 @@ public class UserDAO {
 			pstmt.setString(2, bankAccount);
 			pstmt.setString(3, id);
 			
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
+			
+			if(result==1) {
+				sql= "update member set user_grade=2 where user_id=?";
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+				
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e.toString());

@@ -12,6 +12,7 @@ body {
 	height: 150px;
 }
 
+
 .address {
 	width: 300px;
 }
@@ -27,12 +28,17 @@ body {
   list-style: none;
   right: 40px;
   float: left;
-  width: 100px;
   padding: 10px 10px;
   cursor: pointer;
   text-align: center;
   font-size: 13px;
   border: 1px solid #59AB6E;
+}
+
+.tab_title{
+	display: table;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tab_title li.on {
@@ -42,10 +48,9 @@ body {
 
 .tab_cont {
   clear: both;
-  border: 1px solid #59AB6E;
-  height: 300px;
+  height: 400px;
   width: 608px;
-/*   background-color: #cecece; */
+
 }
 
 .tab_cont div {
@@ -55,5 +60,21 @@ body {
 
 .tab_cont div.on {
   display: block;
+}
+
+.password{
+	width: 300px;
+	display: table;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.bank{
+	width: 300px;
+	display: table;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
 /* <!-- ------------------------test---------------------------- --> */

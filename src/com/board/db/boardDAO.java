@@ -80,7 +80,7 @@ public class boardDAO {
 			
 			pstmt.setInt(1, num);
 			pstmt.setString(2, bDTO.getBoard_area());
-			pstmt.setString(3, bDTO.getUser_nick());
+			pstmt.setString(3, bDTO.getUser_nickname());
 			pstmt.setInt(4, bDTO.getBoard_count());
 			pstmt.setString(5, bDTO.getBoard_sub());
 			pstmt.setString(6, bDTO.getBoard_content());
@@ -127,7 +127,7 @@ public class boardDAO {
 				
 				dto.setBoard_num(rs.getInt("board_num"));
 				dto.setBoard_area(rs.getString("board_area"));
-				dto.setUser_nick(rs.getString("user_nick"));
+				dto.setUser_nickname(rs.getString("user_nickname"));
 				dto.setBoard_count(rs.getInt("board_count"));
 				dto.setBoard_date(rs.getString("board_date"));
 				dto.setBoard_file(rs.getString("board_file"));
@@ -161,7 +161,7 @@ public class boardDAO {
     	try {
     		conn = getConnection();
     	
-    		sql = "select * from normal_board WHERE user_nick=? limit ?,? ";
+    		sql = "select * from normal_board WHERE user_nickname=? limit ?,? ";
     	
 			pstmt = conn.prepareStatement(sql);
 			
@@ -176,7 +176,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_date(rs.getString("board_date"));
 				bDTO.setBoard_file(rs.getString("board_file"));
@@ -255,7 +255,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_date(rs.getString("board_date"));
 				bDTO.setBoard_file(rs.getString("board_file"));
@@ -332,7 +332,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_date(rs.getString("board_date"));
 				bDTO.setBoard_file(rs.getString("board_file"));
@@ -447,7 +447,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_sub(rs.getString("board_sub"));
 				bDTO.setBoard_content(rs.getString("board_content"));
