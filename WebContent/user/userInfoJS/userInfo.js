@@ -145,13 +145,15 @@ function checkPw() {
    var new_pw_check = document.getElementById("new_pw_check").value;
    var pwFlag = false ; 
    
+   console.log(engCheck.exec(new_pw),numCheck.exec(new_pw), specialCheck.exec(new_pw))
+   
    if ( new_pw.length == 0 ) {
       alert('비밀번호를 입력하여 주세요.');
       pwFlag = false;
    } else if (new_pw.length < 8  ) {
       alert('비밀번호는 8자리 이상 이여야 합니다.');
       pwFlag = false;
-   } else if(!engCheck.test(pw) || !numCheck.test(pw) || !specialCheck.test(pw)) {
+   } else if(!engCheck.exec(new_pw) || !numCheck.exec(new_pw) || !specialCheck.exec(new_pw)) {
       alert('영문,숫자,특수문자를 포함해야 합니다.');
       pwFlag = false;
    } else if (new_pw != new_pw_check) {
@@ -197,6 +199,20 @@ function check() {
    } else {
       return true;
    }
-   
-   
+ 
 }
+
+
+function deleteUser(){
+	
+	if(confirm("정말 탈퇴 하시겠습니까?")== true){
+		
+	location.href='./UserDeleteAction.us'		
+	}else{
+		return;
+	}
+		
+}   
+   
+
+

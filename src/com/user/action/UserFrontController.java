@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.user.db.UserDAO;
 
@@ -27,6 +28,8 @@ public class UserFrontController extends HttpServlet{
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = request.getSession(); 
 		
 		// 가상주소 전체 가져오기
 		String requestURI = request.getRequestURI();
@@ -67,7 +70,13 @@ public class UserFrontController extends HttpServlet{
 			PrintWriter out = response.getWriter();
 			String a = request.getParameter("nickname");
 			boolean isExist = false;
-			isExist = new UserDAO().checkNick(a);
+
+			// 현재 닉네임을 그대로 유지하는 경우, 따로 검사를 하지는 않도록 수정 
+			String curr_nick = (String)session.getAttribute("user_nick"); 
+			if(!a.equals(curr_nick)){
+				isExist = new UserDAO().checkNick(a);
+			}
+			
 			if(isExist) {
 				out.write("1");
 			} else {
@@ -163,10 +172,56 @@ public class UserFrontController extends HttpServlet{
 			forward = new ActionForward();
 			forward.setPath("./user/mailChk.jsp");
 			forward.setRedirect(false);
+		}else if(command.equals("/UserPhone.us")){
+			forward = new ActionForward();
+			forward.setPath("./user/userPhone.jsp");
+			forward.setRedirect(false);
+		}else if(command.equals("/UserPhoneChk.us")){
+			//폰번호 중복 체크 ajax
+			PrintWriter out = response.getWriter();
+			String user_phone = request.getParameter("user_phone");
+			boolean isExist = false;
+			isExist = new UserDAO().checkPhone(user_phone);
+			if(isExist) {
+				out.write("1");
+			} else {
+				out.write("0");
+			}
+			out.close();
+		}else if(command.equals("/UserPhoneCodeAction.us")){
+			try {
+				action = new UserPhoneCodeAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+		}else if(command.equals("/UserPwUpdate.us")){
+			try {
+				action = new UserPwUpdate();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+		}else if(command.equals("/UserMailSendAction.us")){
+			try {
+				action = new UserMailSendAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
 		}else if(command.equals("/UserJoin.us")){
 			forward = new ActionForward();
 			forward.setPath("./user/userJoin.jsp");
 			forward.setRedirect(false);
+		}else if(command.equals("/UserSearchId.us")){
+			//회원 아이디 반환 ajax
+			PrintWriter out = response.getWriter();
+			String user_phone = request.getParameter("user_phone");
+			String user_id = "";
+			user_id = new UserDAO().searchID(user_phone);
+			out.write(user_id);
+			out.close();
 		}
 		
 		

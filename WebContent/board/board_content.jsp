@@ -8,6 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>일반게시판 내용</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -16,20 +17,34 @@
 	form {
 		display: inline;
 	}
+
 	.table th{
 		text-align: center;
 	}
+
+table{
+
+border-right:none;
+border-left:none;
+
+}
+
+.page {text-align: center;}
+	
+
 </style>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
+
 <div align="center">
 <div class="container">
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
+
 	
 
 	// 전달된 정보저장
@@ -46,7 +61,9 @@
 	
 %>
 	<form action="./declaration_normal.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+
 		<input type="submit" value="신고하기" class="btn btn-danger" style="margin: 2% 90% 2%;">
+
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<input type="hidden" name="decl_writer" value="<%=bDTO.getUser_nickname()%>"><!-- 신고당하는 글 작성자 -->
 		<input type="hidden" name="board_sub" value="<%=bDTO.getBoard_sub()%>">
@@ -54,8 +71,10 @@
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 	</form>
 	
+
 	<br>
 	<table class="table">
+
 		<tr>
 			<th class="table-dark">글번호</th>
 			<td><%=bDTO.getBoard_num() %></td>
@@ -77,11 +96,13 @@
 			<td colspan="3"><%=bDTO.getBoard_sub() %></td>
 		</tr>
 		<tr>
-			<th colspan="4" class="table-dark">글내용</th>
-		</tr>
+      <th colspan="4" class="table-dark">글내용</th>
+    </tr>
 		<tr>
 			<td colspan="4" rowspan="2"  style="height: 200px;"><%=bDTO.getBoard_content() %></td>
 		</tr>
+		
+	
 	</table>
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@댓글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	
@@ -108,6 +129,7 @@
 			
 		%>
 			<tr>
+
 				<td align="center"><%=bcDTO2.getUser_nickname() %></td>
 				<td align="center"><%=bcDTO2.getCmt_content() %></td>
 				<td align="center">
@@ -116,6 +138,7 @@
 					<%
 						if(bcDTO2.getUser_nickname().equals(user_nick)|| user_nick.equals("admin")) {
 					%>
+
 							
 							
 							<form action="boardCommentDeleteAction.bco?board_num=<%=board_num %>&pageNum=<%=pageNum%>" method="post">
@@ -204,7 +227,6 @@
 	%>
 		
 	
-	
 	<br>
 	
 										<!-- 댓글 작성공간 -->
@@ -225,8 +247,10 @@
 	// 유저가 작성자아이디와 일치하면 수정 삭제 버튼 보여줌 
 	if(bDTO.getUser_nickname().equals(user_nick) || user_nick.equals("admin")){
 	%>
+
 		<input type="button" class="btn btn-success" value="수정하기" onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
 		<input type="submit" class="btn btn-warning" value="삭제하기" onclick="return confirm('게시글을 삭제하시겠습니까?')">
+
 	<%		
 		} // 아니면 목록으로 버튼만 보여줌
 	

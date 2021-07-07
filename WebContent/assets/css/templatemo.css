@@ -25,12 +25,68 @@ Table of contents
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
 
+/* BUTTON 5 */
+/* GENERAL BUTTON STYLING */
+.btn-5,
+.btn-5::after {
+  -webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn-5 {
+  background: none;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  color: #679272;
+  font-size: 1em;
+  font-weight: bold;
+  padding: 15px 30px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.btn-5::before,
+.btn-5::after {
+  background: #fff;
+  content: '';
+  position: absolute;
+  z-index: -1;
+}
+
+.btn-5:hover {
+  color: #2ecc71;
+}
+
+.btn-5 {
+  overflow: hidden;
+}
+
+.btn-5::after {
+  /*background-color: #f00;*/
+  height: 100%;
+  left: -35%;
+  top: 0;
+  transform: skew(50deg);
+  transition-duration: 0.6s;
+  transform-origin: top left;
+  width: 0;
+}
+
+.btn-5:hover:after {
+  height: 100%;
+  width: 135%;
+}
+
 #boxAdd{
 background-color:#CEF6D8;
 border:1px solid #A9F5BC;
 float: left;
 width: 150px;
 }
+
+
 
 .circle10{
 display: none;

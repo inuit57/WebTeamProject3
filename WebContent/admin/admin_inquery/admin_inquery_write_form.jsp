@@ -4,25 +4,91 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>1:1 문의 답변 작성</title>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/admin.css">
+<%@ include file="../../inc/top.jsp" %>
+
+<script type="text/javascript">
+$(function(){
+	
+	
+	
+	
+		$('.li1').click(function(){
+			// 왼쪽 사이드 메뉴바 토글
+			$(this).next().fadeToggle('slow',function(){
+				
+			})
+			
+		});
+
+	
+});
+
+
+</script>
+
 </head>
 <body>
-	<h1>WebContent/admin_inquery/admin_inquery_write_form.jsp</h1>
+
+
+
+	<h1 style="text-align: center; margin-top: 20px;">1:1 문의 답변글 작성</h1>
+	
 	<%
 	 int num = Integer.parseInt(request.getParameter("num"));
+	String nick = (String) session.getAttribute("user_nick");
 	%>
+		
+				<div id="ad-sidebar">
+			
+					<a href="./AdminBoard.ap">관리자 게시판	</a>
+						
+			<ul>
+				<li class="li1">회원목록 조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./AdminUserList.au">전체</a></li>
+					<li><a href="./AdminUserList.au?auth=1">일반회원</a></li>
+					<li><a href="./AdminUserList.au?auth=2">관리자</a></li>
+					</ul>
+				 </div>					
+				<li class="li1">1:1 문의 내역조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./InqueryAdminList.ai">전체</a></li>
+					<li><a href="./InqueryAdminList.ai?check=0">답변 요청글</a></li>
+					<li><a href="./InqueryAdminList.ai?check=1">답변 완료글</a></li>
+					</ul>
+				 </div>								
+				<li class="li1">신고내역 조회</li>
+				 <div class="li-1">
+				 	<ul>
+				 	<li><a href="./declarationList.decl">전체</a></li>	
+				 	<li><a href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a href="./decl_normal_list.decl?state=1">일반게시판</a></li>
+				 	</ul>	
+				 </div>
+							
+			</ul>		
+				
+		</div>
+		
+		<div class="ad-content0">
+		
 		
 		<form  name="fr" action="./InqueryAdminWriteAction.ai" method="post">
 		<input type="hidden" name="num" value="<%=num%>">
-		글쓴이 : <input type="text" name="name"> <br>
-		제목 : <input type="text" id="subject" name="subject"><br> 
+		<input type="text" class="form-control" name="name" value="<%=nick %>" placeholder="nickname">
+		<input type="text" class="form-control" name="subject" placeholder="제목을 입력하세요">
 		<textarea class="form-control" rows="20" name="content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br>
-	
-		<button type="button" id="savebutton" >등록</button>
+			<br><br>
+		<button class="btn btn-outline-success" type="button" id="savebutton" >등록</button>
 		</form>	
-	
+	</div>
 <script type="text/javascript">
    var oEditors = []; 
    
@@ -68,4 +134,7 @@
 
 
 </body>
+<div class="footer">
+<%@ include file="../../inc/footer.jsp" %>
+</div>
 </html>

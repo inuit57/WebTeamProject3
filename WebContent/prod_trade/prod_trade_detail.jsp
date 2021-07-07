@@ -1,3 +1,4 @@
+<%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.user.db.UserDAO"%>
 <%@page import="com.user.db.UserDTO"%>
 <%@page import="com.wish.db.WishDTO"%>
@@ -9,6 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <!-- 합쳐지고 최소화된 최신 CSS --> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -23,6 +25,30 @@
 <%@ include file="../inc/top.jsp" %>
 
 </head>
+<style>
+ 
+table{
+
+border-right:none;
+border-left:none;
+border-top:none;
+border-bottom:none;
+
+}
+ #t1{
+	
+	margin: 10px; padding: 30px
+
+}
+
+#u1{
+	padding: 10px;
+}
+
+
+
+</style>
+
 
 <body>
 	<%
@@ -31,10 +57,11 @@
 	WishDTO wDTO = new WishDTO();
 	WishDAO wDAO = new WishDAO();
 	UserDAO uDAO = new UserDAO(); 
+	ProdDAO pDAO = new ProdDAO(); 
+	
 	int pageNum = Integer.parseInt(request.getParameter("pageNum").toString());
 	//int wishCount = (int)request.getAttribute("wishCount");
 	%>
-	<!-- <a href="./main.bo">메인</a> -->
 
 	<div class="container" >
 	<br><br>
@@ -47,7 +74,7 @@
 	<% if(user_nick != null){ %>
 	<form name="declareForm" action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
 
-		<input type="submit" value="신고하기">
+		<input type="submit" value="신고하기" class="btn btn-danger" >
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
 		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nickname()%>">
@@ -60,6 +87,9 @@
 	
 <!-- 	<form action="#" method="post" name="pfr"> -->
 <%-- 		<input type="hidden" name="nick" value=<%=nick%>> --%>
+	
+	<div style="margin:auto;  width: 800px; ">	
+		<table border="1" class="table" style="height: 500px; frame= void;">
 
 <%
 	String[] temp = pDTO.getProd_img().split(",");
@@ -72,7 +102,7 @@
 	}
 	System.out.println("not null cnt : " +  not_null_cnt);
 %>
-		<table border="1" style="margin:auto;  width: 800px;">
+
 			<tr>
 				<td width="400">
 					 <!-- <img src="./upload/" width="400" height="400"> -->
@@ -138,7 +168,7 @@
 					</div>
 	
 				</td>
-				<td width="400">
+				<td width="400" id="t1">
 
 
 <%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
@@ -212,11 +242,12 @@
 						 break;
 					 }
 					 %>
-					<ul>
+					<ul id="u1">
 						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
 						<li>거래여부 : <%=status%></li>
 						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
-						<li>작성시간 : <%=pDTO.getProd_date()%></li>
+<%-- 						<li>작성시간 : <%=pDTO.getProd_date()%></li> --%>
+						<li>작성시간 : <%=pDAO.timeForToday(pDTO.getProd_num())%></li>
 					</ul> 
 					
 					찜 횟수 &nbsp; 
@@ -229,32 +260,43 @@
 					</c:if>
 					<span id="wish__Count"> <%=wDAO.wishCount(pDTO.getProd_num()) %> </span>
 					
-					<!-- 관리자만 사용가능한 메뉴 생성 -->
+					<br>
+					
 					<% if(user_nick != null){ %>
-						<input type="button" id="btnLike" value="찜하기" class="form-control"> 
-						
+
+						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
+							<input type="button" id="btnLike" value="찜하기" class="btn btn-warning"> 
+						<%} %>
 						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
 						<input type="button" value="구매요청" class="form-control" > 
+						<form action="" method="post" name="chatform">
+						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
+						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
+						<input type="hidden" name="seller" value="<%=pDTO.getUser_nickname()%>">
 						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
+						</form>
 					<%}%>
 				</td>
 			</tr>
-			<tr style="border: 1px solid">
+			<tr>
 				<td colspan="2" height="400" style="vertical-align: top">
 					<h1>상세정보</h1> <%=pDTO.getProd_content()%>
 				</td>
 			</tr>
 		</table>
+		<br>
 		<div style="margin:auto;  width: 800px; ">
 		<% if ( pDTO.getUser_nickname().equals(user_nick) ){ %>
-			<input type="button" value="수정하기"
+			<input type="button" value="수정하기" class="btn btn-light"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			<!-- 로직 처리 필요 -->
 			<input type="button" value="판매완료"
-				onclick="#">
+				onclick="location.href='./ProductSellComplete.pr?num=<%=pDTO.getProd_num()%>' ">
+				
 		<%}%>
+
 		<% if( pDTO.getUser_nickname().equals(user_nick) || uDAO.isAdmin(user_nick)){   %>
-			<input type="button" value="삭제하기"
+			<input type="button" value="삭제하기" class="btn btn-light"
 				onclick="location.href='./ProductDeleteAction.pr?num=<%=pDTO.getProd_num()%>'">
 		<%} %>
 		</div>
@@ -262,8 +304,11 @@
 <!--  		if(user_nick == null){
 				alert("로그인 후 이용 가능합니다.");
 				location.href='./UserLogin.us' 
+		
 			} -->
+			</div>
 	</div>
+	<br>
 </body>
 
 <script type="text/javascript">
@@ -299,9 +344,13 @@
 		});
 	});
 	function openWindowChat() {
-		window.open("./chat.ch","회원정보","width=300,height=600,top=150,left=500");
+		window.open("","Chat","width=300,height=650,top=150,left=500");
+		document.chatform.target = "Chat";
+		document.chatform.action = "./ChatAction.ch";
+		document.chatform.submit();
 	}
 </script>
 
 </html>
+
 <%@ include file="../inc/footer.jsp" %>

@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 <title>Insert title here</title>
 
 <script type="text/javascript">
@@ -23,7 +24,7 @@
 
 </head>
 <body>
-		<h1>1:1 문의 게시판 관리</h1>
+		<h2 style="text-align: center;">1:1 문의 게시판 관리</h2>
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
@@ -33,12 +34,13 @@
 		int cnt = Integer.parseInt(request.getAttribute("cnt").toString());
 
 		
-		String check = (String)request.getAttribute("check");
-		
+		String check = (String)request.getAttribute("check");		
 		
 	%>
+		<div class="innerContent table-responsive inquery">
 	
-	<table border="1">
+	<table class="table table-sm table-hover" border="1">
+	 <thead class="table-dark">
 		<tr>
 			<td>글 번호</td>
 			<td>닉네임</td>
@@ -46,7 +48,7 @@
 			<td>날짜</td>
 			<td>수정/삭제</td>
 		</tr>
-		
+	 </thead>
 		<%
 		for(int i=0;i<aiList.size();i++){
 			InqueryDTO inDTO = (InqueryDTO) aiList.get(i);
@@ -54,7 +56,7 @@
 		
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
-			<td><%=inDTO.getUser_nick()%></td>
+			<td><%=inDTO.getUser_nickname()%></td>
 			<td><a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
 				<%
 				if(inDTO.getInq_lev()==1){
@@ -78,6 +80,6 @@
 		}
 		%>
 	</table>
-	
+	</div>
 </body>
 </html>

@@ -6,35 +6,58 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
-#ad-sidebar {
-        width: 15%;
-        padding: 20px;
-        margin-bottom: 20px;
-        float: left;
-        border: 1px solid #bcbcbc;
-      }
-      
- #ad-sidebar li {
-  	list-style: none;
-  }
-      
-.ad-content1 {
-    width: 85%;
-    padding: 20px;
-    margin-bottom: 20px;
-    float:right;
-    height: 800px;
-  }
+<title>회원정보 조회</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/admin.css">
 
-.footer {
- 	clear:both;
- } 
-
-</style>
 
 <%@ include file="../../inc/top.jsp" %>
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$('#useryn').click(function(){
+
+		$.ajax({
+			 url: "./AdminUserActive.au", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소 
+			 data:{user_nick:$(this).attr('value')},
+			 success:function(){
+				 location.reload();
+			 } 					
+			});
+	
+	});
+	
+	$("#levelbt").on("click",function(){
+ 		//클릭한 <input>을 $(this)로 선택해서 가져와서 
+
+		
+		$.ajax({
+			url:"./AdminUserGrade.au",
+			data:{user_nick:$(this).val(),user_grade:$(this).prev().attr("value")},
+			success:function(){
+				alert('회원 등급이 변경되었습니다.');
+			}
+			
+	});
+});
+	
+	
+		$('.li1').click(function(){
+			// 왼쪽 사이드 메뉴바 토글
+			$(this).next().fadeToggle('slow',function(){
+				
+			})
+			
+		});
+
+	
+});
+
+
+</script>
 
 </head>
 <body>
@@ -59,21 +82,46 @@
 
 %>
 
-<div id="ad-sidebar">
+	
+		<div id="ad-sidebar">
 			
+					<a href="./AdminBoard.ap">관리자 게시판	</a>
+						
 			<ul>
-				<li><a href="./AdminBoard.ap">관리자 게시판</a>
-				<li><a href="./AdminUserList.au">회원 목록 조회</a></li>
-				<li><a href="./InqueryAdminList.ai">1:1 문의 내역조회</a>	</li>				
-				<li><a href="#">신고내역 조회</a></li>				
+				<li class="li1">회원목록 조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./AdminUserList.au">전체</a></li>
+					<li><a href="./AdminUserList.au?auth=1">일반회원</a></li>
+					<li><a href="./AdminUserList.au?auth=2">관리자</a></li>
+					</ul>
+				 </div>					
+				<li class="li1">1:1 문의 내역조회</li>
+				 <div class="li-1">
+				 	<ul>
+					<li><a href="./InqueryAdminList.ai">전체</a></li>
+					<li><a href="./InqueryAdminList.ai?check=0">답변 요청글</a></li>
+					<li><a href="./InqueryAdminList.ai?check=1">답변 완료글</a></li>
+					</ul>
+				 </div>								
+				<li class="li1">신고내역 조회</li>
+				 <div class="li-1">
+				 	<ul>
+				 	<li><a href="./declarationList.decl">전체</a></li>	
+				 	<li><a href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a href="./decl_normal_list.decl?state=1">일반게시판</a></li>
+				 	</ul>	
+				 </div>
+							
 			</ul>		
 				
 		</div>
 
 
-<div class="ad-content1">
+<div class="ad-content0 table-responsive">
 
-<table border="1">
+<table class="table table-sm table-hover"  border="1">
+	<thead class="table-dark">
 		<tr>
 			<td>유저번호</td>
 			<td>닉네임</td>
@@ -90,7 +138,7 @@
 			<td>탈퇴여부</td>
 			
 		</tr>
-
+	</thead>
 
 <%
 for(int i=0;i<auList.size();i++){
@@ -104,10 +152,37 @@ for(int i=0;i<auList.size();i++){
 <td><%=uDTO.getUser_joindate() %></td>
 <td><%=uDTO.getUser_coin() %></td>
 <td><%=uDTO.getUser_phone() %></td>
+
+<%
+if(uDTO.getUser_address()==null){	
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_address() %></td>
+<%
+}
+if(uDTO.getUser_addressPlus()==null){
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_addressPlus() %></td>
+<%
+}
+if(uDTO.getUser_bankName()==null){
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_bankName() %></td>
+<%
+}
+if(uDTO.getUser_bankAccount()==null){
+%>
+<td></td>
+<%}else{ %>
 <td><%=uDTO.getUser_bankAccount() %></td>
+<%
+} 
+%>
 <%
 if(uDTO.getUser_auth()==2){
 %>
@@ -119,8 +194,21 @@ if(uDTO.getUser_auth()==2){
 <%
 }
 %>
-<td><%=uDTO.getUser_grade() %></td>
-<td><%=uDTO.getUser_use_yn() %></td>
+<td>
+<input type="number" min="1" max="3" id="u_grade" name="u_grade" value="<%=uDTO.getUser_grade()%>">
+<button class="btn btn-outline-success" id="levelbt" type="button" value="<%=uDTO.getUser_nickname()%>">변경</button>
+</td>
+<%
+if(uDTO.getUser_use_yn()==1){
+%>
+<td>활성화&nbsp;<button class="btn btn-outline-danger" id="useryn" type="button" value="<%=uDTO.getUser_nickname()%>">X</button></td>
+<%
+}else{
+%>
+<td>비활성화(탈퇴)&nbsp;<button class="btn btn-outline-success" id="useryn" type="button" value="<%=uDTO.getUser_nickname()%>">O</button></td>
+<%
+} 
+%>
 
 
 </tr>
@@ -208,12 +296,14 @@ if(uDTO.getUser_auth()==2){
 	
 	
 	<form action="./AdminUserSearch.au" method="post">
-			<select name="sk">
+	<div class="search01">
+			<select style="width:100px;" class="form-select" name="sk">
 				<option value="user_nickname">닉네임 </option>
 				<option value="user_id">아이디 </option>
 			</select>
-			<input type="text" name="sv">
-			<input type="submit" value="검색">		
+			<input style="width:300px;" type="text" class="form-control" name="sv">
+			<input type="submit" class="btn btn-outline-success" value="검색">		
+		</div>
 		</form>
 	</div>
 

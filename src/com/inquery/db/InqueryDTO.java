@@ -3,7 +3,7 @@ package com.inquery.db;
 public class InqueryDTO {
 
 	private int inq_num;
-	private String user_nick;
+	private String user_nickname;
 	private String inq_sub;
 	private String inq_content;
 	private int inq_lev;
@@ -31,11 +31,11 @@ public class InqueryDTO {
 	public void setInq_num(int inq_num) {
 		this.inq_num = inq_num;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 	public String getInq_sub() {
 		return inq_sub;
@@ -71,7 +71,7 @@ public class InqueryDTO {
 	
 	@Override
 	public String toString() {
-		return "InqueryDTO [inq_num=" + inq_num + ", user_nick=" + user_nick + ", inq_sub=" + inq_sub + ", inq_content="
+		return "InqueryDTO [inq_num=" + inq_num + ", user_nickname=" + user_nickname + ", inq_sub=" + inq_sub + ", inq_content="
 				+ inq_content + ", inq_lev=" + inq_lev + ", inq_img=" + inq_img + ", inq_date=" + inq_date
 				+ ", inq_ref=" + inq_ref + ", inq_check=" + inq_check + "]";
 	}
