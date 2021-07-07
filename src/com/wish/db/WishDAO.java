@@ -254,6 +254,9 @@ public class WishDAO {
 	}//wishList() 찜 목록 가져오기
 	
 	
+	
+	
+	
 	// 해당 상품을 찜한 사람 List 가져오기 
 	public List<String> getWishMembers(int prod_num){
 		List<String> memberList = new ArrayList<>(); 

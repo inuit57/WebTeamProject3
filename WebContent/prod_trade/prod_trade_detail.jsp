@@ -262,7 +262,6 @@ border-bottom:none;
 					
 					<br>
 					
-					<!-- 관리자만 사용가능한 메뉴 생성 -->
 					<% if(user_nick != null){ %>
 
 						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
