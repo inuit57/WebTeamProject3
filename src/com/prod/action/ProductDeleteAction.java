@@ -1,9 +1,13 @@
 package com.prod.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.msg.db.MsgDAO;
 import com.prod.db.ProdDAO;
+import com.wish.db.WishDAO;
 
 public class ProductDeleteAction implements Action {
 
@@ -16,13 +20,18 @@ public class ProductDeleteAction implements Action {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProdDAO pDAO = new ProdDAO();
+		WishDAO wDAO = new WishDAO(); 
+		MsgDAO msgDAO = new MsgDAO(); 
+		
+		String prod_sub = pDAO.getProduct(num).getProd_sub(); 
+		
 		pDAO.deleteProduct(num);
+
+		//쪽지 발송
+		List<String> memberList = wDAO.getWishMembers(num); 
+		msgDAO.msgWrite(memberList , prod_sub);
 		
-		// 추가 작업 필요 
-		// 상품 구매 요청을 보낸 사람들 + 찜목록에 저장한 사람들에게 
-		// 쪽지로 상품이 삭제되었음을 알리는 쪽지를 자동으로 발송하기 
-		// == insert로 넣어주기 
-		
+		wDAO.favoriteDelete(num); //찜목록에서도 삭제
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("./ProductList.pr");

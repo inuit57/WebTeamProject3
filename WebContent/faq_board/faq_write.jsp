@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./css/style.css">
+
 </head>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
@@ -19,30 +21,27 @@
 	<br><br>  
 	<div style="margin:auto;  width: 800px;">
 	
-	<h3>FAQ 등록</h3> 
+	<h1>FAQ 등록</h1> 
 	
 	<form action="./FAQAddAction.faq" method="post" name="fr">
 	
-		<div>
-			카테고리 
-			<select name="faq_cate">
+		<div style="margin-top: 50px;">
+			<select name="faq_cate" style="float: left;width: 20%;height: 50px">
 	               <option value="etc">기타</option>
 	               <option value="oper">운영정책</option>
 	               <option value="uid">계정/인증</option>
 	               <option value="sell">구매/판매</option>
 	               <option value="proc">거래 품목</option>
 	     </select>
+	     <input class="form-control" type="text" name="faq_sub" placeholder="제목을 입력해주세요" style="height: 50px;float: left; width:80%">
 		</div>
+		<div style="color: #CEF6D8">z</div>
 		<div>
-			제목 
-			<input type="text" name="faq_sub">
-		</div>
-		<div>
-			<textarea name="faq_content" id="smartEditor" style="width: 100%; height: 412px;"></textarea>
+			<textarea name="faq_content" id="smartEditor" style="width: 100%; height: 412px; background-color: white;"></textarea>
 		</div>
 		
 		<div align="right">
-	    	<button type="button" id="savebutton" >등록</button>
+	    	<button class="services-icon-wap btnSend" type="button" id="savebutton" >등록</button>
 		</div>
 	</form>
 

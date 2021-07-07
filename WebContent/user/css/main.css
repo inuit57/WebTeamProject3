@@ -1,9 +1,186 @@
+#loading {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: block;
+	opacity: 0.8;
+	background: white;
+	z-index: 99;
+	text-align: center;
+}
+
+#loading > img {
+	z-index: 100;
+	margin-top: 8%;
+	margin-right: 2%;
+}
+
+/* ///////////////////////////////////////////////////// */
+/* [ 모달 ] */
+.acoInput{
+	font-family: Raleway-Medium;
+    color: #000000;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: white;
+    height: 55px;
+    padding: 0 25px 0 25px;
+}
+/* The Modal (background) */
+.searchPWModal {
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.searchPW-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 30%;
+        margin-right: 30%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 35%; /* Could be more or less, depending on screen size */
+}
+
+/* The Modal (background) */
+.user_phone_ID{
+	font-family: Raleway-Medium;
+    color: #555555;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 55px;
+    padding: 0 25px 0 25px;
+}
+
+.searchIDModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.searchID-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 30%;
+        margin-right: 30%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 35%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Modal (background) */
+.userInfo {
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.userInfo-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 30%;
+        margin-right: 30%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 35%; /* Could be more or less, depending on screen size */
+}
 
 
 
+
+/* The Modal (background) */
+.phoneModal02 {
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.phone02-modal-content {
+        background-color: #fefefe;
+        margin-top: 10%; /* 15% from the top and centered */
+        margin-left: 30%;
+        margin-right: 30%;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 35%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Modal (background) */
+.phoneModal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.phone-modal-content {
+        background-color: #fefefe;
+        margin: 10% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 35%; /* Could be more or less, depending on screen size */
+}
+
+
+.modalHidden{
+	display: none;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
+
+
+.stxt3:HOVER{
+	color: #01DF3A;
+}
+
+
 
 @font-face {
   font-family: Raleway-Regular;
@@ -81,6 +258,21 @@ ul, li {
 
 
 /*---------------------------------------------*/
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 input {
 	outline: none;
 	border: none;

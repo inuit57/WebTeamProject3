@@ -164,6 +164,43 @@ function checkPhone() {
 	      $('#phone_error').css('color','green');
 	        $('#phone_error').html('사용 가능 합니다.');
 	        phoneFlag = true;
+	        
+	        $.ajax({
+				 url:'./UserPhoneChk.us',
+			     type:'post',
+			     data:{"user_phone":phone}, 
+			     success:function(data){
+			    	 if(data == 1){
+			    		 $('#phone_error').css('color','red');
+			   	      	 $('#phone_error').html('가입된 번호입니다.');
+			   	      	 phoneFlag = false;
+			    	 }else if(data == 0){
+			    		 $('#phone_error').css('color','green');
+			 	         $('#phone_error').html('사용 가능 합니다.');
+			 	         phoneFlag = true;
+			    	 }
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		       }); // 전화번호 중복체크
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
     }else {
     	$('#phone_error').css('color','red');
 	      $('#phone_error').html('휴대폰 번호를 확인해 주세요');

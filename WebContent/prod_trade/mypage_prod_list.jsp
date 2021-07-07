@@ -10,6 +10,8 @@
 <meta charset="UTF-8">
 <title>prod_trade_list.jsp</title>
 </head>
+
+
 <body>
 
 <h1>나의 글 목록</h1>

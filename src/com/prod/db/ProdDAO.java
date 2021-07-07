@@ -508,6 +508,31 @@ public class ProdDAO {
 	}//updateCount(pDTO) 조회수 증가
 	
 	
+	/**
+	 *  상품 상태를 변경해주는 메소드 
+	 * 
+	 * @param prod_num : 상품 번호
+	 * @param status : 상품 상태 ( 0: 삽니다, 1 : 팝니다, 2:무료나눔, 3: 거래완료)  
+	 */
+	public void updateStatus(int prod_num , int status){
+		
+		try {
+			conn = getConnection(); 
+			sql = "update prod_trade set prod_status = ? where prod_num = ? "; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, status);
+			pstmt.setInt(2, prod_num);
+	
+			pstmt.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(); 
+		}
+		
+	}
+	
 	public String timeForToday(int num){
 		Timestamp now_t = new Timestamp(System.currentTimeMillis()); 
 		Timestamp prod_t ; 
