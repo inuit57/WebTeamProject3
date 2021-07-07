@@ -62,10 +62,7 @@
 %>
 
 <br>
-	<div class="container py-5">
-        <div class="row">
-        
-         <div class="col-lg-3">
+		<div align="center">
 		<h2>검색 조건 설정</h2>
 		<form action="./ProductList.pr" method="get">
 			<select name="item">
@@ -156,14 +153,11 @@
 			
 			<input type="reset" value="조건 초기화">		
 			</form>
+			</div>
 	<input type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'"><br>
-			 </div>
-			 
-			 
-<div class="col-lg-9">	
-	<div class="row">
-   
+	<table border="1" class="table" style="height: 500px">
+	
 		<%
 			int size = productList.size();	
 			int col = 6;
@@ -176,9 +170,11 @@
 			for(int i=0;i<row;i++){
 		%>	
 		
+		<tr>
 			<% for(int j=0;j<col;j++){ 
 				if(num >= size) break; 
 				pDTO = (ProdDTO)productList.get(num);%>
+			<td class="td">
 				<%
 				 String imgfile = pDTO.getProd_img();
 			if(imgfile != null){
@@ -188,33 +184,31 @@
 					 imgfile = "product_default.jpg"; 
 				 }
 				%>
-		<div class="col-md-4">
-	      <div class="card mb-4 product-wap rounded-0">	 
-			<div class="card rounded-0">	
-			<div onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
-			<img src="./upload/<%=imgfile%>" width="100%" ><br>
-			<h4 style="margin-top: 30px; margin-left: 20px;"><%=pDTO.getProd_sub() %><h4>
-			</div>
-			<div class="card-body" onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
-			<p style="margin-left: 10px;"><b><%=pDTO.getUser_nickname() %></b></p>
-			<p style="color:#6E6E6E;margin-left: 10px;"><b><%=pDAO.timeForToday(pDTO.getProd_num()) %></b></p>
-			<h4 class="text-center"><%=pDTO.getProd_price() %>원</h4>
-			</div>
-			
-			</div>
-			</div>
+			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>">
+				<img src="./upload/<%=imgfile%>"
+					 width="150" height="150"><br>
+					 <%=pDTO.getProd_sub() %>
+					 </a><br>
+
+					 <%=pDTO.getProd_price() %>원 <br>
+					 <%=pDTO.getUser_nickname() %><br>
+<%-- 					 <%= pDTO.getProd_num()%> --%>
+					 <%=pDAO.timeForToday(pDTO.getProd_num()) %>
+
+			</td>
 		<%
 			num++;
 		if (size<=num) break;
 		
 			} %>
+		</tr>
 		<% }
 		}else{%>
-			 해당되는 상품이 없습니다.
+		<tr>
+			<td> 해당되는 상품이 없습니다.</td>
+		</tr>
 		<%} %>
-		
-	</div>
-	</div>
+	</table>
 		
 <!-- ///////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
 
@@ -273,9 +267,6 @@
 		}
 	%>
 	</div>
-	</div>
-</div>
-</div>
 </div>
 </body>
 </html>
