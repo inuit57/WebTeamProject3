@@ -1,16 +1,17 @@
 package com.user.action;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
-import com.user.mail.random;
-
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
+import com.user.mail.random;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public class UserPhoneCodeAction implements Action {
 
@@ -18,35 +19,37 @@ public class UserPhoneCodeAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
-		  final String ACCOUNT_SID = "AC724debbbb1937daf3a2073b18562502d";
-		  final String AUTH_TOKEN = "bfbbdcf57e88b975c6ec245bcb006c89";
-
-		  Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+	      String api_key = "NCS1VUHQ8LJEOKRF";
+		  String api_secret = "VLEIXKVTNMA5U7PX4HB0NIABC7MSUVII";
+		  Message coolsms = new Message(api_key, api_secret);
 		  
-		  
-		  String user_phone = request.getParameter("user_phone");
-		  String phone = "+82";
-		  if(user_phone.length() == 11){
-			 phone += user_phone.substring(1, 11);
-			 
-		  }else if(user_phone.length() == 10){
-			 phone += user_phone.substring(1, 10);
-		  }
 		  
 		  
 		  random r = new random();
 		  String content = r.randomNum();
 		  
+		  content = "1";
 		  
-		 
-		  Message message = Message.creator(new PhoneNumber(phone),
-		       new PhoneNumber("+13123134334"), 
-             // 이 번호는 twilio가입하면 줍니다
-		        "기억마켓의 인증번호는 " + content + " 입니다.").create();
-             // xxxx는 나중에 random함수로 구현할 예정
+		  
+		  String user_phone = request.getParameter("user_phone");
+		   
+		   
 
-		  System.out.println(message.getSid());
-		    
+		  HashMap<String, String> params = new HashMap<String, String>();
+		    params.put("to", user_phone);	// 수신전화번호
+		    params.put("from", "01084119664");	// 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+		    params.put("type", "SMS");
+		    params.put("text",  "기억마켓의 인증번호는 " + content + " 입니다.");
+		    params.put("app_version", "test app 1.2"); // application name and version
+
+		    try {
+		      JSONObject obj = (JSONObject) coolsms.send(params);
+		      System.out.println(obj.toString());
+		    } catch (CoolsmsException e) {
+		      System.out.println(e.getMessage());
+		      System.out.println(e.getCode());
+		    }
+		  
 		  PrintWriter out = response.getWriter();
 		  out.print(content);
 		  out.close();
