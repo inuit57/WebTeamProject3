@@ -100,7 +100,7 @@
                         		</tr>
                         		<% 
                        			for(int i = 0 ; i< tradeLogList.size() ; i++){
-									TradeLogDTO tldto = new TradeLogDTO();
+									TradeLogDTO tldto = tradeLogList.get(i);
 									String type = ""; 
 									switch(tldto.getTrade_type()){
 									case 0 : 
@@ -120,7 +120,8 @@
                         		%>
                         		<tr>
                         			<td><%= type %></td>
-                        			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td>
+<%--                         			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td> --%>
+									<td><%= tldto.getTrade_coin() %></td>
                         			<td><%= tldto.getTrade_date() %></td>
                         		</tr>
                         		<%} %>

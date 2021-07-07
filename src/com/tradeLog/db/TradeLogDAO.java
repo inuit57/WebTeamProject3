@@ -117,6 +117,7 @@ public class TradeLogDAO {
 				//tldto.setTrade_user(rs.getString("trade_user"));
 				
 				tradeLogList.add(tldto); 
+				System.out.println("코인 : " + tldto.getTrade_coin());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
