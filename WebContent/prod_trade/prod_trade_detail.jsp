@@ -237,8 +237,8 @@
 						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
 							<input type="button" id="btnLike" value="찜하기" class="form-control"> 
 						<%} %>
-						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
-						<input type="button" value="구매요청" class="form-control" > 
+						<!-- 채팅하기로 통합  -->
+<!-- 						<input type="button" value="구매요청" class="form-control" >  -->
 						<form action="" method="post" name="chatform">
 						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
