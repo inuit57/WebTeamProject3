@@ -18,6 +18,7 @@
 	
 	String roomId = (String)session.getAttribute("roomId");
 	String chatRole = (String)session.getAttribute("chatRole");
+	
 	%>
 	
 <title><%=roomId %></title>
@@ -58,7 +59,6 @@ $(document).ready(function(){
 var msgArea = document.getElementById("msgArea");
 var chatRole = document.getElementById("chatRole");
 
-//webSocketInit();
 
 var webSocket;
 
@@ -138,15 +138,6 @@ function socketOpen(event) {
 					}else{
 						msgArea.value += "상대:" +msgText + '\n';
 					}
-// 					if(msg[i].split('|')[0] == 'seller' && chatRole.value == 'seller') {
-// 						msgArea.value += "나:" + msg[i].split('|')[2] + '\n';
-// 					} else if(msg[i].split('|')[0] == 'seller' && chatRole.value == 'buyer') {
-// 						msgArea.value += "상대:" + msg[i].split('|')[2] + '\n';
-// 					} else if(msg[i].split('|')[0] == 'buyer' && chatRole.value == 'buyer') {
-// 						msgArea.value += "나:" + msg[i].split('|')[2] + '\n';
-// 					} else if(msg[i].split('|')[0] == 'buyer' && chatRole.value == 'seller') {
-// 						msgArea.value += "상대:" + msg[i].split('|')[2] + '\n';
-// 					}
 				}
 			}
 		});

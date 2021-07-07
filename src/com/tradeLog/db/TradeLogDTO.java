@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class TradeLogDTO {
 	private int trade_no ; 
-	private String trade_buyer ;  // 본인 ( 구매자) - 충전 시에는 buyer가 내가 된다. 
-	private String trade_seller ; 
+	private String trade_user ;  // 본인 ( 구매자) - 충전 시에는 buyer가 내가 된다. 
+	private String trade_target ;  // 대상
 	private int trade_coin ; 
 	private Timestamp trade_date; 
 	private Timestamp trade_date2;
@@ -17,17 +17,17 @@ public class TradeLogDTO {
 	public void setTrade_no(int trade_no) {
 		this.trade_no = trade_no;
 	}
-	public String getTrade_buyer() {
-		return trade_buyer;
+	public String getTrade_user() {
+		return trade_user;
 	}
-	public void setTrade_buyer(String trade_buyer) {
-		this.trade_buyer = trade_buyer;
+	public void setTrade_user(String trade_user) {
+		this.trade_user = trade_user;
 	}
-	public String getTrade_seller() {
-		return trade_seller;
+	public String getTrade_target() {
+		return trade_target;
 	}
-	public void setTrade_seller(String trade_seller) {
-		this.trade_seller = trade_seller;
+	public void setTrade_target(String trade_target) {
+		this.trade_target = trade_target;
 	}
 	public int getTrade_coin() {
 		return trade_coin;
@@ -54,10 +54,4 @@ public class TradeLogDTO {
 		this.trade_type = trade_type;
 	}
 	
-	@Override
-	public String toString() {
-		return "tradeLogDTO [trade_no=" + trade_no + ", trade_buyer=" + trade_buyer + ", trade_seller=" + trade_seller
-				+ ", trade_coin=" + trade_coin + ", trade_date=" + trade_date + ", trade_date2=" + trade_date2
-				+ ", trade_type=" + trade_type + "]";
-	}
 }
