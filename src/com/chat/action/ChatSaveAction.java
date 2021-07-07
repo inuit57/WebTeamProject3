@@ -36,13 +36,15 @@ public class ChatSaveAction implements Action {
 		
 		// 거래 단계별 처리 
 		if( "sell01".equals(msg)){ // 거래 요청
-			
+			// DO NOTHING - DB에서 처리할 사항은 여기에서 없다. 
 		}else if( "buy01".equals(msg)){  // 거래 승인
+			// 여기에서 코인이 DB에 걸리게 된다. 
+			// member DB에서 코인 차감하기 
+			// trade_log DB에 기록 넣어주기 
 			
 		}else if( "sell02".equals(msg)){ // 거래 완료
-			 
+			// DO NOTHING - DB에서 처리할 사항은 여기에서 없다.
 		}else if( "buy02".equals(msg)){ // 구매확정 
-			
 			//******* 판매상품 떨구기 동작 시작 ----------------------------------
 				pDAO.updateStatus(prod_num, 3);
 				
@@ -61,6 +63,17 @@ public class ChatSaveAction implements Action {
 				
 				
 			// 구매 확정 처리하기 끝. 
+				
+			//--------------------------------------------------------------------------
+				
+			// 거래가 걸려있는 다른 사람이 있을 때 처리 시작
+				
+			// 환불 처리 수행
+				
+			// 거래가 걸려있는 다른 사람이 있을 때 처리 끝.
+				
+		}else{ // 만약 중간에 나가는 동작을 할 경우  
+			// 코인 환불 처리가 필요하다. 
 		}
 		
 		String saveMsg = chatRole + "|" + msg + "/";
