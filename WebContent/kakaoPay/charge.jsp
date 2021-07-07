@@ -53,7 +53,7 @@ request.setCharacterEncoding("UTF-8");
 	            pg : 'kakaopay',
 	            pay_method : 'card',
 	            merchant_uid : 'merchant_' + new Date().getTime(),
-	            name : 'OO마켓 충전',
+	            name : '기억마켓 충전',
 	            amount : totalamount,
 	            buyer_postcode : '123-456',
 	            
