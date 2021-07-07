@@ -2,7 +2,7 @@ package com.tradeLog.db;
 
 import java.sql.Timestamp;
 
-public class tradeLogDTO {
+public class TradeLogDTO {
 	private int trade_no ; 
 	private String trade_buyer ;  // 본인 ( 구매자) - 충전 시에는 buyer가 내가 된다. 
 	private String trade_seller ; 

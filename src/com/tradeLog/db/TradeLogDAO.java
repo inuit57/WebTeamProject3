@@ -1,6 +1,6 @@
 package com.tradeLog.db;
 
-public class tradeLogDAO {
+public class TradeLogDAO {
 
 	// 생각해볼 것. 
 	// buyer ==> 본인으로 바꾸고 (user_nick) 
