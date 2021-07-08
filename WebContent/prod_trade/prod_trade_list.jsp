@@ -219,8 +219,8 @@
 			<div class="card-body">
 					 <h5 class="contentHid" ><b><%=pDTO.getProd_sub() %></b></h5>
 					 <p style="margin-top: 10px"><%=pDTO.getUser_nickname() %></p>
-					  <h6 style="float: left;margin-top: 10px"><b><fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원</b></h6>
-					  <p style="float: right;margin-top: 10px;font-size: 10px"> <%=pDAO.timeForToday(pDTO.getProd_num()) %></p>
+					  <h6 style="float: left;margin-top: 10px;"><b><fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원</b></h6>
+					  <h6 style="float: right;margin-top: 10px;font-size: 14px; color: #59ab6e"> <%=pDAO.timeForToday(pDTO.getProd_num()) %></h6>
 
 			</div>
 			</div>
