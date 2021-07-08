@@ -221,13 +221,6 @@ text-overflow:ellipsis;
  background-color:transparent;
  border:0px;	
 }
-#msgContent{
- text-overflow:ellipsis; 
- overflow:hidden; 
- white-space:nowrap;
- background-color:transparent;
- border:0px;
- }
 
 #msg_content{
 	border:1px solid #6E6E6E;
