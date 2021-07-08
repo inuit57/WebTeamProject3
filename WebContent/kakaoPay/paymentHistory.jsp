@@ -120,8 +120,7 @@
                         		%>
                         		<tr>
                         			<td><%= type %></td>
-<%--                         			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td> --%>
-									<td><%= tldto.getTrade_coin() %></td>
+                        			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td>
                         			<td><%= tldto.getTrade_date() %></td>
                         		</tr>
                         		<%} %>
