@@ -2,6 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@page import="java.util.List"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
@@ -188,6 +190,7 @@
 					 imgfile = "product_default.jpg"; 
 				 }
 				%>
+
 		<div class="col-md-4">
 	      <div class="card mb-4 product-wap rounded-0">	 
 			<div class="card rounded-0">	
@@ -198,7 +201,7 @@
 			<div class="card-body" onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
 			<p style="margin-left: 10px;"><b><%=pDTO.getUser_nickname() %></b></p>
 			<p style="color:#6E6E6E;margin-left: 10px;"><b><%=pDAO.timeForToday(pDTO.getProd_num()) %></b></p>
-			<h4 class="text-center"><%=pDTO.getProd_price() %>원</h4>
+			<h4 class="text-center"><fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원원</h4>
 			</div>
 			
 			</div>

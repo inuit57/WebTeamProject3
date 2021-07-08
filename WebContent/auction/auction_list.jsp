@@ -1,8 +1,11 @@
+<%@page import="com.auction.bid.db.bidDAO"%>
 <%@page import="com.auction.db.AuctionDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -36,7 +39,7 @@
 	//System.out.println("@@@@@@@@@@@@@@@@@"+pageNum);
 	
 	
-	
+	bidDAO bDAO = new bidDAO(); 
 	AuctionDTO aDTO = new AuctionDTO();
 %>
 
@@ -81,8 +84,12 @@
 							 width="150" height="150"><br>
 							 <%=aDTO.getAuct_sub() %>
 							 </a><br>
-							 <%=aDTO.getAuct_price() %> <br>
-							 <%=aDTO.getUser_nick() %>
+							 <span id="maxPrice">
+						최고가 : <fmt:formatNumber value="<%=bDAO.getMaxPrice(aDTO.getAuct_num())%>" pattern="#,###,###"/>원</span>
+							<br>
+							
+						최저가 : <fmt:formatNumber value="<%=aDTO.getAuct_price()%>" pattern="#,###,###"/>원
+							<br> <%=aDTO.getUser_nick() %>
 					</td>
 				<%
 				num++;

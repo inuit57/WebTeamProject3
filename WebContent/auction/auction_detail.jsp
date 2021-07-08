@@ -6,6 +6,8 @@
 <%@page import="com.wish.db.WishDTO"%>
 <%@page import="com.wish.db.WishDAO"%>
 <%@page import="com.prod.db.ProdDTO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -222,8 +224,11 @@ border-bottom:none;
 				</td>
 				<td width="400" id="t1">
 					<h2><%=aDTO.getAuct_sub()%></h2>
-					<h1><%=aDTO.getAuct_price()%></h1>
-					<h1><span id="maxPrice">최고가 : <%=bDAO.getMaxPrice(aDTO.getAuct_num())%></span></h1>
+					<h1><span id="maxPrice">
+						최고가 : <fmt:formatNumber value="<%=bDAO.getMaxPrice(aDTO.getAuct_num())%>" pattern="#,###,###"/>원</span></h1>
+					<h1 id="auct_price">
+						최저가 : <fmt:formatNumber value="<%=aDTO.getAuct_price()%>" pattern="#,###,###"/>원</h1>
+					
 					<hr> <%
 					 
 					 String status = "";
@@ -327,12 +332,19 @@ border-bottom:none;
 		$("#bidsave").click(function(){
 			
 			var bidprice = document.getElementById("bidprice").value;
+			var auct_price = document.getElementById("auct_price");
+			
+			if(bidprice < auct_price){
+				alert("최저 입찰가보다 적게 입력할 수 없습니다.");
+				return false;
+			}
 			
 			if(bidprice == ""){
-				alert("가격을 입력하세요.");
+				alert("입찰가를 입력하세요.");
 				return false;
 				
 			}
+			
 			
 			
 			$.ajax({
