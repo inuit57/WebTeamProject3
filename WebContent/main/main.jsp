@@ -1,5 +1,13 @@
+<%@page import="com.wish.db.WishDTO"%>
+<%@page import="com.wish.db.WishDAO"%>
+<%@page import="com.prod.db.ProdDAO"%>
+<%@page import="com.auction.db.AuctionDAO"%>
+<%@page import="com.prod.db.ProdDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../inc/top.jsp" %>
 
@@ -140,96 +148,65 @@
     </section>
     <!-- End Categories of The Month -->
 
+<%
+	ProdDAO pDAO = new ProdDAO();
 
+    int num = pDAO.getProductList().size();
+                                    		
+    WishDAO wDAO = new WishDAO();
+%>
+
+<%
+	//for(int i=0; i<size;i++){
+		
+   	List prodList = (List)pDAO.getProductList();
+   	List<WishDTO> wishList = (List) wDAO.wishList(user_nick);
+		
+		//if(size <= 3) break; %>
     <!-- Start Featured Product -->
-    <section class="bg-light">
+    <section class="bg-light" >
         <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">Today's Product</h1>
                     <p>
-                        Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident.
+                        실시간으로 올라오는 오늘의 상품을 만나보세요.
                     </p>
                 </div>
             </div>
+           <div  style="display: flex;">
+	 <c:forEach var="prodList" items="<%=prodList %>" begin="0" end="2">
+	 	<% //if() %>
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100" style="width: 300px; margin-left: 10px;">
                         <a href="shop-single.html">
+                 
                             <img src="./assets/img/feature_prod_01.jpg" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
                                 <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
+                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">${prodList.prod_sub }</a>
                                 </li>
-                                <li class="text-muted text-right">$240.00</li>
+                                <li class="text-muted text-right">
+                                 <fmt:formatNumber value="${prodList.prod_price }" pattern="#,###,###"/>원
+                                </li>
                             </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Gym Weight</a>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            	${prodList.prod_content }
                             </p>
-                            <p class="text-muted">Reviews (24)</p>
+                            <p class="text-muted"></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/feature_prod_02.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$480.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Cloud Nike Shoes</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/feature_prod_03.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$360.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Summer Addides Shoes</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              </div>
+   	<%//} %>
+   		</c:forEach>
+              </div>
+ 	</div>
     </section>
+   
     <!-- End Featured Product -->
-
 
 <%@ include file="../inc/footer.jsp" %>

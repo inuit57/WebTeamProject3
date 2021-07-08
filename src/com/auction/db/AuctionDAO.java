@@ -114,12 +114,13 @@ public class AuctionDAO {
 			//4번 유저코인 member user_coin
 			sql = "insert into auct_bid "
 					+ " value(?,?,0,0,now(),now(), "
-					+ "0)";
+					+ "?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, bidNum);
 			pstmt.setInt(2, num);
+			pstmt.setInt(3, aDTO.getAuct_price());
 		
 			
 			pstmt.executeUpdate();

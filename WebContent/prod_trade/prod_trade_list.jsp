@@ -2,6 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@page import="java.util.List"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
@@ -174,6 +176,7 @@
 			<% for(int j=0;j<col;j++){ 
 				if(num >= size) break; 
 				pDTO = (ProdDTO)productList.get(num);%>
+<%-- 				<c:forEach var="prodList" items="${productList }"> --%>
 			<td class="td">
 				<%
 				 String imgfile = pDTO.getProd_img();
@@ -190,12 +193,17 @@
 					 <%=pDTO.getProd_sub() %>
 					 </a><br>
 
-					 <%=pDTO.getProd_price() %>원 <br>
+<%-- 					가격 : <fmt:formatNumber value="${prodList.prod_price}" pattern="#,###,###"/>원 --%>
+				가격 : <fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원
+				
+				<br>	
 					 <%=pDTO.getUser_nickname() %><br>
+					닉네임 : ${prodList.user_nicknaeme }
 <%-- 					 <%= pDTO.getProd_num()%> --%>
 					 <%=pDAO.timeForToday(pDTO.getProd_num()) %>
 
 			</td>
+<%-- 				</c:forEach> --%>
 		<%
 			num++;
 		if (size<=num) break;
