@@ -41,7 +41,7 @@
 		
 		var RecvnickAdd = "";
 		
-		// 다수에게 쪽지 보내기
+		// 다수에게 쪽지 보내기z
 		$("#recv_nick").blur(function() {
 			var nickname = $("#recv_nick").val();
 			if(nickname != ""){
