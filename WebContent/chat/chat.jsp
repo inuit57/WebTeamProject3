@@ -5,11 +5,38 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="js/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style type="text/css">
 
 #msgArea {
 	height: 500px;
 }
+
+#msgWindow {
+	overflow: auto;
+	height: 41em;
+	width: 400px;
+	background-color: #5BAC70; /* 로고 색 */
+	font-size: 15px;
+/* 	#EAEAEA 회색 */
+/* #DEF7DE  연한 초록색*/
+	
+	
+}
+
+#msgWindow::-webkit-scrollbar {
+	width: 5px;
+}
+#msgWindow::-webkit-scrollbar-thumb {
+    background-color: #EAEAEA;
+    border-radius: 10px;
+}
+#msgWindow::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
 
 </style>
 	<%
@@ -31,9 +58,12 @@
 	<input type="hidden" id="roomId" name="roomId" value="<%=roomId %>">
 	<input type="hidden" id="chatRole" name="chatRole" value="<%=chatRole %>">
 	
-	<textarea rows="5" cols="30" id="msgArea" readonly="readonly"></textarea><br>
-	<input type="text" id="seq"><br>
-	<input type="button" value="send" onclick="socketMsgSend();">
+	<div id="msgWindow"></div>
+<!-- 	<input type="text" id="seq" onkeydown="if(event.keyCode==13){socketMsgSend();}"><br> -->
+	<textarea rows="3" cols="30" wrap="hard" id="seq" onkeydown="if(event.keyCode==13 && !event.shiftKey){socketMsgSend();}" ></textarea>
+	<input type="button" value="send" onclick="socketMsgSend();"> <br>
+	<input type="button" value="이 사람이랑 거래 안하기" id="deleteChat" name="deleteChat">
+	
 	
 	<%
 	// 판매자인 경우
@@ -45,6 +75,11 @@
 	<input type="button" value="거래승인" id="buyConfirm01" onclick="socketMsgBuyer01();" disabled="disabled">
 	<input type="button" value="구매확정" id="buyConfirm02" onclick="socketMsgBuyer02();" disabled="disabled">
 	<%} %>
+	
+	
+	
+	
+	
 <script type="text/javascript">
 
 String.prototype.replaceAll = function(org, dest) {
@@ -55,7 +90,6 @@ $(document).ready(function(){
 	webSocketInit();
 });
 
-var msgArea = document.getElementById("msgArea");
 var chatRole = document.getElementById("chatRole");
 
 //webSocketInit();
@@ -65,7 +99,7 @@ var webSocket;
 function webSocketInit() {
 	//webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
 	// IP 주소 바꿔줘야 한다. 
-	webSocket = new WebSocket("ws://192.168.2.222:8088/WebTeamProject/websocket");
+	webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
 	webSocket.onopen = function(event) {socketOpen(event);};
 	webSocket.onclose = function(event) {socketClose(event);};
 	webSocket.onmessage = function(event) {socketMessage(event);};
@@ -134,9 +168,9 @@ function socketOpen(event) {
 					}
 					
 					if(msgWriter == chatRole.value){
-						msgArea.value += "나:" +msgText + '\n';
+						addRightChat(msgText);
 					}else{
-						msgArea.value += "상대:" +msgText + '\n';
+						addLeftChat(msgText);
 					}
 // 					if(msg[i].split('|')[0] == 'seller' && chatRole.value == 'seller') {
 // 						msgArea.value += "나:" + msg[i].split('|')[2] + '\n';
@@ -180,7 +214,7 @@ function socketMsgSend() {
         });
      });
 	
-	msgArea.value += "나 : " + msg.split('|')[1] + "\n";
+	addRightChat(msg.split('|')[1]);
 // 	msgArea.value += "나 : " + msg + "\n";
 }
 
@@ -206,7 +240,7 @@ function socketMsgSeller01() {
      });
 	
 	$("#sellConfirm01").attr("disabled", true);
-	msgArea.value += "나 : 거래를 요청합니다. '거래승인'을 눌러주세요."+ "\n"; 
+	addRightChat("거래를 요청합니다. '거래승인' 을 눌러주세요.");
 }
 
 function socketMsgSeller02() {
@@ -229,7 +263,7 @@ function socketMsgSeller02() {
      });
 	
 	$("#sellConfirm02").attr("disabled", true);
-	msgArea.value += "나 : 상품을 받으신 것이 확인되셨다면 '구매확정'을 눌러주세요."+ "\n"; 
+	addRightChat("상품을 받으신 것이 확인되셨다면 '구매확정'을 눌러주세요.");
 }
 //판매자 채팅 버튼 끝----------------------------------------------------------------
 
@@ -254,7 +288,7 @@ function socketMsgBuyer01() {
      });
 	
 	$("#buyConfirm01").attr("disabled", true);
-	msgArea.value += "나 : 금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. "+ "\n";  
+	addRightChat("금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ");
 }
 
 function socketMsgBuyer02() {
@@ -279,7 +313,7 @@ function socketMsgBuyer02() {
 	$("#buyConfirm01").attr("disabled", true);
 	$("#buyConfirm02").attr("disabled", true);
 	
-	msgArea.value += "나 : 거래가 완료되었습니다. 감사합니다."+ "\n"; 
+	addRightChat("나 : 거래가 완료되었습니다. 감사합니다.");
 }
 
 // 구매자 채팅 버튼 끝-------------------------------------------------------------------------
@@ -316,7 +350,7 @@ function socketMessage(event) {
 			$("#buyConfirm02").attr("disabled", true); 
 		}
 		
-		msgArea.value += "상대 : " + receiveMsg + "\n";
+		addLeftChat(receiveMsg);
 	}
 }
 
@@ -333,7 +367,87 @@ function refresh() {
 	window.opener.location.reload();
 }
 
+$().ready(function() {
+	$('#deleteChat').click(function() {
+		Swal.fire({
+			title: '주 의',
+			text: '거래를 취소 하시겠습니까?\n모든 채팅 정보가 삭제 됩니다.',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '',
+			cancelButtonColor: '',
+			confirmButtonText: '예',
+			cancelButtonText: '아니요'
+		}).then((result) => {
+			if(result.isConfirmed) {
+				
+				var roomId = $('#roomId').val();
+				
+				$(function(){
+			        $.ajax('./ChatDeleteAction.ch', {
+			           data : {roomId:roomId},
+			           async: false,
+			           success: function(data) {
+			        	   window.close();
+			           }
+			        });
+			     });
+				
+				
+			}
+		})
+	});
+});
 
+function addLeftChat(msg) {
+	var div = document.createElement('div');
+	
+	div.style["width"]='auto';
+	div.style["word-wrap"]='break-word';
+	div.style['display']='inline-block';
+	div.style['background-color']='#EAEAEA';
+	div.style['border-radius']='3px';
+	div.style['padding']='3px';
+	div.style['margin-left']='5px';
+	div.style['margin-top']='8px';
+	
+	div.innerHTML = msg;
+	
+	document.getElementById('msgWindow').appendChild(div);
+	
+	var clear = document.createElement('div');
+	clear.style['clear'] = 'both';
+	document.getElementById('msgWindow').appendChild(clear);
+	
+	document.getElementById('msgWindow').scrollTop = document.getElementById('msgWindow').scrollHeight;
+	
+}
+
+function addRightChat(msg) {
+	var div = document.createElement('div');
+		
+		div.style["width"]='auto';
+		div.style["word-wrap"]='break-word';
+		div.style['float']='right';
+		div.style['display']='inline-block';
+		div.style['background-color']='#DEF7DE';
+		div.style['border-radius']='3px';
+		div.style['padding']='3px';
+		div.style['margin-right']='5px';
+		div.style['margin-bottom']='4px';
+		div.style['margin-top']='4px';
+		
+		
+		div.innerHTML = msg;
+		
+		document.getElementById('msgWindow').appendChild(div);
+		
+		var clear = document.createElement('div');
+		clear.style['clear'] = 'both';
+		document.getElementById('msgWindow').appendChild(clear);
+		
+		document.getElementById('msgWindow').scrollTop = document.getElementById('msgWindow').scrollHeight;
+}
 
 </script>
 

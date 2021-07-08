@@ -344,7 +344,7 @@ border-bottom:none;
 		});
 	});
 	function openWindowChat() {
-		window.open("","Chat","width=300,height=650,top=150,left=500");
+		window.open("","Chat","width=430,height=800,top=150,left=500");
 		document.chatform.target = "Chat";
 		document.chatform.action = "./ChatAction.ch";
 		document.chatform.submit();

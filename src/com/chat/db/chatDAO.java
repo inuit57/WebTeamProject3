@@ -100,14 +100,15 @@ public class chatDAO {
 		}
 	}
 	
-	public ArrayList<chatDTO> getRoomList(String seller) {
+	public ArrayList<chatDTO> getRoomList(String seller, int prod_num) {
 		ArrayList<chatDTO> arrlist = null;
 		chatDTO cdto = null;
 		try {
 			conn = getConnection();
-			sql = "SELECT * FROM chat WHERE chat_seller=?";
+			sql = "SELECT * FROM chat WHERE chat_seller=? AND prod_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, seller);
+			pstmt.setInt(2, prod_num);
 			rs = pstmt.executeQuery();
 			
 			
@@ -135,5 +136,23 @@ public class chatDAO {
 		
 		
 		return arrlist;
+	}
+	
+	public void deleteRoomId(String roomId) {
+		try {
+			
+			System.out.println("dao roomId: " + roomId);
+			
+			conn = getConnection();
+			sql = "DELETE FROM chat WHERE chat_roomid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, roomId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("chatDAO.deleteRoomId() function error - KBH");
+		} finally {
+			closeDB();
+		}
 	}
 }
