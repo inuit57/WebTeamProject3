@@ -168,15 +168,16 @@
 			>
 		    <i class="fa fa-search" id="searchBtn"  style="float: right; margin-top: -35px;font-size:30px; margin-right: 20px"></i>
 			<br> 
-			가격범위 설정<br> 
 			<input class="form-control" type="number" name="min_price" value="<%=request.getParameter("min_price")%>" style="width: 45%;float: left;"> 
-			<h5 style="float: left;width: 10%;ma  "> ~ </h5> 
+			<h5 style="float: left;width: 10%;margin-top: 10px "> ~ </h5> 
 			<input class="form-control" type="number" name="max_price" value="<%=request.getParameter("max_price")%>" style="width: 45%;float: left;">	
+			<i class="fa fa-won-sign" style="width:10px;float: left; margin-top: -25px;font-size:13px"></i>
+			<i class="fa fa-won-sign" style="width:10px;float: right;margin-top: -25px; margin-right: 42%;font-size:13px"></i>
 			
 			<input class="services-icon-wap btnSend" type="reset" value="조건 초기화">		
 			</form>
-	<input class="services-icon-wap btnSend" type="button" value="상품 등록"
-				onclick="location.href='ProductRegister.pr'"><br>
+	<input  class="services-icon-wap btn4321" type="button" value="상품 등록"
+				onclick="location.href='ProductRegister.pr'" style="margin-top: 70px"><br>
 			</div>
 			
 	<div class="col-lg-9">
