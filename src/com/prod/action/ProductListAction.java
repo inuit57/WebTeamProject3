@@ -51,6 +51,8 @@ public class ProductListAction implements Action {
 		
 		//request.setAttribute("productList", productList);
 		
+		//pDTO = (ProdDTO)productList.get(num);
+		
 		
 		//페이징처리
 		int pageSize = 10;

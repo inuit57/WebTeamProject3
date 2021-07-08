@@ -4,20 +4,32 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>prod_trade_list.jsp</title>
 </head>
-
+<style>
+ 	table, tr, td{ 
+ 		border: 1px; 
+ 		margin-left: auto;  
+		margin-right: auto;  
+ 		text-align: center;
+	}  
+	
+</style>
 
 <body>
 
-<h1>나의 글 목록</h1>
+	<div class="container">
+		<div align="center">
+		<br>
+		<h2>나의 글 목록</h2>
 
 
-<%
+		<%
 	List productList = (List) request.getAttribute("productList");
 
 //request.setAttribute("productListCount", pDAO.getProductCount());
@@ -42,72 +54,44 @@
 	ProdDTO pDTO = new ProdDTO();
 
 %>
+		<br>	
+		<select onchange="if(this.value) location.href=(this.value);"
+			name="category">
+			<option value="./MyPageProductList.pr" selected="selected">카테고리</option>
+			<option value="./MyPageProductList.pr?">전체</option>
+			<option value="./MyPageProductList.pr?item=0" <% if(item == 0){ %>
+				selected <%} %>>디지털기기</option>
+			<option value="./MyPageProductList.pr?item=1" <% if(item == 1){ %>
+				selected <%} %>>생활가전</option>
+			<option value="./MyPageProductList.pr?item=2" <% if(item == 2){ %>
+				selected <%} %>>가구/인테리어</option>
+			<option value="./MyPageProductList.pr?item=3" <% if(item == 3){ %>
+				selected <%} %>>유아용품</option>
+			<option value="./MyPageProductList.pr?item=4" <% if(item == 4){ %>
+				selected <%} %>>생활/가공식품</option>
+			<option value="./MyPageProductList.pr?item=5" <% if(item == 5){ %>
+				selected <%} %>>스포츠/레저</option>
+			<option value="./MyPageProductList.pr?item=6" <% if(item == 6){ %>
+				selected <%} %>>여성잡화/의류</option>
+			<option value="./MyPageProductList.pr?item=7" <% if(item == 7){ %>
+				selected <%} %>>남성잡화/의류</option>
+			<option value="./MyPageProductList.pr?item=8" <% if(item == 8){ %>
+				selected <%} %>>게임/취미</option>
+			<option value="./MyPageProductList.pr?item=9" <% if(item == 9){ %>
+				selected <%} %>>뷰티/미용</option>
+			<option value="./MyPageProductList.pr?item=10" <% if(item == 10){ %>
+				selected <%} %>>반려동물용품</option>
+			<option value="./MyPageProductList.pr?item=11" <% if(item == 11){ %>
+				selected <%} %>>도서/티켓/음반</option>
+			<option value="./MyPageProductList.pr?item=12" <% if(item == 12){ %>
+				selected <%} %>>식물</option>
+			<option value="./MyPageProductList.pr?item=13" <% if(item == 13){ %>
+				selected <%} %>>기타 중고물품</option>
+		</select>
+		<br>
+		<table border="1">
 
-		<!-- int값으로 selected 값...하 안돼요  -->
-		<select onchange="if(this.value) location.href=(this.value);" name="category">
-					<option value="./MyPageProductList.pr" selected="selected">카테고리</option>
-					<option value="./MyPageProductList.pr?">전체</option>
-					<option value="./MyPageProductList.pr?item=0"
-					<% if(item == 0){ %>
-										selected
-										<%} %>>디지털기기</option>
-					<option value="./MyPageProductList.pr?item=1"
-					<% if(item == 1){ %>
-										selected
-										<%} %>>생활가전</option>
-					<option value="./MyPageProductList.pr?item=2"
-					<% if(item == 2){ %>
-										selected
-										<%} %>>가구/인테리어</option>
-					<option value="./MyPageProductList.pr?item=3"
-					<% if(item == 3){ %>
-										selected
-										<%} %>>유아용품</option>
-					<option value="./MyPageProductList.pr?item=4"
-					<% if(item == 4){ %>
-										selected
-										<%} %>>생활/가공식품</option>
-					<option value="./MyPageProductList.pr?item=5"
-					<% if(item == 5){ %>
-										selected
-										<%} %>>스포츠/레저</option>
-					<option value="./MyPageProductList.pr?item=6"
-					<% if(item == 6){ %>
-										selected
-										<%} %>>여성잡화/의류</option>
-					<option value="./MyPageProductList.pr?item=7"
-					<% if(item == 7){ %>
-										selected
-										<%} %>>남성잡화/의류</option>
-					<option value="./MyPageProductList.pr?item=8"
-					<% if(item == 8){ %>
-										selected
-										<%} %>>게임/취미</option>
-					<option value="./MyPageProductList.pr?item=9"
-					<% if(item == 9){ %>
-										selected
-										<%} %>>뷰티/미용</option>
-					<option value="./MyPageProductList.pr?item=10"
-					<% if(item == 10){ %>
-										selected
-										<%} %>>반려동물용품</option>
-					<option value="./MyPageProductList.pr?item=11"
-					<% if(item == 11){ %>
-										selected
-										<%} %>>도서/티켓/음반</option>
-					<option value="./MyPageProductList.pr?item=12"
-					<% if(item == 12){ %>
-										selected
-										<%} %>>식물</option>
-					<option value="./MyPageProductList.pr?item=13"
-					<% if(item == 13){ %>
-										selected
-										<%} %>>기타 중고물품</option>
-			</select>
-
-	<table border="1">
-	
-		<%
+			<%
 			int size = productList.size();	
 			int col = 6;
 			//int row = (size/col)+((size%col>0)? 1:0);
@@ -117,47 +101,46 @@
 			if(size >0 && num <= size){	
 			
 			for(int i=0;i<row;i++){
-		%>	
-		
-		<tr>
-			<% for(int j=0;j<col;j++){ 
+		%>
+
+			<tr>
+				<% for(int j=0;j<col;j++){ 
 				if(num >= size) break; 
 				pDTO = (ProdDTO)productList.get(num);%>
-			<td>
-				<%
+				<td>
+					<%
 				 String imgfile = pDTO.getProd_img().split(",")[0];
 				 if((imgfile == null) || (imgfile.equals("null"))){
 					 imgfile = "product_default.jpeg"; 
 				 }
-				%>
-			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>">
-				<img src="./upload/<%=imgfile%>"
-					 width="150" height="150"><br>
-					 <%=pDTO.getProd_sub() %>
-					 </a><br>
-					 <%=pDTO.getProd_price() %>
-			
-			</td>
-		<%
+				%> <a
+					href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>">
+						<img src="./upload/<%=imgfile%>" width="150" height="150"><br>
+						<%=pDTO.getProd_sub() %>
+				</a><br> <%=pDTO.getProd_price() %>
+
+				</td>
+				<%
 			num++;
 		if (size<=num) break;
 		
 			} %>
-		</tr>
-		<% }
+			</tr>
+			<% }
 		}else{%>
-		<tr>
-			<td> 해당되는 상품이 없습니다.</td>
-		</tr>
-		<%} %>
-	</table>
-		
-<!-- 	<input type="button" value="글쓰기" -->
+			<tr>
+				<td>해당되는 상품이 없습니다.</td>
+			</tr>
+			<%} %>
+		</table>
+
+	<!-- 	<input type="button" value="글쓰기" -->
 <!-- 				onclick="location.href='ProductRegister.pr'"> -->
 		
 <!-- ///////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
 
-
+	
+	<br>
 
 	<%
 		if(size != 0){
@@ -189,7 +172,8 @@
 			//이전 (해당 페이지블럭의 첫번째 페이지 호출)
 			if(startPage > pageBlock){
 				%>
-				<a href="MyPageProductList.pr?pageNum=<%=startPage-pageBlock%>&item=<%=item%>">[이전]</a>
+				<a href="MyPageProductList.pr?pageNum=<%=startPage-pageBlock%>&item=<%=item%>"
+						class="main-button-icon">이전</a>
 				<%
 				
 			}
@@ -199,7 +183,8 @@
 		
 				if ( item > 0 ){
 				%>
-				<a href="MyPageProductList.pr?pageNum=<%=i%>&item=<%=item%>">[<%=i %>]</a>
+				<a href="MyPageProductList.pr?pageNum=<%=i%>&item=<%=item%>"
+						class="main-filled-button"><%=i %></a>
 				<%
 				}else{
 					%>
@@ -227,40 +212,13 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	%>
 
+		</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	</div>
 
 </body>
 </html>
+	<br>
+<%@ include file="../inc/footer.jsp" %>

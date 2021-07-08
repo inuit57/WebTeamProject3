@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.tradeLog.db.TradeLogDAO;
 import com.user.db.UserDAO;
 
 public class PaymentAction implements Action {
@@ -26,8 +27,10 @@ public class PaymentAction implements Action {
 		
 		// DB저장 - member테이블에 coin 추가
 		UserDAO udao = new UserDAO();
+		TradeLogDAO tlDAO = new TradeLogDAO(); 
 		
-		udao.charge(user_nick, totalamount);
+		udao.charge(user_nick, totalamount); //충전 
+		tlDAO.chargeLog(user_nick, totalamount); //로그 기록 추가
 		
 		return null;
 	}

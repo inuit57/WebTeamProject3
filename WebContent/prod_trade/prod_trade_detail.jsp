@@ -4,6 +4,7 @@
 <%@page import="com.wish.db.WishDTO"%>
 <%@page import="com.wish.db.WishDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -173,7 +174,7 @@ border-bottom:none;
 
 <%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
 					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
-					<h1>가격 : <%=pDTO.getProd_price()%>원</h1>
+					<h1>가격 : <fmt:formatNumber value="${product.prod_price}" pattern="#,###,###"/>원</h1>
 					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nickname()%>"><%=pDTO.getUser_nickname()%></a></h3>
 					<hr> 
 
@@ -267,8 +268,8 @@ border-bottom:none;
 						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
 							<input type="button" id="btnLike" value="찜하기" class="btn btn-warning"> 
 						<%} %>
-						<!-- 구매하기 누르면 구매 채팅 발송하기 -->
-						<input type="button" value="구매요청" class="form-control" > 
+						<!-- 채팅하기로 통합  -->
+<!-- 						<input type="button" value="구매요청" class="form-control" >  -->
 						<form action="" method="post" name="chatform">
 						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
