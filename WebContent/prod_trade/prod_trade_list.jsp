@@ -64,7 +64,10 @@
 %>
 
 <br>
-		<div align="center">
+	<div class="container py-5">
+        <div class="row">
+        
+         <div class="col-lg-3">
 		<h2>검색 조건 설정</h2>
 		<form action="./ProductList.pr" method="get">
 			<select name="item">
@@ -155,11 +158,14 @@
 			
 			<input type="reset" value="조건 초기화">		
 			</form>
-			</div>
 	<input type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'"><br>
-	<table border="1" class="table" style="height: 500px">
-	
+			 </div>
+			 
+			 
+<div class="col-lg-9">	
+	<div class="row">
+   
 		<%
 			int size = productList.size();	
 			int col = 6;
@@ -172,12 +178,9 @@
 			for(int i=0;i<row;i++){
 		%>	
 		
-		<tr>
 			<% for(int j=0;j<col;j++){ 
 				if(num >= size) break; 
 				pDTO = (ProdDTO)productList.get(num);%>
-<%-- 				<c:forEach var="prodList" items="${productList }"> --%>
-			<td class="td">
 				<%
 				 String imgfile = pDTO.getProd_img();
 			if(imgfile != null){
@@ -187,36 +190,34 @@
 					 imgfile = "product_default.jpg"; 
 				 }
 				%>
-			<a href="./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>">
-				<img src="./upload/<%=imgfile%>"
-					 width="150" height="150"><br>
-					 <%=pDTO.getProd_sub() %>
-					 </a><br>
 
-<%-- 					가격 : <fmt:formatNumber value="${prodList.prod_price}" pattern="#,###,###"/>원 --%>
-				가격 : <fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원
-				
-				<br>	
-					 <%=pDTO.getUser_nickname() %><br>
-					닉네임 : ${prodList.user_nicknaeme }
-<%-- 					 <%= pDTO.getProd_num()%> --%>
-					 <%=pDAO.timeForToday(pDTO.getProd_num()) %>
-
-			</td>
-<%-- 				</c:forEach> --%>
+		<div class="col-md-4">
+	      <div class="card mb-4 product-wap rounded-0">	 
+			<div class="card rounded-0">	
+			<div onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
+			<img src="./upload/<%=imgfile%>" width="100%" ><br>
+			<h4 style="margin-top: 30px; margin-left: 20px;"><%=pDTO.getProd_sub() %><h4>
+			</div>
+			<div class="card-body" onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
+			<p style="margin-left: 10px;"><b><%=pDTO.getUser_nickname() %></b></p>
+			<p style="color:#6E6E6E;margin-left: 10px;"><b><%=pDAO.timeForToday(pDTO.getProd_num()) %></b></p>
+			<h4 class="text-center"><fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원원</h4>
+			</div>
+			
+			</div>
+			</div>
 		<%
 			num++;
 		if (size<=num) break;
 		
 			} %>
-		</tr>
 		<% }
 		}else{%>
-		<tr>
-			<td> 해당되는 상품이 없습니다.</td>
-		</tr>
+			 해당되는 상품이 없습니다.
 		<%} %>
-	</table>
+		
+	</div>
+	</div>
 		
 <!-- ///////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
 
@@ -275,6 +276,9 @@
 		}
 	%>
 	</div>
+	</div>
+</div>
+</div>
 </div>
 </body>
 </html>
