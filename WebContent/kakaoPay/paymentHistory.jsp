@@ -24,7 +24,7 @@
 		// 로그인한 사람의 정보를 DB에서 조회해서 
 		// jsp화면에 출력
 
-		// 로그인 세션처리 (로그인x->로그인페이지로 이동)
+		// 로그인 세션처리 (로그인x->로그인페이지로 이동)//
 			
 		if (user_nick == null) {
 			response.sendRedirect("./Main.do");
@@ -120,8 +120,7 @@
                         		%>
                         		<tr>
                         			<td><%= type %></td>
-<%--                         			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td> --%>
-									<td><%= tldto.getTrade_coin() %></td>
+                        			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td>
                         			<td><%= tldto.getTrade_date() %></td>
                         		</tr>
                         		<%} %>

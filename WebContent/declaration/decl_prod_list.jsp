@@ -73,7 +73,7 @@
 			<td><%=dcDTO.getDecl_writer() %></td>
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-			<a href="decl_prod_content.decl?num=<%=num%>&state=<%=state%>"><%=dcDTO.getBoard_sub() %></a>
+			<a href="decl_prod_content.decl?num=<%=num%>&state=<%=state%>&decl_num=<%=dcDTO.getDecl_num()%>"><%=dcDTO.getBoard_sub() %></a>
 			</td>
 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>
 			<td><%=dcDTO.getUser_nickname() %></td>

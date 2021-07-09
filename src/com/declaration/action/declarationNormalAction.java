@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.declaration.db.declarationDAO;
 import com.declaration.db.declarationDTO;
+import com.msg.db.MsgDAO;
 
 public class declarationNormalAction implements Action {
 
@@ -37,15 +38,29 @@ public class declarationNormalAction implements Action {
 		
 		
 		declarationDAO dcDAO = new declarationDAO();
-		dcDAO.declWrite(dcDTO);
+		int result = dcDAO.declWrite(dcDTO);
+		
+		if (result == 1){
+	          response.setContentType("text/html; charset=utf-8");
+	          PrintWriter out = response.getWriter();
+	          
+	          out.print("<script>");
+	          out.print("alert('신고가 접수되었습니다.');");
+	          out.print("location.href='./board_content.bo?board_num="+board_num + "&pageNum="+ pageNum +"'");
+	          out.print("</script>");
+	          
+	          out.close();
+	          return null;
+	       } 
 		
 		
-		// 페이지 이동
-		ActionForward forward = new ActionForward();
-		forward.setPath("./board_content.bo?board_num="+board_num + "&pageNum="+pageNum);
-		forward.setRedirect(true);
 		
-		return forward;
+//		// 페이지 이동
+//		ActionForward forward = new ActionForward();
+//		forward.setPath("./board_content.bo?board_num="+board_num + "&pageNum="+pageNum);
+//		forward.setRedirect(true);
+		
+		return null;
 	}
 
 }

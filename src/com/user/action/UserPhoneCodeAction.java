@@ -28,9 +28,6 @@ public class UserPhoneCodeAction implements Action {
 		  random r = new random();
 		  String content = r.randomNum();
 		  
-		  content = "1";
-		  
-		  
 		  String user_phone = request.getParameter("user_phone");
 		   
 		   

@@ -33,6 +33,7 @@
 	ProdDTO pDTO = (ProdDTO)request.getAttribute("pDTO");
 	String date = pDTO.getProd_date().toString();
 	int state = Integer.parseInt(request.getParameter("state"));
+	int decl_num = Integer.parseInt(request.getParameter("decl_num"));
 %>
 	<table class="table">
 		<tr>
@@ -119,6 +120,7 @@
 		<input type="submit" class="btn btn-danger" value="해당글 삭제하기" style="margin-bottom: 2%">
 		<input type="hidden" name="num" value="<%=pDTO.getProd_num()%>">
 		<input type="hidden" name="state" value="<%=state%>">
+		<input type="hidden" name="decl_num" value="<%=decl_num%>">
 	</form> 
 </div>
 </div>
