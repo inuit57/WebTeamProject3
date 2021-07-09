@@ -52,7 +52,7 @@ public class UserLoginAction implements Action {
 		if(user_nick != null) {
 			session.setAttribute("id", id);
 			session.setAttribute("user_nick", user_nick);
-			session.setAttribute("user_profile", udao.getProfile(user_nick));
+			session.setAttribute("user_profile", udao.getProfile(user_nick));			
 			forward.setPath("./Main.do");
 			forward.setRedirect(true);
 		} else {

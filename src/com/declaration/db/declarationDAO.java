@@ -828,6 +828,44 @@ public class declarationDAO {
     // 신고DB에 총 갯수 가져오기 - prod
     /********************************************************************/
     /********************************************************************/
+    
+    /********************************************************************/
+    // getUserCount(board_num)
+    public String getUserCount(int board_num){
+    	int result = 0;
+    	String nick ="";
+    	
+    	try {
+    		conn = getConnection();
+    		
+    		sql = "select e.cnt, m.user_nickname, m.user_grade  from "
+    				+ "(select count(user_nickname) cnt, user_nickname, "
+    				+ "board_num from declaration_board where board_num=?) e "
+    				+ "natural join member m";
+    		
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, board_num);
+    		
+    		rs = pstmt.executeQuery();
+    		if(rs.next()){
+    			result = rs.getInt("cnt");
+    			if(result>=3){
+    				nick = rs.getString("user_nickname");
+    			}
+    		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+    	
+    	return nick;
+    	
+    }
+    // getUserCount(board_num)
+    
+    /********************************************************************/
 
 
 }

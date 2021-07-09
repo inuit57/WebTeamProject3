@@ -43,7 +43,7 @@
 		declarationDAO dcDAO = new declarationDAO();
 	%>
 	
-	<table class="table table-sm table-hover" border="1">
+	<table class="table table-sm table-hover" border="1"  style="text-align: center;">
 	 <thead class="table-dark">
 		<tr>
 			<td>피의자</td>	<!-- 신고당한 글 작성자 -->	
@@ -77,19 +77,14 @@
 			<td><%=dcDTO.getUser_nickname() %></td><!-- 게시글을 신고한사람 -->	
 			<td><%=decl_normal_cnt %></td>	
 			<%
-				String state = "";
 			
-			switch(dcDTO.getDecl_state()){
-			
-			case 1: 
-				state = "처리중";
-				break;
-			case 2:
-				state = "처리완료";
-				break;
-			}
+			if(dcDTO.getDecl_state()==1){
 			%>
-			<td><%=state %></td>
+			<td style="color: red;">처리중</td>
+			<%}else{ %>
+			<td style="color: green;">처리완료</td>
+			<%} %>
+			
 		</tr>
 	<%
 	}
