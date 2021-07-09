@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.declaration.db.declarationDTO;
 import com.faq.db.FAQDTO;
 
 public class MsgDAO {
@@ -298,7 +299,7 @@ public class MsgDAO {
 	
 	
 	 
-	 // msgDel(msg_idx)
+	 // msgDel(msg_idx) - 처리완료되면서 삭제된글의 작성자에게 쪽지 보내기
 	 public void msgDel(String msg_idx){
 		 try {
 				// 1 드라이버 로드
@@ -326,6 +327,121 @@ public class MsgDAO {
 			}
 	 }
 	 // msgDel(msg_idx)
+	 
+	 
+	 // msgDeclWrite(dcDTO)
+	 public void msgDeclWriter(declarationDTO dcDTO){
+
+	    	int num = 0;
+			try {
+				// 1 드라이버 로드
+				// 2 디비 연결
+				// => 한번에 처리 하는 메서드로 변경
+				conn = getConnection();		
+				
+				// 3 sql (글번호를 계산하는 구문)
+				sql = "select max(msg_idx) from msg";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				// 4 sql 실행
+				rs = pstmt.executeQuery();
+				
+				// 5 데이터 처리
+				//  max(num) - sql 함수를 실행했을경우 커서이동 가능(데이터여부 상관없음)
+				//  num     - sql 컬럼의 경우  커서 이동 불가능
+				if(rs.next()){
+					//num = rs.getInt("max(num)")+1;
+					num = rs.getInt(1)+1;
+				}
+				////////////////////////////////////////////////////
+				
+				// 3 sql 작성 (insert) & pstmt 객체 생성
+					sql = "insert into msg(msg_idx, recv_nick, send_nick, msg_content, msg_chk, msg_date) values(?,?,?,?,?,now())";
+					
+					pstmt = conn.prepareStatement(sql);
+
+					pstmt.setInt(1, num);
+					pstmt.setString(2, dcDTO.getDecl_writer());
+					pstmt.setString(3, "system");
+					pstmt.setString(4, "작성하신 게시글 ["+dcDTO.getBoard_sub()+"] 이(가) 신고가 접수되어 운영진 검토 후 "
+							+ " 삭제처리 되었습니다. 게시글 작성에 유의바랍니다. 이에따른 문의는 010-020-0340 로 연락바랍니다."); 
+					pstmt.setInt(5, 0);
+					
+					// 4 sql 실행	
+					pstmt.executeUpdate();
+					num++; 
+				
+			} catch (SQLException e) {
+				System.out.println("디비 연결 실패!!");
+				e.printStackTrace();
+			} finally{
+				// 자원해제 
+				closeDB();		
+			}
+				
+		}// msgDeclWrite(dcDTO) - 처리완료되면서 삭제된글의 작성자에게 쪽지 보내기
+	 
+	 
+	 // msgDeclUser(dcDTO) - 처리완료되면서 신고자들에게 처리결과쪽지 보내기
+	 public void msgDeclUser(declarationDTO dcDTO, List<String> memberList){
+	    	int num = 0;
+			try {
+				// 1 드라이버 로드
+				// 2 디비 연결
+				// => 한번에 처리 하는 메서드로 변경
+				conn = getConnection();		
+				
+				// 3 sql (글번호를 계산하는 구문)
+				sql = "select max(msg_idx) from msg";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				// 4 sql 실행
+				rs = pstmt.executeQuery();
+				
+				// 5 데이터 처리
+				//  max(num) - sql 함수를 실행했을경우 커서이동 가능(데이터여부 상관없음)
+				//  num     - sql 컬럼의 경우  커서 이동 불가능
+				if(rs.next()){
+					//num = rs.getInt("max(num)")+1;
+					num = rs.getInt(1)+1;
+				}
+				////////////////////////////////////////////////////
+				
+				// 3 sql 작성 (insert) & pstmt 객체 생성
+				for(int i =0 ; i< memberList.size() ; i++){
+					sql = "insert into msg(msg_idx, recv_nick, send_nick, msg_content, msg_chk, msg_date) values(?,?,?,?,?,now())";
+					
+					pstmt = conn.prepareStatement(sql);
+
+					pstmt.setInt(1, num);
+					pstmt.setString(2, memberList.get(i));
+					pstmt.setString(3, "system");
+					pstmt.setString(4, dcDTO.getDecl_date().substring(0,16) + "분 에 신고하신 게시글 ["+dcDTO.getBoard_sub()+"] 이(가) 삭제처리 되었습니다. 감사합니다."); 
+					pstmt.setInt(5, 0);
+					
+					// 4 sql 실행	
+					pstmt.executeUpdate();
+					num++; 
+				}
+			} catch (SQLException e) {
+				System.out.println("디비 연결 실패!!");
+				e.printStackTrace();
+			} finally{
+				// 자원해제 
+				closeDB();		
+			}
+				
+		}
+	 
+	 
+	 // msgDeclUser(dcDTO) - 처리완료되면서 신고자들에게 처리결과쪽지 보내기
+	 
+	 
+	 
+	 
+	 
 	 
 	 
 	 
