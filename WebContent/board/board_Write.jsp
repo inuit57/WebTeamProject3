@@ -5,6 +5,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
@@ -50,7 +51,7 @@
 			 <input type="hidden" name="user_nickname" value="<%=user_nick %>"> <br>
 		제목 : <input type="text" name="board_sub" >
 		</div>
-		<!-- 내용 : <textarea rows="10" cols="30" name="board_content"></textarea><br>-->
+		<br>
 		<div>
 		<textarea name="board_content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br>
 		</div>
@@ -58,7 +59,7 @@
 		
 			<!-- <button type="button" id="savebutton" >등록</button> -->
 			<div align="right">
-			<input type="submit" id="savebutton" value="글쓰기">
+			<input type="submit" class="btn btn-success" id="savebutton" value="글쓰기">
 			</div>
 		</form>
 	</fieldset>	
