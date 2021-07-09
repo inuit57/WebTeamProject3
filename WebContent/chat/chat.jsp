@@ -1,3 +1,5 @@
+<%@page import="com.prod.db.ProdDAO"%>
+<%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +12,7 @@
 
 #msgArea {
 	height: 500px;
+	border-radius: 3px;
 }
 
 #msgWindow {
@@ -18,6 +21,9 @@
 	width: 400px;
 	background-color: #5BAC70; /* 로고 색 */
 	font-size: 15px;
+	margin-top: 1px;
+	border-radius: 5px;
+	border-bottom: 3px solid #5BAC30;
 /* 	#EAEAEA 회색 */
 /* #DEF7DE  연한 초록색*/
 	
@@ -37,43 +43,101 @@
     box-shadow: inset 0px 0px 5px white;
 }
 
+#top_bar {
+	background-color: #5BAC70;
+	border-bottom: 3px solid #5BAC30;
+	height: 60px;
+	width: 400px;
+	text-align: center;
+	color: white;
+	border-radius: 5px;
+	
+}
+
+#send_button {
+	width: 85px;
+	height: 50px;
+	background-color: #5BAC30;
+	color: white;
+	position: relative;
+	bottom: 20px;
+	border-radius: 3px;
+}
+
+#price {
+	text-align: right;
+}
+
+.bottom_button {
+	position: relative;
+	bottom: 5px;
+	left: 40px;
+	background-color: #5BAC30;
+	color: white;
+	height: 30px;
+	text-align: center;
+}
+
+#msg_div {
+	margin-top: 1px;
+}
+
+#seq {
+	border-radius: 5px;
+}
 
 </style>
 	<%
 	
 	request.setCharacterEncoding("UTF-8");
 	
+	
+	
 	String roomId = (String)session.getAttribute("roomId");
 	String chatRole = (String)session.getAttribute("chatRole");
+	int prod_num = (Integer)session.getAttribute("prod_num");
+	
+	ProdDTO pdto = new ProdDTO();
+	ProdDAO pdao = new ProdDAO();
+	
+	pdto = pdao.getProduct(prod_num);
+	
 	%>
 	
-<title><%=roomId %></title>
+<title>채팅창</title>
 </head>
 <body>
-
 	
-	룸 아이디 : <%=roomId %><br>
-	Status : <%=chatRole %><br>
+	<div id="top_bar">
+	<br>
+	<%=pdto.getProd_sub() %><br>
+	<div id="price">
+	<%=pdto.getProd_price() %>원&nbsp&nbsp
+	</div>
+	</div>
+	
 	
 	<input type="hidden" id="roomId" name="roomId" value="<%=roomId %>">
 	<input type="hidden" id="chatRole" name="chatRole" value="<%=chatRole %>">
 	
 	<div id="msgWindow"></div>
-<!-- 	<input type="text" id="seq" onkeydown="if(event.keyCode==13){socketMsgSend();}"><br> -->
-	<textarea rows="3" cols="30" wrap="hard" id="seq" onkeydown="if(event.keyCode==13 && !event.shiftKey){socketMsgSend();}" ></textarea>
-	<input type="button" value="send" onclick="socketMsgSend();"> <br>
-	<input type="button" value="이 사람이랑 거래 안하기" id="deleteChat" name="deleteChat">
+	
+	<div id="msg_div">
+	<textarea rows="3" cols="40" wrap="hard" id="seq" onkeydown="if(event.keyCode==13 && !event.shiftKey){socketMsgSend();}" ></textarea>
+	<input type="button" id="send_button" value="보내기" onclick="socketMsgSend();"> <br>
+	</div>
+	<input type="button" value="이 사람이랑 거래 안하기" id="deleteChat" class="bottom_button" name="deleteChat">
 	
 	
 	<%
 	// 판매자인 경우
 	if( "seller".equals(chatRole)){
 	%>	
-	<input type="button" value="거래신청" id="sellConfirm01" onclick="socketMsgSeller01();">
-	<input type="button" value="거래완료" id="sellConfirm02" onclick="socketMsgSeller02();" disabled="disabled" >
+	<input type="button" value="거래신청" id="sellConfirm01" class="bottom_button" onclick="socketMsgSeller01();" >
+	<input type="button" value="거래완료" id="sellConfirm02" class="bottom_button" onclick="socketMsgSeller02();" disabled="disabled">
 	<% }else{ // 구매자인 경우  %>
-	<input type="button" value="거래승인" id="buyConfirm01" onclick="socketMsgBuyer01();" disabled="disabled">
-	<input type="button" value="구매확정" id="buyConfirm02" onclick="socketMsgBuyer02();" disabled="disabled">
+	<input type="button" value="거래승인" id="buyConfirm01" class="bottom_button" onclick="socketMsgBuyer01();" disabled="disabled">
+	<input type="button" value="구매확정" id="buyConfirm02" class="bottom_button" onclick="socketMsgBuyer02();" disabled="disabled">
 	<%} %>
 	
 	
@@ -196,7 +260,15 @@ function socketClose(event) {
 }
 
 function socketMsgSend() {
-	var msg = $('#roomId').val() +'|'+ $("#seq").val();
+	
+	var aaa = document.getElementById('seq').value;
+	
+	if(aaa=="") {return;}
+	
+	var msg = $('#roomId').val() +'|'+ $("#seq").val().replace(/\n/g, "<br>");
+	
+	
+	
 	webSocket.send(msg);
 	
 	var roomId = $('#roomId').val();
@@ -409,7 +481,8 @@ function addLeftChat(msg) {
 	div.style['border-radius']='3px';
 	div.style['padding']='3px';
 	div.style['margin-left']='5px';
-	div.style['margin-top']='8px';
+	div.style['margin-bottom']='4px';
+	div.style['margin-top']='4px';
 	
 	div.innerHTML = msg;
 	
