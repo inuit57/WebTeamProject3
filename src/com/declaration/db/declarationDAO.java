@@ -831,6 +831,46 @@ public class declarationDAO {
     
     
     /********************************************************************/
+
+    
+    /********************************************************************/
+    // getUserCount(board_num)
+    public String getUserCount(int board_num){
+    	int result = 0;
+    	String nick ="";
+    	
+    	try {
+    		conn = getConnection();
+    		
+    		sql = "select e.cnt, m.user_nickname, m.user_grade  from "
+    				+ "(select count(user_nickname) cnt, user_nickname, "
+    				+ "board_num from declaration_board where board_num=?) e "
+    				+ "natural join member m";
+    		
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, board_num);
+    		
+    		rs = pstmt.executeQuery();
+    		if(rs.next()){
+    			result = rs.getInt("cnt");
+    			if(result>=3){
+    				nick = rs.getString("user_nickname");
+    			}
+    		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+    	
+    	return nick;
+    	
+    }
+    // getUserCount(board_num)
+    
+    /********************************************************************/
+
     // 신고번호로 신고테이블 내용 가져오기 getDecl_normal_content(decl_num)
     public declarationDTO getDeclContent(int decl_num){
     	
@@ -934,6 +974,7 @@ public class declarationDAO {
 	      return memberList;  
 	 }// getDecl_prod_members(num) - 처리완료되면서 신고한 사람들에게 처리결과쪽지 보내기위해 신고한 사람들 목록 가져오기
 	/********************************************************************/
+
 
     
     

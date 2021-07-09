@@ -53,7 +53,7 @@ String nick = (String) session.getAttribute("user_nick");
 <div class="cont1">
 
 	<form  name="fr" action="./InqueryWriteAction.in" method="post">
-	<input type="text" class="form-control" name="name" value="<%=nick %>" placeholder="nickname">
+	<input type="text" class="form-control" name="name" value="<%=nick %>" placeholder="nickname" readonly>
 	<input type="text" class="form-control" id="subject" name="subject" placeholder="제목을 입력하세요">
 		
 	<textarea class="form-control" rows="20" name="content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br><br>

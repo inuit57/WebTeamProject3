@@ -605,6 +605,38 @@ public int adminInqueryCount(String sk, String[] sv){
 		
 	}//getAdminInqueryList(startRow,pageSize)
 //
+	
+	//getUsernick(num)
+	public String getUsernick(int num){
+		String nick = "";
+		try {
+			
+			
+			conn = getConnection();
+			sql = "select user_nickname from inquery where inq_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){			
+			nick = rs.getString("user_nickname");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+		
+		
+		
+		return nick;
+		
+	}
+	//getUsernick(num)
+	
     
     
 }

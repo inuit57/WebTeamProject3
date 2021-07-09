@@ -2,7 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -200,6 +200,7 @@ if(uDTO.getUser_auth()==2){
 }
 %>
 <td>
+
 <input type="number" min="1" max="3" id="u_grade" name="u_grade" value="<%=uDTO.getUser_grade()%>">
 <button class="levelbt btn btn-outline-success" id="levelbt" type="button" value="<%=uDTO.getUser_nickname()%>">변경</button>
 </td>

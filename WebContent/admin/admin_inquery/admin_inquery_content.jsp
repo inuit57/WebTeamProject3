@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/admin.css">
 
- -->
 <script type="text/javascript">
 $(function(){
 	
@@ -95,12 +94,7 @@ $(function(){
 				<td>글 제목</td>
 				<td colspan="3"><%=inDTO.getInq_sub()%></td>
 			</tr>
-			<tr>
-				<td>이미지</td>
-				<td colspan="3">
-					<img src="">
-				</td>				
-			</tr>
+			
 		
 			<tr>
 				<td>글 내용</td>

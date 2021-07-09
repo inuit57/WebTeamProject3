@@ -39,14 +39,14 @@
 	%>
 		<div class="innerContent table-responsive inquery">
 	
-	<table class="table table-sm table-hover" border="1">
+	<table class="table table-sm table-hover" border="1" style="text-align: center;">
 	 <thead class="table-dark">
 		<tr>
 			<td>글 번호</td>
 			<td>닉네임</td>
 			<td>제목</td>
 			<td>날짜</td>
-			<td>수정/삭제</td>
+			<td>답변여부</td>
 		</tr>
 	 </thead>
 		<%
@@ -66,10 +66,15 @@
 				<%} %>
 			
 				<%=inDTO.getInq_sub() %></a></td>
-			<td><%=inDTO.getInq_date() %></td>
+			<%
+		if(inDTO.getInq_check().equals("1")){
+		%>		
+		<td style="color: green;">답변완료</td>
+		<%}else{ %>
+		<td style="color: red;">답변필요</td>
+		<%} %>
 			<td>
-			
-			
+		
 				<a href="./InqueryAdminModifyForm.ai?num=<%=inDTO.getInq_num()%>" 
 					onclick="return modify();">수정</a>/ 
 				<a href="./InqueryAdminDelete.ai?num=<%=inDTO.getInq_num()%>" 

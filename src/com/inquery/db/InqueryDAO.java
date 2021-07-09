@@ -111,7 +111,7 @@ public class InqueryDAO {
     		
     		sql = "select * from inquery where inq_ref in "
     				+ "(select inq_ref from inquery "
-    				+ " where user_nickname=?)";
+    				+ " where user_nickname=?) order by inq_ref asc, inq_lev asc";
     		
     		
 			pstmt = conn.prepareStatement(sql);
@@ -129,6 +129,7 @@ public class InqueryDAO {
 				inDTO.setInq_sub(rs.getString("inq_sub"));
 				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_check(rs.getString("inq_check"));
+				inDTO.setInq_ref(rs.getInt("inq_ref"));
 				
 				myInqueryList.add(inDTO);
 				

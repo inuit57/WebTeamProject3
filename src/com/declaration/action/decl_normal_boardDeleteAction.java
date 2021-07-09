@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.admin.user.db.AdminUserDAO;
 import com.board.comment.db.boardCommentDAO;
 import com.board.db.boardDAO;
 import com.declaration.db.declarationDAO;
@@ -52,7 +53,16 @@ public class decl_normal_boardDeleteAction implements Action {
 		// 관리자가 신고된 글 삭제시 처리상태를 1(처리중)에서 2(처리완료)로 변경
 		dcDAO.decl_state_normal_update(board_num);
 		
+
+		String delnick = dcDAO.getUserCount(board_num);
 		
+		AdminUserDAO auDAO = new AdminUserDAO();
+		
+		if(!delnick.equals("")){
+			auDAO.activateUser(delnick);			
+		}
+		
+
 		// 페이지이동
 		ActionForward forward = new ActionForward();
 		forward.setPath("decl_normal_list.decl?state="+state);
