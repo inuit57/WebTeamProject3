@@ -1,8 +1,12 @@
+<%@page import="com.auction.db.AuctionDAO"%>
+<%@page import="com.auction.bid.db.bidDAO"%>
 <%@page import="com.auction.db.AuctionDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../inc/top.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -36,8 +40,9 @@
 	//System.out.println("@@@@@@@@@@@@@@@@@"+pageNum);
 	
 	
-	
+	bidDAO bDAO = new bidDAO(); 
 	AuctionDTO aDTO = new AuctionDTO();
+	AuctionDAO aDAO = new AuctionDAO();
 %>
 
 <br>
@@ -47,9 +52,12 @@
 					<option value="./AuctionList.ac?auc=0" >팝니다</option>
 					<option value="./AuctionList.ac?auc=1" >거래완료</option>
 			</select>
-	<input type="button" value="경매 등록"
-				onclick="location.href='AuctionRegister.ac'"><br>
-	<table border="1" class="table" style="height: 500px">
+			<% if(user_nick != null){ %>
+				<input type="button" value="경매 등록"
+						onclick="location.href='AuctionRegister.ac'"><br>
+				
+			<%} %>			
+			<table border="1" class="table" style="height: 500px">
 	
 		<%
 			int size = AuctionList.size();
@@ -76,13 +84,22 @@
 							 imgfile = "product_default.jpg"; 
 						 }
 						%>
+					<div class="card-body">	
 					<a href="./AuctionDetail.ac?num=<%=aDTO.getAuct_num()%>&pageNum=<%=pageNum%>">
 						<img src="./upload/<%=imgfile%>"
 							 width="150" height="150"><br>
-							 <%=aDTO.getAuct_sub() %>
-							 </a><br>
-							 <%=aDTO.getAuct_price() %> <br>
-							 <%=aDTO.getUser_nick() %>
+						 <h5 class="contentHid" ><b><%=aDTO.getAuct_sub() %></b></h5>	 
+						 <p style="margin-top: 10px"><%=aDTO.getUser_nick() %></p>	 
+							 </a>
+						<span id="maxPrice">
+							 <h6 style="margin-top: 10px;font-size: 1vw;"><b>
+							최고가 : <fmt:formatNumber value="<%=bDAO.getMaxPrice(aDTO.getAuct_num())%>" pattern="#,###,###"/>원</b></h6></span>
+							<br>
+							<h6 style="margin-top: -20px;font-size: 1vw;"><b>
+							최저가 : <fmt:formatNumber value="<%=aDTO.getAuct_price()%>" pattern="#,###,###"/>원</b></h6>
+							<h6 style="margin-top: 10px;font-size: 0.8vw; color: #59ab6e"> <%=aDAO.timeForToday(aDTO.getAuct_num()) %></h6>
+						
+							</div>
 					</td>
 				<%
 				num++;

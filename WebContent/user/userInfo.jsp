@@ -168,7 +168,7 @@ function myWish(){
 					<%
 						}
 					%><br>
-					<button id="img_edit_btn" style=" position: absolute; top: 40px; left : 350px;" onclick="file_upload()">수정</button>
+					<button class="btn btn-success" id="img_edit_btn" style=" position: absolute; top: 223px; left : 340px;" onclick="file_upload()">수정</button>
 					
 					
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">

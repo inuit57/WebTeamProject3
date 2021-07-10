@@ -468,7 +468,7 @@ public int adminUserCount(String sk, String sv){
 		} finally{
 			closeDB();
 		}
-	
+    	System.out.println("유저 "+user_nick+" 회원  활성화상태 변경 완료");
     	
     }// activateUser(user_nickname)
     
@@ -493,6 +493,7 @@ public int adminUserCount(String sk, String sv){
 			closeDB();
 		}
 
+    	
     	
     }// changeUserGrade(user_grade)
     

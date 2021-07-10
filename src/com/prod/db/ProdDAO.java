@@ -108,7 +108,10 @@ public class ProdDAO {
 		try {
 			
 			conn = getConnection();
-			sql = "select * prod_trade";
+			//sql = "select * from prod_trade order by prod_num desc";
+			sql = "select * from prod_trade where prod_status != 3 order by prod_num desc";
+			
+			//prod_status != 3 order by prod_num desc
 			
 			pstmt = conn.prepareStatement(sql);
 

@@ -193,9 +193,9 @@
 								id="pcontent" placeholder="상품정보를 입력하세요."></textarea></td>
 					</tr>
 					<tr>
-						<td colspan="2" align="right"><input type="submit"
-							id="prod_save" value="글쓰기"> <input type="reset"
-							value="초기화"></td>
+						<td colspan="2" align="right">
+							<input type="submit" id="prod_save" value="글쓰기"> <input type="reset" value="초기화">
+						</td>
 					</tr>
 				</table>
 			</form>
@@ -211,8 +211,7 @@
 
 							var prod_sub = document.getElementById("psub").value;
 							var prod_price = document.getElementById("price").value;
-							var prod_content = document
-									.getElementById("pcontent").value;
+							var prod_content = document.getElementById("pcontent").value;
 
 							if (prod_sub == "") {
 								alert("제목을 입력하세요.");

@@ -101,6 +101,7 @@
 	ProdDAO pdao = new ProdDAO();
 	
 	pdto = pdao.getProduct(prod_num);
+
 	
 	%>
 	
@@ -156,7 +157,6 @@ $(document).ready(function(){
 
 var chatRole = document.getElementById("chatRole");
 
-//webSocketInit();
 
 var webSocket;
 
@@ -236,15 +236,6 @@ function socketOpen(event) {
 					}else{
 						addLeftChat(msgText);
 					}
-// 					if(msg[i].split('|')[0] == 'seller' && chatRole.value == 'seller') {
-// 						msgArea.value += "나:" + msg[i].split('|')[2] + '\n';
-// 					} else if(msg[i].split('|')[0] == 'seller' && chatRole.value == 'buyer') {
-// 						msgArea.value += "상대:" + msg[i].split('|')[2] + '\n';
-// 					} else if(msg[i].split('|')[0] == 'buyer' && chatRole.value == 'buyer') {
-// 						msgArea.value += "나:" + msg[i].split('|')[2] + '\n';
-// 					} else if(msg[i].split('|')[0] == 'buyer' && chatRole.value == 'seller') {
-// 						msgArea.value += "상대:" + msg[i].split('|')[2] + '\n';
-// 					}
 				}
 			}
 		});

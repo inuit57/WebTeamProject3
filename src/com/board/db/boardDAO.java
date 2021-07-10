@@ -64,28 +64,18 @@ public class boardDAO {
     	try {
 	    	conn = getConnection();
 	    	
-	    	sql = "select max(board_num) from normal_board";
-    	
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()){
-				num = rs.getInt(1) + 1;
-			}
-			
-			sql = "insert into normal_board values(?,?,?,?,?,?,now(),?,?)";
+	    			
+			sql = "insert into normal_board(board_area, user_nickname, board_count, board_sub, board_content, board_date, board_file, board_ip) values(?,?,?,?,?,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, num);
-			pstmt.setString(2, bDTO.getBoard_area());
-			pstmt.setString(3, bDTO.getUser_nickname());
-			pstmt.setInt(4, bDTO.getBoard_count());
-			pstmt.setString(5, bDTO.getBoard_sub());
-			pstmt.setString(6, bDTO.getBoard_content());
-			pstmt.setString(7, bDTO.getBoard_file());
-			pstmt.setString(8, bDTO.getBoard_ip());
+			pstmt.setString(1, bDTO.getBoard_area());
+			pstmt.setString(2, bDTO.getUser_nickname());
+			pstmt.setInt(3, bDTO.getBoard_count());
+			pstmt.setString(4, bDTO.getBoard_sub());
+			pstmt.setString(5, bDTO.getBoard_content());
+			pstmt.setString(6, bDTO.getBoard_file());
+			pstmt.setString(7, bDTO.getBoard_ip());
 			
 			
 			pstmt.executeUpdate();
@@ -512,6 +502,7 @@ public class boardDAO {
     
     // getBoardCount(sk, sv) 검색한 글의 개수 가져오는 함수
     /********************************************************************/
+
 
 }
 

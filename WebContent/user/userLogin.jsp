@@ -224,6 +224,7 @@ console.log(Kakao.isInitialized());
 							$(".nonmember").html("<b>해당 번호로 가입된 아이디가 없습니다.</b>");
 						}else{
 					 		$(".userInfoID").html(data);
+					 		UID = data;
 						}
 				     },
 			        error:function(){
@@ -405,6 +406,8 @@ console.log(Kakao.isInitialized());
 		});
 		//비밀번호 찾기 인증 번호 체크
 		
+		
+		
 
 	});
 	
@@ -563,7 +566,6 @@ console.log(Kakao.isInitialized());
 						</span>
 						</b>
 					</div>
-					<input class="login100-form-btn" type="button" value="비밀번호찾기" style="width: 30px;float: right;"><br>
 					</div>
 	        </div>
 	    </div>

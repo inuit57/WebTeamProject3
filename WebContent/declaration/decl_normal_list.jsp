@@ -10,22 +10,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>신고목록 - 일반게시판</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<style type="text/css">
+	.table{
+		text-align: center;
+	}
+	td a {
+		text-decoration: none;
+	}
+</style>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
-
+<div align="center">	
 <div class="container" >
-<br><br>
-	<h1>신고목록 - 일반게시판</h1>
-	<hr>
-	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
-	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
-	<br>
-	<input type="button" value="처리대기중" onclick="location.href='decl_normal_list.decl?state=1'">
-	<input type="button" value="처리완료" onclick="location.href='decl_normal_list.decl?state=2'">
-		
+<br>
+	
+
+	<input type="button" class="btn btn-light" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
+	<input type="button" class="btn btn-light" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+	<br><br>
+	<input type="button" style="margin-left: 80%;" value="처리대기중" class="btn btn-warning" onclick="location.href='decl_normal_list.decl?state=1'">
+	<input type="button" value="처리완료" class="btn btn-success" onclick="location.href='decl_normal_list.decl?state=2'">
 	<%
 		// 전달된 신고글 목록 저장
 		List decl_normal_list = (List)request.getAttribute("decl_normal_list");
@@ -39,16 +47,18 @@
 		declarationDAO dcDAO = new declarationDAO();
 	%>
 	
-	<table border="1">
+	<table class="table" style="margin-top: 2%">
+		<thead class="table-dark">
 		<tr>
-			<td>피의자</td>	<!-- 신고당한 글 작성자 -->	
-			<td>글번호</td>
-			<td>제목</td>		
-			<td>신고날짜</td>		
-			<td>신고자</td>
-			<td>신고횟수</td>
-			<td>처리상태</td>		
+			<th>피의자</th>	<!-- 신고당한 글 작성자 -->	
+			<th>글번호</th>
+			<th>제목</th>		
+			<th>신고날짜</th>		
+			<th>신고자</th>
+			<th>신고횟수</th>
+			<th>처리상태</th>		
 		</tr>
+		</thead>
 	<%
 	for(int i = 0; i < decl_normal_list.size(); i++){
 		declarationDTO dcDTO = (declarationDTO)decl_normal_list.get(i);
@@ -65,11 +75,11 @@
 			<td><%=dcDTO.getDecl_writer() %></td> <!-- 신고당한 글 작성자 -->
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=state%>"><%=dcDTO.getBoard_sub() %></a>
+				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=state%>&decl_num=<%=dcDTO.getDecl_num()%>"><%=dcDTO.getBoard_sub() %></a>
 			</td> 
 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		
 			<td><%=dcDTO.getUser_nickname() %></td><!-- 게시글을 신고한사람 -->	
-			<td><%=decl_normal_cnt %></td>	
+			<td style="color: red;"><%=decl_normal_cnt %></td>	
 			<%
 				String decl_state = "";
 			
@@ -82,8 +92,12 @@
 				decl_state = "처리완료";
 				break;
 			}
+			if(decl_state.equals("처리중")){
 			%>
-			<td><%=decl_state %></td>
+				<td style="color: red"><b><%=decl_state %></b></td>
+			<%}else { %>
+				<td style="color: yellowgreen"><b><%=decl_state %></b></td>
+			<%} %>
 		</tr>
 	<%
 	}
@@ -143,6 +157,7 @@
 		/////////////////////////////////////////////////////////
 		
 	%>
+	</div>
 </div>
 <!-- 푸터 들어가는 곳 -->
 <jsp:include page="../inc/footer.jsp"/> 

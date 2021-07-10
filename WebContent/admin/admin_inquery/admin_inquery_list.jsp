@@ -53,7 +53,7 @@ $(function(){
 
 </head>
 <body>
-		<h1 style="text-align: center;">1:1 문의 게시판 관리</h1>
+		<h1 style="text-align: center; margin-top: 40px;">1:1 문의 게시판 관리</h1>
 	<%
 	 List aiList =(List)request.getAttribute("aiList");
 	
@@ -121,9 +121,11 @@ $(function(){
 		  <thead class="table-dark">
 			<tr>
 				<td>글 번호</td>
+				<td>글 유형</td>
 				<td>닉네임</td>
 				<td>제목</td>
 				<td>날짜</td>
+				<td>답변여부</td>
 				<td>수정/삭제</td>
 			</tr>
 		 </thead>
@@ -134,25 +136,35 @@ $(function(){
 		
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
+		<%
+		if(inDTO.getInq_lev()==0){		
+		%>	
+			<td>문의글</td>
+		<%}else{ %>
+			<td>답변글</td>
+			<%} %>	
 			<td><%=inDTO.getUser_nickname()%></td>
-			<td><a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">
+			<td>
 				<%
 				if(inDTO.getInq_lev()==1){
 				%>
 				( <%=inDTO.getInq_ref()%>번글 답글)
 				
 				<%} %>
-			
-			<%
-			if(inDTO.getInq_check().equals("1") && inDTO.getInq_lev()==0){
-			%>
-			(답변완료)
-			<%} %>
+			<a href="./InqueryAdminContent.ai?num=<%=inDTO.getInq_num()%>">				
 				<%=inDTO.getInq_sub() %></a></td>
 			<td><%=inDTO.getInq_date() %></td>
+				
+		<%
+		if(inDTO.getInq_check().equals("1")){
+		%>		
+		<td style="color: green;">답변완료</td>
+		<%}else{ %>
+		<td style="color: red;">답변필요</td>
+		<%} %>
+			
+			
 			<td>
-			
-			
 				<a href="./InqueryAdminModifyForm.ai?num=<%=inDTO.getInq_num()%>" 
 					onclick="return modify();">수정</a>/ 
 				<a href="./InqueryAdminDelete.ai?num=<%=inDTO.getInq_num()%>" 

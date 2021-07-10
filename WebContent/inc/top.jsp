@@ -1,3 +1,5 @@
+<%@page import="com.user.db.UserDTO"%>
+<%@page import="com.user.db.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -138,9 +140,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./FAQ.faq">FAQ</a>
                         </li>
+                        
+                    <%
+                      UserDAO admin = new UserDAO();
+                        if(admin.isAdmin(user_nick) == true){ %>
                         <li class="nav-item">
                         	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
                         </li>
+                        <% }%>
                          
                     </ul>
                 </div>

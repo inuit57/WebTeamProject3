@@ -70,7 +70,14 @@ button{
 		<tr>
 			<td><%=inDTO.getInq_num() %></td>
 			<td><%=inDTO.getUser_nickname() %></td>
+			<%
+			if(inDTO.getInq_lev()==1){
+			%>
+			<td>
+			(<%=inDTO.getInq_ref()%>번글 답변)<a href="./InqueryContent.in?num=<%=inDTO.getInq_num()%>"><%=inDTO.getInq_sub() %></a></td>	
+			<%} else{%>
 			<td><a href="./InqueryContent.in?num=<%=inDTO.getInq_num()%>"><%=inDTO.getInq_sub() %></a></td>	
+			<%} %>
 			<td><%=inDTO.getInq_date() %></td>
 		</tr>
 		<%

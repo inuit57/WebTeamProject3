@@ -241,6 +241,7 @@ public class UserDAO {
 
 	      boolean b = false;
 	      String user_nick = null;
+	      System.out.println("id :: " + id ); // ok 
 
 	      try {
 	         conn = getConnection();
@@ -249,10 +250,11 @@ public class UserDAO {
 	         pstmt.setString(1, id);
 	         rs = pstmt.executeQuery();
 	         if (rs.next()) {
-	        	System.out.println(rs.getString("user_pw"));
+	        	System.out.println("PW : " + rs.getString("user_pw"));
 	            if (rs.getString(1).equals(pw)) {
 	               if (rs.getInt(2) == 1) { // 1 : 사용 , 2 : 탈퇴된 회원 
 	                  user_nick = rs.getString(3);
+	                  System.out.println("user_nick : " + user_nick);
 	               } else {
 	                  b = false;
 	               }
@@ -260,6 +262,7 @@ public class UserDAO {
 	               b = false;
 	            }
 	         } else {
+	        	 System.out.println("찾는 회원 정보 없음!!");
 	            b = false;
 	         }
 	      } catch (Exception e) {
@@ -532,6 +535,63 @@ public class UserDAO {
 		}
 		return user_profile;
 	}
-	
 
+	/**
+	 * member 테이블에 있는 user 정보 중 coin을 증가/감소 시켜주는 함수 
+	 * 
+	 * @param user_nick  : 유저(대상)
+	 * @param prod_price : 증가시킬 코인량
+	 * @param isPlus : true (증가) , false(감소)
+	 */
+	public void updateCoin(String user_nick, int prod_price, boolean isPlus) {
+
+		conn = getConnection();
+		
+		try {
+			if(isPlus){ //증가
+				sql = " update member set user_coin = user_coin + ? where user_nickname=?";
+			}else{ // 감소
+				sql = " update member set user_coin = user_coin - ? where user_nickname=?"; 
+			}
+		
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prod_price);
+			pstmt.setString(2, user_nick);
+			
+			pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB(); 
+		} 
+	}
+	// checkGrade(user_nick) 유저 등급 가져오는 메서드
+	public int checkGrade(String user_nick){
+		int grade = 0;
+		try {
+			conn = getConnection();
+			
+			sql = "select user_grade from member where user_nickname=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_nick);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				grade=rs.getInt("user_grade");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeDB();
+		}
+		
+		return grade;
+	}
+	
+	
 }

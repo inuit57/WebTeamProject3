@@ -1,5 +1,13 @@
+<%@page import="com.wish.db.WishDTO"%>
+<%@page import="com.wish.db.WishDAO"%>
+<%@page import="com.prod.db.ProdDAO"%>
+<%@page import="com.auction.db.AuctionDAO"%>
+<%@page import="com.prod.db.ProdDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../inc/top.jsp" %>
 
@@ -35,37 +43,18 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/banner_img_01.jpg" alt="">
+                            <img class="img-fluid" src="./assets/img/about-hero.svg" alt="">
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left align-self-center">
-                                <h1 class="h1 text-success"><b>Zay</b> eCommerce</h1>
-                                <h3 class="h2">Tiny and Perfect eCommerce Template</h3>
-                                <p>
-                                    Zay Shop is an eCommerce HTML5 CSS template with latest version of Bootstrap 5 (beta 1). 
-                                    This template is 100% free provided by <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website. 
-                                    Image credits go to <a rel="sponsored" class="text-success" href="https://stories.freepik.com/" target="_blank">Freepik Stories</a>,
-                                    <a rel="sponsored" class="text-success" href="https://unsplash.com/" target="_blank">Unsplash</a> and
-                                    <a rel="sponsored" class="text-success" href="https://icons8.com/" target="_blank">Icons 8</a>.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="./assets/img/banner_img_02.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1">Proident occaecat</h1>
-                                <h3 class="h2">Aliquip ex ea commodo consequat</h3>
-                                <p>
-                                    You are permitted to use this Zay CSS template for your commercial websites. 
-                                    You are <strong>not permitted</strong> to re-distribute the template ZIP file in any kind of template collection websites.
+                                <h1 class="h1 text-success"><b>ㄱ Market</b></h1>
+                                <p>소중한 기억을 거래하는 안전한 
+                                  <a rel="sponsored" class="text-success" >중고거래</a><br> 지금 바로
+                                  <a rel="sponsored" class="text-success" >기억마켓</a>에서 만나보세요!
+                                <br><small> Safe used goods for precious 
+                                 <a rel="sponsored" class="text-success" >memories</a>.  <br>
+                                  Let's meet at the <a rel="sponsored" class="text-success" >ㄱ market</a> now!</small>
+                                  
                                 </p>
                             </div>
                         </div>
@@ -80,11 +69,42 @@
                         </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left">
-                                <h1 class="h1">Repr in voluptate</h1>
-                                <h3 class="h2">Ullamco laboris nisi ut </h3>
+                                <h3 class="h2 text-success">거래간의 안전거래를 약속합니다.</h3>
                                 <p>
-                                    We bring you 100% free CSS templates for your websites. 
-                                    If you wish to support TemplateMo, please make a small contribution via PayPal or tell your friends about our website. Thank you.
+                                    거래가 완료되면 <a rel="sponsored" class="text-success" >구매확정</a> 버튼을 눌러주세요!<br>
+                                    비대면 거래 시 안전하게 거래 할 수 있는 
+                                    <a rel="sponsored" class="text-success" >ㄱ 코인</a>을 이용해<br>
+                                    더욱더 믿을 수 있는 <a rel="sponsored" class="text-success" >편리한 거래</a>를 시작해보세요. 
+                                    <small>Safely conduct non-face-to-face transactions with 
+                                    <a rel="sponsored" class="text-success" >ㄱ coins</a>! <br>
+                                   	Start transactions that are more 
+                                   	<a rel="sponsored" class="text-success" >reliable and convenient</a>.
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="./img/title.png" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h3 class="h2">기억을 공유해보세요. </h3>
+                                <p>
+                                   <a rel="sponsored" class="text-success" > ㄱ 마켓</a>
+                                   에서는 가까운 이웃으로부터 <br> <a rel="sponsored" class="text-success" >기억</a>
+                                   을 공유할 수 있는 공간을 제공합니다. <br>
+                                    <a rel="sponsored" class="text-success" >소중한 기억</a>으로 새로운 인연을 만드세요!<br>
+                                    <small>
+                                    Provides space for sharing<a rel="sponsored" class="text-success" > memories</a>.<br>
+									Create a new relationship with <a rel="sponsored" class="text-success" >precious memories</a>!
+                                    </small>
+                                   
                                 </p>
                             </div>
                         </div>
@@ -101,135 +121,109 @@
     </div>
     <!-- End Banner Hero -->
 
-
-    <!-- Start Categories of The Month -->
+	 <!-- Start Categories of The Month -->
     <section class="container py-5">
         <div class="row text-center pt-3">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1">Categories of The Month</h1>
+                <h1 class="h1">Using the Memory Market</h1>
                 <p>
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    <a href="./UserLogin.us" class="main-filled-button">Login</a>
+                    <a href="./UserJoinChk.us" class="main-filled-button">Join in</a>
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-4 p-5 mt-3">
                 <a href="#"><img src="./assets/img/category_img_01.jpg" class="rounded-circle img-fluid border"></a>
-                <h5 class="text-center mt-3 mb-3">거래하기</h5>
-                <p class="text-center">
-                	<a href="./ProductList.pr" class="main-filled-button">click!!</a>
-                 </p>
-                
+                <h5 class="text-center mt-3 mb-3">중고거래하기</h5>
+                <p class="text-center"><a href="./ProductList.pr" class="main-filled-button">click!!</a></p>
             </div>
             <div class="col-12 col-md-4 p-5 mt-3">
                 <a href="#"><img src="./assets/img/category_img_02.jpg" class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">경매하기</h2>
-                <p class="text-center">
-                	<a href="./AuctionList.ac" class="main-filled-button">click!!</a>
-                 </p>
+               <p class="text-center">	<a href="./AuctionList.ac" class="main-filled-button"
+               			style="text-align: center;">click!!</a></p>
             </div>
             <div class="col-12 col-md-4 p-5 mt-3">
                 <a href="#"><img src="./assets/img/category_img_03.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">게시판</h2>
-               <p class="text-center">
-                	<a href="./board_List.bo" class="main-filled-button">click!!</a>
-                 </p>
+                <h2 class="h5 text-center mt-3 mb-3">일반게시판</h2>
+                	<p class="text-center"><a href="./board_List.bo" class="main-filled-button">click!!</a></p>
             </div>
         </div>
     </section>
     <!-- End Categories of The Month -->
 
 
+ 
+<%
+	ProdDAO pDAO = new ProdDAO();
+
+    
+                                    		
+    WishDAO wDAO = new WishDAO();
+%>
+
+<%
+	//for(int i=0; i<size;i++){
+		
+   	List prodList = (List)pDAO.getProductList();
+   	ProdDTO pDTO = new ProdDTO();
+		
+		//if(size <= 3) break; %>
     <!-- Start Featured Product -->
-    <section class="bg-light">
+    <section class="bg-light" >
         <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
-                    <h1 class="h1">Today's Product</h1>
+                    <h1 class="h1">Today's memories</h1>
                     <p>
-                        Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident.
+                        실시간으로 올라오는 오늘의 기억을 만나보세요.
                     </p>
                 </div>
             </div>
+           <div  style="display: flex; margin-left: 13%; margin-top: 10px;"">
+	 <c:forEach var="prodList" items="<%=prodList %>" begin="0" end="2">
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100" style="width: 300px; margin-left: 10px;">
                         <a href="shop-single.html">
-                            <img src="./assets/img/feature_prod_01.jpg" class="card-img-top" alt="...">
+                 
+	 				<%for(int i=0;i<prodList.size();i++){ 
+	 					pDTO = (ProdDTO)prodList.get(i);
+	 				}
+                 		String imgfile = pDTO.getProd_img();
+                 		
+                 			if(imgfile != null){
+                 				imgfile = pDTO.getProd_img().split(",")[0];
+                 				System.out.println("@@@@@@@@@dfsdfasdfasdfsafd@"+imgfile);
+                 			}
+                 			if((imgfile == null)  || (imgfile.equals("null"))){
+                 				imgfile = "product_default.jpg"; 
+                 			} %>
+                            <img src="./upload/<%=imgfile%>" class="card-img-top">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
                                 <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
+                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">${prodList.prod_sub }</a>
                                 </li>
-                                <li class="text-muted text-right">$240.00</li>
+                                <li class="text-muted text-right">
+                                 <fmt:formatNumber value="${prodList.prod_price }" pattern="#,###,###"/>원
+                                </li>
                             </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Gym Weight</a>
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
+                            	${prodList.prod_content }
                             </p>
-                            <p class="text-muted">Reviews (24)</p>
+                            <p class="text-muted"></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/feature_prod_02.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$480.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Cloud Nike Shoes</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="./assets/img/feature_prod_03.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                                <li class="text-muted text-right">$360.00</li>
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Summer Addides Shoes</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+              </div>
+   		</c:forEach>
+              </div>
+ 	</div>
     </section>
+   
     <!-- End Featured Product -->
-
 
 <%@ include file="../inc/footer.jsp" %>

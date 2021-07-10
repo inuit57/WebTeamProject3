@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,12 +115,13 @@ public class AuctionDAO {
 			//4번 유저코인 member user_coin
 			sql = "insert into auct_bid "
 					+ " value(?,?,0,0,now(),now(), "
-					+ "0)";
+					+ "?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, bidNum);
 			pstmt.setInt(2, num);
+			pstmt.setInt(3, aDTO.getAuct_price());
 		
 			
 			pstmt.executeUpdate();
@@ -298,9 +300,71 @@ public class AuctionDAO {
 		
 	}//getAuctionUpdate(aDTO) 경매게시글 수정하기
 	
+	//경매 낙찰 완료 변경 메소드
+		public void updateStatus(int auct_num, int status){
+			
+			try {
+				
+				conn = getConnection();
+				sql = "update prod_auct set auct_status=? where auct_num=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, status);
+				pstmt.setInt(2, auct_num);
+				
+				pstmt.executeUpdate();
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				closeDB();
+			}
+			
+		}//경매 낙찰 완료 변경 메소드
 	
-	
-	
+		public String timeForToday(int num){
+			Timestamp now_t = new Timestamp(System.currentTimeMillis()); 
+			Timestamp auct_t ; 
+			long betweenTime  = 0L ; 
+			
+			String timeForToday =""; 
+			
+			System.out.println(now_t);
+			
+			try {
+				conn = getConnection();
+				sql = "select auct_date from prod_auct where auct_num=?";
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				rs = pstmt.executeQuery(); 
+				
+				if(rs.next()){
+					auct_t = rs.getTimestamp(1); 
+					betweenTime = (long)Math.floor((now_t.getTime() - auct_t.getTime()) / 1000 / 60);
+					long betweenTimeHour = (long)Math.floor(betweenTime / 60);
+					long betweenTimeDay = (long)Math.floor(betweenTime / 60 / 24);
+					
+					if (betweenTime < 1) timeForToday = "방금전";
+					else if (betweenTime < 60) {
+			        	timeForToday = betweenTime +"분전";
+					}else if (betweenTimeHour < 24) {
+			        	timeForToday = betweenTimeHour+ "시간전";
+			        }else if (betweenTimeDay < 365) {
+			        	timeForToday = betweenTimeDay +"일전";
+			        }else{
+			        	timeForToday = (long)Math.floor(betweenTimeDay / 365)+"년전";
+			        }
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				closeDB();
+			} 
+			
+			return timeForToday; 
+		}
 	
 	
 }

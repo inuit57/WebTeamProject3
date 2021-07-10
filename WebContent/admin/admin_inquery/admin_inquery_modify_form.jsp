@@ -36,16 +36,17 @@ $(function(){
 
 </head>
 <body>
-	<h1>1:1 문의 수정 폼</h1>
+	<h1 style="text-align: center;">1:1 문의 수정 폼</h1>
 
 <%
 	InqueryDTO inDTO = (InqueryDTO) request.getAttribute("inDTO");
 	
 %>
 
-	<div id="ad-sidebar">
+	
+		<div id="ad-sidebar">
 			
-					<a href="./AdminBoard.ap">관리자 게시판	</a>
+			<a href="./AdminBoard.ap">관리자 게시판	</a>
 						
 			<ul>
 				<li class="li1">회원목록 조회</li>
