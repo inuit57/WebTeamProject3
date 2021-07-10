@@ -20,6 +20,7 @@
    <a href="./main.bo">메인</a><br>
    <a href="./UserLogin.us">로그인</a><br>
    <a href="./UserJoin.us">회원가입</a><br>
+   
    <a href="./board_List.bo">일반게시판</a><br>
    <a href="./declarationList.decl">신고목록 게시판</a><br>	
    
