@@ -50,34 +50,6 @@ public class chatDAO {
 		}
 	}
 	
-	public chatDTO getChatInfo(String roomid){
-		
-		chatDTO cDTO = new chatDTO(); 
-		
-		try {
-			conn = getConnection();
-			sql = "select * from chat where chat_roomid = ?" ; 
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, roomid);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()){
-				cDTO.setChat_buyer(rs.getString("chat_buyer"));
-				cDTO.setChat_roomid(rs.getString("chat_roomid"));
-				cDTO.setChat_seller(rs.getString("chat_seller"));
-				cDTO.setProd_num(rs.getInt("prod_num"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeDB(); 
-		} 
-		
-		return cDTO ; 
-	}
-	
 	public String getRoomId(int prod_num, String seller, String user_nick) {
 		
 		String result = null;
@@ -128,14 +100,15 @@ public class chatDAO {
 		}
 	}
 	
-	public ArrayList<chatDTO> getRoomList(String seller) {
+	public ArrayList<chatDTO> getRoomList(String seller, int prod_num) {
 		ArrayList<chatDTO> arrlist = null;
 		chatDTO cdto = null;
 		try {
 			conn = getConnection();
-			sql = "SELECT * FROM chat WHERE chat_seller=?";
+			sql = "SELECT * FROM chat WHERE chat_seller=? AND prod_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, seller);
+			pstmt.setInt(2, prod_num);
 			rs = pstmt.executeQuery();
 			
 			
@@ -163,5 +136,23 @@ public class chatDAO {
 		
 		
 		return arrlist;
+	}
+	
+	public void deleteRoomId(String roomId) {
+		try {
+			
+			System.out.println("dao roomId: " + roomId);
+			
+			conn = getConnection();
+			sql = "DELETE FROM chat WHERE chat_roomid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, roomId);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("chatDAO.deleteRoomId() function error - KBH");
+		} finally {
+			closeDB();
+		}
 	}
 }

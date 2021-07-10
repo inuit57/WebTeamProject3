@@ -42,10 +42,11 @@
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String seller = (String)session.getAttribute("seller");
+	int prod_num = (Integer)session.getAttribute("prod_num");
 	
 	chatDAO cdao = new chatDAO();
 	
-	ArrayList<chatDTO> alist = cdao.getRoomList(seller);
+	ArrayList<chatDTO> alist = cdao.getRoomList(seller, prod_num);
 	
 	int chatRoomNum = alist.size();
 			
