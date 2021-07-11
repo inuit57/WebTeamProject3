@@ -12,6 +12,13 @@
 <link rel="stylesheet" href="./css/admin.css">
 <%@ include file="../../inc/top.jsp" %>
 
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance:auto;
+}
+
+</style>
 <script type="text/javascript">
 
 $(function(){
