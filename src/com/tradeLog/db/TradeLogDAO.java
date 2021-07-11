@@ -147,6 +147,8 @@ public class TradeLogDAO {
 	 */
 	public int wantBuyLog(String user_nick, String target, int prod_num){
 		
+		System.out.println("테스트-----------------------------상품 번호 -" + prod_num );
+		
 		try{
 			conn = getConnection(); 
 			int price = prodDAO.getProduct(prod_num).getProd_price(); // 가격 얻어오기 

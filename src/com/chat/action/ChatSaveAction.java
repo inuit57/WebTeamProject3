@@ -59,10 +59,14 @@ public class ChatSaveAction implements Action {
 			// DO NOTHING - DB에서 처리할 사항은 여기에서 없다. 
 		}else if( "buy01".equals(msg)){  // 거래 승인
 			// 여기에서 코인이 DB에 걸리게 된다. 
-			// member DB에서 코인 차감하기 -> 만약 코인이 적다면??? 
-			if( tlDAO.wantBuyLog(buyerName, sellerName, prod_num) != 0 ) { 
-				flag = false ; 
-			}
+			System.out.println("buy01---------------------------");
+			tlDAO.wantBuyLog(buyerName, sellerName, prod_num);
+			
+			
+			// member DB에서 코인 차감하기 -> 만약 코인이 적다면???
+//			if( tlDAO.wantBuyLog(buyerName, sellerName, prod_num) != 0 ) { 
+//				flag = false ; 
+//			}
 			// 버튼이 아예 누르지 않은 것처럼 처리가 필요하다. 
 			
 			
