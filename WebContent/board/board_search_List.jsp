@@ -57,7 +57,10 @@
 <div style="margin:auto;  width: 800px;">
 <div align="right" style="margin-bottom: 2%">
 <input type="button" class="btn btn-success" value="전체목록으로" onclick="location.href='board_List.bo?page_num=<%=pageNum%>'">
-<input type="button" class="btn btn-success" value="글쓰기" onclick="location.href='./board_Write.bo'">
+<% if( user_nick != null ) { %>
+	<input type="button" class="btn btn-success" value="글쓰기" onclick="location.href='./board_Write.bo'">
+<% }  %>
+
 </div>
 	<table class="table">
 	<thead class="table-dark">
