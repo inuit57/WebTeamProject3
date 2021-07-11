@@ -216,7 +216,7 @@
 					 imgfile = "product_default.jpg"; 
 				 }
 				%>
-			<div class="col-md-4" style="float:left;">
+			<div class="col-md-4" style="float:left; width:20%; height:5%">
             <div class="card mb-4 product-wap rounded-0" onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
             <div class="card rounded-0">
 				<img class="card-img rounded-0 img-fluid" 
