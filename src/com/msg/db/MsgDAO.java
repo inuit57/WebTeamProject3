@@ -418,7 +418,8 @@ public class MsgDAO {
 					pstmt.setInt(1, num);
 					pstmt.setString(2, memberList.get(i));
 					pstmt.setString(3, "system");
-					pstmt.setString(4, dcDTO.getDecl_date().substring(0,16) + "분 에 신고하신 게시글 ["+dcDTO.getBoard_sub()+"] 이(가) 삭제처리 되었습니다. 감사합니다."); 
+					//pstmt.setString(4, dcDTO.getDecl_date().substring(0,16) + "분 에 신고하신 게시글 ["+dcDTO.getBoard_sub()+"] 이(가) 삭제처리 되었습니다. 감사합니다.");
+					pstmt.setString(4, dcDTO.getDecl_date() + " 에 신고하신 게시글 ["+dcDTO.getBoard_sub()+"] 이(가) 삭제처리 되었습니다. 감사합니다.");
 					pstmt.setInt(5, 0);
 					
 					// 4 sql 실행	

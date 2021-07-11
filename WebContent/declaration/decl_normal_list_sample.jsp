@@ -73,7 +73,8 @@
 			<td>
 				<a href="decl_normal_content.decl?board_num=<%=board_num%>"><%=dcDTO.getBoard_sub() %></a>
 			</td> 
-			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		
+<%-- 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		 --%>
+			<td><%=dcDTO.getDecl_date() %></td>
 			<td><%=dcDTO.getUser_nickname() %></td><!-- 게시글을 신고한사람 -->	
 			<td><%=decl_normal_cnt %></td>	
 			<%
