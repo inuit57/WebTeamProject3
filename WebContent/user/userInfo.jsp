@@ -152,6 +152,7 @@ function myWish(){
 				<button type="button" onclick="myBoard()" class="btn btn-outline-success" style="margin-right: 30px;">내가 쓴글 </button>
 				<button type="button" onclick="myProduct()" class="btn btn-outline-success" style="margin-right: 30px;">나의 상품</button>
 				<button type="button" onclick="myInquery()" class="btn btn-outline-success" style="margin-right: 30px;">나의 문의</button>
+				<button type="button" onclick="myWish()" class="btn btn-outline-success" style="margin-right: 30px;">내 찜목록</button>
 
 			</div>
 			
