@@ -345,7 +345,7 @@ border-bottom:none;
 		$("#bidsave").click(function(){
 	
 			var bidprice = document.getElementById("bidprice").value; //입찰가격
-			var auct_price = '<c:out value="${Auction.auct_price}"/>';
+			var auct_price = '<c:out value="${Auction.auct_price}"/>'; //등록된 가격
 			
 			var maxprice = '<c:out value="${maxPrice}"/>'; //최고가
 			
