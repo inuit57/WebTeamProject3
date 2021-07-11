@@ -94,14 +94,14 @@ public class bidDAO {
 		try {
 			conn = getConnection();
 			sql = "update auct_bid set "
-					+ "auct_num=?, user_nick=?, "
-					+ "bid_coin=?";
+					+ "user_nick=?, "
+					+ "bid_coin=? where auct_num=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, num);
-			pstmt.setString(2, user_nick);
-			pstmt.setInt(3, bidprice);
+			pstmt.setString(1, user_nick);
+			pstmt.setInt(2, bidprice);
+			pstmt.setInt(3, num);
 			
 			pstmt.executeUpdate();
 			
