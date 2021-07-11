@@ -183,7 +183,7 @@
             </div>
            
            <div  style="display: flex; margin-left: 13%; margin-top: 10px;"">
-           <%for(int i=0; i<prodList.size(); i++){ %> 
+           <%for(int i=0; (i<prodList.size()) && ( i < 3) ; i++){ %> 
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100" style="width: 300px; margin-left: 10px;">
