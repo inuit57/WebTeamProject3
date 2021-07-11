@@ -143,9 +143,9 @@ public class AuctionDAO {
 			conn = getConnection();
 			
 			if(auc.equals("all")) {
-				sql = "select * from prod_auct where auct_status != 1 order by auct_num desc";
+				sql = "select * from prod_auct order by auct_num desc";
 			}else {
-				sql = "select * from prod_auct where auct_stutus != 1 and auct_status=? order by auct_num desc";
+				sql = "select * from prod_auct where auct_status=? order by auct_num desc";
 			}
 			
 			pstmt = conn.prepareStatement(sql);

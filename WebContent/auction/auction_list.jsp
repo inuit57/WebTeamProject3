@@ -47,10 +47,10 @@
 
 <br>
 <br>
-		<select onchange="if(this.value) location.href=(this.value);" name="status">
-					<option value="./AuctionList.ac" selected="selected">전체</option>
-					<option value="./AuctionList.ac?auc=0" >팝니다</option>
-					<option value="./AuctionList.ac?auc=1" >거래완료</option>
+		<select onchange="if(this.value) location.href=(this.value);" name="auc">
+					<option selected>선택</option>
+					<option value="./AuctionList.ac?auc=0">팝니다</option>
+					<option value="./AuctionList.ac?auc=1">거래완료</option>
 			</select>
 			<% if(user_nick != null){ %>
 				<input type="button" value="경매 등록"
