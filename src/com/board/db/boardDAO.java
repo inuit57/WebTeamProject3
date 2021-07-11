@@ -64,8 +64,18 @@ public class boardDAO {
     	try {
 	    	conn = getConnection();
 	    	
+			sql = "select max(board_num) from normal_board";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1)+1;
+			}
+	    	
 	    			
-			sql = "insert into normal_board(board_area, user_nickname, board_count, board_sub, board_content, board_date, board_file, board_ip) values(?,?,?,?,?,now(),?,?)";
+			sql = "insert into normal_board(board_area, user_nickname, board_count, board_sub, board_content, board_date, board_file, board_ip , board_num) values(?,?,?,?,?,now(),?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -76,6 +86,7 @@ public class boardDAO {
 			pstmt.setString(5, bDTO.getBoard_content());
 			pstmt.setString(6, bDTO.getBoard_file());
 			pstmt.setString(7, bDTO.getBoard_ip());
+			pstmt.setInt(8, num);
 			
 			
 			pstmt.executeUpdate();
