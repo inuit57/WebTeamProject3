@@ -187,7 +187,7 @@
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100" style="width: 300px; margin-left: 10px;">
-                        <a href="shop-single.html">
+                        
                  
 	 				 <%
 	 					pDTO = (ProdDTO)prodList.get(i);
@@ -201,12 +201,13 @@
                  			if((imgfile == null)  || (imgfile.equals("null"))){
                  				imgfile = "product_default.jpg"; 
                  			} %>
+                 		<a href="ProductDetail.pr?num=<%=pDTO.getProd_num() %>&pageNum=1">
                             <img src="./upload/<%=imgfile%>" class="card-img-top">
                         </a>
                         <div class="card-body">
                             <ul class="list-unstyled d-flex justify-content-between">
                                 <li>
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">${prodList.prod_sub }</a>
+                                    <a href="ProductDetail.pr?num=<%=pDTO.getProd_num() %>&pageNum=1" class="h2 text-decoration-none text-dark">${prodList.prod_sub }</a>
                                 </li>
                                 <li class="text-muted text-right">
                                  <fmt:formatNumber value="<%= pDTO.getProd_price() %>" pattern="#,###,###"/>원
