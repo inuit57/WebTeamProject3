@@ -154,8 +154,10 @@ public class TradeLogDAO {
 			int price = prodDAO.getProduct(prod_num).getProd_price(); // 가격 얻어오기 
 			int curr_coin = userDAO.getCoin(user_nick); 
 			
-			if( curr_coin < price) return -1; 
-			
+			if( curr_coin < price){
+				System.out.println("너 돈없자너~~~~~~~~~~~");
+				return -1; 
+			}
 			// 금액 미리 차감
 			userDAO.updateCoin(user_nick, price , false);
 			sql = "insert into trade_log(trade_user,trade_target, trade_coin , trade_type, trade_date, prod_num) "

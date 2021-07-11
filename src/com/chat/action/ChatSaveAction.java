@@ -54,26 +54,31 @@ public class ChatSaveAction implements Action {
 		
 		boolean flag = true; //거래 처리 관련 flag. 
 		
+		
+		
+		String realMSG = msg.substring(msg.indexOf('|')+1) ;
+		
+		System.out.println("realMSG : " + realMSG);
 		// 거래 단계별 처리 
-		if( "sell01".equals(msg)){ // 거래 요청
+		if( "sell01".equals(realMSG)){ // 거래 요청
 			// DO NOTHING - DB에서 처리할 사항은 여기에서 없다. 
-		}else if( "buy01".equals(msg)){  // 거래 승인
+			System.out.println("sell01-------------------------------" );
+		}else if( "buy01".equals(realMSG)){  // 거래 승인
 			// 여기에서 코인이 DB에 걸리게 된다. 
 			System.out.println("buy01---------------------------");
 			tlDAO.wantBuyLog(buyerName, sellerName, prod_num);
 			
 			
 			// member DB에서 코인 차감하기 -> 만약 코인이 적다면???
-//			if( tlDAO.wantBuyLog(buyerName, sellerName, prod_num) != 0 ) { 
-//				flag = false ; 
-//			}
+			// 이 처리는 jsp에서 수행하기 
 			// 버튼이 아예 누르지 않은 것처럼 처리가 필요하다. 
 			
-			
-		}else if( "sell02".equals(msg)){ // 거래 완료
+		}else if( "sell02".equals(realMSG)){ // 거래 완료
 			// DO NOTHING - DB에서 처리할 사항은 여기에서 없다.
-		}else if( "buy02".equals(msg)){ // 구매확정 
+			System.out.println("거래완료~~~~~~~~~~~~~~~~~~~");
+		}else if( "buy02".equals(realMSG)){ // 구매확정 
 			//******* 판매상품 떨구기 동작 시작 ----------------------------------
+			System.out.println("구매확정~~~~~~~~~~~~~~~");
 				pDAO.updateStatus(prod_num, 3);
 				
 				// 찜목록에 해당 상품 찜한 사람들 가져오기 
@@ -93,15 +98,15 @@ public class ChatSaveAction implements Action {
 				tlDAO.buyConfirmLog(buyerName, sellerName, prod_num);
 				
 			// 구매 확정 처리하기 끝. 
-				
 			//--------------------------------------------------------------------------
-				
 			// 거래가 걸려있는 다른 사람이 있을 때 처리 시작
 				
 				// tlDAO 한번 돌아주기 
 				
 			// 그러한 대상이 있는지 확인하기 
 			// 환불 처리 수행
+				
+			// 채팅방에서도 나가게끔 해주는 것도 좋으리라. 
 				
 			// 거래가 걸려있는 다른 사람이 있을 때 처리 끝.
 				
@@ -118,7 +123,6 @@ public class ChatSaveAction implements Action {
 		try {
 			// 텍스트 파일에 채팅 내용 작성해주기 
 			BufferedWriter fw = new BufferedWriter(new FileWriter(realpath + roomId + ".txt",true));
-//			BufferedWriter fw = new BufferedWriter(new FileWriter(realpath + roomId,true));
 			
 			fw.write(saveMsg);
 			fw.flush();
