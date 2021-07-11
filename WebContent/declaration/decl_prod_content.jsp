@@ -109,7 +109,8 @@
 				<%=dcDTO.getDecl_content() %>
 			<%} %>
 			</td>
-			<td><%=dcDTO.getDecl_date().substring(0,16)%>분</td>
+<%-- 			<td><%=dcDTO.getDecl_date().substring(0,16)%>분</td> --%>
+			<td><%=dcDTO.getDecl_date()%></td>
 		</tr>
 		<%} %>
 	</table>
