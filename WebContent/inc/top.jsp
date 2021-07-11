@@ -1,5 +1,3 @@
-<%@page import="com.user.db.UserDTO"%>
-<%@page import="com.user.db.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,46 +32,46 @@
 <body>
 
 <%
-	request.setCharacterEncoding("UTF-8");
-	
-	String user_nick = (String) session.getAttribute("user_nick");
-	String user_profile = (String) session.getAttribute("user_profile");
-	
+   request.setCharacterEncoding("UTF-8");
+   
+   String user_nick = (String) session.getAttribute("user_nick");
+   String user_profile = (String) session.getAttribute("user_profile");
+   
 %>
 
 
 <script>
-	$(document).ready(function () {
-		
-		
-		// 쪽지 알림 
-		$.ajax({
-				 url:'./MsgAlarmAction.ms',
-			     type:'post',
-			     data:{"user_nick":"<%=user_nick%>"}, 
-			     success:function(data){
-			    	 
-			    	if(data.trim() == 0){
-			    		$("#circle2").addClass('circle10');
-			    	}else{
-			    		$("#circle2").removeClass('circle10');
-			    		$("#circle2").val(data);
-			    	}
-			    
-			    	
-			    	
-		               },
-		        		error:function(){
-		                alert("에러입니다");
-		               }
-		     }); // 읽음여부
-		// 쪽지 알림	
-		
-	});
-	
-	
+   $(document).ready(function () {
+      
+      
+      // 쪽지 알림 
+      $.ajax({
+             url:'./MsgAlarmAction.ms',
+              type:'post',
+              data:{"user_nick":"<%=user_nick%>"}, 
+              success:function(data){
+                 
+                if(data.trim() == 0){
+                   $("#circle2").addClass('circle10');
+                }else{
+                   $("#circle2").removeClass('circle10');
+                   $("#circle2").val(data);
+                }
+             
+                
+                
+                     },
+                    error:function(){
+                      alert("에러입니다");
+                     }
+           }); // 읽음여부
+      // 쪽지 알림   
+      
+   });
+   
+   
 
-	
+   
 </script>
 
 
@@ -92,19 +90,19 @@
                 </div>
                 <div> 
                    <%
-            		if (user_nick != null) {
-            			%>
+                  if (user_nick != null) {
+                     %>
 
-            			<a href="#" style="margin-right: 30px" id="atag" onclick="openWindowInfo();"><%=user_nick %>님</a>
-            			<a href="./UserLogoutAction.us" style="margin-right: 30px" id="atag">로그아웃</a>
-            			<a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
-            			<a href="./MsgListAction.ms">
-            					<i class="fa fa-envelope" aria-hidden="true" id="atag"></i>
-            					<input type="text" class="circle10" id="circle2" readonly onfocus="this.blur();" >
-            			</a>
+                     <a href="#" style="margin-right: 30px" id="atag" onclick="openWindowInfo();"><%=user_nick %>님</a>
+                     <a href="./UserLogoutAction.us" style="margin-right: 30px" id="atag">로그아웃</a>
+                     <a href="./Payment.pa" style="margin-right: 30px" id="atag">충전</a>
+                     <a href="./MsgListAction.ms">
+                           <i class="fa fa-envelope" aria-hidden="true" id="atag"></i>
+                           <input type="text" class="circle10" id="circle2" readonly onfocus="this.blur();" >
+                     </a>
 
-            			<%
-            		}%>
+                     <%
+                  }%>
                     
                 </div>
             </div>
@@ -132,7 +130,7 @@
                            <a class="nav-link" href="./ProductList.pr">Shop</a>
                         </li>
                         <li class="nav-item">
-                        	<a class="nav-link" href="./AuctionList.ac">Auction</a>
+                           <a class="nav-link" href="./AuctionList.ac">Auction</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./board_List.bo">Board</a>
@@ -140,14 +138,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="./FAQ.faq">FAQ</a>
                         </li>
-                        
-                    <%
-                      UserDAO admin = new UserDAO();
-                        if(admin.isAdmin(user_nick) == true){ %>
                         <li class="nav-item">
-                        	<a class="nav-link" href="./AdminBoard.ap">관리자</a>
+                           <a class="nav-link" href="./AdminBoard.ap">관리자</a>
                         </li>
-                        <% }%>
                          
                     </ul>
                 </div>
@@ -160,33 +153,24 @@
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                    </a>
+                   
                     
                     
                     <%
                     
-                	
-            		if (user_nick == null) {
-            			%>
-            			<a href="./UserLogin.us">LOGIN </a>
-            			<p>&emsp; &emsp;</p>
-            			<a href="./UserJoinChk.us">JOIN</a>
-            			<%
-            		}else{
-            			%>
-            			<a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-	                    </a>
-	                    <a class="nav-icon position-relative text-decoration-none" href="#">
-	                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-	                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
-	                    </a>
-            			
-            			<% 
-            		}
+                   
+                  if (user_nick == null) {
+                     %>
+                     <a href="./UserLogin.us">LOGIN </a>
+                     <p>&emsp; &emsp;</p>
+                     <a href="./UserJoinChk.us">JOIN</a>
+                     <%
+                  }else{
+                     %>
+                     
+                     
+                     <% 
+                  }
                     %>
                     
                     

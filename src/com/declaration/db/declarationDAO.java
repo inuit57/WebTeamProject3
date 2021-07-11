@@ -147,7 +147,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-				dcDTO.setUser_nickname(rs.getString("user_nickname"));
+				dcDTO.setUser_nickname(rs.getString("user_nick"));
 				dcDTO.setBoard_sub(rs.getString("board_sub"));
 				dcDTO.setDecl_state(rs.getInt("decl_state"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
