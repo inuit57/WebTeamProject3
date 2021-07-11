@@ -155,4 +155,32 @@ public class chatDAO {
 			closeDB();
 		}
 	}
+	
+	public chatDTO getChatInfo(String roomId) {
+		
+		chatDTO cdto = null;
+		
+		try {
+			conn = getConnection();
+			sql = "SELECT * FROM chat WHERE chat_roomid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, roomId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cdto = new chatDTO();
+				cdto.setProd_num(rs.getInt(0));
+				cdto.setChat_seller(rs.getString(1));
+				cdto.setChat_buyer(rs.getString(2));
+				cdto.setChat_roomid(roomId);
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("chatDAO.getChatInfo() function error - KBH");
+		} finally {
+			closeDB();
+		}
+		
+		return cdto;
+	}
 }

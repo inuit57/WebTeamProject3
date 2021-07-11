@@ -1,3 +1,5 @@
+<%@page import="com.prod.db.ProdDTO"%>
+<%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.chat.db.chatDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chat.db.chatDAO"%>
@@ -35,9 +37,24 @@
 	
 	
 	</script>
+
+<style type="text/css">
+
+body {
+	background-color: #5BAC70;
+	text-align: center;
+	
+}
+
+#table {
+	
+}
+
+</style>
 <title>Insert title here</title>
 </head>
 <body>
+
 	
 	<%
 	request.setCharacterEncoding("UTF-8");
@@ -45,6 +62,11 @@
 	int prod_num = (Integer)session.getAttribute("prod_num");
 	
 	chatDAO cdao = new chatDAO();
+	ProdDAO pdao = new ProdDAO();
+	
+	ProdDTO pdto = new ProdDTO();
+	
+	pdto = pdao.getProduct(prod_num);
 	
 	ArrayList<chatDTO> alist = cdao.getRoomList(seller, prod_num);
 	
@@ -53,22 +75,23 @@
 	
 	%>
 	
-	<h1>채팅 리스트</h1>
-	
+	<h1>나의 판매 채팅 리스트</h1>
+	<h2>게시글 : <%=pdto.getProd_sub() %></h2>
 	<% if(chatRoomNum == 0) { %>
 		<h1>채팅이 없습니다.</h1>
 	<% } else { %>
 	
-			<table border="1px solid black">
-				
+			<table id="table">
+				<colgroup>
+					<col width="300px" />
+					<col width="300px" />
+				</colgroup>
 				<tr>
-					<td>RoomId</td>
 					<td>구매자</td>
 					<td>채팅으로</td>
 				</tr>
 	<% 		for(int i = 0; i < alist.size(); i++) { %>
 				<tr>
-					<td><%=alist.get(i).getChat_roomid() %></td>
 					<td><%=alist.get(i).getChat_buyer() %></td>
 					<td>
 					
