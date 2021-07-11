@@ -33,6 +33,7 @@
 		
 	<%
 		// 전달된 신고글 목록 저장
+		//List decl_normal_list = (List)request.getAttribute("decl_normal_list");
 		List decl_normal_list = (List)request.getAttribute("decl_normal_list");
 		int decl_normal_listcnt = Integer.parseInt(request.getAttribute("decl_normal_listcnt").toString());
 		int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());	
@@ -71,7 +72,7 @@
 			<td><%=dcDTO.getDecl_writer() %></td> <!-- 신고당한 글 작성자 -->
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-				<a href="decl_normal_content.decl?board_num=<%=board_num%>"><%=dcDTO.getBoard_sub() %></a>
+				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=dcDTO.getDecl_state()%>&decl_num=<%=dcDTO.getDecl_num()%>"><%=dcDTO.getBoard_sub() %></a>
 			</td> 
 <%-- 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		 --%>
 			<td><%=dcDTO.getDecl_date() %></td>

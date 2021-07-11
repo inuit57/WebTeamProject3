@@ -27,7 +27,7 @@ public class decl_normal_listAction2 implements Action {
 		declarationDAO dcDAO = new declarationDAO();
 		
 		// 신고게시판 게시글 개수 
-		int decl_normal_listcnt = dcDAO.decl_normal_listCount();
+		int decl_normal_listcnt = dcDAO.decl_normal_listCount() ; // + dcDAO.decl_prod_listCount();
 		
 		// 한페이지당 보여줄 글의 개수
 		int pageSize = 8;

@@ -28,7 +28,6 @@
 
 	List decl_normal_reason = (List)request.getAttribute("decl_normal_reason");
 	int state = Integer.parseInt(request.getParameter("state"));
-	int decl_num = Integer.parseInt(request.getParameter("decl_num"));
 	
 	boardDTO bDTO = (boardDTO)request.getAttribute("bDTO");
 %>
@@ -110,15 +109,11 @@
 		</tr>
 		<%} %>
 	</table>
-	<%
-		
-	%>
 	<form action="decl_normal_boardDeleteAction.decl" onsubmit="return confirm('해당 신고글을 삭제하시겠습니까?')" method="get">
 		<input type="button" class="btn btn-success" value="목록으로" onclick="location.href='decl_normal_list.decl?state=<%=state%>'">
 		<input type="submit" class="btn btn-danger" value="해당글 삭제하기" >
 		<input type="hidden" name="board_num" value="<%=bDTO.getBoard_num()%>">
 		<input type="hidden" name="state" value="<%=state%>">
-		<input type="hidden" name="decl_num" value="<%=decl_num%>">
 	</form>
 	<br>
 </div>
