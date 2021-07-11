@@ -100,6 +100,34 @@ public class chatDAO {
 		}
 	}
 	
+public chatDTO getChatInfo(String roomid){
+		
+		chatDTO cDTO = new chatDTO(); 
+		
+		try {
+			conn = getConnection();
+			sql = "select * from chat where chat_roomid = ?" ; 
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, roomid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				cDTO.setChat_buyer(rs.getString("chat_buyer"));
+				cDTO.setChat_roomid(rs.getString("chat_roomid"));
+				cDTO.setChat_seller(rs.getString("chat_seller"));
+				cDTO.setProd_num(rs.getInt("prod_num"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB(); 
+		} 
+		
+		return cDTO ; 
+	}
+	
 	public ArrayList<chatDTO> getRoomList(String seller, int prod_num) {
 		ArrayList<chatDTO> arrlist = null;
 		chatDTO cdto = null;
