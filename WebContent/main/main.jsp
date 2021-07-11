@@ -181,16 +181,17 @@
                     </p>
                 </div>
             </div>
+           
            <div  style="display: flex; margin-left: 13%; margin-top: 10px;"">
-	 <c:forEach var="prodList" items="<%=prodList %>" begin="0" end="2">
+           <%for(int i=0; i<prodList.size(); i++){ %> 
             <div class="row">
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100" style="width: 300px; margin-left: 10px;">
                         <a href="shop-single.html">
                  
-	 				<%for(int i=0;i<prodList.size();i++){ 
+	 				 <%
 	 					pDTO = (ProdDTO)prodList.get(i);
-	 				}
+	 				
                  		String imgfile = pDTO.getProd_img();
                  		
                  			if(imgfile != null){
@@ -208,19 +209,22 @@
                                     <a href="shop-single.html" class="h2 text-decoration-none text-dark">${prodList.prod_sub }</a>
                                 </li>
                                 <li class="text-muted text-right">
-                                 <fmt:formatNumber value="${prodList.prod_price }" pattern="#,###,###"/>원
+                                 <fmt:formatNumber value="<%= pDTO.getProd_price() %>" pattern="#,###,###"/>원
                                 </li>
                             </ul>
                             <p class="card-text">
-                            	${prodList.prod_content }
+								<%= pDTO.getProd_content() %>
                             </p>
                             <p class="text-muted"></p>
                         </div>
+                        
+                        
                     </div>
+                
                 </div>
               </div>
-   		</c:forEach>
-              </div>
+              <%} %>
+          </div>
  	</div>
     </section>
    
