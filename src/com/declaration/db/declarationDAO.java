@@ -78,7 +78,8 @@ public class declarationDAO {
 				num = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into declaration_board values(?,?,?,?,?,?,?,now(),?,?)";
+			sql = "insert into declaration_board values(?,?,?,?,?, "
+					+ "?,?,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
