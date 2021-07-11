@@ -229,9 +229,9 @@ border-bottom:none;
 					<h1 class="h2"> <%=aDTO.getAuct_sub()%></h1>
 									
 					<p class="h3 py-2" style="color: #59ab6e;">최고가 : <span id="maxPrice" style="color: #59ab6e;">
-						<fmt:formatNumber value="<%=bDAO.getMaxPrice(aDTO.getAuct_num())%>" pattern="#,###,###"/></span>원</p>
+						<fmt:formatNumber value="<%=bDAO.getMaxPrice(aDTO.getAuct_num())%>" pattern="#,###,###,###,###"/></span>원</p>
 					<p class="h3 py-2" id="auct_price" style="color: #59ab6e; margin-top: -20px;">
-						최저가 : <fmt:formatNumber value="<%=aDTO.getAuct_price()%>" pattern="#,###,###"/>원</p>
+						최저가 : <fmt:formatNumber value="<%=aDTO.getAuct_price()%>" pattern="#,###,###,###,###"/>원</p>
 					
 					<ul class="list-inline"><li class="list-inline-item">
                                     <h5>판매자: <a style="color: #59ab6e;"><%=aDTO.getUser_nick()%></a></h5>
@@ -345,9 +345,12 @@ border-bottom:none;
 		$("#bidsave").click(function(){
 	
 			var bidprice = document.getElementById("bidprice").value; //입찰가격
-			var auct_price = '<c:out value="${Auction.auct_price}"/>'; //등록된 가격
-			
+			var auct_price =  '<c:out value="${Auction.auct_price}"/>'; //등록된 가격
 			var maxprice = '<c:out value="${maxPrice}"/>'; //최고가
+			
+			auct_price *=1;
+			bidprice *=1;
+			maxprice *=1;
 			
 			
 			if(bidprice <= auct_price){
