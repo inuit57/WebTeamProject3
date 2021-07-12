@@ -222,7 +222,6 @@ function socketOpen(event) {
                         
                         $("#buyConfirm01").attr("type", "button"); //거래승인 버튼 활성화
                         $("#buyConfirm02").attr("type", "hidden");
-                        
 
                      }
                   }
@@ -248,6 +247,7 @@ function socketOpen(event) {
                         $("#sellConfirm01").attr("type", 'hidden');
                         $("#sellConfirm02").attr("type", 'button'); //거래완료 버튼 활성화
                      }
+                     
                   }
                   
                   if(msgText == 'buy02'){
@@ -259,12 +259,12 @@ function socketOpen(event) {
                         $("#buyConfirm01").attr("disabled", true);
                         $("#buyConfirm02").attr("disabled", true);
                         
-                        $("#sellConfirm01").attr("type", hidden);
-                        $("#sellConfirm02").attr("type", hidden);
-                        $("#buyConfirm01").attr("type", hidden);
-                        $("#buyConfirm02").attr("type", hidden);
+                        $("#sellConfirm01").attr("type", 'hidden');
+                        $("#sellConfirm02").attr("type", 'hidden');
+                        $("#buyConfirm01").attr("type", 'hidden');
+                        $("#buyConfirm02").attr("type", 'hidden');
                         
-                        $("#deleteChat").attr("type", hidden);
+                        $("#deleteChat").attr("type", 'hidden');
                      //}
                   }
                }
@@ -411,7 +411,6 @@ function socketMsgBuyer01() {
 		$("#buyConfirm01").attr("type", 'hidden');
 		addRightChat("금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ");
 		
-		$("#sellConfirm02").attr("type", 'button'); //거래완료 버튼 활성화
 	}
 }
 
@@ -477,8 +476,8 @@ function socketMessage(event) {
 			$("#sellConfirm01").attr("disabled", true);
 			$("#sellConfirm02").attr("disabled", false);
 			
-			$("#sellConfirm01").attr("type", 'button');
-	        $("#sellConfirm02").attr("type", 'hidden');
+			$("#sellConfirm01").attr("type", 'hidden');
+	        $("#sellConfirm02").attr("type", 'button');
 			
 		}else if(receiveMsg == 'buy02'){
 			receiveMsg = "거래가 완료되었습니다. 감사합니다.";
@@ -491,6 +490,8 @@ function socketMessage(event) {
 	        $("#sellConfirm02").attr("type", 'hidden');
 	        $("#buyConfirm01").attr("type", 'hidden');
 	        $("#buyConfirm02").attr("type", 'hidden');
+	        
+	        $("#deleteChat").attr("type", 'hidden');
 		}
 		
 		addLeftChat(receiveMsg);
