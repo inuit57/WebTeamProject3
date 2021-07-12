@@ -448,6 +448,25 @@ function socketMsgBuyer02() {
 function socketMessage(event) {
 	var receiveData = event.data;
 	
+	
+	if ( receiveData  == 'exit' ){
+		// 방에서 나가는 메시지 발생. 
+		var roomId = document.getElementById('roomId').value ; 	
+		
+		console.log("EXIT!!!!!!!!!!!!!!"); 
+		disconnect(); 
+		
+		$(function(){
+	        $.ajax('./ChatDeleteAction.ch', {
+	           data : {roomId:roomId},
+	           async: false,
+	           success: function(data) {
+	        	   window.close();
+	           }
+	        });
+	     });
+	}
+	
 	var receiveMsg = receiveData.split('|')[1]  ;
 	if(receiveData.split('|')[0] == document.getElementById('roomId').value) {
 		
@@ -526,6 +545,10 @@ $().ready(function() {
 			if(result.isConfirmed) {
 				
 				var roomId = $('#roomId').val();
+				
+				//소켓으로 메시지 쏴주기 
+				webSocket.send("exit");
+				disconnect(); 
 				
 				$(function(){
 			        $.ajax('./ChatDeleteAction.ch', {

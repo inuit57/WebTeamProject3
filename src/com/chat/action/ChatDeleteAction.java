@@ -1,5 +1,9 @@
 package com.chat.action;
 
+import java.io.File;
+import java.io.FileWriter;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +37,15 @@ public class ChatDeleteAction implements Action {
 		try {
 			System.out.println(roomId);
 			cdao.deleteRoomId(roomId);
+			
+			// 채팅방 파일도 지워버리기 
+			ServletContext ctx = request.getServletContext();
+			String realpath = ctx.getRealPath("/chatlog/");
+			
+			File file = new File(realpath + roomId + ".txt") ;
+			if( file.exists() ){
+				file.delete(); 
+			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			System.out.println("ChatDeleteAction");
