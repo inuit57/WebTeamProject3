@@ -6,9 +6,23 @@
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="com.mysql.jdbc.Driver"
-		username="itwillbs8"
-		password="itwillbs8030909"
-		url="jdbc:mysql://localhost/itwillbs8"
+		username="root"
+		password="1234"
+		url="jdbc:mysql://localhost:3306/MarketDB"
 		maxWait="5000"
 	/>
 </Context>
+
+
+<!-- <Context> -->
+<!-- 	<Resource -->
+<!-- 		name="jdbc/MarketDB" -->
+<!-- 		auth="Container" -->
+<!-- 		type="javax.sql.DataSource" -->
+<!-- 		driverClassName="com.mysql.jdbc.Driver" -->
+<!-- 		username="itwillbs8" -->
+<!-- 		password="itwillbs8030909" -->
+<!-- 		url="jdbc:mysql://localhost/itwillbs8" -->
+<!-- 		maxWait="5000" -->
+<!-- 	/> -->
+<!-- </Context> -->

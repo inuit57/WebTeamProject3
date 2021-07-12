@@ -255,7 +255,7 @@
 			
 			//한 화면에 보여줄 페이지 번호의 갯수 (페이지 블럭)
 			int pageBlock = (size/(col*row))+1  ;
-			if(pageBlock > 10) pageBlock = 10; 
+			if(pageBlock > 2) pageBlock = 2; 
 			
 			// 최대 : 5
 			// 한페이지에 보이는 거 최대 갯수 : max_view_cnt =  col * row = 12 
@@ -279,7 +279,7 @@
 			if(startPage > pageBlock){
 				%>
 				<li class="page-item">
-				<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="ProductList.pr?pageNum=<%=startPage-pageBlock%>&item=<%=item%>">이전</a>
+				<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="ProductList.pr?pageNum=<%=startPage-pageBlock%>">이전</a>
 				</li>
 				<%
 			}
@@ -291,7 +291,7 @@
 				if ( item > 0 ){
 				%>
 				<li class="page-item">
-				<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="ProductList.pr?pageNum=<%=i%>&item=<%=item%>"><%=i %></a>
+				<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="ProductList.pr?pageNum=<%=i%>"><%=i %></a>
 				</li>
 				<%
 				}else{
@@ -306,7 +306,7 @@
 			if(endPage < pageCount){
 				%>
 				<li class="page-item">
-				<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="ProductList.pr?pageNum=<%=startPage+pageBlock%>&item=<%=item%>">다음</a>
+				<a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="ProductList.pr?pageNum=<%=startPage+pageBlock%>">다음</a>
 				</li>
 				<%
 			}

@@ -182,9 +182,9 @@ function webSocketInit() {
 	//webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
 	
 	// IP 주소 바꿔줘야 한다. 
-	//webSocket = new WebSocket("ws://<%=serverIP%>:8088/WebTeamProject/websocket");
+	webSocket = new WebSocket("ws://<%=serverIP%>:8088/WebTeamProject/websocket");
 	
-	webSocket = new WebSocket("ws://itwillbs8.cafe24.com/WebTeamProject/websocket");
+	//webSocket = new WebSocket("ws://itwillbs8.cafe24.com:8080/WebTeamProject/websocket");
 	webSocket.onopen = function(event) {socketOpen(event);};
 	webSocket.onclose = function(event) {socketClose(event);};
 	webSocket.onmessage = function(event) {socketMessage(event);};
