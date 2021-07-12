@@ -10,6 +10,16 @@
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
+		function check1(){
+			
+			var decl_reason = document.fr.decl_reason.value;
+			
+			if(decl_reason == ""){
+				alert("신고사유를 선택하세요.");
+				return false;
+				}
+			}
+
 		$(document).ready(function(){
 		
 		// 라디오버튼 클릭시 이벤트 발생
@@ -54,7 +64,7 @@
 %>
 <div style="margin-left: 40%">
 	
-	<form action="declarationProdAction.decl" method="post" >
+	<form action="declarationProdAction.decl" method="post" name="fr" onsubmit ="return check1();">
 	<br>
  	<h2>'<%=board_sub %>' 입니다.<br>
 	 신고사유를 선택해주세요</h2><br>
