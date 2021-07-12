@@ -1,3 +1,4 @@
+<%@page import="java.net.InetAddress"%>
 <%@page import="com.user.db.UserDAO"%>
 <%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.prod.db.ProdDTO"%>
@@ -90,6 +91,10 @@
 </style>
 	<%
 	
+	 InetAddress inet= InetAddress.getLocalHost();
+	 String serverIP = inet.getHostAddress(); 
+	
+	
 	request.setCharacterEncoding("UTF-8");
 	
 	String user_nick = (String)session.getAttribute("user_nick"); 
@@ -171,7 +176,7 @@ var webSocket;
 function webSocketInit() {
 	//webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
 	// IP 주소 바꿔줘야 한다. 
-	webSocket = new WebSocket("ws://192.168.35.209:8088/WebTeamProject/websocket");
+	webSocket = new WebSocket("ws://<%=serverIP%>:8088/WebTeamProject/websocket");
 	webSocket.onopen = function(event) {socketOpen(event);};
 	webSocket.onclose = function(event) {socketClose(event);};
 	webSocket.onmessage = function(event) {socketMessage(event);};
