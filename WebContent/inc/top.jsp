@@ -41,31 +41,36 @@
 
 
 <script>
+
+var timer;
+
+	//쪽지 알림 
+	function updateD(){
+		$.ajax({
+			 url:'./MsgAlarmAction.ms',
+		     type:'post',
+		     data:{"user_nick":"<%=user_nick%>"}, 
+		     success:function(data){
+		    	 
+		    	if(data.trim() == 0){
+		    		$("#circle2").addClass('circle10');
+		    	}else{
+		    		$("#circle2").removeClass('circle10');
+		    		$("#circle2").val(data);
+		    	}
+	               },
+	        		error:function(){
+	                alert("에러입니다");
+	               }
+	     });
+		timer = setTimeout("updateD()", 1000); // 2초 단위로 갱신 처리
+	}// 읽음여부
+		// 쪽지 알림
+	
 	$(document).ready(function () {
 		
+		 updateD();
 		
-		// 쪽지 알림 
-		$.ajax({
-				 url:'./MsgAlarmAction.ms',
-			     type:'post',
-			     data:{"user_nick":"<%=user_nick%>"}, 
-			     success:function(data){
-			    	 
-			    	if(data.trim() == 0){
-			    		$("#circle2").addClass('circle10');
-			    	}else{
-			    		$("#circle2").removeClass('circle10');
-			    		$("#circle2").val(data);
-			    	}
-			    
-			    	
-			    	
-		               },
-		        		error:function(){
-		                alert("에러입니다");
-		               }
-		     }); // 읽음여부
-		// 쪽지 알림	
 		
 	});
 	

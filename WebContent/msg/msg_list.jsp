@@ -38,9 +38,28 @@
 	
 <script>
 	var RecvnickAdd = "";
+	var timerID;
+	
+	// 쪽지 알림 
+    function updateData(){
+		$.ajax({
+				 url:'./MsgAlarmAction.ms',
+			     type:'post',
+			     data:{"user_nick":"<%=user_nick%>"}, 
+			     success:function(data){
+			    	$("#circle1").val(data);
+		               },
+		        		error:function(){
+		                alert("에러입니다");
+		               }
+		     }); 
+		timerID = setTimeout("updateData()", 100); // 2초 단위로 갱신 처리
+    }// 읽음여부
+		// 쪽지 알림	
 
 	$(document).ready(function () {
 		
+		  updateData();
 		
 		
 		// 다수에게 쪽지 보내기z
@@ -107,19 +126,7 @@
 		
 		
 		
-		// 쪽지 알림 
-		$.ajax({
-				 url:'./MsgAlarmAction.ms',
-			     type:'post',
-			     data:{"user_nick":"<%=user_nick%>"}, 
-			     success:function(data){
-			    	$("#circle1").val(data);
-		               },
-		        		error:function(){
-		                alert("에러입니다");
-		               }
-		     }); // 읽음여부
-		// 쪽지 알림	
+		
 		
 	
 		
