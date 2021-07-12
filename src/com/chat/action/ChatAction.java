@@ -31,6 +31,7 @@ public class ChatAction implements Action {
 		if(user_nick.equals(seller)) {
 			
 			session.setAttribute("seller", seller);
+			session.setAttribute("prod_num", prod_num);
 			
 			forward.setPath("./chatlist.ch");
 			forward.setRedirect(true);	
@@ -47,6 +48,8 @@ public class ChatAction implements Action {
 			
 			session.setAttribute("roomId", roomId);
 			session.setAttribute("chatRole", "buyer");
+			session.setAttribute("prod_num", prod_num);
+			
 			
 			forward.setPath("./chat.ch");
 			forward.setRedirect(true);

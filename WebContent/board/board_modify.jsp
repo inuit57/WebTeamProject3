@@ -25,7 +25,6 @@
 
 	<fieldset style="margin:auto;  width: 800px;">
 		<form action="./BoardModifyAction.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>" name="fr" method="post">
-			제목 : <input type="text" name="board_sub" value="<%=bDTO.getBoard_sub()%>" > <br>
 			지역 :
 				<select name="board_area" >
 					<option value="서울"
@@ -55,13 +54,15 @@
 					<option value="인천"
 					<%if(bDTO.getBoard_area().equals("인천")){ %>selected<%} %>
 					>인천</option>
-			   </select> <br>
-			<a>내용</a>  <br>
+			   </select> <br><br>
+			   제목 : <input type="text" name="board_sub" value="<%=bDTO.getBoard_sub()%>" > <br><br>
 			<textarea name="board_content" id="smartEditor" style="width: 100%; height: 412px;">
 				<%=bDTO.getBoard_content() %>
 				</textarea>
 			<hr>
-			<button type="button" id="savebutton">수정하기</button>
+			<div align="right" style="margin-bottom: 2%">
+				<button type="button" class="btn btn-primary" id="savebutton">수정하기</button>
+			</div>
 		</form>
 	</fieldset>
 </div>

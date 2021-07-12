@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.wish.db.WishDAO;
+
 public class ProdDAO {
 	
 	private Connection conn = null;
@@ -20,6 +22,7 @@ public class ProdDAO {
 	private ResultSet rs = null;
 	private String sql = "";
 	
+	private WishDAO wishDAO = new WishDAO(); 
 	
 	private Connection getConnection(){
 		try {
@@ -478,6 +481,8 @@ public class ProdDAO {
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 			
+			// 찜목록에서도 해당 상품 삭제 
+			wishDAO.favoriteDelete(num);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

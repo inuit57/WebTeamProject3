@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>신고목록 - 상품게시판</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/admin.css">
 <style type="text/css">
 	.table{
 		text-align: center;
@@ -24,15 +25,55 @@
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
-<div align="center">
-<div class="container" >
-<br>	
-	<input type="button" class="btn btn-light" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
-	<input type="button" class="btn btn-light" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
-	<br><br>
-	<input type="button" style="margin-left: 80%;" value="처리대기중" class="btn btn-warning" onclick="location.href='decl_prod_list.decl?state=1'">
-	<input type="button" value="처리완료" class="btn btn-success" onclick="location.href='decl_prod_list.decl?state=2'">
 
+<div id="col-lg-3">
+			
+				<h1 class="h2 pb-4">관리자 게시판</h1>
+						
+			<ul class="list-unstyled templatemo-accordion">
+			<li  class="pb-3">
+			<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+				회원목록 조회
+				<i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+				 	<ul>
+					<li><a class="text-decoration-none" href="./AdminUserList.au">전체</a></li>
+					<li><a class="text-decoration-none" href="./AdminUserList.au?auth=1">일반회원</a></li>
+					<li><a class="text-decoration-none" href="./AdminUserList.au?auth=2">관리자</a></li>
+					</ul>
+					</li>				
+				<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+				1:1 문의 내역조회
+				 <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+				 	<ul >
+					<li><a class="text-decoration-none" href="./InqueryAdminList.ai">전체</a></li>
+					<li><a class="text-decoration-none" href="./InqueryAdminList.ai?check=0">답변 요청글</a></li>
+					<li><a class="text-decoration-none" href="./InqueryAdminList.ai?check=1">답변 완료글</a></li>
+					</ul>
+				</li>
+											
+				<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+				신고내역 조회
+				<i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+				 	<ul>				 		
+				 	<li><a  class="text-decoration-none" href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a  class="text-decoration-none" href="./decl_normal_list.decl?state=1">일반게시판</a></li>
+				 	</ul>	
+					</li>
+			</ul>		
+				
+		</div>
+
+
+
+<div class="ad-content0" >
+<br>	
+	<h1> 신고목록 - 상품게시판 </h1>
+	
 	<%
 		// 전달된 신고글 목록 저장
 		List decl_prod_list = (List)request.getAttribute("decl_prod_list");
@@ -73,9 +114,10 @@
 			<td><%=dcDTO.getDecl_writer() %></td>
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-			<a href="decl_prod_content.decl?num=<%=num%>&state=<%=state%>"><%=dcDTO.getBoard_sub() %></a>
+			<a href="decl_prod_content.decl?num=<%=num%>&state=<%=state%>&decl_num=<%=dcDTO.getDecl_num()%>"><%=dcDTO.getBoard_sub() %></a>
 			</td>
-			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>
+<%-- 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td> --%>
+			<td><%=dcDTO.getDecl_date() %></td>
 			<td><%=dcDTO.getUser_nickname() %></td>
 			<td style="color: red;"><%=decl_prod_cnt %></td>
 			<%
@@ -154,13 +196,22 @@
 			
 		}
 		
-		/////////////////////////////////////////////////////////
-		
+		/////////////////////////////////////////////////////////		
 	%>
+	<br><br>
+	<input type="button" style="margin-left: 80%;" value="처리대기중" class="btn btn-warning" onclick="location.href='decl_prod_list.decl?state=1'">
+	<input type="button" value="처리완료" class="btn btn-success" onclick="location.href='decl_prod_list.decl?state=2'">
+	
+	<input type="button" class="btn btn-light" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
+	<input type="button" class="btn btn-light" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+	
+	
 </div>
 </div>	
 <!-- 푸터 들어가는 곳 -->
+<div class="footer">
 <jsp:include page="../inc/footer.jsp"/> 
+</div>
 <!-- 푸터 들어가는 곳 -->
 
 </body>

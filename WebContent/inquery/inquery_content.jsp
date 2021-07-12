@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
+<title>1:1 문의 작성글</title>
+<link rel="stylesheet" href="./css/admin.css">
 <script type="text/javascript">
 function modify(){
 	return confirm("수정하시겠습니까?");
@@ -16,10 +16,19 @@ function deleteIn(){
 	return confirm("삭제하시겠습니까?");
 }
 
-
-
 </script>
 
+<style>
+.ad-content0{
+padding: 150px;
+}
+.ad-content0 button{
+float:right;
+}
+
+</style> 
+
+<%@ include file="../../inc/top.jsp" %>
 
 </head>
 <body>
@@ -31,8 +40,8 @@ function deleteIn(){
 	String user_nickname = (String) session.getAttribute("user_nick"); 
 
 %>
-  
-  <table border="1">
+  <div class="ad-content0">
+  <table border="1" class="table">
 			<tr>
 				<td>글번호</td>
 				<td><%=inDTO.getInq_num()%></td>
@@ -48,16 +57,7 @@ function deleteIn(){
 				<td>글 제목</td>
 				<td colspan="3"><%=inDTO.getInq_sub()%></td>
 			</tr>
-			<%
-			if(inDTO.getInq_img()!=null){
-			%>
-			<tr>
-				<td>이미지</td>
-				<td colspan="3">
-					<img src="./inquery/upload/<%=inDTO.getInq_img()%>">
-				</td>				
-			</tr>
-		<%} %>
+			
 			<tr>
 				<td>글 내용</td>
 				<td colspan="3"><%=inDTO.getInq_content() %></td>
@@ -72,15 +72,18 @@ function deleteIn(){
 			if(inDTO.getUser_nickname().equals(user_nickname)){// 세션값 아이디 받아서 수정
 
 			%>
+		<button class="btn btn-outline-danger" type="button" onclick="location.href='./InqueryDelete.in?num=<%=inDTO.getInq_num()%>'">삭제</button>
+		<button class="btn btn-outline-warning" type="button" onclick="location.href='./InqueryModifyForm.in?num=<%=inDTO.getInq_num()%>'">수정</button>
 		
-			<a href="./InqueryModifyForm.in?num=<%=inDTO.getInq_num()%>" 
-					onclick="return modify();">수정</a>/ 
-				<a href="./InqueryDelete.in?num=<%=inDTO.getInq_num()%>" 
-				 	onclick="return deleteIn();">삭제</a>
+		
+		
 
 			<%
 			}
 			%>
-
+</div>
 </body>
+<div class="footer">
+<%@ include file="../../inc/footer.jsp" %>
+</div>
 </html>

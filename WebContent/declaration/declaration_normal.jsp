@@ -53,10 +53,10 @@
 %>
 <div style="margin-left: 40%">
 	<form action="declarationNormalAction.decl" method="post">
-	
-	<h1>'<%=board_sub %>' 입니다.<br>
-	 신고사유를 선택해주세요</h1>
-		
+	<br>
+	<h2>'<%=board_sub %>' 입니다.<br>
+	 신고사유를 선택해주세요</h2>
+		<br>
 		<input type="hidden" name="pageNum" value="<%=pageNum%>">
 		<input type="hidden" name="board_num" value="<%=board_num%>">
 		<input type="hidden" name="user_nickname" value="<%=user_nick%>"><!-- 신고 하는사람 -->
@@ -68,16 +68,15 @@
 		<input type="text" name="decl_writer" value="<%=decl_writer%>" readonly><br> <!-- 신고당하는 글 작성자 -->
 		제목 : <br>
 		<input type="text" name="board_sub" value="<%=board_sub%>" readonly><br>
-		신고사유 <br>
+		<br><h5>• 신고사유</h5>
 		<input type="radio" id="radio" value="1" name="decl_reason">부적절한 홍보 게시글 <br>
 		<input type="radio" id="radio" value="2" name="decl_reason">음란성 또는 청소년에게 부적합한 내용<br>
 		<input type="radio" id="radio" value="3" name="decl_reason">중고거래 게시글이 아니에요<br>
 		<input type="radio" id="radio" value="4" name="decl_reason">전문 판매업자 같아요<br>
 		<input type="radio" id="radio" value="5" name="decl_reason">사기 글이에요<br>
 		<input type="radio" id="radio" value="6" name="decl_reason" >기타<br>
-		기타사유 입력<br>
-		<input type="text" name="decl_content" placeholder="기타사유를 입력하세요" maxlength="500" style="width: 300px; height: 50px"><br>
-<!--  		<textarea rows="5" cols="20" name="textarea" placeholder="기타사유를 입력하세요" ></textarea>  -->
+
+		<input type="text" name="decl_content" placeholder="기타사유를 입력하세요" maxlength="500" style="width: 350px; height: 50px"><br>
 		<br>
 		<input type="submit" class="btn btn-danger" style="margin-bottom: 2%; margin-left: 30%"  value="신고하기">
 	</form>

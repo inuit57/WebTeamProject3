@@ -4,6 +4,15 @@
 	height: 1200px;
 }
 
+#col-lg-3{
+	flex: 0 0 auto;
+    width: 13%;
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+
  #ad-sidebar {
         width: 15%;
         padding: 20px;
@@ -13,7 +22,7 @@
       }
   
  
-  #ad-sidebar li {
+ #ad-sidebar li {
   	list-style: none;
   	text-decoration: none;
   	
@@ -40,16 +49,17 @@
 	text-decoration: none;
 	color:black;
 }
-#ad-sidebar a:hover{
-	background-color: green;
+#col-lg-3 a:hover{
+	background: linear-gradient(145deg, rgba(51,155,158,1) 0%, rgba(104,204,152,1) 100%);
 	color: white;
+	transition:0.5s;
 } 
  
  .ad-content0{
  	 width: 85%;
     padding: 20px;
     margin-bottom: 20px;
-    float:none;  
+    float:right;  
     overflow: hidden;
     height: 1000px;
     text-align: center;
@@ -72,9 +82,10 @@
     width: 85%;
     padding: 20px;
     margin-bottom: 20px;
-    float:none;  
+    float:right;  
     overflow: hidden;
     height: 400px;
+    
   }
   
   .innerContent {

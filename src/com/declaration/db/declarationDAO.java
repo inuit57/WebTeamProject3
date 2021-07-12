@@ -57,11 +57,12 @@ public class declarationDAO {
     
     /********************************************************************/
    
-    
+
     /********************************************************************/
     // declWrite(dcDTO); - 신고글 작성하기
-    public void declWrite(declarationDTO dcDTO){
+    public int declWrite(declarationDTO dcDTO){
     	
+    	int result = 1;
     	int num = 0;
     	
     	try {
@@ -77,7 +78,8 @@ public class declarationDAO {
 				num = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into declaration_board values(?,?,?,?,?,?,?,now(),?,?)";
+			sql = "insert into declaration_board values(?,?,?,?,?, "
+					+ "?,?,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -100,7 +102,7 @@ public class declarationDAO {
 		} finally {
 			closeDB();
 		}
-    	
+    	return result;
     }
     
     // declWrite(dcDTO); - 신고글 작성하기
@@ -552,7 +554,7 @@ public class declarationDAO {
 				dcDTO.setDecl_num(rs.getInt("decl_num"));
 				dcDTO.setBoard_type(rs.getInt("board_type"));
 				dcDTO.setBoard_num(rs.getInt("board_num"));
-
+				dcDTO.setBoard_sub(rs.getString("board_sub"));
 
 				dcDTO.setUser_nickname(rs.getString("user_nickname"));
 				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
@@ -827,7 +829,164 @@ public class declarationDAO {
     }
     // 신고DB에 총 갯수 가져오기 - prod
     /********************************************************************/
+    
+    
     /********************************************************************/
 
+    
+    /********************************************************************/
+    // getUserCount(board_num)
+    public String getUserCount(int board_num){
+    	int result = 0;
+    	String nick ="";
+    	
+    	try {
+    		conn = getConnection();
+    		
+    		sql = "select e.cnt, m.user_nickname, m.user_grade  from "
+    				+ "(select count(user_nickname) cnt, user_nickname, "
+    				+ "board_num from declaration_board where board_num=?) e "
+    				+ "natural join member m";
+    		
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, board_num);
+    		
+    		rs = pstmt.executeQuery();
+    		if(rs.next()){
+    			result = rs.getInt("cnt");
+    			if(result>=3){
+    				nick = rs.getString("user_nickname");
+    			}
+    		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+    	
+    	return nick;
+    	
+    }
+    // getUserCount(board_num)
+    
+    /********************************************************************/
 
+    // 신고번호로 신고테이블 내용 가져오기 getDecl_normal_content(decl_num)
+    public declarationDTO getDeclContent(int decl_num){
+    	
+    	declarationDTO dcDTO = null;
+    	
+    	try {
+	    	conn = getConnection();
+	    	
+			sql = "select * from declaration_board where decl_num=?";
+		
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, decl_num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				dcDTO = new declarationDTO();
+				
+				dcDTO.setDecl_num(rs.getInt("decl_num"));
+				dcDTO.setBoard_type(rs.getInt("board_type"));
+				dcDTO.setBoard_num(rs.getInt("board_num"));
+				dcDTO.setUser_nickname(rs.getString("user_nickname"));
+				dcDTO.setBoard_sub(rs.getString("board_sub"));
+				dcDTO.setDecl_reason(rs.getInt("decl_reason"));
+				dcDTO.setDecl_content(rs.getString("decl_content"));
+				dcDTO.setDecl_date(rs.getString("decl_date"));
+				dcDTO.setDecl_writer(rs.getString("decl_writer"));
+				dcDTO.setDecl_state(rs.getInt("decl_state"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+    	
+    	return dcDTO;
+    }
+    // 신고번호로 신고테이블 내용 가져오기
+    /********************************************************************/
+    
+    
+    /********************************************************************/
+    // getDeclMembers(board_num) - 처리완료되면서 신고한 사람들에게 처리결과쪽지 보내기위해 신고한 사람들 목록 가져오기
+	 public List<String> getDecl_normal_members(int board_num){
+		 List<String> memberList = new ArrayList();
+		 
+	      try {
+	         conn = getConnection(); 
+	         
+	         sql = "select user_nickname from declaration_board where board_num = ? and board_type = 0"; 
+	        
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setInt(1, board_num);
+	         
+	         rs = pstmt.executeQuery(); 
+	         
+	         while(rs.next()){
+	            memberList.add(rs.getString(1)); 
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         closeDB();
+	      }
+	      return memberList; 
+	   } // getDeclMembers(board_num) - 처리완료되면서 신고한 사람들에게 처리결과쪽지 보내기위해 신고한 사람들 목록 가져오기
+    /********************************************************************/
+	
+	
+	/********************************************************************/
+	// getDecl_prod_members(num) - 처리완료되면서 신고한 사람들에게 처리결과쪽지 보내기위해 신고한 사람들 목록 가져오기
+	 public List<String> getDecl_prod_members(int num){
+		 List<String> memberList = new ArrayList();
+		 
+	      try {
+	         conn = getConnection(); 
+	         
+	         sql = "select user_nickname from declaration_board where board_num = ? and board_type = 1"; 
+	        
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setInt(1, num);
+	         
+	         rs = pstmt.executeQuery(); 
+	         
+	         while(rs.next()){
+	            memberList.add(rs.getString(1)); 
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         closeDB();
+	      }
+	      return memberList;  
+	 }// getDecl_prod_members(num) - 처리완료되면서 신고한 사람들에게 처리결과쪽지 보내기위해 신고한 사람들 목록 가져오기
+	/********************************************************************/
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

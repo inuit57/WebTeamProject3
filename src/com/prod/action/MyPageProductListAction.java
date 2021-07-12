@@ -4,14 +4,20 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.prod.db.ProdDAO;
+import com.prod.db.ProdSearch;
 
 public class MyPageProductListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("PRList 페이지");
+		
+		HttpSession session = request.getSession() ; 
+		
+		String user_nick = (String)session.getAttribute("user_nick"); 
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -27,8 +33,16 @@ public class MyPageProductListAction implements Action {
 		//productList()
 		ProdDAO pDAO = new ProdDAO();
 		//List productList = pDAO.getProductList();
-		request.setAttribute("productList", pDAO.getProductList(item));
 		
+		ProdSearch prodsearch = new ProdSearch(); 
+		
+		prodsearch.setSearch_text(user_nick);
+		prodsearch.setSearch_type("seller");
+		prodsearch.setItem("all");
+		prodsearch.setMin_price("0");
+		
+//		request.setAttribute("productList", pDAO.getProductList(item));
+		request.setAttribute("productList", pDAO.getProductList(prodsearch));
 		//request.setAttribute("productList", productList);
 		
 		//조회수

@@ -47,6 +47,15 @@ border-bottom:none;
 }
 
 
+li>a:link, li>a:visited {
+color: #59ab6e;
+
+}
+
+#seller:link, #seller:visited {
+color: #59ab6e;
+}
+
 
 </style>
 
@@ -71,11 +80,17 @@ border-bottom:none;
 	
 	
 	<div style="margin:auto;  width: 800px; ">
-	<button onclick="location.href='./ProductList.pr'">목록으로</button>
+	<button onclick="location.href='./ProductList.pr'"
+		class="btn btn-success btn-lg" style="float: left;
+									   margin-right: 10px;">목록으로</button>
 	<% if(user_nick != null){ %>
-	<form name="declareForm" action="./declaration_prod.decl" method="post" onsubmit="return confirm('이 글을 신고하시겠습니까?')">
+	
+	<form name="declareForm" action="./declaration_prod.decl" method="post" 
+		  onsubmit="return confirm('이 글을 신고하시겠습니까?')"
+		  style="float:left;">
 
-		<input type="submit" value="신고하기" class="btn btn-danger" >
+		<input type="submit" value="신고하기" class="btn btn-danger" 
+			   style="width: 120px; height: 48px;">
 		<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 		<!-- 신고 당하는 글 작성자 -->
 		<input type="hidden" name="decl_writer" value="<%=pDTO.getUser_nickname()%>">
@@ -173,12 +188,24 @@ border-bottom:none;
 
 
 <%-- 					<h4>글 번호 : <%=pDTO.getProd_num()%></h4> --%>
-					<h1>제목 : <%=pDTO.getProd_sub()%></h1>
-					<h1>가격 : <fmt:formatNumber value="${product.prod_price}" pattern="#,###,###"/>원</h1>
-					<h3>판매자 : <a href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nickname()%>"><%=pDTO.getUser_nickname()%></a></h3>
-					<hr> 
-
-					<hr> <%
+					<h1 class="h2"> <%=pDTO.getProd_sub()%></h1>
+					<p class="h3 py-2" style="color: #59ab6e;"><fmt:formatNumber value="${product.prod_price}" pattern="#,###,###"/>원</p>
+					
+					 <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h5>판매자:</h5>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted">
+                                    <strong>
+										<a id="seller" href="./ProductList.pr?search_type=seller&search_text=<%=pDTO.getUser_nickname()%>"><%=pDTO.getUser_nickname()%></a>
+                                    </strong></p>
+                                </li>
+                            </ul>
+					
+				<br>
+					
+			 <%
 					 String category = "";
 					
 					 switch (pDTO.getProd_category()) {
@@ -243,14 +270,15 @@ border-bottom:none;
 						 break;
 					 }
 					 %>
-					<ul id="u1">
-						<li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
-						<li>거래여부 : <%=status%></li>
-						<li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
-<%-- 						<li>작성시간 : <%=pDTO.getProd_date()%></li> --%>
-						<li>작성시간 : <%=pDAO.timeForToday(pDTO.getProd_num())%></li>
-					</ul> 
+					 <ul class="list-unstyled pb-3">
+                                <li>카테고리 : <a href="./ProductList.pr?item=<%=pDTO.getProd_category()%>"><%=category%></a></li>
+                                <li>거래여부 : <%=status%></li>
+                                <li>조회수 : <%=pDTO.getProd_count() == 0 ? 1 : pDTO.getProd_count()%></li>
+                                <li><h3 style="margin-top: 10px;font-size: 1.0vw; color: #59ab6e;
+									float: left"><%=pDAO.timeForToday(pDTO.getProd_num())%></h3></li>
+                            </ul>
 					
+					<br>
 					찜 횟수 &nbsp; 
 					<c:if test="<%=wDAO.favoriteCheck(pDTO.getProd_num(), nick) == 0%>">
 						<span id="favorite"  style="color:red;">♡</span>
@@ -266,15 +294,19 @@ border-bottom:none;
 					<% if(user_nick != null){ %>
 
 						<% if(!user_nick.equals(pDTO.getUser_nickname())){ %>
-							<input type="button" id="btnLike" value="찜하기" class="btn btn-warning"> 
+							<input type="button" id="btnLike" value="찜하기" 
+									class="services-icon-wap btn4321"
+									style="float:left; margin-right: 10px;
+										   margin-top: 10px;"> 
 						<%} %>
 						<!-- 채팅하기로 통합  -->
 <!-- 						<input type="button" value="구매요청" class="form-control" >  -->
-						<form action="" method="post" name="chatform">
+						<form action="" method="post" name="chatform" 
+							  style="float:left; margin-top: 10px; width:350px;">
 						<input type="hidden" name="prod_num" value="<%=pDTO.getProd_num()%>">
 						<input type="hidden" name="user_nick" value="<%=session.getAttribute("user_nick")%>" >
 						<input type="hidden" name="seller" value="<%=pDTO.getUser_nickname()%>">
-						<input type="button" value="채팅하기" class="form-control" onclick="openWindowChat();" >
+						<input type="button" value="채팅하기" class="services-icon-wap btn4321" onclick="openWindowChat();" >
 						</form>
 					<%}%>
 				</td>
@@ -291,7 +323,7 @@ border-bottom:none;
 			<input type="button" value="수정하기" class="btn btn-light"
 				onclick="location.href='./ProductModify.pr?num=<%=pDTO.getProd_num()%>'">
 			<!-- 로직 처리 필요 -->
-			<input type="button" value="판매완료"
+			<input type="button" value="판매완료" class="btn btn-light"
 				onclick="location.href='./ProductSellComplete.pr?num=<%=pDTO.getProd_num()%>' ">
 				
 		<%}%>
@@ -345,7 +377,7 @@ border-bottom:none;
 		});
 	});
 	function openWindowChat() {
-		window.open("","Chat","width=300,height=650,top=150,left=500");
+		window.open("","Chat","width=430,height=800,top=150,left=500");
 		document.chatform.target = "Chat";
 		document.chatform.action = "./ChatAction.ch";
 		document.chatform.submit();

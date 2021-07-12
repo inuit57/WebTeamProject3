@@ -182,8 +182,10 @@
 			<br> 
 			<input class="services-icon-wap btnSend" type="reset" value="조건 초기화">		
 			</form>
-	<input  class="services-icon-wap btn4321" type="button" value="상품 등록"
+			<% if(user_nick != null){ %>
+			<input class="services-icon-wap btn4321" type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'" style="margin-top: 70px"><br>
+			<%} %>	
 			</div>
 			
 	<div class="col-lg-9">
@@ -193,7 +195,7 @@
 			int size = productList.size();	
 			int col = 5;
 			//int row = (size/col)+((size%col>0)? 1:0);
-			int row = 2 ;// (size/col)+((size%col>0)? 1:0);
+			int row = 2;
 			int num = (pageNum-1)*row*col; //0;
 		
 			if(size >0 && num <= size){	
@@ -214,7 +216,7 @@
 					 imgfile = "product_default.jpg"; 
 				 }
 				%>
-			<div class="col-md-4" style="float:left;">
+			<div class="col-md-4" style="float:left; width:20%; height:5%">
             <div class="card mb-4 product-wap rounded-0" onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
             <div class="card rounded-0">
 				<img class="card-img rounded-0 img-fluid" 

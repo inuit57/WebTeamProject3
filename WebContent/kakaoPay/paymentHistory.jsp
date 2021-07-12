@@ -102,12 +102,14 @@
                         <h2 style="color: #5a5a5a"> 결제내역 </h2>
                         
                         <% if(tradeLogList.size() > 0 ){ %>
-                        	<table>
+                        	<table class="table">
+                        	 	<thead class="table-dark">
                         		<tr>
                         			<th>결제 유형</th>
                         			<th>결제 금액</th>
                         			<th>결제 날짜</th>
                         		</tr>
+                        		</thead>
                         		<% 
                        			for(int i = 0 ; i< tradeLogList.size() ; i++){
 									TradeLogDTO tldto = tradeLogList.get(i);

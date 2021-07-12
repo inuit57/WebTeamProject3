@@ -119,7 +119,7 @@
 		<legend>중고거래 등록수정하기</legend>
 			<form action="ProductModifyAction.pr?num=<%=pDTO.getProd_num() %>" method="post" enctype="multipart/form-data"
 				name="pdf">
-				<input type="hidden" name="nick" value=<%=nick%>>
+				<input type="hidden" name="user_nick" value=<%=nick%>>
 				<table border="1">
 				<!-- switch문으로 작성 -->
 					<tr>

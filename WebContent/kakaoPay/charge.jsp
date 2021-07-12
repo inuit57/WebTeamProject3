@@ -85,7 +85,8 @@ request.setCharacterEncoding("UTF-8");
  		   total *=1;
  		   total += 10000;
 		   
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+ 		  	$('input[name=chargeAmt]').val(total);
 		   	 });
 		
 		
@@ -93,7 +94,8 @@ request.setCharacterEncoding("UTF-8");
 			 var total = $('#chargeAmt').val();
 	 		   total *=1;
 	 		   total += 50000;
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+	 		  $('input[name=chargeAmt]').val(total);
 	   	 });
 		
 		
@@ -101,7 +103,8 @@ request.setCharacterEncoding("UTF-8");
 			 var total = $('#chargeAmt').val();
 	 		   total *=1;
 	 		   total += 100000;
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+	 		  $('input[name=chargeAmt]').val(total);
 	   	 });
 		
 		
@@ -109,7 +112,8 @@ request.setCharacterEncoding("UTF-8");
 			 var total = $('#chargeAmt').val();
 	 		   total *=1;
 	 		   total += 500000;
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+	 	    $('input[name=chargeAmt]').val(total);
 	   	 });
 		// 금액버튼 끝
 		
@@ -118,7 +122,8 @@ request.setCharacterEncoding("UTF-8");
 		
 		// 리셋 버튼 이벤트
 		$("#reset").click(function (){
-			$('input[name=chargeAmt]').attr('value',"");
+			//$('input[name=chargeAmt]').attr('value',"");
+			$('input[name=chargeAmt]').val(""); 
 	   	 });
 		// 리셋 버튼 이벤트
 		
@@ -135,7 +140,7 @@ request.setCharacterEncoding("UTF-8");
 	<div id="header" style="margin: 0px 20px 0px 20px;">
 		<h3 style="text-align: center; margin-top: 30px">충전</h3>
 		<div id="in" style="position: relative; margin-top: 50px">
-		<input type="tel" class="input_amount" name="chargeAmt" id="chargeAmt" required="required" autocomplete="off" placeholder="금액을 입력하세요" style="margin-top: 0;">
+		<input type="number" class="input_amount" name="chargeAmt" id="chargeAmt" required="required" autocomplete="off" placeholder="금액을 입력하세요" style="margin-top: 0;">
 		<img src="./img/reset.png" style="width: 20px; position: absolute; right: 3px; top:4px;" id="reset">
 		</div>
         <hr>

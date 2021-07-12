@@ -565,6 +565,33 @@ public class UserDAO {
 			closeDB(); 
 		} 
 	}
+	// checkGrade(user_nick) 유저 등급 가져오는 메서드
+	public int checkGrade(String user_nick){
+		int grade = 0;
+		try {
+			conn = getConnection();
+			
+			sql = "select user_grade from member where user_nickname=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_nick);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				grade=rs.getInt("user_grade");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeDB();
+		}
+		
+		return grade;
+	}
 	
-
+	
 }

@@ -116,9 +116,9 @@ border-left:none;
 		<table class="table">
 			<thead class="table-dark">
 			<tr>
-				<th> 작성자 </th>
-				<th> 댓글 내용 </th>
-				<th> 작성일 </th>
+				<th width="20%"> 작성자 </th>
+				<th width="50%"> 댓글 내용 </th>
+				<th width="30%"> 작성일 </th>
 			</tr>
 			</thead>
 		<%
@@ -248,8 +248,8 @@ border-left:none;
 	if(bDTO.getUser_nickname().equals(user_nick) || user_nick.equals("admin")){
 	%>
 
-		<input type="button" class="btn btn-success" value="수정하기" onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
 		<input type="submit" class="btn btn-warning" value="삭제하기" onclick="return confirm('게시글을 삭제하시겠습니까?')">
+		<input type="button" class="btn btn-primary" value="수정하기" onclick="location.href='board_modify.bo?board_num=<%=bDTO.getBoard_num() %>&pageNum=<%=pageNum %>';" >
 
 	<%		
 		} // 아니면 목록으로 버튼만 보여줌
