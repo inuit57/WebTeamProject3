@@ -149,6 +149,7 @@
 	%>	
 	<input type="button" value="거래신청" id="sellConfirm01" class="bottom_button" onclick="socketMsgSeller01();" >
 	<input type="button" value="거래완료" id="sellConfirm02" class="bottom_button" onclick="socketMsgSeller02();" disabled="disabled">
+	
 	<% }else{ // 구매자인 경우  %>
 	<input type="button" value="거래승인" id="buyConfirm01" class="bottom_button" onclick="socketMsgBuyer01();" disabled="disabled">
 	<input type="button" value="구매확정" id="buyConfirm02" class="bottom_button" onclick="socketMsgBuyer02();" disabled="disabled">
@@ -166,6 +167,10 @@ String.prototype.replaceAll = function(org, dest) {
 
 $(document).ready(function(){
 	webSocketInit();
+	
+	$("#sellConfirm02").attr("type", "hidden");
+	$("#buyConfirm01").attr("type", "hidden");
+	$("#buyConfirm02").attr("type", "hidden");
 });
 
 var chatRole = document.getElementById("chatRole");
@@ -210,12 +215,15 @@ function socketOpen(event) {
                if( msgWriter == 'seller'){
                   if(msgText == 'sell01'){
                      msgText = "거래에 응하시려면 '거래승인'을 눌러주세요.";
+                     $("#sellConfirm01").attr("type", 'hidden');
                      if( chatRole.value == 'buyer' ){
                         $("#buyConfirm01").attr("disabled", false); //거래승인 버튼 활성화
                         $("#buyConfirm02").attr("disabled", true);
                         
                         $("#buyConfirm01").attr("type", "button"); //거래승인 버튼 활성화
                         $("#buyConfirm02").attr("type", "hidden");
+                        
+
                      }
                   }
                   if(msgText == 'sell02'){                  
@@ -226,6 +234,7 @@ function socketOpen(event) {
                         
                         $("#buyConfirm01").attr("type", 'hidden');
                         $("#buyConfirm02").attr("type", 'button'); // 구매확정 버튼 활성화
+                        $("#deleteChat").attr("type", 'hidden');
                       }
                   }
                }else if(msgWriter == 'buyer'){
@@ -254,6 +263,8 @@ function socketOpen(event) {
                         $("#sellConfirm02").attr("type", hidden);
                         $("#buyConfirm01").attr("type", hidden);
                         $("#buyConfirm02").attr("type", hidden);
+                        
+                        $("#deleteChat").attr("type", hidden);
                      //}
                   }
                }
@@ -399,6 +410,8 @@ function socketMsgBuyer01() {
 		$("#buyConfirm01").attr("disabled", true);
 		$("#buyConfirm01").attr("type", 'hidden');
 		addRightChat("금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ");
+		
+		$("#sellConfirm02").attr("type", 'button'); //거래완료 버튼 활성화
 	}
 }
 
