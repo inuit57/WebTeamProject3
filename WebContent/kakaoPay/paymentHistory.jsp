@@ -37,8 +37,10 @@
 	
 	<script type="text/javascript">
 	
-	$(document).ready(function() {
-		$.ajax({
+	var timerID;
+	
+	 function updateData(){
+		 $.ajax({
 			 url:'./Coin.pa',
 		     type:'post',
 		     data:{"user_nick":"<%=user_nick%>"}, 
@@ -53,7 +55,15 @@
 	        		error:function(){
 	                alert("에러입니다");
 	               }
-	       }); // 잔여포인트
+	       }); // 잔여포인트	
+		 timerID = setTimeout("updateData()", 100); // 2초 단위로 갱신 처리
+	    }//
+			
+	$(document).ready(function() {
+		
+		 updateData();
+		 
+		
 	});
 	</script>
 	

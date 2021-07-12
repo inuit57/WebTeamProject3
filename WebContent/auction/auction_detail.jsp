@@ -234,7 +234,7 @@ border-bottom:none;
 						최저가 : <fmt:formatNumber value="<%=aDTO.getAuct_price()%>" pattern="#,###,###,###,###"/>원</p>
 					
 					<ul class="list-inline"><li class="list-inline-item">
-                                    <h5>판매자: <a style="color: #59ab6e;"><%=aDTO.getUser_nick()%></a></h5>
+                                    <h5>판매자 : <a style="color: #59ab6e;"><%=aDTO.getUser_nick()%></a></h5>
                                 </li></ul>	
 					
 					<br>
