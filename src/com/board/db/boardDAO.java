@@ -64,28 +64,29 @@ public class boardDAO {
     	try {
 	    	conn = getConnection();
 	    	
-	    	sql = "select max(board_num) from normal_board";
-    	
+			sql = "select max(board_num) from normal_board";
+			
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){
-				num = rs.getInt(1) + 1;
+			if(rs.next()) {
+				num = rs.getInt(1)+1;
 			}
-			
-			sql = "insert into normal_board values(?,?,?,?,?,?,now(),?,?)";
+	    	
+	    			
+			sql = "insert into normal_board(board_area, user_nickname, board_count, board_sub, board_content, board_date, board_file, board_ip , board_num) values(?,?,?,?,?,now(),?,?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, num);
-			pstmt.setString(2, bDTO.getBoard_area());
-			pstmt.setString(3, bDTO.getUser_nick());
-			pstmt.setInt(4, bDTO.getBoard_count());
-			pstmt.setString(5, bDTO.getBoard_sub());
-			pstmt.setString(6, bDTO.getBoard_content());
-			pstmt.setString(7, bDTO.getBoard_file());
-			pstmt.setString(8, bDTO.getBoard_ip());
+			pstmt.setString(1, bDTO.getBoard_area());
+			pstmt.setString(2, bDTO.getUser_nickname());
+			pstmt.setInt(3, bDTO.getBoard_count());
+			pstmt.setString(4, bDTO.getBoard_sub());
+			pstmt.setString(5, bDTO.getBoard_content());
+			pstmt.setString(6, bDTO.getBoard_file());
+			pstmt.setString(7, bDTO.getBoard_ip());
+			pstmt.setInt(8, num);
 			
 			
 			pstmt.executeUpdate();
@@ -127,7 +128,7 @@ public class boardDAO {
 				
 				dto.setBoard_num(rs.getInt("board_num"));
 				dto.setBoard_area(rs.getString("board_area"));
-				dto.setUser_nick(rs.getString("user_nick"));
+				dto.setUser_nickname(rs.getString("user_nickname"));
 				dto.setBoard_count(rs.getInt("board_count"));
 				dto.setBoard_date(rs.getString("board_date"));
 				dto.setBoard_file(rs.getString("board_file"));
@@ -161,7 +162,7 @@ public class boardDAO {
     	try {
     		conn = getConnection();
     	
-    		sql = "select * from normal_board WHERE user_nick=? limit ?,? ";
+    		sql = "select * from normal_board WHERE user_nickname=? limit ?,? ";
     	
 			pstmt = conn.prepareStatement(sql);
 			
@@ -176,7 +177,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_date(rs.getString("board_date"));
 				bDTO.setBoard_file(rs.getString("board_file"));
@@ -255,7 +256,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_date(rs.getString("board_date"));
 				bDTO.setBoard_file(rs.getString("board_file"));
@@ -332,7 +333,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_date(rs.getString("board_date"));
 				bDTO.setBoard_file(rs.getString("board_file"));
@@ -447,7 +448,7 @@ public class boardDAO {
 				
 				bDTO.setBoard_num(rs.getInt("board_num"));
 				bDTO.setBoard_area(rs.getString("board_area"));
-				bDTO.setUser_nick(rs.getString("user_nick"));
+				bDTO.setUser_nickname(rs.getString("user_nickname"));
 				bDTO.setBoard_count(rs.getInt("board_count"));
 				bDTO.setBoard_sub(rs.getString("board_sub"));
 				bDTO.setBoard_content(rs.getString("board_content"));
@@ -512,6 +513,7 @@ public class boardDAO {
     
     // getBoardCount(sk, sv) 검색한 글의 개수 가져오는 함수
     /********************************************************************/
+
 
 }
 

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class ProdDTO {
 
 	private int prod_num;
-	private String user_nick;
+	private String user_nickname;
 	private int prod_category;
 	private int prod_status;
 	private String prod_sub;
@@ -15,17 +15,18 @@ public class ProdDTO {
 	private Timestamp prod_date;
 	private String prod_ip;
 	private int prod_count;
+	
 	public int getProd_num() {
 		return prod_num;
 	}
 	public void setProd_num(int prod_num) {
 		this.prod_num = prod_num;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 	public int getProd_category() {
 		return prod_category;
@@ -81,15 +82,6 @@ public class ProdDTO {
 	public void setProd_count(int prod_count) {
 		this.prod_count = prod_count;
 	}
-
-	@Override
-	public String toString() {
-		return "ProdDTO [prod_num=" + prod_num + ", user_nick=" + user_nick + ", prod_category=" + prod_category
-				+ ", prod_status=" + prod_status + ", prod_sub=" + prod_sub + ", prod_content=" + prod_content
-				+ ", prod_price=" + prod_price + ", prod_img=" + prod_img + ", prod_date=" + prod_date + ", prod_ip="
-				+ prod_ip + ", prod_count=" + prod_count + "]";
-	}
-	
 	
 	
 	

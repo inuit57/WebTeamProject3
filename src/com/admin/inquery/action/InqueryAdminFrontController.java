@@ -117,7 +117,20 @@ public class InqueryAdminFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if(command.equals("/InqueryAdminListSample.ai")){
+			System.out.println("/InqueryAdminListSample.ai 호출");
+			
+			action = new InqueryAdminListAction2();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+				
 		}
+			
 		
 		
 	

@@ -37,16 +37,31 @@ public class ProductRegisterAction implements Action {
 		ProdDTO pDTO = new ProdDTO();
 		pDTO.setProd_category(Integer.parseInt(multi.getParameter("category")));
 		pDTO.setProd_status(Integer.parseInt(multi.getParameter("status")));
-		pDTO.setUser_nick(multi.getParameter("nick"));
+		pDTO.setUser_nickname(multi.getParameter("nick")); // form에 nick으로 되어있습니다!!! 고치지 마세요!!!!! 
 		pDTO.setProd_sub(multi.getParameter("prod_sub"));
 		pDTO.setProd_price(Integer.parseInt(multi.getParameter("prod_price")));
 		pDTO.setProd_content(multi.getParameter("prod_content"));
 		
-		String image
-			= multi.getFilesystemName("file1")+","
-			+ multi.getFilesystemName("file2")+","
-			+ multi.getFilesystemName("file3")+","
-			+ multi.getFilesystemName("file4");
+		String image =""; 
+		int null_cnt = 0 ; 
+		
+		for(int i = 1; i<=4 ; i++){
+			String imgName = multi.getFilesystemName("file"+i); 
+			if(imgName == null){
+				null_cnt ++; 
+			}else{
+				image+= (multi.getFilesystemName("file"+i)+","); 
+			}
+		}
+		
+		for(int i = 0 ; i< null_cnt; i++){
+			image +=("null,"); 
+		}
+//		String image
+//			= multi.getFilesystemName("file1")+","
+//			+ multi.getFilesystemName("file2")+","
+//			+ multi.getFilesystemName("file3")+","
+//			+ multi.getFilesystemName("file4");
 		
 		pDTO.setProd_img(image);
 		

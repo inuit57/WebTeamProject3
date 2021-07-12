@@ -39,7 +39,7 @@ public class UserEmailSendAction implements Action {
 			
 			
 			session.setAttribute("id", id);
-			String subject = "OOO마켓 인증메일입니다.";
+			String subject = "기억마켓 인증메일입니다.";
 			random r = new random();
 			String content = r.randomNum();
 			session.setAttribute("content", content);

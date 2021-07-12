@@ -56,7 +56,7 @@ public class UserDAO {
 		try {
 			conn = getConnection();
 
-			sql = "INSERT INTO member(user_id,user_nick,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
+			sql = "INSERT INTO member(user_id,user_nickname,user_pw,user_joindate,user_coin,user_phone,user_address,user_address_plus,user_bankname,user_bankaccount,user_picture,user_auth,user_grade,user_use_yn) "
 					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			pstmt = conn.prepareStatement(sql);
@@ -90,7 +90,7 @@ public class UserDAO {
 		String id = null ; 
 		try {
 			conn = getConnection(); 
-			sql = "select user_id from member where user_nick=?"; 
+			sql = "select user_id from member where user_nickname=?"; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, nick);
 			
@@ -112,7 +112,9 @@ public class UserDAO {
 
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nick FROM member WHERE user_nick=?";
+
+			sql = "SELECT user_nickname FROM member WHERE user_nickname=?";
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, a);
 			rs = pstmt.executeQuery();
@@ -130,7 +132,65 @@ public class UserDAO {
 		}
 		return tmp;
 	}
+	
+	public String searchID(String user_phone) {
+		// 폰번호에 따른 아이디 조회하는 함수
+		String user_id = "";
 
+		try {
+			conn = getConnection();
+
+			sql = "SELECT user_id FROM member WHERE user_phone=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				user_id = rs.getString(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		return user_id;
+	}
+	
+	
+	
+	//checkPhone(user_phone)
+	public boolean checkPhone(String user_phone) {
+		// 전화번호 조회하는 함수
+		boolean tmp = false;
+
+		try {
+			conn = getConnection();
+
+			sql = "SELECT user_phone FROM member WHERE user_phone=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_phone);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				tmp = true;
+			} else {
+				tmp = false;
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		return tmp;
+	}
+	//checkPhone(user_phone)
+
+	
+	
+	
+	
 	public boolean checkId(String a) {
 		// 아이디(이메일) 조회하는 함수
 		boolean tmp = false;
@@ -179,37 +239,41 @@ public class UserDAO {
 
 	public String Login(String id, String pw) {
 
-		boolean b = false;
-		String user_nick = null;
+	      boolean b = false;
+	      String user_nick = null;
+	      System.out.println("id :: " + id ); // ok 
 
-		try {
-			conn = getConnection();
-			sql = "SELECT user_pw, user_use_yn, user_nick FROM member WHERE user_id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				if (rs.getString(1).equals(pw)) {
-					if (rs.getInt(2) == 0) {
-						user_nick = rs.getString(3);
-					} else {
-						b = false;
-					}
-				} else {
-					b = false;
-				}
-			} else {
-				b = false;
-			}
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			System.out.println("UserDAO.Login() function error - KBH");
-		} finally {
-			closeDB();
-		}
+	      try {
+	         conn = getConnection();
+	         sql = "SELECT user_pw, user_use_yn, user_nickname FROM member WHERE user_id=?";
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, id);
+	         rs = pstmt.executeQuery();
+	         if (rs.next()) {
+	        	System.out.println("PW : " + rs.getString("user_pw"));
+	            if (rs.getString(1).equals(pw)) {
+	               if (rs.getInt(2) == 1) { // 1 : 사용 , 2 : 탈퇴된 회원 
+	                  user_nick = rs.getString(3);
+	                  System.out.println("user_nick : " + user_nick);
+	               } else {
+	                  b = false;
+	               }
+	            } else {
+	               b = false;
+	            }
+	         } else {
+	        	 System.out.println("찾는 회원 정보 없음!!");
+	            b = false;
+	         }
+	      } catch (Exception e) {
+	         System.out.println(e.toString());
+	         System.out.println("UserDAO.Login() function error - KBH");
+	      } finally {
+	         closeDB();
+	      }
 
-		return user_nick;
-	}
+	      return user_nick;
+	   }
 
 	public UserDTO getUserInfo(String user_nick) {
 
@@ -247,7 +311,7 @@ public class UserDAO {
 	public void userDelete(String id) {
 		try {
 			conn = getConnection();
-			sql = "UPDATE member SET user_use_yn=1 WHERE user_id=?";
+			sql = "UPDATE member SET user_use_yn=2 WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
@@ -298,13 +362,37 @@ public class UserDAO {
 		
 	}
 	
+	public void updatePW(String user_pw, String user_phone , String user_id) {
+		try {
+			conn = getConnection();
+			if(user_phone.equals("0")){
+				sql = "UPDATE member SET user_pw=? WHERE user_id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_pw);
+				pstmt.setString(2, user_id);
+			}else{
+				sql = "UPDATE member SET user_pw=? WHERE user_phone=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_pw);
+				pstmt.setString(2, user_phone);
+			}
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		} finally {
+			closeDB();
+		}
+		
+	}
+	
 	public String getUserNick(String id) {
 		
 		String nick = null;
 		
 		try {
 			conn = getConnection();
-			sql = "SELECT user_nickname FROM member WHERE user_id=?";
+			sql = "SELECT user_nickname FROM user WHERE user_id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -316,25 +404,6 @@ public class UserDAO {
 			System.out.println("UserDAO.getUserNick() function error - KBH");
 		}
 		return nick;
-	}
-	
-	public void changeBankAccount(String id, String bankName, String bankAccount) {
-		try {
-			conn = getConnection();
-			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bankName);
-			pstmt.setString(2, bankAccount);
-			pstmt.setString(3, id);
-			
-			pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			System.out.println("UserDAO.changeBankAccount() function error - KBH");
-		} finally {
-			closeDB();
-		}
 	}
 	
 	public boolean isAdmin(String user_nick){
@@ -363,6 +432,38 @@ public class UserDAO {
 		
 		return false; 
 	}
+	
+	
+	public void changeBankAccount(String id, String bankName, String bankAccount) {
+		
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			sql = "UPDATE member SET user_bankname=?, user_bankaccount=? WHERE user_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bankName);
+			pstmt.setString(2, bankAccount);
+			pstmt.setString(3, id);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result==1) {
+				sql= "update member set user_grade=2 where user_id=?";
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			System.out.println("UserDAO.changeBankAccount() function error - KBH");
+		} finally {
+			closeDB();
+		}
+	}
+	
 	public void charge(String user_nickname, int totalamount){
 		try {
 			conn = getConnection();
@@ -434,6 +535,63 @@ public class UserDAO {
 		}
 		return user_profile;
 	}
-	
 
+	/**
+	 * member 테이블에 있는 user 정보 중 coin을 증가/감소 시켜주는 함수 
+	 * 
+	 * @param user_nick  : 유저(대상)
+	 * @param prod_price : 증가시킬 코인량
+	 * @param isPlus : true (증가) , false(감소)
+	 */
+	public void updateCoin(String user_nick, int prod_price, boolean isPlus) {
+
+		conn = getConnection();
+		
+		try {
+			if(isPlus){ //증가
+				sql = " update member set user_coin = user_coin + ? where user_nickname=?";
+			}else{ // 감소
+				sql = " update member set user_coin = user_coin - ? where user_nickname=?"; 
+			}
+		
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prod_price);
+			pstmt.setString(2, user_nick);
+			
+			pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			closeDB(); 
+		} 
+	}
+	// checkGrade(user_nick) 유저 등급 가져오는 메서드
+	public int checkGrade(String user_nick){
+		int grade = 0;
+		try {
+			conn = getConnection();
+			
+			sql = "select user_grade from member where user_nickname=?";
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user_nick);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				grade=rs.getInt("user_grade");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeDB();
+		}
+		
+		return grade;
+	}
+	
+	
 }

@@ -33,8 +33,12 @@ public class UserLoginAction implements Action {
     
 		String user_nick = "";
 		
+	
+		
 		if(loginType.equals("normal")){
+			System.out.println("로그인 방식 : 노멀");
 			user_nick = udao.Login(id,pw);
+			
 		}else{
 			user_nick = udao.checkEmail(id);
 		}
@@ -46,11 +50,13 @@ public class UserLoginAction implements Action {
 // 			session.setAttribute("nick", user_nick);
 // 			forward.setPath("./index.us");
 		if(user_nick != null) {
+			session.setAttribute("id", id);
 			session.setAttribute("user_nick", user_nick);
-			session.setAttribute("user_profile", udao.getProfile(user_nick));
+			session.setAttribute("user_profile", udao.getProfile(user_nick));			
 			forward.setPath("./Main.do");
 			forward.setRedirect(true);
 		} else {
+			System.out.println("user_nick : " + user_nick);
 			forward.setPath("./UserLogin.us?error=1");
 			forward.setRedirect(true);
 		}

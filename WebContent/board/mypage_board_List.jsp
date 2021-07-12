@@ -47,7 +47,7 @@
 			<td>
 				<a href="board_content.bo?board_num=<%=dto.getBoard_num()%>&pageNum=<%=pageNum%>"><%=dto.getBoard_sub() %></a>
 			</td>
-			<td><%=dto.getUser_nick() %></td>
+			<td><%=dto.getUser_nickname() %></td>
 			<td><%=dto.getBoard_date() %></td>
 			<td><%=dto.getBoard_count() %></td>
 		</tr>

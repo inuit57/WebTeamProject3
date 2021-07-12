@@ -47,6 +47,8 @@ public class UserInfoEditAction implements Action {
 		udto.setUser_addressPlus(multi.getParameter("user_address_plus"));
 		udto.setUser_picture(multi.getFilesystemName("user_picture"));
 		
+		session.setAttribute("user_profile", multi.getFilesystemName("user_picture"));
+		
 		System.out.println("Picture name : " + multi.getFilesystemName("user_picture"));
 		
 		UserDAO udao = new UserDAO();
@@ -54,11 +56,11 @@ public class UserInfoEditAction implements Action {
 		udao.userInfoEdit(udto);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("./Main.do");
+		
+		//UserInfo.us
+		//forward.setPath("./Main.do");
+		forward.setPath("./UserInfo.us?onClose=1");
 		forward.setRedirect(true);
-		
-		
-
 		
 		return forward;
 	}

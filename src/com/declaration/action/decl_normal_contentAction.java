@@ -19,6 +19,8 @@ public class decl_normal_contentAction implements Action {
 		request.setCharacterEncoding("utf-8");
 		
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
+		int state = Integer.parseInt(request.getParameter("state"));
+		int decl_num = Integer.parseInt(request.getParameter("decl_num"));
 		
 		declarationDAO dcDAO = new declarationDAO();
 		List decl_normal_reason = dcDAO.getDecl_normal_reason(board_num);
@@ -32,6 +34,7 @@ public class decl_normal_contentAction implements Action {
 		
 		request.setAttribute("bDTO", bDTO);
 		request.setAttribute("decl_normal_reason", decl_normal_reason);
+		request.setAttribute("decl_num", decl_num);
 		
 		// 페이지이동
 		ActionForward forward = new ActionForward();

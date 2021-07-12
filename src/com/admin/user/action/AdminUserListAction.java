@@ -20,7 +20,7 @@ public class AdminUserListAction implements Action {
 		
 		int cnt = auDAO.adminUserCount();
 		
-		int pageSize = 5;
+		int pageSize = 10;
 		
 		String pageNum = request.getParameter("pageNum");
 		
@@ -46,22 +46,17 @@ public class AdminUserListAction implements Action {
 		if(auth_s!=null){
 			auth =Integer.parseInt(request.getParameter("auth"));
 		}
-		System.out.println("@#@@@@@@@@@@@@@@@@@"+auth);
 		
 		List auList = new ArrayList();
-		
-		System.out.println("@@@@@@@@@@@@@@@"+auth);
 		
 		if(auth_s!=null){
 			
 			auList = auDAO.getAdminUserList(auth,startRow,pageSize);
 			cnt = auDAO.adminUserCount(auth);
-			System.out.println("@@@@@@@@@@@@@@@1111111"+auth_s);
 			
 		}else{
 			
 			auList = auDAO.getAdminUserList(startRow,pageSize);			
-			System.out.println("@@@@@@@@@@@@@@@22222222"+auth_s);
 		}
 		
 

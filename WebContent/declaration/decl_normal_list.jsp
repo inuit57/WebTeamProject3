@@ -10,19 +10,63 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>신고목록 - 일반게시판</title>
+<link rel="stylesheet" href="./css/admin.css">
+
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
 <jsp:include page="../inc/top.jsp"/> 
 <!-- 헤더파일들어가는 곳 -->
 
-<div class="container" >
-<br><br>
-	<h1>신고목록 - 일반게시판</h1>
-	<hr>
-	<input type="button" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl'">
-	<input type="button" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl'">
-	<hr>
+	
+		<div id="col-lg-3">
+			
+				<h1 class="h2 pb-4">관리자 게시판</h1>
+						
+			<ul class="list-unstyled templatemo-accordion">
+			<li  class="pb-3">
+			<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+				회원목록 조회
+				<i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+				 	<ul>
+					<li><a class="text-decoration-none" href="./AdminUserList.au">전체</a></li>
+					<li><a class="text-decoration-none" href="./AdminUserList.au?auth=1">일반회원</a></li>
+					<li><a class="text-decoration-none" href="./AdminUserList.au?auth=2">관리자</a></li>
+					</ul>
+					</li>				
+				<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+				1:1 문의 내역조회
+				 <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+				 	<ul >
+					<li><a class="text-decoration-none" href="./InqueryAdminList.ai">전체</a></li>
+					<li><a class="text-decoration-none" href="./InqueryAdminList.ai?check=0">답변 요청글</a></li>
+					<li><a class="text-decoration-none" href="./InqueryAdminList.ai?check=1">답변 완료글</a></li>
+					</ul>
+				</li>
+											
+				<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+				신고내역 조회
+				<i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+				 	<ul>				 		
+				 	<li><a  class="text-decoration-none" href="./decl_prod_list.decl?state=0">상품게시판</a></li>	
+				 	<li><a  class="text-decoration-none" href="./decl_normal_list.decl?state=1">일반게시판</a></li>
+				 	</ul>	
+					</li>
+			</ul>		
+				
+		</div>
+
+
+
+<div class="ad-content0" >
+<br>
+	<h1> 신고목록 - 일반게시판 </h1>
+
 	<%
 		// 전달된 신고글 목록 저장
 		List decl_normal_list = (List)request.getAttribute("decl_normal_list");
@@ -30,20 +74,24 @@
 		int pageNum = Integer.parseInt(request.getAttribute("pageNum").toString());	
 		int pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());
 		int currentPage = Integer.parseInt(request.getAttribute("currentPage").toString());
+		int state = Integer.parseInt(request.getParameter("state"));
 		
 		boardDAO bDAO = new boardDAO();
 		declarationDAO dcDAO = new declarationDAO();
 	%>
 	
-	<table border="1">
+	<table class="table" style="margin-top: 2%">
+		<thead class="table-dark">
 		<tr>
-			<td>피의자</td>	<!-- 신고당한 글 작성자 -->	
-			<td>글번호</td>
-			<td>제목</td>		
-			<td>신고날짜</td>		
-			<td>신고자</td>
-			<td>신고횟수</td>		
+			<th>피의자</th>	<!-- 신고당한 글 작성자 -->	
+			<th>글번호</th>
+			<th>제목</th>		
+			<th>신고날짜</th>		
+			<th>신고자</th>
+			<th>신고횟수</th>
+			<th>처리상태</th>		
 		</tr>
+		</thead>
 	<%
 	for(int i = 0; i < decl_normal_list.size(); i++){
 		declarationDTO dcDTO = (declarationDTO)decl_normal_list.get(i);
@@ -55,19 +103,35 @@
 		// 신고테이블DB에 해당 게시글번호로 신고된 게시글 개수가 몇개인지 찾아옴
 		int decl_normal_cnt = dcDAO.getDecl_normal_count(board_num);
 		
-		boardDTO bDTO = new boardDTO(); // 게시글DTO 객체생성
-		bDTO = bDAO.getContent(board_num);
-		
 	%>
 		<tr>
 			<td><%=dcDTO.getDecl_writer() %></td> <!-- 신고당한 글 작성자 -->
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-				<a href="decl_normal_content.decl?board_num=<%=board_num%>"><%=bDTO.getBoard_sub() %></a>
-			</td> <!-- 신고당한 글의 제목 boardDTO에서 꺼내옴 -->
-			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		
-			<td><%=dcDTO.getUser_nick() %></td><!-- 게시글을 신고한사람 -->	
-			<td><%=decl_normal_cnt %></td>	
+				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=state%>&decl_num=<%=dcDTO.getDecl_num()%>"><%=dcDTO.getBoard_sub() %></a>
+			</td> 
+<%-- 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		 --%>
+			<td><%=dcDTO.getDecl_date() %></td>
+			<td><%=dcDTO.getUser_nickname() %></td><!-- 게시글을 신고한사람 -->	
+			<td style="color: red;"><%=decl_normal_cnt %></td>	
+			<%
+				String decl_state = "";
+			
+			switch(dcDTO.getDecl_state()){
+			
+			case 1: 
+				decl_state = "처리중";
+				break;
+			case 2:
+				decl_state = "처리완료";
+				break;
+			}
+			if(decl_state.equals("처리중")){
+			%>
+				<td style="color: red"><b><%=decl_state %></b></td>
+			<%}else { %>
+				<td style="color: yellowgreen"><b><%=decl_state %></b></td>
+			<%} %>
 		</tr>
 	<%
 	}
@@ -102,7 +166,7 @@
 			// 이전(해당 페이지블럭의 첫번째 페이지 호출)
 			if(startPage > pageBlock){
 				%>
-				<a href="decl_normal_list.decl?pageNum=<%=startPage - pageBlock%>" >[이전]</a>
+				<a href="decl_normal_list.decl?pageNum=<%=startPage - pageBlock%>&state=0" >[이전]</a>
 				<%
 			}
 			
@@ -111,25 +175,34 @@
 			// 숫자 1...5
 			for(int i = startPage; i <= endPage; i++){
 				%>
-					<a href="decl_normal_list.decl?pageNum=<%=i%>">[<%=i %>]</a>				
+					<a href="decl_normal_list.decl?pageNum=<%=i%>&state=0">[<%=i %>]</a>				
 				<%
 			}
 			
 			// 다음 (기존의 페이지 블럭보다 페이지의 수가 많을때)
 			if(endPage < pageCount){
 				%>
-				<a href="decl_normal_list.decl?pageNum=<%=startPage + pageBlock%>">[다음]</a>
+				<a href="decl_normal_list.decl?pageNum=<%=startPage + pageBlock%>&state=0">[다음]</a>
 				<%
 			}
 			
 		}
-		
 		/////////////////////////////////////////////////////////
-		
 	%>
-</div>
+		
+	<br><br>
+	<input type="button" style="margin-left: 80%;" value="처리대기중" class="btn btn-warning" onclick="location.href='decl_normal_list.decl?state=1'">
+	<input type="button" value="처리완료" class="btn btn-success" onclick="location.href='decl_normal_list.decl?state=2'">
+		<input type="button" class="btn btn-light" value="상품게시판 신고목록 보기" onclick="location.href='decl_prod_list.decl?state=0'">
+	<input type="button" class="btn btn-light" value="일반게시판 신고목록 보기" onclick="location.href='decl_normal_list.decl?state=0'">
+		
+	
+	</div>
+
 <!-- 푸터 들어가는 곳 -->
+<div class="footer">
 <jsp:include page="../inc/footer.jsp"/> 
+</div>
 <!-- 푸터 들어가는 곳 -->	
 </body>
 </html>

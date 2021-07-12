@@ -67,7 +67,7 @@ public class AdminInqueryDAO {
     	try {
     		conn = getConnection();
     		
-    		sql = "select * from inquery order by inq_ref";
+    		sql = "select * from inquery order by inq_ref desc, inq_num asc";
     		
 			pstmt = conn.prepareStatement(sql);
 			
@@ -81,7 +81,7 @@ public class AdminInqueryDAO {
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
 				inDTO.setInq_num(rs.getInt("inq_num"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
-				inDTO.setUser_nick(rs.getString("user_nick"));
+				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_check(rs.getString("inq_check"));
 				inDTO.setInq_ref(rs.getInt("inq_ref"));
 				
@@ -114,11 +114,9 @@ public class AdminInqueryDAO {
     		SQL.append("select * from inquery");
     		
     		if(check.equals("0")){
-    			SQL.append(" where inq_check=0 order by inq_ref limit ?,?");
-    			System.out.println("@@@@@@@@@@@check000000000");
+    			SQL.append(" where inq_check=0 order by inq_ref desc, inq_num asc limit ?,?");
     		}else{
-    			SQL.append(" where inq_check=1 order by inq_ref limit ?,?");
-    			System.out.println("@@@@@@@@@@@@@@check111111111111");
+    			SQL.append(" where inq_check=1 order by inq_ref desc, inq_num asc limit ?,?");
     		}
     		
 			pstmt = conn.prepareStatement(SQL+"");
@@ -136,7 +134,7 @@ public class AdminInqueryDAO {
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
 				inDTO.setInq_num(rs.getInt("inq_num"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
-				inDTO.setUser_nick(rs.getString("user_nick"));
+				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_check(rs.getString("inq_check"));
 				inDTO.setInq_ref(rs.getInt("inq_ref"));
 				
@@ -178,13 +176,13 @@ public class AdminInqueryDAO {
 			}
 			
 			// 임시로 만듬 나중에 세션값 제어할때 다시 inq_lev 값 받아서 작성
-			sql = "insert into inquery(inq_num,user_nick,inq_sub,inq_content, "
+			sql = "insert into inquery(inq_num,user_nickname,inq_sub,inq_content, "
 					+ "inq_lev,inq_date,inq_ref,inq_check) values(?,?,?,?,1,now(),?,?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, num);
-			pstmt.setString(2, inDTO.getUser_nick());
+			pstmt.setString(2, inDTO.getUser_nickname());
 			pstmt.setString(3, inDTO.getInq_sub());
 			pstmt.setString(4, inDTO.getInq_content());
 			pstmt.setInt(5, inDTO.getInq_num());
@@ -226,7 +224,7 @@ public class AdminInqueryDAO {
 			if(rs.next()){
 				
 				inDTO.setInq_num(rs.getInt("inq_num"));
-				inDTO.setUser_nick(rs.getString("user_nick"));
+				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
@@ -355,7 +353,7 @@ public class AdminInqueryDAO {
 			inDTO = new InqueryDTO();
 			
 			inDTO.setInq_num(rs.getInt("inq_num"));
-			inDTO.setUser_nick(rs.getString("user_nick"));
+			inDTO.setUser_nickname(rs.getString("user_nickname"));
 			inDTO.setInq_sub(rs.getString("inq_sub"));
 			inDTO.setInq_content(rs.getString("inq_content"));
 			inDTO.setInq_lev(rs.getInt("inq_lev"));
@@ -391,7 +389,7 @@ public class AdminInqueryDAO {
     		sql+="or "+sk+" like '%"+sv[i]+"%'";
     	}
     	
-    	sql+= "order by inq_ref limit ?,?";
+    	sql+= "order by inq_ref desc, inq_num asc limit ?,?";
     	
     	
 		pstmt = conn.prepareStatement(sql);
@@ -405,7 +403,7 @@ public class AdminInqueryDAO {
 			inDTO = new InqueryDTO();
 			
 			inDTO.setInq_num(rs.getInt("inq_num"));
-			inDTO.setUser_nick(rs.getString("user_nick"));
+			inDTO.setUser_nickname(rs.getString("user_nickname"));
 			inDTO.setInq_sub(rs.getString("inq_sub"));
 			inDTO.setInq_content(rs.getString("inq_content"));
 			inDTO.setInq_lev(rs.getInt("inq_lev"));
@@ -563,8 +561,8 @@ public int adminInqueryCount(String sk, String[] sv){
 		
 			
 			//sql = "select * from itwill_board";
-			sql = "select * from inquery order by inq_ref "					
-					+ "limit ?,?";
+			sql = "select * from inquery order by inq_ref desc,  "					
+					+ "inq_num asc limit ?,?";
 			
 			
 			pstmt = conn.prepareStatement(sql);
@@ -581,7 +579,7 @@ public int adminInqueryCount(String sk, String[] sv){
 				inDTO = new InqueryDTO();
 				
 				inDTO.setInq_num(rs.getInt("inq_num"));
-				inDTO.setUser_nick(rs.getString("user_nick"));
+				inDTO.setUser_nickname(rs.getString("user_nickname"));
 				inDTO.setInq_sub(rs.getString("inq_sub"));
 				inDTO.setInq_content(rs.getString("inq_content"));
 				inDTO.setInq_lev(rs.getInt("inq_lev"));
@@ -607,6 +605,38 @@ public int adminInqueryCount(String sk, String[] sv){
 		
 	}//getAdminInqueryList(startRow,pageSize)
 //
+	
+	//getUsernick(num)
+	public String getUsernick(int num){
+		String nick = "";
+		try {
+			
+			
+			conn = getConnection();
+			sql = "select user_nickname from inquery where inq_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){			
+			nick = rs.getString("user_nickname");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			closeDB();
+		}
+		
+		
+		
+		return nick;
+		
+	}
+	//getUsernick(num)
+	
     
     
 }

@@ -3,7 +3,7 @@ package com.board.comment.db;
 public class boardCommentDTO {
 	
 	private int cmt_num;
-	private String user_nick;
+	private String user_nickname;
 	private String cmt_content;
 	private int board_num;
 	private String cmt_date;
@@ -18,11 +18,11 @@ public class boardCommentDTO {
 	public void setCmt_num(int cmt_num) {
 		this.cmt_num = cmt_num;
 	}
-	public String getUser_nick() {
-		return user_nick;
+	public String getUser_nickname() {
+		return user_nickname;
 	}
-	public void setUser_nick(String user_nick) {
-		this.user_nick = user_nick;
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
 	}
 	public String getCmt_content() {
 		return cmt_content;
@@ -66,6 +66,8 @@ public class boardCommentDTO {
 	public void setCmt_ip(String cmt_ip) {
 		this.cmt_ip = cmt_ip;
 	}
+	
+	
 	
 	
 

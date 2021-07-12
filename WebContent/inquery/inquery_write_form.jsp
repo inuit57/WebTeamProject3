@@ -7,18 +7,59 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="./smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="./js/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="./css/admin.css">
+<%@ include file="../inc/top.jsp" %>
+
+<style>
+
+.cont1{
+	 width: 85%;
+    padding: 20px;
+    margin-bottom: 20px;
+    float:right;  
+    overflow: hidden;
+    height: 1000px;
+    text-align: center;
+
+}
+
+button{
+	clear:both;
+
+}
+
+.cont1 a{
+	text-decoration: none;
+	color:black;
+}
+
+.cont1 a:hover{
+	background-color: green;
+	color:white;
+}
+
+
+
+</style>
+
 
 </head>
 <body>
-	<h1>WebContent/inquery/inquery_write_form.jsp</h1>
+<%
+String nick = (String) session.getAttribute("user_nick");
+%>
+
+	<h1 style="margin-top: 3%; text-align: center;">1:1 문의글 작성</h1>
+<div class="cont1">
 
 	<form  name="fr" action="./InqueryWriteAction.in" method="post">
-		글쓴이 : <input type="text" name="name"> <br>
-		제목 : <input type="text" id="subject" name="subject"><br> 
-		<textarea class="form-control" rows="20" name="content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br>
-	
-		<button type="button" id="savebutton" >등록</button>
-		</form>	
+	<input type="text" class="form-control" name="name" value="<%=nick %>" placeholder="nickname" readonly>
+	<input type="text" class="form-control" id="subject" name="subject" placeholder="제목을 입력하세요">
+		
+	<textarea class="form-control" rows="20" name="content" id="smartEditor" style="width: 100%; height: 412px;"></textarea><br><br>
+
+	<button class="btn btn-outline-success" type="button" id="savebutton" >작성</button>
+	</form>	
 	
 <script type="text/javascript">
    var oEditors = []; 
@@ -61,6 +102,9 @@
          
 </script>
 
-
+</div>
 </body>
+<div class="footer">
+<%@ include file="../inc/footer.jsp" %>
+</div>
 </html>

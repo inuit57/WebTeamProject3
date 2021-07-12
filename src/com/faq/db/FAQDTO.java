@@ -7,7 +7,6 @@ public class FAQDTO {
 	private String user_nick;  // FAQ 작성자
 	private String faq_sub;   // FAQ 제목
 	private String faq_content; // FAQ 내용
-	private String faq_file; // FAQ 이미지
 	
 	
 	
@@ -41,16 +40,10 @@ public class FAQDTO {
 	public void setFaq_content(String faq_content) {
 		this.faq_content = faq_content;
 	}
-	public String getFaq_file() {
-		return faq_file;
-	}
-	public void setFaq_file(String faq_file) {
-		this.faq_file = faq_file;
-	}
 	@Override
 	public String toString() {
 		return "FAQDTO [faq_idx=" + faq_idx + ", faq_cate=" + faq_cate + ", user_nick=" + user_nick + ", faq_sub="
-				+ faq_sub + ", faq_content=" + faq_content + ", faq_file=" + faq_file + "]";
+				+ faq_sub + ", faq_content=" + faq_content  + "]";
 	}
 	
 	

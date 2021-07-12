@@ -84,7 +84,7 @@ public class boardCommentDAO {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, cmt_num);
-				pstmt.setString(2, bcDTO.getUser_nick());
+				pstmt.setString(2, bcDTO.getUser_nickname());
 				pstmt.setString(3, bcDTO.getCmt_content());
 				pstmt.setInt(4, board_num);
 				pstmt.setInt(5, bcDTO.getCmt_ref());
@@ -132,7 +132,7 @@ public class boardCommentDAO {
 				bcDTO = new boardCommentDTO();
 				
 				bcDTO.setCmt_num(rs.getInt("cmt_num"));
-				bcDTO.setUser_nick(rs.getString("user_nick"));
+				bcDTO.setUser_nickname(rs.getString("user_nickname"));
 				bcDTO.setCmt_content(rs.getString("cmt_content"));
 				bcDTO.setCmt_date(rs.getString("cmt_date"));
 				bcDTO.setCmt_ip(rs.getString("cmt_ip"));
@@ -212,7 +212,7 @@ public class boardCommentDAO {
 				bcDTO = new boardCommentDTO();
 				
 				bcDTO.setCmt_num(rs.getInt("cmt_num"));
-				bcDTO.setUser_nick(rs.getString("user_nick"));
+				bcDTO.setUser_nickname(rs.getString("user_nickname"));
 				bcDTO.setCmt_content(rs.getString("cmt_content"));
 				bcDTO.setBoard_num(rs.getInt("board_num"));
 				bcDTO.setCmt_date(rs.getString("cmt_date"));
@@ -253,7 +253,7 @@ public class boardCommentDAO {
 			
 			conn = getConnection();
 			
-			sql = "select * from normal_board_comment  where board_num=?";
+			sql = "select * from normal_board_comment  where board_num=? order by cmt_num desc";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, board_num);
@@ -265,7 +265,7 @@ public class boardCommentDAO {
 				bcDTO = new boardCommentDTO();
 				
 				bcDTO.setCmt_num(rs.getInt("cmt_num"));
-				bcDTO.setUser_nick(rs.getString("user_nick"));
+				bcDTO.setUser_nickname(rs.getString("user_nickname"));
 				bcDTO.setCmt_content(rs.getString("cmt_content"));
 				bcDTO.setCmt_date(rs.getString("cmt_date"));
 				bcDTO.setCmt_ip(rs.getString("cmt_ip"));

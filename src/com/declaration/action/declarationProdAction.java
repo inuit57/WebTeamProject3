@@ -1,5 +1,7 @@
 package com.declaration.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
@@ -25,22 +27,37 @@ public class declarationProdAction implements Action {
 		dcDTO.setBoard_type(Integer.parseInt(request.getParameter("board_type")));
 		dcDTO.setBoard_num(Integer.parseInt(request.getParameter("prod_num")));
 		// 신고를 하는사람
-		dcDTO.setUser_nick(request.getParameter("user_nick"));
+		dcDTO.setUser_nickname(request.getParameter("user_nickname"));
+		dcDTO.setBoard_sub(request.getParameter("board_sub"));
 		dcDTO.setDecl_reason(Integer.parseInt(request.getParameter("decl_reason"))); // 신고사유
 		dcDTO.setDecl_content(request.getParameter("decl_content")); // 기타내용
 		dcDTO.setDecl_writer(request.getParameter("decl_writer")); // 신고글 작성자
-		
+		dcDTO.setBoard_sub(request.getParameter("board_sub"));
+		dcDTO.setDecl_state(Integer.parseInt(request.getParameter("decl_state")));
 		
 		declarationDAO dcDAO = new declarationDAO();
-		dcDAO.declWrite(dcDTO);
+		int result = dcDAO.declWrite(dcDTO);
+		
+		if (result == 1){
+	          response.setContentType("text/html; charset=utf-8");
+	          PrintWriter out = response.getWriter();
+	          
+	          out.print("<script>");
+	          out.print("alert('신고가 접수되었습니다.');");
+	          out.print("location.href='./ProductDetail.pr?num="+prod_num + "&pageNum="+ pageNum +"'");
+	          out.print("</script>");
+	          
+	          out.close();
+	          return null;
+	       }
 		
 		
-		// 페이지 이동
-		ActionForward forward = new ActionForward();
-		forward.setPath("./ProductDetail.pr?num="+prod_num + "&pageNum="+pageNum);
-		forward.setRedirect(true);
+//		// 페이지 이동
+//		ActionForward forward = new ActionForward();
+//		forward.setPath("./ProductDetail.pr?num="+prod_num + "&pageNum="+pageNum);
+//		forward.setRedirect(true);
 		
-		return forward;
+		return null;
 	}
 
 }

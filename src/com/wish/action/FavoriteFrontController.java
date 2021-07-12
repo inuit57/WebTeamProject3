@@ -32,7 +32,6 @@ public class FavoriteFrontController extends HttpServlet{
 		
 
 		if(command.equals("/favoriteProdAction.fp")) {
-System.out.println("!@#$%^$%^$#$!@#$@WFASDFASDFASDFASDFASFASDF");
 			///favoriteProdAction.fp 객체 생성
 			action = new favoriteProdAction();
 			
@@ -42,6 +41,15 @@ System.out.println("!@#$%^$%^$#$!@#$@WFASDFASDFASDFASDFASFASDF");
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/favoriteListAction.fp")) {
+			
+			action = new FavoriteListAction(); 
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
 		}
 		
 		

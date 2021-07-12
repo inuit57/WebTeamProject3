@@ -8,6 +8,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<style type="text/css">
+	
+	.table {
+		text-align: center;
+	}
+	td a {
+		text-decoration: none;
+	}
+	
+</style>
 </head>
 <body>
 <!-- 헤더파일들어가는 곳 -->
@@ -19,9 +30,7 @@
 <%
 	// 세션제어
 	String user_nick = (String)session.getAttribute("user_nick");
-%>	
-<%-- 	<%=user_nick %>님 환영합니다. --%>
-<%	
+	
 	boardDAO bDAO = new boardDAO();
 	// 전달된 정보저장
 	List boList = (List)request.getAttribute("boList");
@@ -46,11 +55,15 @@
 
 %>
 <div style="margin:auto;  width: 800px;">
-<div align="right">
-<input type="button" value="전체목록으로" onclick="location.href='board_List.bo?page_num=<%=pageNum%>'">
-<input type="button" value="글쓰기" onclick="location.href='./board_Write.bo'">
+<div align="right" style="margin-bottom: 2%">
+<input type="button" class="btn btn-success" value="전체목록으로" onclick="location.href='board_List.bo?page_num=<%=pageNum%>'">
+<% if( user_nick != null ) { %>
+	<input type="button" class="btn btn-success" value="글쓰기" onclick="location.href='./board_Write.bo'">
+<% }  %>
+
 </div>
-	<table  class="table table-bordered" border="1" >
+	<table class="table">
+	<thead class="table-dark">
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
@@ -58,6 +71,7 @@
 			<td>작성일</td>
 			<td>조회수</td>
 		</tr>
+	</thead>
 	<%
 		for(int i = 0; i < pageSize; i++){
 			int index = (pageNum-1)*pageSize + i;
@@ -69,7 +83,7 @@
 			<td>
 				<a href="board_content.bo?board_num=<%=bDTO.getBoard_num()%>&pageNum=<%=pageNum%>"><%=bDTO.getBoard_sub() %></a>
 			</td>
-			<td><%=bDTO.getUser_nick() %></td>
+			<td><%=bDTO.getUser_nickname() %></td>
 			<td><%=bDTO.getBoard_date() %></td>
 			<td><%=bDTO.getBoard_count() %></td>
 		</tr>
@@ -129,9 +143,10 @@
 		/////////////////////////////////////////////////////////
 	%>
 		<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+		   <hr>
 		   <form action="./BoardSearchAction.bo" method="post">
          		<select name="sk">
-            		<option value="user_nick">작성자</option>
+            		<option value="user_nickname">작성자</option>
             		<option value="board_sub">글 제목</option>
          		</select>
          		<input type="text" name="sv">

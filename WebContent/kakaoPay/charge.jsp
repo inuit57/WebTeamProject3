@@ -27,6 +27,18 @@ request.setCharacterEncoding("UTF-8");
 %>
 
 <script>
+
+	<%
+	
+	String user_nick = (String) session.getAttribute("user_nick");
+	if (user_nick == null) {
+	%>
+		window.close();
+		alert("세션이 종료되었습니다. 다시 로그인 해주세요.");
+	
+	<%
+	}else{
+	%>
 	
 	$(function() {
 		
@@ -41,7 +53,7 @@ request.setCharacterEncoding("UTF-8");
 	            pg : 'kakaopay',
 	            pay_method : 'card',
 	            merchant_uid : 'merchant_' + new Date().getTime(),
-	            name : 'OO마켓 충전',
+	            name : '기억마켓 충전',
 	            amount : totalamount,
 	            buyer_postcode : '123-456',
 	            
@@ -73,7 +85,8 @@ request.setCharacterEncoding("UTF-8");
  		   total *=1;
  		   total += 10000;
 		   
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+ 		  	$('input[name=chargeAmt]').val(total);
 		   	 });
 		
 		
@@ -81,7 +94,8 @@ request.setCharacterEncoding("UTF-8");
 			 var total = $('#chargeAmt').val();
 	 		   total *=1;
 	 		   total += 50000;
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+	 		  $('input[name=chargeAmt]').val(total);
 	   	 });
 		
 		
@@ -89,7 +103,8 @@ request.setCharacterEncoding("UTF-8");
 			 var total = $('#chargeAmt').val();
 	 		   total *=1;
 	 		   total += 100000;
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+	 		  $('input[name=chargeAmt]').val(total);
 	   	 });
 		
 		
@@ -97,7 +112,8 @@ request.setCharacterEncoding("UTF-8");
 			 var total = $('#chargeAmt').val();
 	 		   total *=1;
 	 		   total += 500000;
-			$('input[name=chargeAmt]').attr('value',total);
+			//$('input[name=chargeAmt]').attr('value',total);
+	 	    $('input[name=chargeAmt]').val(total);
 	   	 });
 		// 금액버튼 끝
 		
@@ -106,7 +122,8 @@ request.setCharacterEncoding("UTF-8");
 		
 		// 리셋 버튼 이벤트
 		$("#reset").click(function (){
-			$('input[name=chargeAmt]').attr('value',"");
+			//$('input[name=chargeAmt]').attr('value',"");
+			$('input[name=chargeAmt]').val(""); 
 	   	 });
 		// 리셋 버튼 이벤트
 		
@@ -123,7 +140,7 @@ request.setCharacterEncoding("UTF-8");
 	<div id="header" style="margin: 0px 20px 0px 20px;">
 		<h3 style="text-align: center; margin-top: 30px">충전</h3>
 		<div id="in" style="position: relative; margin-top: 50px">
-		<input type="tel" class="input_amount" name="chargeAmt" id="chargeAmt" required="required" autocomplete="off" placeholder="금액을 입력하세요" style="margin-top: 0;">
+		<input type="number" class="input_amount" name="chargeAmt" id="chargeAmt" required="required" autocomplete="off" placeholder="금액을 입력하세요" style="margin-top: 0;">
 		<img src="./img/reset.png" style="width: 20px; position: absolute; right: 3px; top:4px;" id="reset">
 		</div>
         <hr>
@@ -145,6 +162,12 @@ request.setCharacterEncoding("UTF-8");
 
 	
 	
+	 
+    	
+	<%
+		}
+			
+	%>
 	
 	
 	
