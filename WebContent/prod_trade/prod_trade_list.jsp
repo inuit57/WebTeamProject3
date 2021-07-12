@@ -90,7 +90,8 @@
              <%} %>   
 		<h4 style="margin-top: 50px; margin-bottom: 20px">검색 조건 설정</h4>
 		<form action="./ProductList.pr" method="get" id="searchProfr">
-			<select name="item">
+		<div>
+			<select name="item" style="width: 60%;float: left;">
 					<option value="" selected="selected">전체</option>
 					<option value="0"
 					<% if(item == 0){ %>
@@ -150,7 +151,7 @@
 										<%} %>>기타 중고물품</option>
 			</select>
 			
-			<select name="search_type">
+			<select name="search_type" style="width: 40%;float: right;">
 				<option value="seller"
 				<% if(search_type!=null && search_type.equals("seller")){ %> selected="selected" <%} %>
 				>
@@ -159,10 +160,19 @@
 				<option value="content"
 				
 				<% if(search_type!=null &&  !search_type.equals("seller")){ %> selected="selected" <%} %>
+				
 				>
 					제목/내용
 				</option>
 			</select>
+			</div>
+			<div>
+			<input class="form-control" type="number" name="min_price" value="<%=request.getParameter("min_price")%>" style="width: 45%;float: left;"> 
+			<h5 style="float: left;width: 10%;margin-top: 10px "> ~ </h5> 
+			<input class="form-control" type="number" name="max_price" value="<%=request.getParameter("max_price")%>" style="width: 45%;float: left;">	
+			<i class="fa fa-won-sign" style="width:10px;float: left; margin-top: -25px;font-size:13px"></i>
+			<i class="fa fa-won-sign" style="width:10px;float: right;margin-top: -25px; margin-right: 42%;font-size:13px"></i>
+			</div>
 			<input class="form-control" type="text" name="search_text" placeholder="검색어를 입력하세요"
 				<% if ( search_text != null){ %>
 					value=<%= search_text %>
@@ -170,16 +180,12 @@
 			>
 		    <i class="fa fa-search" id="searchBtn"  style="float: right; margin-top: -35px;font-size:30px; margin-right: 20px"></i>
 			<br> 
-			<input class="form-control" type="number" name="min_price" value="<%=request.getParameter("min_price")%>" style="width: 45%;float: left;"> 
-			<h5 style="float: left;width: 10%;margin-top: 10px "> ~ </h5> 
-			<input class="form-control" type="number" name="max_price" value="<%=request.getParameter("max_price")%>" style="width: 45%;float: left;">	
-			<i class="fa fa-won-sign" style="width:10px;float: left; margin-top: -25px;font-size:13px"></i>
-			<i class="fa fa-won-sign" style="width:10px;float: right;margin-top: -25px; margin-right: 42%;font-size:13px"></i>
-			
 			<input class="services-icon-wap btnSend" type="reset" value="조건 초기화">		
 			</form>
-	<input  class="services-icon-wap btn4321" type="button" value="상품 등록"
+			<% if(user_nick != null){ %>
+			<input class="services-icon-wap btn4321" type="button" value="상품 등록"
 				onclick="location.href='ProductRegister.pr'" style="margin-top: 70px"><br>
+			<%} %>	
 			</div>
 			
 	<div class="col-lg-9">
@@ -189,7 +195,7 @@
 			int size = productList.size();	
 			int col = 5;
 			//int row = (size/col)+((size%col>0)? 1:0);
-			int row = 2 ;// (size/col)+((size%col>0)? 1:0);
+			int row = 2;
 			int num = (pageNum-1)*row*col; //0;
 		
 			if(size >0 && num <= size){	
@@ -210,7 +216,7 @@
 					 imgfile = "product_default.jpg"; 
 				 }
 				%>
-			<div class="col-md-4" style="float:left;">
+			<div class="col-md-4" style="float:left; width:20%; height:5%">
             <div class="card mb-4 product-wap rounded-0" onclick="location.href='./ProductDetail.pr?num=<%=pDTO.getProd_num()%>&pageNum=<%=pageNum%>'">
             <div class="card rounded-0">
 				<img class="card-img rounded-0 img-fluid" 
@@ -219,8 +225,8 @@
 			<div class="card-body">
 					 <h5 class="contentHid" ><b><%=pDTO.getProd_sub() %></b></h5>
 					 <p style="margin-top: 10px"><%=pDTO.getUser_nickname() %></p>
-					  <h6 style="float: left;margin-top: 10px;"><b><fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원</b></h6>
-					  <h6 style="float: right;margin-top: 10px;font-size: 14px; color: #59ab6e"> <%=pDAO.timeForToday(pDTO.getProd_num()) %></h6>
+					  <h6 style="float: left;margin-top: 10px;font-size: 1vw;"><b><fmt:formatNumber value="<%=pDTO.getProd_price()%>" pattern="#,###,###"/>원</b></h6>
+					  <h6 style="float: right;margin-top: 10px;font-size: 0.8vw; color: #59ab6e"> <%=pDAO.timeForToday(pDTO.getProd_num()) %></h6>
 
 			</div>
 			</div>
@@ -238,7 +244,7 @@
 		</div>	 
 		<%} %>
 	</div>
-<!-- ///////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
+<!-- ////////////////////////////////////////// 페이지 하단부 /////////////////////////////////////-->
 </div>
 	</div>
 	<div align="center">

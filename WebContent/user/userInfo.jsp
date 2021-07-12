@@ -152,6 +152,7 @@ function myWish(){
 				<button type="button" onclick="myBoard()" class="btn btn-outline-success" style="margin-right: 30px;">내가 쓴글 </button>
 				<button type="button" onclick="myProduct()" class="btn btn-outline-success" style="margin-right: 30px;">나의 상품</button>
 				<button type="button" onclick="myInquery()" class="btn btn-outline-success" style="margin-right: 30px;">나의 문의</button>
+				<button type="button" onclick="myWish()" class="btn btn-outline-success" style="margin-right: 30px;">내 찜목록</button>
 
 			</div>
 			
@@ -168,7 +169,7 @@ function myWish(){
 					<%
 						}
 					%><br>
-					<button id="img_edit_btn" style=" position: absolute; top: 40px; left : 350px;" onclick="file_upload()">수정</button>
+					<button class="btn btn-success" id="img_edit_btn" style=" position: absolute; top: 223px; left : 340px;" onclick="file_upload()">수정</button>
 					
 					
 				<form action="./UserInfoEditAction.us" method="post" onsubmit="return Infocheck()" enctype="multipart/form-data">

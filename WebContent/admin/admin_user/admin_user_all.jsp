@@ -19,6 +19,13 @@ input[type="number"]::-webkit-inner-spin-button {
 
 </style>
 
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance:auto;
+}
+
+</style>
 <script type="text/javascript">
 
 $(function(){

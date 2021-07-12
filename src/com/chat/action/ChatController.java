@@ -55,7 +55,7 @@ public class ChatController extends HttpServlet{
 				action.execute(request, response);
 			} catch (Exception e) {
 				System.out.println(e.toString());
-				System.out.println("ChatContorller's else if(MakeSession.ch) Error - KBH");
+				System.out.println("ChatController's else if(MakeSession.ch) Error - KBH");
 			}
 		} else if(command.equals("/ChatSave.ch")) {
 			try {
@@ -63,7 +63,16 @@ public class ChatController extends HttpServlet{
 				action.execute(request, response);
 			} catch (Exception e) {
 				System.out.println(e.toString());
-				System.out.println("ChatContorller's else if(ChatSave.ch) Error - KBH");
+				System.out.println("ChatController's else if(ChatSave.ch) Error - KBH");
+			}
+		} else if(command.equals("/ChatDeleteAction.ch")) {
+			try {
+				System.out.println("chatdeleteaction 들어옴");
+				action = new ChatDeleteAction();
+				action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				System.out.println("ChatController's else if(ChatDeleteAction.ch) Error - KBH");
 			}
 		} else if(command.equals("/ChatLoad.ch")) {
 			try {
@@ -105,7 +114,7 @@ public class ChatController extends HttpServlet{
 				
 			} catch (Exception e) {
 				System.out.println(e.toString());
-				System.out.println("ChatContorller's else if(ChatLoadAction.ch) Error - KBH");
+				System.out.println("ChatController's else if(ChatLoadAction.ch) Error - KBH");
 			} finally {
 				
 			}

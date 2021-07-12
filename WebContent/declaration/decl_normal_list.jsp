@@ -108,9 +108,10 @@
 			<td><%=dcDTO.getDecl_writer() %></td> <!-- 신고당한 글 작성자 -->
 			<td><%=dcDTO.getBoard_num() %></td>
 			<td>
-				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=state%>"><%=dcDTO.getBoard_sub() %></a>
+				<a href="decl_normal_content.decl?board_num=<%=board_num%>&state=<%=state%>&decl_num=<%=dcDTO.getDecl_num()%>"><%=dcDTO.getBoard_sub() %></a>
 			</td> 
-			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		
+<%-- 			<td><%=dcDTO.getDecl_date().substring(0,16) %></td>		 --%>
+			<td><%=dcDTO.getDecl_date() %></td>
 			<td><%=dcDTO.getUser_nickname() %></td><!-- 게시글을 신고한사람 -->	
 			<td style="color: red;"><%=decl_normal_cnt %></td>	
 			<%

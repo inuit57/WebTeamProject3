@@ -24,7 +24,7 @@
 		// 로그인한 사람의 정보를 DB에서 조회해서 
 		// jsp화면에 출력
 
-		// 로그인 세션처리 (로그인x->로그인페이지로 이동)
+		// 로그인 세션처리 (로그인x->로그인페이지로 이동)//
 			
 		if (user_nick == null) {
 			response.sendRedirect("./Main.do");
@@ -92,12 +92,14 @@
                         <h2 style="color: #5a5a5a"> 결제내역 </h2>
                         
                         <% if(tradeLogList.size() > 0 ){ %>
-                        	<table>
+                        	<table class="table">
+                        	 	<thead class="table-dark">
                         		<tr>
                         			<th>결제 유형</th>
                         			<th>결제 금액</th>
                         			<th>결제 날짜</th>
                         		</tr>
+                        		</thead>
                         		<% 
                        			for(int i = 0 ; i< tradeLogList.size() ; i++){
 									TradeLogDTO tldto = tradeLogList.get(i);
@@ -120,8 +122,7 @@
                         		%>
                         		<tr>
                         			<td><%= type %></td>
-<%--                         			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td> --%>
-									<td><%= tldto.getTrade_coin() %></td>
+                        			<td><%= tldto.getTrade_coin() * ( tldto.getTrade_type() == 1 ? -1 : 1) %></td>
                         			<td><%= tldto.getTrade_date() %></td>
                         		</tr>
                         		<%} %>

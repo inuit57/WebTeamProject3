@@ -37,11 +37,13 @@
 	%>
 	
 <script>
+	var RecvnickAdd = "";
+
 	$(document).ready(function () {
 		
-		var RecvnickAdd = "";
 		
-		// 다수에게 쪽지 보내기
+		
+		// 다수에게 쪽지 보내기z
 		$("#recv_nick").blur(function() {
 			var nickname = $("#recv_nick").val();
 			if(nickname != ""){
@@ -53,7 +55,7 @@
 			    	 if(data == 1){
 			    		const box = document.getElementById("box");
 						const newP = document.createElement('p');
-			            newP.innerHTML = "<input type='text' id='boxAdd' value='"+nickname+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
+			            newP.innerHTML = "<input type='text' name='boxName' id='boxAdd' value='"+nickname+"' readonly><i class='fas fa-times' onclick='remove(this)' style='float: left; margin-left: -22px; margin-top: 7px'></i>";
 			            box.appendChild(newP);
 			            RecvnickAdd += nickname + "/";
 			            $("#recv_nick").val("");
@@ -283,23 +285,14 @@
   		});	// 쪽지 삭제
   		
   		
-  		
-//   		// 체크박스 전체선택
-// 		 $(".allChk").change(function(){
-// 	        if($(".allChk").prop("checked")){
-// 	 			$('.allchk').prop("checked",true);
-// 	        }else{
-// 	        	$('.allchk').prop("checked",false);
-// 	        }
-// 	    });// 체크박스 전체선택
-  		
 		
 	});
 	
 	 const remove = (obj) => {
+		 var boxAddVal = document.getElementById('boxAdd').value + "/";
+		 RecvnickAdd = RecvnickAdd.replace(boxAddVal,'');
          document.getElementById('box').removeChild(obj.parentNode);
      }// 받는사람 삭제
-     
      
      
 		

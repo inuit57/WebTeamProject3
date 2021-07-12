@@ -77,7 +77,6 @@ public class AdminUserDAO {
 			while(rs.next()){
 				
 				UserDTO uDTO = new UserDTO();
-				uDTO.setUser_num(rs.getInt("user_num"));
 				uDTO.setUser_id(rs.getString("user_id"));
 				uDTO.setUser_nickname(rs.getString("user_nickname"));
 				uDTO.setUser_pw(rs.getString("user_pw"));
@@ -131,7 +130,6 @@ public class AdminUserDAO {
 			while(rs.next()){
 				
 				UserDTO uDTO = new UserDTO();
-				uDTO.setUser_num(rs.getInt("user_num"));
 				uDTO.setUser_id(rs.getString("user_id"));
 				uDTO.setUser_nickname(rs.getString("user_nickname"));
 				uDTO.setUser_pw(rs.getString("user_pw"));
@@ -298,7 +296,6 @@ public int adminUserCount(String sk, String sv){
 			while(rs.next()){
 				
 				uDTO = new UserDTO();
-				uDTO.setUser_num(rs.getInt("user_num"));
 				uDTO.setUser_id(rs.getString("user_id"));
 				uDTO.setUser_nickname(rs.getString("user_nickname"));
 				uDTO.setUser_pw(rs.getString("user_pw"));
@@ -357,7 +354,6 @@ public int adminUserCount(String sk, String sv){
 			while(rs.next()){
 				
 				UserDTO uDTO = new UserDTO();
-				uDTO.setUser_num(rs.getInt("user_num"));
 				uDTO.setUser_id(rs.getString("user_id"));
 				uDTO.setUser_nickname(rs.getString("user_nickname"));
 				uDTO.setUser_pw(rs.getString("user_pw"));
@@ -411,7 +407,6 @@ public int adminUserCount(String sk, String sv){
 		while(rs.next()){
 			uDTO = new UserDTO();
 			
-			uDTO.setUser_num(rs.getInt("user_num"));
 			uDTO.setUser_id(rs.getString("user_id"));
 			uDTO.setUser_nickname(rs.getString("user_nickname"));
 			uDTO.setUser_pw(rs.getString("user_pw"));

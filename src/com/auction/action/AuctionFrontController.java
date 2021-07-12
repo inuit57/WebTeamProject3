@@ -98,6 +98,14 @@ public class AuctionFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/AuctionComplete.ac")){
+			action = new AuctionCompleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
