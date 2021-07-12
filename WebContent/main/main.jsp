@@ -210,7 +210,10 @@
                                     <a href="ProductDetail.pr?num=<%=pDTO.getProd_num() %>&pageNum=1" class="h2 text-decoration-none text-dark">${prodList.prod_sub }</a>
                                 </li>
                                 <li class="text-muted text-right">
-                                 <fmt:formatNumber value="<%= pDTO.getProd_price() %>" pattern="#,###,###"/>원
+                                 <fmt:formatNumber value="<%= pDTO.getProd_price() %>" pattern="#,###,###"/>원 <br>
+                                 <h5 style="float: right;margin-top: 10px;
+                                 			margin-right:5px; font-size: 1.0vw; color: #59ab6e"> 
+                                 			<%=pDAO.timeForToday(pDTO.getProd_num()) %></h5>
                                 </li>
                             </ul>
                             <p class="card-text">
