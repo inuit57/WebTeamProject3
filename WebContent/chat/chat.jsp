@@ -440,6 +440,11 @@ function socketMsgBuyer02() {
 	$("#buyConfirm02").attr("type", 'hidden');
 	
 	addRightChat("나 : 거래가 완료되었습니다. 감사합니다.");
+	$("#deleteChat").attr("type", 'hidden');
+	
+	if (confirm("거래가 완료되었습니다~ 창을 닫으시겠습니까?")){
+    	window.close();	
+    }
 }
 
 // 구매자 채팅 버튼 끝-------------------------------------------------------------------------
@@ -511,6 +516,12 @@ function socketMessage(event) {
 	        $("#buyConfirm02").attr("type", 'hidden');
 	        
 	        $("#deleteChat").attr("type", 'hidden');
+	        
+	        
+	        if (confirm("거래가 완료되었습니다~ 창을 닫으시겠습니까?")){
+	        	window.close();	
+	        }
+	        
 		}
 		
 		addLeftChat(receiveMsg);
