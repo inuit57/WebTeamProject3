@@ -101,15 +101,16 @@ public class ChatSaveAction implements Action {
 			//--------------------------------------------------------------------------
 			// 거래가 걸려있는 다른 사람이 있을 때 처리 시작
 				
-				// tlDAO 한번 돌아주기 
+				// 그러한 대상이 있는지 확인하기 
+				List<String> cancleList = tlDAO.getCancleUserList(sellerName, prod_num); 
 				
-			// 그러한 대상이 있는지 확인하기 
-			// 환불 처리 수행
-				
-			// 채팅방에서도 나가게끔 해주는 것도 좋으리라. 
+				// 환불 처리 수행
+				for(String user_name : cancleList){
+					tlDAO.buyCancleLog(user_name, sellerName, prod_num); 
+				}
+			// TODO : 채팅방에서도 나가게끔 해주는 것도 좋으리라.
 				
 			// 거래가 걸려있는 다른 사람이 있을 때 처리 끝.
-				
 		}else{ // 만약 중간에 나가는 동작을 할 경우  
 			// 코인 환불 처리가 필요하다. 
 		}

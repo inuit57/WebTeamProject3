@@ -147,8 +147,6 @@ public class TradeLogDAO {
 	 */
 	public int wantBuyLog(String user_nick, String target, int prod_num){
 		
-		System.out.println("테스트-----------------------------상품 번호 -" + prod_num );
-		
 		try{
 			conn = getConnection(); 
 			int price = prodDAO.getProduct(prod_num).getProd_price(); // 가격 얻어오기 
@@ -209,7 +207,7 @@ public class TradeLogDAO {
 		
 		// 거래 기록이 있는지 확인하기 
 		try {
-			sql = "select prod_num,trade_coin,trade_type from trade_log where trade_user = ? and trade_target = ? and prod_num = ?"; 
+			sql = "select prod_num,trade_coin,trade_type from trade_log where trade_user = ? and trade_target = ? and prod_num = ? order by trade_date desc limit 1"; 
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, target);
@@ -220,7 +218,10 @@ public class TradeLogDAO {
 			
 			// 거래 기록이 존재하는 경우 
 			if(rs.next()){
-				//if(rs.getInt("trade_type") == 3) return -2 ; //이미 환불된 상품 
+				if(rs.getInt("trade_type") == 3){
+					System.out.println("환불 처리된 상품입니다~~!!! ");
+					return -2 ; //이미 환불된 상품 
+				}
 				
 				int price = rs.getInt("trade_coin") ;
 				
@@ -238,6 +239,7 @@ public class TradeLogDAO {
 				userDAO.updateCoin(user_nick, price, true);
 				
 			}else{
+				System.out.println("거래 내역이 없습니다~~~~~!!! ");
 				return -1; 
 			}
 		} catch (SQLException e) {
@@ -271,14 +273,15 @@ public class TradeLogDAO {
 	 * @param user_nick 구매자명
 	 * @param target 판매자명 
 	 * @param prod_num 상품 번호 
-	 * @return 0(성공) 
+	 * @return 0(성공) -1 (실패) 
 	 */
 	public int buyCancleLog(String user_nick, String target, int prod_num){
 		
 		conn = getConnection(); 
 		// 거래 기록이 있는지 확인하기 
 		try {
-			sql = "select trade_no, prod_num,trade_coin,trade_type from trade_log where trade_user = ? and trade_target = ? and prod_num = ? and trade_type= 1 "; 
+			//sql = "select trade_no, prod_num,trade_coin,trade_type from trade_log where trade_user = ? and trade_target = ? and prod_num = ? and trade_type= 1 "; 
+			sql = "select prod_num,trade_coin,trade_type from trade_log where trade_user = ? and trade_target = ? and prod_num = ? order by trade_date desc limit 1";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, user_nick);
@@ -288,18 +291,34 @@ public class TradeLogDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()){
-				int trade_no = rs.getInt("trade_no"); 
+				if ( rs.getInt("trade_type") != 1){
+					System.out.println("이미 환불된 상품입니다?! ");
+					return -1 ; 
+				}
+				
+				//int trade_no = rs.getInt("trade_no"); 
 				int price = rs.getInt("trade_coin"); 
 				
-				sql = " delete from trade_log where trade_no = ? "; 
-				
-				pstmt = conn.prepareStatement(sql); 
-				pstmt.setInt(1, trade_no);
+				//지우지 말고 insert 처리 해주자 그냥 
+				//sql = " delete from trade_log where trade_no = ? "; 
+//				pstmt = conn.prepareStatement(sql); 
+//				pstmt.setInt(1, trade_no);
+
+				sql = "insert into trade_log(trade_user,trade_target ,trade_coin , trade_type, trade_date, prod_num) "
+						+ " values(?,?, ?, 3 , now() ,?) "; 
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_nick);
+				pstmt.setString(2, target);
+				pstmt.setInt(3, price);
+				pstmt.setInt(4, prod_num);
 				
 				pstmt.executeUpdate(); 
 				
 				// 코인 복구 처리해주기 
 				userDAO.updateCoin(user_nick, price, true);
+			}else{
+				System.out.println("결제 내역이 없습니다!!!!");
+				return -1; 
 			}
 		
 		}catch (SQLException e) {
@@ -309,6 +328,54 @@ public class TradeLogDAO {
 		}
 		
 		return 0; 
+	}
+	
+	
+	// 환불 대상자 목록 받기
+	/**
+	 * 
+	 * 거래완료 되었을 경우에 채팅을 진행하고 있던 대상들을 조회해서 
+	 * 환불 처리가 필요한 대상들을 찾아오는 함수 
+	 * 
+	 * @param target 판매자명
+	 * @param prod_num 상품명 
+	 * @return 거래가 완료되지 않은 대상들을 조회해오기 
+	 */
+	public List<String> getCancleUserList( String target, int prod_num ){
+		
+		List<String> userList = new ArrayList<String>() ; 
+		
+		conn = getConnection(); 
+		
+		// 거래 완료된 대상과 거래 취소한 대상은 빼야만 한다. 
+		sql = "select trade_user from trade_log "
+				+ "where trade_target = ? and prod_num = ? and trade_type = 1 "
+				+ " and trade_user not in (select trade_target from trade_log where trade_user = ? and prod_num = ? and trade_type = 2) "  // 판매완료
+				+ " and trade_user not in (select trade_user from trade_log where trade_target = ? and prod_num = ? and trade_type = 3)";  // 환불 
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, target);
+			pstmt.setInt(2, prod_num);
+			pstmt.setString(3, target);
+			pstmt.setInt(4, prod_num);
+			pstmt.setString(5, target);
+			pstmt.setInt(6, prod_num);
+			
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()){
+				userList.add(rs.getString("trade_user")); 
+				// user이름 추가 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		} 
+		
+		return userList; 
 	}
 	
 }

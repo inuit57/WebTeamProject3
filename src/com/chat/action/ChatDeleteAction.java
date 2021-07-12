@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chat.db.chatDAO;
+import com.chat.db.chatDTO;
+import com.tradeLog.db.TradeLogDAO;
+import com.user.db.UserDAO;
 
 public class ChatDeleteAction implements Action {
 
@@ -15,6 +18,17 @@ public class ChatDeleteAction implements Action {
 		String roomId = request.getParameter("roomId");
 		
 		chatDAO cdao = new chatDAO();
+		TradeLogDAO tlDAO = new TradeLogDAO(); 
+		
+		
+		chatDTO chDTO = cdao.getChatInfo(roomId); 
+		
+		int prod_num = chDTO.getProd_num();  // 상품 번호 얻어오기 
+		String buyerName = chDTO.getChat_buyer(); 
+		String sellerName = chDTO.getChat_seller();
+
+		// 환불 처리 돌리기 
+		tlDAO.buyCancleLog(buyerName, sellerName, prod_num);
 		
 		try {
 			System.out.println(roomId);

@@ -1,3 +1,4 @@
+<%@page import="com.user.db.UserDAO"%>
 <%@page import="com.prod.db.ProdDAO"%>
 <%@page import="com.prod.db.ProdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -91,6 +92,7 @@
 	
 	request.setCharacterEncoding("UTF-8");
 	
+	String user_nick = (String)session.getAttribute("user_nick"); 
 	
 	
 	String roomId = (String)session.getAttribute("roomId");
@@ -99,10 +101,11 @@
 	
 	ProdDTO pdto = new ProdDTO();
 	ProdDAO pdao = new ProdDAO();
+	UserDAO udao = new UserDAO(); 
+	
 	
 	pdto = pdao.getProduct(prod_num);
 
-	
 	%>
 	
 <title>채팅창</title>
@@ -120,6 +123,11 @@
 	
 	<input type="hidden" id="roomId" name="roomId" value="<%=roomId %>">
 	<input type="hidden" id="chatRole" name="chatRole" value="<%=chatRole %>">
+	
+	
+	<input type="hidden" id="curr_coin" value="<%=udao.getCoin(user_nick) %>" >
+	<input type="hidden" id="price_check" value="<%=pdto.getProd_price() %>" >
+	
 	
 	<div id="msgWindow"></div>
 	
@@ -163,7 +171,7 @@ var webSocket;
 function webSocketInit() {
 	//webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
 	// IP 주소 바꿔줘야 한다. 
-	webSocket = new WebSocket("ws://192.168.2.24:8088/WebTeamProject/websocket");
+	webSocket = new WebSocket("ws://192.168.35.209:8088/WebTeamProject/websocket");
 	webSocket.onopen = function(event) {socketOpen(event);};
 	webSocket.onclose = function(event) {socketClose(event);};
 	webSocket.onmessage = function(event) {socketMessage(event);};
@@ -171,78 +179,93 @@ function webSocketInit() {
 }
 
 function socketOpen(event) {
-	
-	var roomId = $('#roomId').val();
-	
-	$(function(){
-		$.ajax('./ChatLoad.ch', {
-			data : {roomId:roomId},
-			async: false,
-			success: function(data) {
-				
-				data = decodeURIComponent(data.replace(/\+/g," "));
-				
-				var msg = data.split('/');
-				
-				// 여기에서 거래 요청 관련 버튼이 눌렸을 때
-				// 입력된 값들도 읽어서 처리가 필요하다. 
+   
+   var roomId = $('#roomId').val();
+   
+   $(function(){
+      $.ajax('./ChatLoad.ch', {
+         data : {roomId:roomId},
+         async: false,
+         success: function(data) {
+            
+            data = decodeURIComponent(data.replace(/\+/g," "));
+            
+            var msg = data.split('/');
+            
+            // 여기에서 거래 요청 관련 버튼이 눌렸을 때
+            // 입력된 값들도 읽어서 처리가 필요하다. 
 
-				 
-				for(var i in msg) {
-					var msgWriter = msg[i].split('|')[0] ;
-					var msgText = msg[i].split('|')[2]  ; 
-					
-					if(msgText == undefined) break; 
-				
-					if( msgWriter == 'seller'){
-						if(msgText == 'sell01'){
-							msgText = "거래에 응하시려면 '거래승인'을 눌러주세요.";
-							if( chatRole.value == 'buyer' ){
-								$("#buyConfirm01").attr("disabled", false); //거래승인 버튼 활성화
-								$("#buyConfirm02").attr("disabled", true);
-							}
-						}
-						if(msgText == 'sell02'){						
-							msgText = "상품을 받으신 것이 확인되셨다면 '구매확정'을 눌러주세요.";
-						 	if(chatRole.value == 'buyer' ){
-								$("#buyConfirm01").attr("disabled", true);
-								$("#buyConfirm02").attr("disabled", false); // 구매확정 버튼 활성화
-						 	}
-						}
-					}else if(msgWriter == 'buyer'){
-						
-						if(msgText == 'buy01'){
-							msgText = "금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ";
-							if(chatRole.value == 'seller' ){
-								$("#sellConfirm01").attr("disabled", true);
-								$("#sellConfirm02").attr("disabled", false); //거래완료 버튼 활성화
-							}
-						}
-						
-						if(msgText == 'buy02'){
-							msgText = "거래가 완료되었습니다. 감사합니다. ";
-							//if( chatRole.value == 'seller' ){
-							// 방 나가기 버튼을 하나 만들기?? 
-								$("#sellConfirm01").attr("disabled", true);
-								$("#sellConfirm02").attr("disabled", true);
-								$("#buyConfirm01").attr("disabled", true);
-								$("#buyConfirm02").attr("disabled", true);
-							//}
-						}
-					}
-					
-					if(msgWriter == chatRole.value){
-						addRightChat(msgText);
-					}else{
-						addLeftChat(msgText);
-					}
-				}
-			}
-		});
-	});
-	console.log("웹 소켓 연결 완료");
-	refresh();
+             
+            for(var i in msg) {
+               var msgWriter = msg[i].split('|')[0] ;
+               var msgText = msg[i].split('|')[2]  ; 
+               
+               if(msgText == undefined) break; 
+            
+               if( msgWriter == 'seller'){
+                  if(msgText == 'sell01'){
+                     msgText = "거래에 응하시려면 '거래승인'을 눌러주세요.";
+                     if( chatRole.value == 'buyer' ){
+                        $("#buyConfirm01").attr("disabled", false); //거래승인 버튼 활성화
+                        $("#buyConfirm02").attr("disabled", true);
+                        
+                        $("#buyConfirm01").attr("type", "button"); //거래승인 버튼 활성화
+                        $("#buyConfirm02").attr("type", "hidden");
+                     }
+                  }
+                  if(msgText == 'sell02'){                  
+                     msgText = "상품을 받으신 것이 확인되셨다면 '구매확정'을 눌러주세요.";
+                      if(chatRole.value == 'buyer' ){
+                        $("#buyConfirm01").attr("disabled", true);
+                        $("#buyConfirm02").attr("disabled", false); // 구매확정 버튼 활성화
+                        
+                        $("#buyConfirm01").attr("type", 'hidden');
+                        $("#buyConfirm02").attr("type", 'button'); // 구매확정 버튼 활성화
+                      }
+                  }
+               }else if(msgWriter == 'buyer'){
+                  
+                  if(msgText == 'buy01'){
+                     msgText = "금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ";
+                     if(chatRole.value == 'seller' ){
+                        $("#sellConfirm01").attr("disabled", true);
+                        $("#sellConfirm02").attr("disabled", false); //거래완료 버튼 활성화
+                        
+                        $("#sellConfirm01").attr("type", 'hidden');
+                        $("#sellConfirm02").attr("type", 'button'); //거래완료 버튼 활성화
+                     }
+                  }
+                  
+                  if(msgText == 'buy02'){
+                     msgText = "거래가 완료되었습니다. 감사합니다. ";
+                     //if( chatRole.value == 'seller' ){
+                     // 방 나가기 버튼을 하나 만들기?? 
+                        $("#sellConfirm01").attr("disabled", true);
+                        $("#sellConfirm02").attr("disabled", true);
+                        $("#buyConfirm01").attr("disabled", true);
+                        $("#buyConfirm02").attr("disabled", true);
+                        
+                        $("#sellConfirm01").attr("type", hidden);
+                        $("#sellConfirm02").attr("type", hidden);
+                        $("#buyConfirm01").attr("type", hidden);
+                        $("#buyConfirm02").attr("type", hidden);
+                     //}
+                  }
+               }
+               
+               if(msgWriter == chatRole.value){
+                  addRightChat(msgText);
+               }else{
+                  addLeftChat(msgText);
+               }
+            }
+         }
+      });
+   });
+   console.log("웹 소켓 연결 완료");
+   refresh();
 }
+
 
 function socketClose(event) {
 	console.log("웹 소켓이 닫혔습니다.");
@@ -303,6 +326,7 @@ function socketMsgSeller01() {
      });
 	
 	$("#sellConfirm01").attr("disabled", true);
+	$("#sellConfirm01").attr("type", 'hidden');
 	addRightChat("거래를 요청합니다. '거래승인' 을 눌러주세요.");
 }
 
@@ -326,32 +350,51 @@ function socketMsgSeller02() {
      });
 	
 	$("#sellConfirm02").attr("disabled", true);
+	$("#sellConfirm02").attr("type", 'hidden');
 	addRightChat("상품을 받으신 것이 확인되셨다면 '구매확정'을 눌러주세요.");
 }
 //판매자 채팅 버튼 끝----------------------------------------------------------------
 
 // 구매자 채팅 버튼 시작-------------------------------------------------------------------------
 function socketMsgBuyer01() {
-	var msg = $('#roomId').val() +'|'+ 'buy01';
-	webSocket.send(msg);
 	
-	var roomId = $('#roomId').val();
-	var chatRole = $('#chatRole').val();
+	console.log($('#price_check').val()) ;
+	console.log($('#curr_coin').val()) ;
 	
-	$(function(){
-        $.ajax('./ChatSave.ch', {
-           data : {roomId:roomId,chatRole:chatRole,msg:msg},
-           async: false,
-           success: function(data) {
-              console.log(Date.now() + msg + '저장완료');
-              
-              $("#seq").val(""); // 메시지창 초기화 
-           }
-        });
-     });
+	var price_chk = $('#price_check').val(); 
+	var curr_coin = $('#curr_coin').val() ;
+	if( (price_chk - curr_coin) > 0 ){
+		//console.log( curr_coin - price_chk); 
+		if( confirm("코인이 부족합니다. 충전하러 가시겠습니까?") ){
+			 
+			window.opener.location.href="./Payment.pa";
+			//opener.focus(); 포커스가 안먹는다...왜지 ㅠㅠ 
+		}
+		return; 
+	}else{
 	
-	$("#buyConfirm01").attr("disabled", true);
-	addRightChat("금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ");
+		var msg = $('#roomId').val() +'|'+ 'buy01';
+		webSocket.send(msg);
+		
+		var roomId = $('#roomId').val();
+		var chatRole = $('#chatRole').val();
+		
+		$(function(){
+	        $.ajax('./ChatSave.ch', {
+	           data : {roomId:roomId,chatRole:chatRole,msg:msg},
+	           async: false,
+	           success: function(data) {
+	              console.log(Date.now() + msg + '저장완료');
+	              
+	              $("#seq").val(""); // 메시지창 초기화 
+	           }
+	        });
+	     });
+		
+		$("#buyConfirm01").attr("disabled", true);
+		$("#buyConfirm01").attr("type", 'hidden');
+		addRightChat("금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요. ");
+	}
 }
 
 function socketMsgBuyer02() {
@@ -376,6 +419,9 @@ function socketMsgBuyer02() {
 	$("#buyConfirm01").attr("disabled", true);
 	$("#buyConfirm02").attr("disabled", true);
 	
+	$("#buyConfirm01").attr("type", 'hidden');
+	$("#buyConfirm02").attr("type", 'hidden');
+	
 	addRightChat("나 : 거래가 완료되었습니다. 감사합니다.");
 }
 
@@ -395,15 +441,26 @@ function socketMessage(event) {
 			$("#buyConfirm01").attr("disabled", false);
 			$("#buyConfirm02").attr("disabled", true);
 			
+	        $("#buyConfirm01").attr("type", 'button');
+	        $("#buyConfirm02").attr("type", 'hidden');
+
+			
 		}else if(receiveMsg == 'sell02'){
 			receiveMsg = "상품을 받으신 것이 확인되셨다면 '구매확정'을 눌러주세요.";
 			$("#buyConfirm01").attr("disabled", true);
 			$("#buyConfirm02").attr("disabled", false);
 			
+	        $("#buyConfirm01").attr("type", 'hidden');
+	        $("#buyConfirm02").attr("type", 'button');
+
+			
 		}else if(receiveMsg == 'buy01'){
 			receiveMsg = "금액 지불이 완료되었습니다. 거래가 완료된 경우 '거래완료'을 눌러주세요.";
 			$("#sellConfirm01").attr("disabled", true);
 			$("#sellConfirm02").attr("disabled", false);
+			
+			$("#sellConfirm01").attr("type", 'button');
+	        $("#sellConfirm02").attr("type", 'hidden');
 			
 		}else if(receiveMsg == 'buy02'){
 			receiveMsg = "거래가 완료되었습니다. 감사합니다.";
@@ -411,6 +468,11 @@ function socketMessage(event) {
 			$("#sellConfirm02").attr("disabled", true);
 			$("#buyConfirm01").attr("disabled", true);
 			$("#buyConfirm02").attr("disabled", true); 
+			
+			$("#sellConfirm01").attr("type", 'hidden');
+	        $("#sellConfirm02").attr("type", 'hidden');
+	        $("#buyConfirm01").attr("type", 'hidden');
+	        $("#buyConfirm02").attr("type", 'hidden');
 		}
 		
 		addLeftChat(receiveMsg);
