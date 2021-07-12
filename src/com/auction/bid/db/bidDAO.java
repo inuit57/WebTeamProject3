@@ -146,7 +146,7 @@ public class bidDAO {
 		try {
 			
 			conn = getConnection();
-			sql = "select max(bid_coin) from auct_bid where auct_num=?";
+			sql = "select bid_coin from auct_bid where auct_num=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
