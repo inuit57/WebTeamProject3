@@ -9,6 +9,16 @@
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
+		function check1(){
+			
+			var decl_reason = document.fr.decl_reason.value;
+			
+			if(decl_reason == ""){
+				alert("신고사유를 선택하세요.");
+				return false;
+				}
+			}
+
 		$(document).ready(function(){
 		
 		// 라디오버튼 클릭시 이벤트 발생
@@ -25,6 +35,8 @@
 	    });
 		
 	})
+	
+
 
 </script>
 
@@ -52,7 +64,7 @@
 			
 %>
 <div style="margin-left: 40%">
-	<form action="declarationNormalAction.decl" method="post">
+	<form action="declarationNormalAction.decl" name="fr" method="post" onsubmit ="return check1();">
 	<br>
 	<h2>'<%=board_sub %>' 입니다.<br>
 	 신고사유를 선택해주세요</h2>
@@ -78,7 +90,7 @@
 
 		<input type="text" name="decl_content" placeholder="기타사유를 입력하세요" maxlength="500" style="width: 350px; height: 50px"><br>
 		<br>
-		<input type="submit" class="btn btn-danger" style="margin-bottom: 2%; margin-left: 30%"  value="신고하기">
+		<input type="submit" class="btn btn-danger" style="margin-bottom: 2%; margin-left: 30%"  value="신고하기" >
 	</form>
 </div>
 
